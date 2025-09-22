@@ -18,6 +18,8 @@ e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-
                               Drivers/UART/src/stubs.o (errno)
 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-scanf.o)
                               Drivers/UART/src/uart.o (scanf)
+e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-strlen.o)
+                              Drivers/VCP/src/vcp.o (strlen)
 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-wbuf.o)
                               e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-puts.o) (__swbuf_r)
 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-wsetup.o)
@@ -111,7 +113,6 @@ Discarded input sections
  .data          0x00000000        0x0 Drivers/VCP/src/startup.o
  .bss           0x00000000        0x0 Drivers/VCP/src/startup.o
  .bss           0x00000000        0x0 Drivers/VCP/src/system_stm32f4xx.o
- .data          0x00000000        0x0 Drivers/VCP/src/vcp.o
  .data          0x00000000        0x0 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
  .data          0x00000000        0x0 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
  .bss           0x00000000        0x0 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
@@ -222,6 +223,8 @@ Discarded input sections
  .debug_frame   0x00000000       0x74 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-scanf.o)
  .ARM.attributes
                 0x00000000       0x2e e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-scanf.o)
+ .data          0x00000000        0x0 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-strlen.o)
+ .bss           0x00000000        0x0 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-strlen.o)
  .text          0x00000000        0x0 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-wbuf.o)
  .data          0x00000000        0x0 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-wbuf.o)
  .bss           0x00000000        0x0 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-wbuf.o)
@@ -667,7 +670,7 @@ LOAD e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .isr_vector    0x08000000      0x150 Drivers/VCP/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000150     0x30b8
+.text           0x08000150     0x342c
                 0x08000150                . = ALIGN (0x4)
  *(.text*)
  .text.startup  0x08000150       0x40 Drivers/VCP/src/main.o
@@ -678,218 +681,225 @@ LOAD e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
                 0x080001e4                SysTick_Handler
  .text          0x080001f4       0xa8 Drivers/VCP/src/system_stm32f4xx.o
                 0x080001f4                SystemInit
- .text          0x0800029c      0x144 Drivers/VCP/src/vcp.o
-                0x0800029c                OTG_FS_IRQHandler
-                0x080002a8                HAL_PCD_MspInit
-                0x0800030c                HAL_PCD_MspDeInit
-                0x0800034c                VCP_Init
-                0x080003b0                VCP_Task
-                0x080003b4                HAL_PCD_SetupStageCallback
-                0x080003b8                HAL_PCD_DataOutStageCallback
-                0x080003bc                HAL_PCD_DataInStageCallback
-                0x080003c0                HAL_PCD_SOFCallback
-                0x080003c4                HAL_PCD_ResetCallback
-                0x080003c8                HAL_PCD_SuspendCallback
-                0x080003cc                HAL_PCD_ResumeCallback
-                0x080003d0                HAL_PCD_ISOOUTIncompleteCallback
-                0x080003d4                HAL_PCD_ISOINIncompleteCallback
-                0x080003d8                HAL_PCD_ConnectCallback
-                0x080003dc                HAL_PCD_DisconnectCallback
- .text          0x080003e0      0x18c Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
-                0x080003e0                HAL_MspInit
-                0x080003e4                HAL_MspDeInit
-                0x080003e8                HAL_DeInit
-                0x08000414                HAL_InitTick
-                0x0800043c                HAL_Init
-                0x08000470                HAL_IncTick
-                0x08000480                HAL_GetTick
-                0x0800048c                HAL_Delay
-                0x080004a8                HAL_SuspendTick
-                0x080004b8                HAL_ResumeTick
-                0x080004c8                HAL_GetHalVersion
-                0x080004d0                HAL_GetREVID
-                0x080004dc                HAL_GetDEVID
-                0x080004ec                HAL_EnableDBGSleepMode
-                0x080004fc                HAL_DisableDBGSleepMode
-                0x0800050c                HAL_EnableDBGStopMode
-                0x0800051c                HAL_DisableDBGStopMode
-                0x0800052c                HAL_EnableDBGStandbyMode
-                0x0800053c                HAL_DisableDBGStandbyMode
-                0x0800054c                HAL_EnableCompensationCell
-                0x0800055c                HAL_DisableCompensationCell
- .text          0x0800056c      0x8bc Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
-                0x080005e0                HAL_RCC_DeInit
-                0x0800062c                HAL_RCC_OscConfig
-                0x0800093c                HAL_RCC_ClockConfig
-                0x08000aec                HAL_RCC_MCOConfig
-                0x08000b70                HAL_RCC_EnableCSS
-                0x08000b7c                HAL_RCC_DisableCSS
-                0x08000b88                HAL_RCC_GetSysClockFreq
-                0x08000bb0                HAL_RCC_GetHCLKFreq
-                0x08000c08                HAL_RCC_GetPCLK1Freq
-                0x08000c7c                HAL_RCC_GetPCLK2Freq
-                0x08000cf0                HAL_RCC_GetOscConfig
-                0x08000dc8                HAL_RCC_GetClockConfig
-                0x08000e08                HAL_RCC_CCSCallback
-                0x08000e0c                HAL_RCC_NMI_IRQHandler
- .text          0x08000e28      0x3c0 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
-                0x08000e28                HAL_GPIO_Init
-                0x080010b0                HAL_GPIO_DeInit
-                0x08001180                HAL_GPIO_ReadPin
-                0x0800118c                HAL_GPIO_WritePin
-                0x08001198                HAL_GPIO_TogglePin
-                0x080011a0                HAL_GPIO_LockPin
-                0x080011cc                HAL_GPIO_EXTI_Callback
-                0x080011d0                HAL_GPIO_EXTI_IRQHandler
- .text          0x080011e8      0x240 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
-                0x080011e8                HAL_NVIC_SetPriorityGrouping
-                0x0800120c                HAL_NVIC_SetPriority
-                0x0800128c                HAL_NVIC_EnableIRQ
-                0x080012a4                HAL_NVIC_DisableIRQ
-                0x080012c0                HAL_NVIC_SystemReset
-                0x080012e0                HAL_SYSTICK_Config
-                0x08001310                HAL_NVIC_GetPriorityGrouping
-                0x08001320                HAL_NVIC_GetPriority
-                0x08001384                HAL_NVIC_SetPendingIRQ
-                0x080013a0                HAL_NVIC_GetPendingIRQ
-                0x080013c4                HAL_NVIC_ClearPendingIRQ
-                0x080013e0                HAL_NVIC_GetActive
-                0x08001404                HAL_SYSTICK_CLKSourceConfig
-                0x0800141c                HAL_SYSTICK_Callback
-                0x08001420                HAL_SYSTICK_IRQHandler
- .text          0x08001428      0xa44 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
-                0x0800142c                HAL_PCD_Init
-                0x08001500                HAL_PCD_DeInit
-                0x08001544                HAL_PCD_Start
-                0x08001570                HAL_PCD_Stop
-                0x080015cc                HAL_PCD_IRQHandler
-                0x08001ad8                HAL_PCD_DevConnect
-                0x08001afc                HAL_PCD_DevDisconnect
-                0x08001b20                HAL_PCD_SetAddress
-                0x08001b44                HAL_PCD_EP_Open
-                0x08001bc4                HAL_PCD_EP_Close
-                0x08001c18                HAL_PCD_EP_Receive
-                0x08001c7c                HAL_PCD_EP_GetRxCount
-                0x08001c90                HAL_PCD_EP_Transmit
-                0x08001cec                HAL_PCD_EP_SetStall
-                0x08001d4c                HAL_PCD_EP_ClrStall
-                0x08001da4                HAL_PCD_EP_Flush
-                0x08001ddc                HAL_PCD_SetTxFiFo
-                0x08001e2c                HAL_PCD_SetRxFiFo
-                0x08001e34                HAL_PCD_ActiveRemoteWakeup
-                0x08001e50                HAL_PCD_DeActiveRemoteWakeup
-                0x08001e64                HAL_PCD_GetState
- .text          0x08001e6c     0x1344 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
-                0x08001e6c                USB_HC_StartXfer
-                0x080020bc                USB_HC_ReadInterrupt
-                0x080020d8                USB_HC_Halt
-                0x080022cc                USB_DoPing
-                0x08002348                USB_StopHost
-                0x08002450                USB_CoreInit
-                0x08002504                USB_EnableGlobalInt
-                0x08002514                USB_DisableGlobalInt
-                0x08002524                USB_SetCurrentMode
-                0x08002558                USB_DevInit
-                0x080026dc                USB_FlushTxFifo
-                0x08002700                USB_FlushRxFifo
-                0x08002720                USB_SetDevSpeed
-                0x08002730                USB_GetDevSpeed
-                0x08002768                USB_ActivateEndpoint
-                0x080027f8                USB_ActivateDedicatedEndpoint
-                0x080028cc                USB_DeactivateEndpoint
-                0x08002938                USB_DeactivateDedicatedEndpoint
-                0x08002990                USB_EPStartXfer
-                0x08002b48                USB_EP0StartXfer
-                0x08002c54                USB_WritePacket
-                0x08002c84                USB_ReadPacket
-                0x08002cb4                USB_EPSetStall
-                0x08002cf0                USB_EPClearStall
-                0x08002d20                USB_StopDevice
-                0x08002d80                USB_SetDevAddress
-                0x08002da0                USB_DevConnect
-                0x08002dbc                USB_DevDisconnect
-                0x08002dd8                USB_ReadInterrupts
-                0x08002de0                USB_ReadDevAllOutEpInterrupt
-                0x08002df0                USB_ReadDevAllInEpInterrupt
-                0x08002e00                USB_ReadDevOutEPInterrupt
-                0x08002e14                USB_ReadDevInEPInterrupt
-                0x08002e30                USB_ClearInterrupts
-                0x08002e38                USB_GetMode
-                0x08002e40                USB_ActivateSetup
-                0x08002e78                USB_EP0_OutStart
-                0x08002ebc                USB_HostInit
-                0x08002fdc                USB_InitFSLSPClkSel
-                0x08003018                USB_ResetPort
-                0x0800304c                USB_DriveVbus
-                0x08003090                USB_GetHostSpeed
-                0x080030a4                USB_GetCurrentFrame
-                0x080030b0                USB_HC_Init
- .text.memcpy   0x080031b0       0x1c e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
-                0x080031b0                memcpy
- .text.memset   0x080031cc       0x10 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
-                0x080031cc                memset
+ .text          0x0800029c      0x414 Drivers/VCP/src/vcp.o
+                0x080002e4                OTG_FS_IRQHandler
+                0x080002f0                HAL_PCD_MspInit
+                0x08000354                HAL_PCD_MspDeInit
+                0x08000394                VCP_Init
+                0x08000408                VCP_Task
+                0x08000448                HAL_PCD_ResetCallback
+                0x08000474                HAL_PCD_SetupStageCallback
+                0x08000628                HAL_PCD_DataOutStageCallback
+                0x08000670                HAL_PCD_DataInStageCallback
+                0x08000694                HAL_PCD_SOFCallback
+                0x08000698                HAL_PCD_SuspendCallback
+                0x0800069c                HAL_PCD_ResumeCallback
+                0x080006a0                HAL_PCD_ISOOUTIncompleteCallback
+                0x080006a4                HAL_PCD_ISOINIncompleteCallback
+                0x080006a8                HAL_PCD_ConnectCallback
+                0x080006ac                HAL_PCD_DisconnectCallback
+ .text          0x080006b0      0x18c Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
+                0x080006b0                HAL_MspInit
+                0x080006b4                HAL_MspDeInit
+                0x080006b8                HAL_DeInit
+                0x080006e4                HAL_InitTick
+                0x0800070c                HAL_Init
+                0x08000740                HAL_IncTick
+                0x08000750                HAL_GetTick
+                0x0800075c                HAL_Delay
+                0x08000778                HAL_SuspendTick
+                0x08000788                HAL_ResumeTick
+                0x08000798                HAL_GetHalVersion
+                0x080007a0                HAL_GetREVID
+                0x080007ac                HAL_GetDEVID
+                0x080007bc                HAL_EnableDBGSleepMode
+                0x080007cc                HAL_DisableDBGSleepMode
+                0x080007dc                HAL_EnableDBGStopMode
+                0x080007ec                HAL_DisableDBGStopMode
+                0x080007fc                HAL_EnableDBGStandbyMode
+                0x0800080c                HAL_DisableDBGStandbyMode
+                0x0800081c                HAL_EnableCompensationCell
+                0x0800082c                HAL_DisableCompensationCell
+ .text          0x0800083c      0x8bc Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
+                0x080008b0                HAL_RCC_DeInit
+                0x080008fc                HAL_RCC_OscConfig
+                0x08000c0c                HAL_RCC_ClockConfig
+                0x08000dbc                HAL_RCC_MCOConfig
+                0x08000e40                HAL_RCC_EnableCSS
+                0x08000e4c                HAL_RCC_DisableCSS
+                0x08000e58                HAL_RCC_GetSysClockFreq
+                0x08000e80                HAL_RCC_GetHCLKFreq
+                0x08000ed8                HAL_RCC_GetPCLK1Freq
+                0x08000f4c                HAL_RCC_GetPCLK2Freq
+                0x08000fc0                HAL_RCC_GetOscConfig
+                0x08001098                HAL_RCC_GetClockConfig
+                0x080010d8                HAL_RCC_CCSCallback
+                0x080010dc                HAL_RCC_NMI_IRQHandler
+ .text          0x080010f8      0x3c0 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
+                0x080010f8                HAL_GPIO_Init
+                0x08001380                HAL_GPIO_DeInit
+                0x08001450                HAL_GPIO_ReadPin
+                0x0800145c                HAL_GPIO_WritePin
+                0x08001468                HAL_GPIO_TogglePin
+                0x08001470                HAL_GPIO_LockPin
+                0x0800149c                HAL_GPIO_EXTI_Callback
+                0x080014a0                HAL_GPIO_EXTI_IRQHandler
+ .text          0x080014b8      0x240 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
+                0x080014b8                HAL_NVIC_SetPriorityGrouping
+                0x080014dc                HAL_NVIC_SetPriority
+                0x0800155c                HAL_NVIC_EnableIRQ
+                0x08001574                HAL_NVIC_DisableIRQ
+                0x08001590                HAL_NVIC_SystemReset
+                0x080015b0                HAL_SYSTICK_Config
+                0x080015e0                HAL_NVIC_GetPriorityGrouping
+                0x080015f0                HAL_NVIC_GetPriority
+                0x08001654                HAL_NVIC_SetPendingIRQ
+                0x08001670                HAL_NVIC_GetPendingIRQ
+                0x08001694                HAL_NVIC_ClearPendingIRQ
+                0x080016b0                HAL_NVIC_GetActive
+                0x080016d4                HAL_SYSTICK_CLKSourceConfig
+                0x080016ec                HAL_SYSTICK_Callback
+                0x080016f0                HAL_SYSTICK_IRQHandler
+ .text          0x080016f8      0xa44 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
+                0x080016fc                HAL_PCD_Init
+                0x080017d0                HAL_PCD_DeInit
+                0x08001814                HAL_PCD_Start
+                0x08001840                HAL_PCD_Stop
+                0x0800189c                HAL_PCD_IRQHandler
+                0x08001da8                HAL_PCD_DevConnect
+                0x08001dcc                HAL_PCD_DevDisconnect
+                0x08001df0                HAL_PCD_SetAddress
+                0x08001e14                HAL_PCD_EP_Open
+                0x08001e94                HAL_PCD_EP_Close
+                0x08001ee8                HAL_PCD_EP_Receive
+                0x08001f4c                HAL_PCD_EP_GetRxCount
+                0x08001f60                HAL_PCD_EP_Transmit
+                0x08001fbc                HAL_PCD_EP_SetStall
+                0x0800201c                HAL_PCD_EP_ClrStall
+                0x08002074                HAL_PCD_EP_Flush
+                0x080020ac                HAL_PCD_SetTxFiFo
+                0x080020fc                HAL_PCD_SetRxFiFo
+                0x08002104                HAL_PCD_ActiveRemoteWakeup
+                0x08002120                HAL_PCD_DeActiveRemoteWakeup
+                0x08002134                HAL_PCD_GetState
+ .text          0x0800213c     0x1344 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
+                0x0800213c                USB_HC_StartXfer
+                0x0800238c                USB_HC_ReadInterrupt
+                0x080023a8                USB_HC_Halt
+                0x0800259c                USB_DoPing
+                0x08002618                USB_StopHost
+                0x08002720                USB_CoreInit
+                0x080027d4                USB_EnableGlobalInt
+                0x080027e4                USB_DisableGlobalInt
+                0x080027f4                USB_SetCurrentMode
+                0x08002828                USB_DevInit
+                0x080029ac                USB_FlushTxFifo
+                0x080029d0                USB_FlushRxFifo
+                0x080029f0                USB_SetDevSpeed
+                0x08002a00                USB_GetDevSpeed
+                0x08002a38                USB_ActivateEndpoint
+                0x08002ac8                USB_ActivateDedicatedEndpoint
+                0x08002b9c                USB_DeactivateEndpoint
+                0x08002c08                USB_DeactivateDedicatedEndpoint
+                0x08002c60                USB_EPStartXfer
+                0x08002e18                USB_EP0StartXfer
+                0x08002f24                USB_WritePacket
+                0x08002f54                USB_ReadPacket
+                0x08002f84                USB_EPSetStall
+                0x08002fc0                USB_EPClearStall
+                0x08002ff0                USB_StopDevice
+                0x08003050                USB_SetDevAddress
+                0x08003070                USB_DevConnect
+                0x0800308c                USB_DevDisconnect
+                0x080030a8                USB_ReadInterrupts
+                0x080030b0                USB_ReadDevAllOutEpInterrupt
+                0x080030c0                USB_ReadDevAllInEpInterrupt
+                0x080030d0                USB_ReadDevOutEPInterrupt
+                0x080030e4                USB_ReadDevInEPInterrupt
+                0x08003100                USB_ClearInterrupts
+                0x08003108                USB_GetMode
+                0x08003110                USB_ActivateSetup
+                0x08003148                USB_EP0_OutStart
+                0x0800318c                USB_HostInit
+                0x080032ac                USB_InitFSLSPClkSel
+                0x080032e8                USB_ResetPort
+                0x0800331c                USB_DriveVbus
+                0x08003360                USB_GetHostSpeed
+                0x08003374                USB_GetCurrentFrame
+                0x08003380                USB_HC_Init
+ .text.memcpy   0x08003480       0x1c e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+                0x08003480                memcpy
+ .text.memset   0x0800349c       0x10 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
+                0x0800349c                memset
+ .text          0x080034ac       0x10 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-strlen.o)
+                0x080034ac                strlen
  *(.rodata*)
- .rodata        0x080031dc       0x10 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
-                0x080031dc                APBAHBPrescTable
+ .rodata.str1.4
+                0x080034bc       0x19 Drivers/VCP/src/vcp.o
+ *fill*         0x080034d5        0x3 
+ .rodata        0x080034d8       0x76 Drivers/VCP/src/vcp.o
+ *fill*         0x0800354e        0x2 
+ .rodata        0x08003550       0x10 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
+                0x08003550                APBAHBPrescTable
  *(.glue_7)
- .glue_7        0x080031ec        0x0 linker stubs
+ .glue_7        0x08003560        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x080031ec        0x0 linker stubs
+ .glue_7t       0x08003560        0x0 linker stubs
  *(.init)
- .init          0x080031ec        0x4 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x080031ec                _init
- .init          0x080031f0        0x8 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .init          0x08003560        0x4 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08003560                _init
+ .init          0x08003564        0x8 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.fini)
- .fini          0x080031f8        0x4 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x080031f8                _fini
- .fini          0x080031fc        0x8 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .fini          0x0800356c        0x4 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x0800356c                _fini
+ .fini          0x08003570        0x8 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
  *(.eh_frame)
- .eh_frame      0x08003204        0x0 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
- .eh_frame      0x08003204        0x4 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
-                0x08003208                __etext = .
+ .eh_frame      0x08003578        0x0 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .eh_frame      0x08003578        0x4 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+                0x0800357c                __etext = .
 
-.vfp11_veneer   0x08003208        0x0
- .vfp11_veneer  0x08003208        0x0 linker stubs
+.vfp11_veneer   0x0800357c        0x0
+ .vfp11_veneer  0x0800357c        0x0 linker stubs
 
-.v4_bx          0x08003208        0x0
- .v4_bx         0x08003208        0x0 linker stubs
+.v4_bx          0x0800357c        0x0
+ .v4_bx         0x0800357c        0x0 linker stubs
 
-.iplt           0x08003208        0x0
- .iplt          0x08003208        0x0 Drivers/VCP/src/main.o
+.iplt           0x0800357c        0x0
+ .iplt          0x0800357c        0x0 Drivers/VCP/src/main.o
 
-.rel.dyn        0x08003208        0x0
- .rel.iplt      0x08003208        0x0 Drivers/VCP/src/main.o
+.rel.dyn        0x0800357c        0x0
+ .rel.iplt      0x0800357c        0x0 Drivers/VCP/src/main.o
 
-.data           0x20000000        0x4 load address 0x08003208
+.data           0x20000000        0xb load address 0x0800357c
                 0x20000000                __data_start__ = .
  *(.data*)
  .data          0x20000000        0x4 Drivers/VCP/src/system_stm32f4xx.o
                 0x20000000                SystemCoreClock
-                0x20000004                __data_end__ = .
+ .data          0x20000004        0x7 Drivers/VCP/src/vcp.o
+                0x2000000b                __data_end__ = .
 
-.igot.plt       0x20000004        0x0 load address 0x0800320c
- .igot.plt      0x20000004        0x0 Drivers/VCP/src/main.o
+.igot.plt       0x2000000c        0x0 load address 0x08003588
+ .igot.plt      0x2000000c        0x0 Drivers/VCP/src/main.o
 
-.bss            0x20000004      0x3b8 load address 0x0800320c
-                0x20000004                __bss_start__ = .
+.bss            0x2000000c      0x444 load address 0x08003588
+                0x2000000c                __bss_start__ = .
  *(.bss*)
- .bss           0x20000004      0x3b0 Drivers/VCP/src/vcp.o
- .bss           0x200003b4        0x4 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
- .bss           0x200003b8        0x4 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
+ .bss           0x2000000c      0x43c Drivers/VCP/src/vcp.o
+ .bss           0x20000448        0x4 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
+ .bss           0x2000044c        0x4 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
  *(COMMON)
-                0x200003bc                __bss_end__ = .
-                0x200003bc                _end = .
-                0x200003bc                end = .
-                0x200003bc                __end__ = .
+                0x20000450                __bss_end__ = .
+                0x20000450                _end = .
+                0x20000450                end = .
+                0x20000450                __end__ = .
 
-.stack          0x200003bc      0x804 load address 0x080035c4
-                0x200003c0                . = ALIGN (0x8)
- *fill*         0x200003bc        0x4 
-                0x200003c0                _stack = .
-                0x20000bc0                . = (. + 0x800)
- *fill*         0x200003c0      0x800 
+.stack          0x20000450      0x800 load address 0x080039cc
+                0x20000450                . = ALIGN (0x8)
+                0x20000450                _stack = .
+                0x20000c50                . = (. + 0x800)
+ *fill*         0x20000450      0x800 
 OUTPUT(Drivers/VCP/main.elf elf32-littlearm)
 LOAD linker stubs
 
@@ -924,9 +934,11 @@ LOAD linker stubs
  .ARM.attributes
                 0x00000246       0x2e e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
  .ARM.attributes
-                0x00000274       0x2e e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+                0x00000274       0x17 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-strlen.o)
  .ARM.attributes
-                0x000002a2       0x1e e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+                0x0000028b       0x2e e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+ .ARM.attributes
+                0x000002b9       0x1e e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
 
 .comment        0x00000000       0x49
  .comment       0x00000000       0x49 Drivers/VCP/src/main.o
@@ -941,39 +953,39 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
  .comment       0x00000049       0x4a Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
 
-.debug_info     0x00000000     0x7ecd
+.debug_info     0x00000000     0x8698
  .debug_info    0x00000000      0x3aa Drivers/VCP/src/main.o
  .debug_info    0x000003aa      0x1df Drivers/VCP/src/startup.o
  .debug_info    0x00000589      0x501 Drivers/VCP/src/system_stm32f4xx.o
- .debug_info    0x00000a8a     0x1129 Drivers/VCP/src/vcp.o
- .debug_info    0x00001bb3      0x891 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
- .debug_info    0x00002444     0x12b9 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
- .debug_info    0x000036fd      0x758 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
- .debug_info    0x00003e55      0xdf8 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
- .debug_info    0x00004c4d     0x164a Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
- .debug_info    0x00006297     0x1c36 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
+ .debug_info    0x00000a8a     0x18f4 Drivers/VCP/src/vcp.o
+ .debug_info    0x0000237e      0x891 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
+ .debug_info    0x00002c0f     0x12b9 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
+ .debug_info    0x00003ec8      0x758 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
+ .debug_info    0x00004620      0xdf8 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
+ .debug_info    0x00005418     0x164a Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
+ .debug_info    0x00006a62     0x1c36 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
 
-.debug_abbrev   0x00000000     0x179d
+.debug_abbrev   0x00000000     0x1936
  .debug_abbrev  0x00000000      0x112 Drivers/VCP/src/main.o
  .debug_abbrev  0x00000112      0x136 Drivers/VCP/src/startup.o
  .debug_abbrev  0x00000248       0xf7 Drivers/VCP/src/system_stm32f4xx.o
- .debug_abbrev  0x0000033f      0x2b9 Drivers/VCP/src/vcp.o
- .debug_abbrev  0x000005f8      0x204 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
- .debug_abbrev  0x000007fc      0x349 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
- .debug_abbrev  0x00000b45      0x1d5 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
- .debug_abbrev  0x00000d1a      0x334 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
- .debug_abbrev  0x0000104e      0x381 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
- .debug_abbrev  0x000013cf      0x3ce Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
+ .debug_abbrev  0x0000033f      0x452 Drivers/VCP/src/vcp.o
+ .debug_abbrev  0x00000791      0x204 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
+ .debug_abbrev  0x00000995      0x349 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
+ .debug_abbrev  0x00000cde      0x1d5 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
+ .debug_abbrev  0x00000eb3      0x334 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
+ .debug_abbrev  0x000011e7      0x381 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
+ .debug_abbrev  0x00001568      0x3ce Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
 
-.debug_loc      0x00000000     0x4989
+.debug_loc      0x00000000     0x58d5
  .debug_loc     0x00000000       0x1a Drivers/VCP/src/main.o
- .debug_loc     0x0000001a       0xa5 Drivers/VCP/src/vcp.o
- .debug_loc     0x000000bf       0x85 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
- .debug_loc     0x00000144      0xb7b Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
- .debug_loc     0x00000cbf      0x4c5 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
- .debug_loc     0x00001184      0x6d1 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
- .debug_loc     0x00001855     0x118e Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
- .debug_loc     0x000029e3     0x1fa6 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
+ .debug_loc     0x0000001a      0xff1 Drivers/VCP/src/vcp.o
+ .debug_loc     0x0000100b       0x85 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
+ .debug_loc     0x00001090      0xb7b Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
+ .debug_loc     0x00001c0b      0x4c5 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
+ .debug_loc     0x000020d0      0x6d1 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
+ .debug_loc     0x000027a1     0x118e Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
+ .debug_loc     0x0000392f     0x1fa6 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
 
 .debug_aranges  0x00000000      0x140
  .debug_aranges
@@ -997,58 +1009,58 @@ LOAD linker stubs
  .debug_aranges
                 0x00000120       0x20 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
 
-.debug_ranges   0x00000000      0x348
+.debug_ranges   0x00000000      0x3e8
  .debug_ranges  0x00000000       0x28 Drivers/VCP/src/main.o
- .debug_ranges  0x00000028       0x50 Drivers/VCP/src/vcp.o
- .debug_ranges  0x00000078      0x118 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
- .debug_ranges  0x00000190       0xf8 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
- .debug_ranges  0x00000288       0x40 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
- .debug_ranges  0x000002c8       0x80 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
+ .debug_ranges  0x00000028       0xf0 Drivers/VCP/src/vcp.o
+ .debug_ranges  0x00000118      0x118 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
+ .debug_ranges  0x00000230       0xf8 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
+ .debug_ranges  0x00000328       0x40 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
+ .debug_ranges  0x00000368       0x80 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
 
-.debug_line     0x00000000     0x4ed7
+.debug_line     0x00000000     0x5320
  .debug_line    0x00000000      0x1e8 Drivers/VCP/src/main.o
  .debug_line    0x000001e8      0x1c0 Drivers/VCP/src/startup.o
  .debug_line    0x000003a8      0x2ad Drivers/VCP/src/system_stm32f4xx.o
- .debug_line    0x00000655      0x35f Drivers/VCP/src/vcp.o
- .debug_line    0x000009b4      0x2b5 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
- .debug_line    0x00000c69      0xe6c Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
- .debug_line    0x00001ad5      0x661 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
- .debug_line    0x00002136      0x52e Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
- .debug_line    0x00002664      0xf6d Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
- .debug_line    0x000035d1     0x1906 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
+ .debug_line    0x00000655      0x7a8 Drivers/VCP/src/vcp.o
+ .debug_line    0x00000dfd      0x2b5 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
+ .debug_line    0x000010b2      0xe6c Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
+ .debug_line    0x00001f1e      0x661 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
+ .debug_line    0x0000257f      0x52e Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
+ .debug_line    0x00002aad      0xf6d Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
+ .debug_line    0x00003a1a     0x1906 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
 
-.debug_str      0x00000000     0x204b
+.debug_str      0x00000000     0x2166
  .debug_str     0x00000000      0x250 Drivers/VCP/src/main.o
                                 0x29b (size before relaxing)
  .debug_str     0x00000250       0xe3 Drivers/VCP/src/startup.o
                                 0x214 (size before relaxing)
  .debug_str     0x00000333       0xcc Drivers/VCP/src/system_stm32f4xx.o
                                 0x2fe (size before relaxing)
- .debug_str     0x000003ff      0xa30 Drivers/VCP/src/vcp.o
-                                0xd73 (size before relaxing)
- .debug_str     0x00000e2f      0x2fa Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
+ .debug_str     0x000003ff      0xbcb Drivers/VCP/src/vcp.o
+                                0xf1f (size before relaxing)
+ .debug_str     0x00000fca      0x2ee Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
                                 0x9f6 (size before relaxing)
- .debug_str     0x00001129      0x2bf Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
+ .debug_str     0x000012b8      0x2bf Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
                                 0x658 (size before relaxing)
- .debug_str     0x000013e8      0x14f Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
+ .debug_str     0x00001577      0x14f Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
                                 0x467 (size before relaxing)
- .debug_str     0x00001537      0x1f3 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
+ .debug_str     0x000016c6      0x1f3 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
                                 0xa72 (size before relaxing)
- .debug_str     0x0000172a      0x55f Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
+ .debug_str     0x000018b9      0x4eb Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
                                 0xb3b (size before relaxing)
- .debug_str     0x00001c89      0x3c2 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
+ .debug_str     0x00001da4      0x3c2 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
                                 0xaf5 (size before relaxing)
 
-.debug_frame    0x00000000      0xe6c
+.debug_frame    0x00000000      0xf08
  .debug_frame   0x00000000       0x28 Drivers/VCP/src/main.o
  .debug_frame   0x00000028       0x54 Drivers/VCP/src/startup.o
  .debug_frame   0x0000007c       0x20 Drivers/VCP/src/system_stm32f4xx.o
- .debug_frame   0x0000009c      0x140 Drivers/VCP/src/vcp.o
- .debug_frame   0x000001dc      0x188 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
- .debug_frame   0x00000364      0x160 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
- .debug_frame   0x000004c4       0xcc Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
- .debug_frame   0x00000590      0x128 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
- .debug_frame   0x000006b8      0x310 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
- .debug_frame   0x000009c8      0x45c Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
- .debug_frame   0x00000e24       0x28 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x00000e4c       0x20 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
+ .debug_frame   0x0000009c      0x1dc Drivers/VCP/src/vcp.o
+ .debug_frame   0x00000278      0x188 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.o
+ .debug_frame   0x00000400      0x160 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.o
+ .debug_frame   0x00000560       0xcc Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.o
+ .debug_frame   0x0000062c      0x128 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.o
+ .debug_frame   0x00000754      0x310 Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.o
+ .debug_frame   0x00000a64      0x45c Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.o
+ .debug_frame   0x00000ec0       0x28 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x00000ee8       0x20 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
