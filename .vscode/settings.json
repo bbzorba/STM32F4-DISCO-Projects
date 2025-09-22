@@ -1,5 +1,12 @@
 {
     "files.associations": {
-        "stm32f4xx.h": "c"
+        "stm32f4xx.h": "c",
+        "stm32f407xx.h": "c",
+        "stdint.h": "c",
+        "uart.h": "c",
+        "stdio.h": "c",
+        "stm32f4xx_gpio.h": "c",
+        "stm32f4xx_hal_gpio.h": "c",
+        "cmsis.h": "c"
     }
 }

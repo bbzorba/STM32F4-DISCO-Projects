@@ -1,0 +1,22 @@
+{
+  "version": 4,
+  "configurations": [
+    {
+      "name": "Windows",
+      "includePath": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/Drivers",
+        "${workspaceFolder}/Drivers/CMSIS",
+        "${workspaceFolder}/Drivers/STM32F4xx_HAL_Driver",
+        "${workspaceFolder}/Drivers/compat_inc"
+      ],
+      "defines": [
+        "STM32F407xx",
+        "USE_HAL_DRIVER"
+      ],
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "windows-gcc-x64"
+    }
+  ]
+}

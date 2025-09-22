@@ -1,22 +1,17 @@
-#include "stm32f4xx.h"
+#include "uart.h"
 
 // Function prototypes
-void init(void);
 void delay(volatile uint32_t count);
 
 //main function
 int main(void) {
-    init();
+    USART2_Init();
+
+    test_setup();
+    
     while (1) {
 
     }
-}
-
-// Initialization function
-void init(void) {
-    // Enable GPIOD clock
-    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-    
 }
 
 void delay(volatile uint32_t count) {
