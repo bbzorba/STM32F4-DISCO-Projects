@@ -22,6 +22,11 @@ int main(void) {
     LED_getState(&yellowLED); // Should print: "2 LED state is currently: 0"
     LED_getState(&blueLED); // Should print: "3 LED state is currently: 0"
 
+    LED_setState(&redLED, LED_ON);
+    LED_setState(&greenLED, LED_ON);
+    LED_setState(&yellowLED, LED_ON);
+    LED_setState(&blueLED, LED_ON);
+
     while (1) {
 
     }
