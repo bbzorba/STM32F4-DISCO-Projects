@@ -22,11 +22,38 @@ SECTIONS
     *(.glue_7t)
     KEEP(*(.init))
     KEEP(*(.fini))
+    /* C++ exception unwinding tables */
     *(.ARM.extab* .gnu.linkonce.armextab.*)
     *(.ARM.exidx* .gnu.linkonce.armexidx.*)
     KEEP(*(.eh_frame))
-    __etext = .;
   } >FLASH
+
+  /* C/C++ init/fini arrays in FLASH */
+  .preinit_array :
+  {
+    PROVIDE_HIDDEN (__preinit_array_start = .);
+    KEEP (*(.preinit_array*))
+    PROVIDE_HIDDEN (__preinit_array_end = .);
+  } >FLASH
+
+  .init_array :
+  {
+    PROVIDE_HIDDEN (__init_array_start = .);
+    KEEP (*(SORT(.init_array.*)))
+    KEEP (*(.init_array*))
+    PROVIDE_HIDDEN (__init_array_end = .);
+  } >FLASH
+
+  .fini_array :
+  {
+    PROVIDE_HIDDEN (__fini_array_start = .);
+    KEEP (*(SORT(.fini_array.*)))
+    KEEP (*(.fini_array*))
+    PROVIDE_HIDDEN (__fini_array_end = .);
+  } >FLASH
+
+  /* End of code region in FLASH; start of load image for .data */
+  __etext = .;
 
   .data : AT (__etext)
   {

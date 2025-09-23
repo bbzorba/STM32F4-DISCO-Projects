@@ -1,6 +1,7 @@
 #include "stm32f4xx.h"
 
 extern int main(void);
+extern void __libc_init_array(void);
 void Reset_Handler(void);
 void Default_Handler(void);
 
@@ -42,6 +43,8 @@ void Reset_Handler(void) {
     }
     // System init
     SystemInit();
+    // Run C/C++ global constructors
+    __libc_init_array();
     // Jump to main
     main();
     while (1) {}

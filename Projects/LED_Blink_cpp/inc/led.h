@@ -31,13 +31,14 @@ typedef enum {
 } LEDState_Type;
 
 //LED's attributes
-typedef struct {
+class Led {
+private:
     LEDColor_Type color;
     LEDState_Type state;
-} LED_Type;
-
-void LED_constructor(LED_Type* const led, LEDColor_Type _color, LEDState_Type _state);
-void LED_setState(LED_Type* const led, LEDState_Type _state);
-LEDState_Type LED_getState(const LED_Type* const led);
+public:
+    Led(LEDColor_Type _color, LEDState_Type _state);
+    void setState(LEDState_Type _state);
+    LEDState_Type getState() const;
+};
 
 #endif // LED_H

@@ -1,8 +1,9 @@
 # Minimal Makefile for STM32F4 Discovery (STM32F407VG)
 
-PROJECT_DIR = Drivers/VCP
-#PROJECT_DIR = Projects/LED_Blink
+#PROJECT_DIR = Drivers/UART
+PROJECT_DIR = Projects/LED_Blink_cpp
 
+CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
 MCU=cortex-m4
@@ -25,7 +26,11 @@ CFLAGS=-mcpu=$(MCU) -mthumb -Wall -O2 -g -DSTM32F407xx -DUSE_HAL_DRIVER \
 	-IDrivers/CMSIS \
 	-IDrivers/STM32F4xx_HAL_Driver \
 	-IDrivers/STM32F4xx_HAL_Driver/Legacy \
-	-I$(PROJECT_DIR)/inc
+	-I$(PROJECT_DIR)/inc \
+	-ffunction-sections -fdata-sections
+
+# C++ flags largely mirror C; disable RTTI/exceptions to keep size small
+CXXFLAGS=$(CFLAGS) -fno-exceptions -fno-rtti -fno-use-cxa-atexit
 	
 # Serial monitor settings (Windows PowerShell)
 PORT ?=
@@ -53,8 +58,9 @@ EXTERNAL_SRC := $(filter-out $(EXTERNAL_EXCLUDE),$(EXTERNAL_SRC_RAW))
 CFLAGS += $(DRIVER_INCLUDES)
 
 # Project sources
-# Project sources
-SRC := $(wildcard $(PROJECT_DIR)/src/*.c)
+SRC_C   := $(wildcard $(PROJECT_DIR)/src/*.c)
+SRC_CPP := $(wildcard $(PROJECT_DIR)/src/*.cpp)
+SRC := $(SRC_C) $(SRC_CPP)
 
 # If the project uses HAL (e.g., VCP), add a minimal set of HAL sources
 HAL_SRC := \
@@ -69,18 +75,28 @@ HAL_SRC := \
 ifneq (,$(findstring vcp.c,$(notdir $(SRC))))
 SRC += $(HAL_SRC)
 endif
-OBJ=$(SRC:.c=.o) $(EXTERNAL_SRC:.c=.o)
+OBJ=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC:.c=.o)
 TARGET=$(PROJECT_DIR)/main
 
-# Pattern rule: compile .s files with arm-none-eabi-gcc
+# Use C++ linker if there are any C++ sources, else C linker
+LINKER := $(if $(strip $(SRC_CPP)),$(CXX),$(CC))
+TARGET=$(PROJECT_DIR)/main
+
+# Pattern rules
 %.o: %.s
 	$(CC) -c $(CFLAGS) $< -o $@
+
+%.o: %.c
+	$(CC) -c $(CFLAGS) $< -o $@
+
+%.o: %.cpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 .PHONY: all build run clean flash flash_openocd flash_stlink flash_cubeprog
 
 all: build
 build: $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -Wl,-Map=$(TARGET).map -o $(TARGET).elf $(LDFLAGS) $(EXTRA_LDFLAGS)
+	$(LINKER) $(CFLAGS) $(OBJ) -Wl,-Map=$(TARGET).map -o $(TARGET).elf $(LDFLAGS) $(EXTRA_LDFLAGS)
 	$(OBJCOPY) -O ihex $(TARGET).elf $(TARGET).hex
 	$(OBJCOPY) -O binary $(TARGET).elf $(TARGET).bin
 
@@ -114,6 +130,14 @@ ifeq ($(OS),Windows_NT)
 	powershell -NoProfile -ExecutionPolicy Bypass -File "tools/monitor.ps1" $(if $(PORT),-ComPort $(PORT),) -Baud $(BAUD)
 else
 	@echo "This monitor target is Windows-specific (PowerShell)."
+endif
+
+.PHONY: com-list
+com-list:
+ifeq ($(OS),Windows_NT)
+	powershell -NoProfile -Command "Get-CimInstance Win32_SerialPort | Select-Object Name,DeviceID | Format-Table -AutoSize"
+else
+	@echo "Use: ls /dev/tty*"
 endif
 
 # Build, flash, then start monitor automatically

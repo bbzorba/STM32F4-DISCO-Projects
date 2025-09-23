@@ -205,13 +205,29 @@ void VCP_Init(void) {
 
 void VCP_Task(void) {
     static uint32_t last = 0;
-    if (configured && dtr) {
+    if (configured) {
         uint32_t now = HAL_GetTick();
         if (now - last > 1000) {
             static const char msg[] = "Hello from F407 VCP\r\n";
             HAL_PCD_EP_Transmit(&hpcd_USB_OTG_FS, CDC_DATA_IN_EP, (uint8_t*)msg, (uint16_t)sizeof(msg)-1);
             last = now;
         }
+    }
+}
+
+void VCP_Write(const char* s) {
+    if (!s) return;
+    if (!configured) return;
+    size_t len = strlen(s);
+    while (len) {
+        uint16_t chunk = (len > CDC_MAX_PACKET) ? CDC_MAX_PACKET : (uint16_t)len;
+        HAL_PCD_EP_Transmit(&hpcd_USB_OTG_FS, CDC_DATA_IN_EP, (uint8_t*)s, chunk);
+        // Naive wait: in real code, check TX FIFO empty/NAK
+        // Here, small delay to allow IN transfer completion
+        uint32_t t0 = HAL_GetTick();
+        while ((HAL_GetTick() - t0) < 2) { __NOP(); }
+        s += chunk;
+        len -= chunk;
     }
 }
 
@@ -270,6 +286,9 @@ void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
                     // Prepare OUT reception
                     HAL_PCD_EP_Receive(hpcd, CDC_DATA_OUT_EP, out_buf, sizeof(out_buf));
                     configured = 1;
+                    // Send a quick banner so user sees output immediately
+                    static const char banner[] = "VCP connected\r\n";
+                    HAL_PCD_EP_Transmit(&hpcd_USB_OTG_FS, CDC_DATA_IN_EP, (uint8_t*)banner, (uint16_t)sizeof(banner)-1);
                 } else {
                     configured = 0;
                 }

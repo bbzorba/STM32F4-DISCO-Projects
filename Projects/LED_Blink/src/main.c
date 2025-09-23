@@ -22,25 +22,13 @@ int main(void) {
     LED_getState(&yellowLED); // Should print: "2 LED state is currently: 0"
     LED_getState(&blueLED); // Should print: "3 LED state is currently: 0"
 
-    LED_setState(&redLED, LED_ON);
-    LED_setState(&greenLED, LED_ON);
-    LED_setState(&yellowLED, LED_ON);
-    LED_setState(&blueLED, LED_ON);
-
     while (1) {
-
+        LED_setState(&redLED, LED_TOGGLE);
+        LED_setState(&greenLED, LED_TOGGLE);
+        LED_setState(&yellowLED, LED_TOGGLE);
+        LED_setState(&blueLED, LED_TOGGLE);
+        delay(800000); // ~50ms at 16 MHz
     }
-}
-
-// Initialization function
-void init(void) {
-    // Enable GPIOD clock
-    RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
-    // Set PD12, PD13, PD14, PD15 as output
-    GPIOD->MODER |= (1 << (12*2)) | (1 << (13*2)) | (1 << (14*2)) | (1 << (15*2));
-    GPIOD->OTYPER &= ~((1 << 12) | (1 << 13) | (1 << 14) | (1 << 15));
-    GPIOD->OSPEEDR |= (3 << (12*2)) | (3 << (13*2)) | (3 << (14*2)) | (3 << (15*2));
-    GPIOD->PUPDR &= ~((3 << (12*2)) | (3 << (13*2)) | (3 << (14*2)) | (3 << (15*2)));
 }
 
 void delay(volatile uint32_t count) {
