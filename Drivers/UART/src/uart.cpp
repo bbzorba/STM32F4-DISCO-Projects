@@ -38,7 +38,7 @@ void USART2_Init(void)
 
 }
 
-void USART2_Write(int ch)
+int USART2_Write(int ch)
 {
     //1. wait until TXE is set in the SR register
     while(!(USART2->SR & USART_SR_TXE));

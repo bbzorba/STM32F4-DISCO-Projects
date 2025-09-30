@@ -1,7 +1,7 @@
 # Minimal Makefile for STM32F4 Discovery (STM32F407VG)
 
 #PROJECT_DIR = Drivers/UART
-PROJECT_DIR = Projects/LED_Blink
+PROJECT_DIR = Projects/LED_Blink_cpp
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -37,24 +37,29 @@ PORT ?=
 BAUD ?= 115200
 LDFLAGS=-T$(PROJECT_DIR)/linker.ld --specs=nano.specs --specs=nosys.specs -Wl,--gc-sections
 
-# Discover driver directories (exclude HAL, CMSIS, and compat headers)
-DRIVER_DIRS_ALL := $(filter-out Drivers/STM32F4xx_HAL_Driver Drivers/CMSIS Drivers/compat_inc,$(wildcard Drivers/*))
-# Allow selecting drivers, e.g. `make DRIVERS="UART SPI"`; default is all found
+# Optional external driver selection -------------------------------------------------
+# By default (when DRIVERS is empty) we now build ONLY the selected PROJECT sources.
+# To pull in driver code under Drivers/<Name>, invoke:
+#   make DRIVERS="UART I2C"   (names are directory basenames)
+# We still exclude HAL, CMSIS, compat headers, and the active project if it lives
+# under Drivers/.
 ifeq ($(strip $(DRIVERS)),)
-SELECTED_DRIVER_DIRS := $(DRIVER_DIRS_ALL)
+FILTERED_DRIVER_DIRS :=
 else
-SELECTED_DRIVER_DIRS := $(addprefix Drivers/,$(DRIVERS))
+DRIVER_DIRS_REQUESTED := $(addprefix Drivers/,$(DRIVERS))
+# Filter out directories that do not exist to avoid warnings
+DRIVER_DIRS_EXISTING := $(wildcard $(DRIVER_DIRS_REQUESTED))
+FILTERED_DRIVER_DIRS := $(filter-out Drivers/STM32F4xx_HAL_Driver Drivers/CMSIS Drivers/compat_inc $(PROJECT_DIR),$(DRIVER_DIRS_EXISTING))
 endif
-# Exclude the active project if it lives under Drivers/
-FILTERED_DRIVER_DIRS := $(filter-out $(PROJECT_DIR),$(SELECTED_DRIVER_DIRS))
-# Driver include paths and sources
-DRIVER_INCLUDES := $(foreach d,$(FILTERED_DRIVER_DIRS),-I$(d)/inc)
-# Gather driver sources but exclude typical app/CRT units that would conflict
-EXTERNAL_SRC_RAW := $(foreach d,$(FILTERED_DRIVER_DIRS),$(wildcard $(d)/src/*.c))
-EXTERNAL_EXCLUDE := %/main.c %/startup.c %/system_stm32f4xx.c %/system_%.c
-EXTERNAL_SRC := $(filter-out $(EXTERNAL_EXCLUDE),$(EXTERNAL_SRC_RAW))
 
-# Apply driver include paths
+DRIVER_INCLUDES := $(foreach d,$(FILTERED_DRIVER_DIRS),-I$(d)/inc)
+EXTERNAL_SRC_C_RAW   := $(foreach d,$(FILTERED_DRIVER_DIRS),$(wildcard $(d)/src/*.c))
+EXTERNAL_SRC_CPP_RAW := $(foreach d,$(FILTERED_DRIVER_DIRS),$(wildcard $(d)/src/*.cpp))
+EXTERNAL_EXCLUDE_C   := %/main.c %/startup.c %/system_stm32f4xx.c %/system_%.c
+EXTERNAL_EXCLUDE_CPP := %/main.cpp %/startup.cpp %/system_%.cpp
+EXTERNAL_SRC_C   := $(filter-out $(EXTERNAL_EXCLUDE_C),$(EXTERNAL_SRC_C_RAW))
+EXTERNAL_SRC_CPP := $(filter-out $(EXTERNAL_EXCLUDE_CPP),$(EXTERNAL_SRC_CPP_RAW))
+
 CFLAGS += $(DRIVER_INCLUDES)
 
 # Project sources
@@ -75,11 +80,15 @@ HAL_SRC := \
 ifneq (,$(findstring vcp.c,$(notdir $(SRC))))
 SRC += $(HAL_SRC)
 endif
-OBJ=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC:.c=.o)
+OBJ=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC_C:.c=.o) $(EXTERNAL_SRC_CPP:.cpp=.o)
 TARGET=$(PROJECT_DIR)/main
 
-# Use C++ linker if there are any C++ sources, else C linker
-LINKER := $(if $(strip $(SRC_CPP)),$(CXX),$(CC))
+# Use C++ linker if there are any C++ sources (project or external driver), else C linker
+ifneq (,$(strip $(SRC_CPP) $(EXTERNAL_SRC_CPP)))
+LINKER := $(CXX)
+else
+LINKER := $(CC)
+endif
 TARGET=$(PROJECT_DIR)/main
 
 # Pattern rules

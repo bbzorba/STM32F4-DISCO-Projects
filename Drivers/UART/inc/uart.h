@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 void USART2_Init(void);
-void USART2_Write(int ch);
+int USART2_Write(int ch);
 int USART2_Read(void);
 void test_setup(void);
 

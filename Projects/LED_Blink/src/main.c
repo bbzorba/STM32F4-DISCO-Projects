@@ -1,5 +1,6 @@
 #include "stm32f4xx.h"
 #include "powerLed.h"
+#include "uart.h"
 
 // Function prototypes
 void delay(volatile uint32_t count);
@@ -14,7 +15,8 @@ led_elec_type blue_led_power;
  
 //main function
 int main(void) {
-    USART2_Init();
+    //USART2_Init();
+    
     LED_constructor(&redLED, RED, LED_OFF);
     LED_constructor(&greenLED, GREEN, LED_OFF);
     powerLED_constructor(&yellowLED, YELLOW, LED_OFF, DIAM_5MM,CURRENT_NORMAL, VOL_NORMAL);
