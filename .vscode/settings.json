@@ -10,8 +10,9 @@
     "cmsis.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
-  "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",
+  "C_Cpp_Runner.compilerPath": "/usr/bin/gcc",
+  "C_Cpp_Runner.cppCompilerPath": "/usr/bin/g++",
   "C_Cpp_Runner.cStandard": "",
   "C_Cpp_Runner.cppStandard": "",
   "C_Cpp_Runner.msvcBatchPath": "C:/Program Files/Microsoft Visual Studio/VR_NR/Community/VC/Auxiliary/Build/vcvarsall.bat",
@@ -47,7 +48,13 @@
   "C_Cpp_Runner.warningsAsError": false,
   "C_Cpp_Runner.compilerArgs": [],
   "C_Cpp_Runner.linkerArgs": [],
-  "C_Cpp_Runner.includePaths": [],
+  "C_Cpp_Runner.includePaths": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/Drivers",
+    "${workspaceFolder}/Projects/LED_Blink_cpp/inc",
+    "${workspaceFolder}/Projects/LED_Blink/inc",
+    "${workspaceFolder}/STM32F4xx_HAL_Driver"
+  ],
   "C_Cpp_Runner.includeSearch": [
     "*",
     "**/*"

@@ -2,18 +2,31 @@
   "version": 4,
   "configurations": [
     {
-      "name": "windows-gcc-x86",
+      "name": "macos-gcc",
       "includePath": [
-        "${workspaceFolder}/**"
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/Drivers",
+        "${workspaceFolder}/Projects",
+        "${workspaceFolder}/Projects/*/inc"
       ],
       "defines": [
         "STM32F407xx",
         "USE_HAL_DRIVER"
       ],
-      "cStandard": "${default}",
-      "cppStandard": "${default}",
-      "intelliSenseMode": "windows-gcc-x86",
-      "compilerPath": "E:/MinGW/bin/gcc.exe"
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "configurationProvider": "ms-vscode.makefile-tools",
+      "browse": {
+        "path": [
+          "${workspaceFolder}",
+          "${workspaceFolder}/Drivers",
+          "${workspaceFolder}/Projects"
+        ],
+        "limitSymbolsToIncludedHeaders": false,
+        "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+      }
     }
   ]
 }

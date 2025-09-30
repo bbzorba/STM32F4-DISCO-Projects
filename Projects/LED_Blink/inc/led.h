@@ -36,7 +36,7 @@ typedef struct {
     LEDState_Type state;
 } LED_Type;
 
-void LED_constructor(LED_Type* const led, LEDColor_Type _color, LEDState_Type _state);
+void LED_constructor(LED_Type * const led, LEDColor_Type _color, LEDState_Type _state);
 void LED_setState(LED_Type* const led, LEDState_Type _state);
 LEDState_Type LED_getState(const LED_Type* const led);
 
