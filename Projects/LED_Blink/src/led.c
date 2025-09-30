@@ -10,52 +10,40 @@ void LED_constructor(LED_Type* const led, LEDColor_Type _color, LEDState_Type _s
 
     switch (_color)
     {
-    case RED:
+    case GREEN: // PD12
         LED_PORT->MODER &= ~(3U << (12*2));
-        LED_PORT->MODER |= LED_RED_MODE_BIT;
-        if (_state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_RED; // Set PD12
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_RED; // Ensure PD12 is off
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
-        }
-        break;
-    case GREEN:
-        LED_PORT->MODER &= ~(3U << (13*2));
         LED_PORT->MODER |= LED_GREEN_MODE_BIT;
         if (_state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_GREEN; // Set PD13
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_GREEN; // Ensure PD13 is off
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
+            LED_PORT->ODR |= LED_PIN_GREEN; // Set PD12
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_GREEN;
         }
         break;
-    case YELLOW:
-        LED_PORT->MODER &= ~(3U << (14*2));
+    case YELLOW: // PD13 (Orange)
+        LED_PORT->MODER &= ~(3U << (13*2));
         LED_PORT->MODER |= LED_YELLOW_MODE_BIT;
         if (_state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_YELLOW; // Set PD14
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_YELLOW; // Ensure PD14 is off
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
+            LED_PORT->ODR |= LED_PIN_YELLOW; // Set PD13
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_YELLOW;
         }
         break;
-    case BLUE:
+    case RED: // PD14
+        LED_PORT->MODER &= ~(3U << (14*2));
+        LED_PORT->MODER |= LED_RED_MODE_BIT;
+        if (_state == LED_ON) {
+            LED_PORT->ODR |= LED_PIN_RED; // Set PD14
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_RED;
+        }
+        break;
+    case BLUE: // PD15
         LED_PORT->MODER &= ~(3U << (15*2));
         LED_PORT->MODER |= LED_BLUE_MODE_BIT;
         if (_state == LED_ON) {
             LED_PORT->ODR |= LED_PIN_BLUE; // Set PD15
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_BLUE; // Ensure PD15 is off
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_BLUE;
         }
         break;
     default:
@@ -68,75 +56,53 @@ void LED_setState(LED_Type* const led, LEDState_Type _state){
 
     switch (led->color)
     {
-    case RED:
+    case GREEN: // PD12
         LED_PORT->MODER &= ~(3U << (12*2));
-        LED_PORT->MODER |= LED_RED_MODE_BIT;
-        if (led->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_RED; // Set PD12
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
-        }
-        else if (led->state == LED_TOGGLE) {
-            LED_PORT->ODR ^= LED_PIN_RED;
-            printf("%d LED toggled, new state: %d\n\r", led->color, (LED_PORT->ODR & LED_PIN_RED) ? LED_ON : LED_OFF);
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_RED; // Ensure PD12 is off
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
-        }
-        break;
-    case GREEN:
-        LED_PORT->MODER &= ~(3U << (13*2));
         LED_PORT->MODER |= LED_GREEN_MODE_BIT;
         if (led->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_GREEN; // Set PD13
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
-        }
-        else if (led->state == LED_TOGGLE) {
+            LED_PORT->ODR |= LED_PIN_GREEN;
+        } else if (led->state == LED_TOGGLE) {
             LED_PORT->ODR ^= LED_PIN_GREEN;
-            printf("%d LED toggled, new state: %d\n\r", led->color, (LED_PORT->ODR & LED_PIN_GREEN) ? LED_ON : LED_OFF);
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_GREEN; // Ensure PD13 is off
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_GREEN;
         }
         break;
-    case YELLOW:
-        LED_PORT->MODER &= ~(3U << (14*2));
+    case YELLOW: // PD13 (Orange)
+        LED_PORT->MODER &= ~(3U << (13*2));
         LED_PORT->MODER |= LED_YELLOW_MODE_BIT;
         if (led->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_YELLOW; // Set PD14
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
-        }
-        else if (led->state == LED_TOGGLE) {
+            LED_PORT->ODR |= LED_PIN_YELLOW;
+        } else if (led->state == LED_TOGGLE) {
             LED_PORT->ODR ^= LED_PIN_YELLOW;
-            printf("%d LED toggled, new state: %d\n\r", led->color, (LED_PORT->ODR & LED_PIN_YELLOW) ? LED_ON : LED_OFF);
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_YELLOW; // Ensure PD14 is off
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_YELLOW;
         }
         break;
-    case BLUE:
+    case RED: // PD14
+        LED_PORT->MODER &= ~(3U << (14*2));
+        LED_PORT->MODER |= LED_RED_MODE_BIT;
+        if (led->state == LED_ON) {
+            LED_PORT->ODR |= LED_PIN_RED;
+        } else if (led->state == LED_TOGGLE) {
+            LED_PORT->ODR ^= LED_PIN_RED;
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_RED;
+        }
+        break;
+    case BLUE: // PD15
         LED_PORT->MODER &= ~(3U << (15*2));
         LED_PORT->MODER |= LED_BLUE_MODE_BIT;
         if (led->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_BLUE; // Set PD15
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
-        }
-        else if (led->state == LED_TOGGLE) {
+            LED_PORT->ODR |= LED_PIN_BLUE;
+        } else if (led->state == LED_TOGGLE) {
             LED_PORT->ODR ^= LED_PIN_BLUE;
-            printf("%d LED toggled, new state: %d\n\r", led->color, (LED_PORT->ODR & LED_PIN_BLUE) ? LED_ON : LED_OFF);
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_BLUE; // Ensure PD15 is off
-            printf("%d LED state is set to: %d\n\r", led->color, led->state);
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_BLUE;
         }
         break;
     default:
         break;
     }
-    
-    printf("%d LED state is set to: %d\n\r", led->color, led->state);
 }
 
 LEDState_Type LED_getState(const LED_Type* const led){
