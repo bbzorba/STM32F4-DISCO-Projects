@@ -1,4 +1,5 @@
 others/
 .DS_Store
 VCP/
-nul.vscode/browse.vc.db
+nul
+.vscode/
