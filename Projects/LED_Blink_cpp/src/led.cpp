@@ -1,12 +1,11 @@
 #include "led.h"
 
-Led::Led(LEDColor_Type _color, LEDState_Type _state) 
+LED::LED(LEDColor_Type _color, LEDState_Type _state) 
 //:color(_color), state(_state)
 {
     this->color = _color;
     this->state = _state;
 
-    
     // Enable GPIOD clock
     RCC->AHB1ENR |= LED_PORT_CLK;
 
@@ -65,7 +64,7 @@ Led::Led(LEDColor_Type _color, LEDState_Type _state)
     }
 }
 
-void Led::setState(LEDState_Type _state){
+void LED::setState(LEDState_Type _state){
     this->state = _state;
 
     switch (this->color)
@@ -141,7 +140,7 @@ void Led::setState(LEDState_Type _state){
     printf("%d LED state is set to: %d\n\r", this->color, this->state);
 }
 
-LEDState_Type Led::getState(void) const {
+LEDState_Type LED::getState(void) const {
 
     printf("%d LED state is currently: %d\n\r", this->color, this->state);
 

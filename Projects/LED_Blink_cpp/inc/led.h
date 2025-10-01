@@ -2,7 +2,7 @@
 #define LED_H
 
 #include <stdint.h>
-#include "uart.h"
+#include "../../../Drivers/UART/inc/uart.h"
 #include "stm32f4xx.h"
 
 #define LED_PORT GPIOD
@@ -31,12 +31,12 @@ typedef enum {
 } LEDState_Type;
 
 //LED's attributes
-class Led {
+class LED {
 private:
     LEDColor_Type color;
     LEDState_Type state;
 public:
-    Led(LEDColor_Type _color, LEDState_Type _state);
+    LED(LEDColor_Type _color, LEDState_Type _state);
     void setState(LEDState_Type _state);
     LEDState_Type getState() const;
 };

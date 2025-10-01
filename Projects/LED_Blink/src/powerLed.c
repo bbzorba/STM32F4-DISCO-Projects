@@ -27,17 +27,17 @@ void PowerLED_setVoltage(powerLED_Type * const pled, LEDVoltage_Type _voltage){
 }
 
 led_elec_type PowerLED_computePower(powerLED_Type * const pled){
-
+    return (pled->current * pled->voltage) / 1000; // Power in Watts (mA * V)
 }
 
 led_elec_type PowerLED_getDiameter(powerLED_Type * const pled){
-
+    return pled->diameter;
 }
 
 led_elec_type PowerLED_getCurrent(powerLED_Type * const pled){
-
+    return pled->current;
 }
 
 led_elec_type PowerLED_getVoltage(powerLED_Type * const pled){
-
+    return pled->voltage;
 }
