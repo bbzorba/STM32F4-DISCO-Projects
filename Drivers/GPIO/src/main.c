@@ -1,10 +1,10 @@
 #include "gpio.h"
+#define delay 200000
 
 int main(void) {
-    GPIO_Init();
+    GPIOD_Init();
 
     while(1) {
-        GPIO_TogglePin();
-        delay(100000);
+        GPIOD_TogglePins(delay);
     }
 }

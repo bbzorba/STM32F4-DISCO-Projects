@@ -1,17 +1,43 @@
+// GPIO header file for STM32F4xx microcontrollers
 #include "stdint.h"
 
+#ifndef __GPIO_H
+#define __GPIO_H
+
+// Base addresses
 #define __IO volatile
 #define PERIPH_BASE 0x40000000U
 #define AHB1PERIPH_BASE (PERIPH_BASE + 0x00020000U)
 #define RCC_BASE (AHB1PERIPH_BASE + 0x00003800U)
+#define GPIOA_BASE (AHB1PERIPH_BASE + 0x00000000U)
+#define GPIOB_BASE (AHB1PERIPH_BASE + 0x00000400U)
+#define GPIOC_BASE (AHB1PERIPH_BASE + 0x00000800U)
 #define GPIOD_BASE (AHB1PERIPH_BASE + 0x00000C00U)
+#define GPIOE_BASE (AHB1PERIPH_BASE + 0x00001000U)
+#define GPIOF_BASE (AHB1PERIPH_BASE + 0x00001400U)
+#define GPIOG_BASE (AHB1PERIPH_BASE + 0x00001800U)
+#define GPIOH_BASE (AHB1PERIPH_BASE + 0x00001C00U)
+#define GPIOI_BASE (AHB1PERIPH_BASE + 0x00002000U)
 
+// Peripheral declarations
 #define RCC ((RCC_TypeDef *)RCC_BASE)
+#define GPIOA ((GPIO_TypeDef *)GPIOA_BASE)
+#define GPIOB ((GPIO_TypeDef *)GPIOB_BASE)
+#define GPIOC ((GPIO_TypeDef *)GPIOC_BASE)
 #define GPIOD ((GPIO_TypeDef *)GPIOD_BASE)
 
-#define MODER_5_OUT (1 << (15 * 2)) // Set PD15 to output mode (01)
-#define LED_PIN (1 << 15)        // Pin 15
+// Enable bits for GPIO ports in RCC AHB1ENR register
+#define GPIOA_EN (1 << 0) // Bit 0
+#define GPIOB_EN (1 << 1) // Bit 1
+#define GPIOC_EN (1 << 2) // Bit 2
+#define GPIOD_EN (1 << 3) // Bit 3
+#define GPIOE_EN (1 << 4) // Bit 4
+#define GPIOF_EN (1 << 5) // Bit 5
+#define GPIOG_EN (1 << 6) // Bit 6
+#define GPIOH_EN (1 << 7) // Bit 7
+#define GPIOI_EN (1 << 8) // Bit 8
 
+// GPIO port mode enumeration
 typedef struct {
     __IO uint32_t MODER;    // GPIO port mode register
     __IO uint32_t OTYPER;   // GPIO port output type register
@@ -24,6 +50,7 @@ typedef struct {
     __IO uint32_t AFR[2];   // GPIO alternate function registers
 } GPIO_TypeDef;
 
+// RCC register definition structure
 typedef struct 
 {
     __IO uint32_t CR;              // RCC clock control register
@@ -60,6 +87,9 @@ typedef struct
     __IO uint32_t RCC_DCKCFGR;     // RCC Dedicated Clocks Configuration Register
 } RCC_TypeDef;
 
-void GPIO_Init(void);
-void GPIO_TogglePin(void);
+// Function prototypes
+void GPIOD_Init(void);
 void delay(volatile int count);
+void GPIOD_TogglePins(volatile int count);
+
+#endif // __GPIO_H
