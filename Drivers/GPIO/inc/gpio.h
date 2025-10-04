@@ -26,6 +26,12 @@
 #define GPIOC ((GPIO_TypeDef *)GPIOC_BASE)
 #define GPIOD ((GPIO_TypeDef *)GPIOD_BASE)
 
+// GPIO mode settings for specific pins
+#define MODER_2_OUT (1 << (12 * 2)) // Set PD12 to output mode (01)
+#define MODER_3_OUT (1 << (13 * 2)) // Set PD13 to output mode (01)
+#define MODER_4_OUT (1 << (14 * 2)) // Set PD14 to output mode (01)
+#define MODER_5_OUT (1 << (15 * 2)) // Set PD15 to output mode (01)
+
 // Enable bits for GPIO ports in RCC AHB1ENR register
 #define GPIOA_EN (1 << 0) // Bit 0
 #define GPIOB_EN (1 << 1) // Bit 1
@@ -36,6 +42,51 @@
 #define GPIOG_EN (1 << 6) // Bit 6
 #define GPIOH_EN (1 << 7) // Bit 7
 #define GPIOI_EN (1 << 8) // Bit 8
+
+// GPIO pin definitions for ODR and IDR registers
+#define GPIO_PIN_0  (1 << 0)  // Pin 0
+#define GPIO_PIN_1  (1 << 1)  // Pin 1
+#define GPIO_PIN_2  (1 << 2)  // Pin 2
+#define GPIO_PIN_3  (1 << 3)  // Pin 3
+#define GPIO_PIN_4  (1 << 4)  // Pin 4
+#define GPIO_PIN_5  (1 << 5)  // Pin 5
+#define GPIO_PIN_6  (1 << 6)  // Pin 6
+#define GPIO_PIN_7  (1 << 7)  // Pin 7
+#define GPIO_PIN_8  (1 << 8)  // Pin 8
+#define GPIO_PIN_9  (1 << 9)  // Pin 9
+#define GPIO_PIN_10 (1 << 10) // Pin 10
+#define GPIO_PIN_11 (1 << 11) // Pin 11
+#define GPIO_PIN_12 (1 << 12) // Pin 12
+#define GPIO_PIN_13 (1 << 13) // Pin 13
+#define GPIO_PIN_14 (1 << 14) // Pin 14
+#define GPIO_PIN_15 (1 << 15) // Pin 15
+#define GPIO_PIN_ALL (0xFFFF) // All pins
+
+// GPIO mode definitions for MODER register
+#define GPIO_MODE_INPUT 0x00U        // Input mode
+#define GPIO_MODE_OUTPUT 0x01U       // Output mode
+#define GPIO_MODE_ALTERNATE 0x02U    // Alternate function mode
+#define GPIO_MODE_ANALOG 0x03U       // Analog mode
+
+// GPIO pull-up/pull-down definitions for PUPDR register
+#define GPIO_NOPULL 0x00U          // No pull-up, pull-down
+#define GPIO_PULLUP 0x01U          // Pull-up
+#define GPIO_PULLDOWN 0x02U        // Pull-down
+
+
+// GPIO initialization structure
+typedef struct {
+    uint32_t Pin;            // Specifies the GPIO pins to be configured.
+    uint32_t Mode;           // Specifies the operating mode for the selected pins.
+    uint32_t Pull;           // Specifies the Pull-up or Pull-down activation for the selected pins.
+    uint32_t Speed;          // Specifies the speed for the selected pins.
+    uint32_t Alternate;     // Specifies the alternate function for the selected pins.
+} GPIO_InitTypeDef;
+
+typedef enum {
+    GPIO_PIN_RESET = 0,
+    GPIO_PIN_SET
+} GPIO_PinState;
 
 // GPIO port mode enumeration
 typedef struct {
@@ -88,8 +139,18 @@ typedef struct
 } RCC_TypeDef;
 
 // Function prototypes
-void GPIOD_Init(void);
-void delay(volatile int count);
-void GPIOD_TogglePins(volatile int count);
+void LIB_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init);
+void LIB_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin);
+void LIB_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
+GPIO_PinState LIB_GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin);
+
+void __LIB_RCC_GPIOA_CLK_ENABLE(void);
+void __LIB_RCC_GPIOB_CLK_ENABLE(void);
+void __LIB_RCC_GPIOC_CLK_ENABLE(void);
+void __LIB_RCC_GPIOD_CLK_ENABLE(void);
+void __LIB_RCC_GPIOE_CLK_ENABLE(void);
+void __LIB_RCC_GPIOF_CLK_ENABLE(void);
+void __LIB_RCC_GPIOG_CLK_ENABLE(void);
+void __LIB_RCC_GPIOH_CLK_ENABLE(void);
 
 #endif // __GPIO_H
