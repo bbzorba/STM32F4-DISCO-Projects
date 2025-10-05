@@ -1,10 +1,20 @@
 #include "led.h"
 
+static void run_diagnostics(LED_Type const * const led);
+static uint32_t compute_efficiency(LED_Type const * const led);
+
 void LED_constructor(LED_Type* const led, LEDColor_Type _color, LEDState_Type _state){
+
+    // Initialize virtual table pointer
+    static struct led_vtable const vtable = {
+        &run_diagnostics,
+        &compute_efficiency
+    };
+
+    led->vptr = &vtable;
     led->color = _color;
     led->state = _state;
 
-    
     // Enable GPIOD clock
     RCC->AHB1ENR |= LED_PORT_CLK;
 
@@ -112,4 +122,11 @@ LEDState_Type LED_getState(const LED_Type* const led){
     return led->state;
 }
 
+static void run_diagnostics(LED_Type const * const led) {
+   (void)led; // Suppress unused parameter warning
+}
 
+static uint32_t compute_efficiency(LED_Type const * const led) {
+    (void)led; // Suppress unused parameter warning
+    return 0U; // Dummy value
+}

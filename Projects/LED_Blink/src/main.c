@@ -1,11 +1,13 @@
 #include "stm32f4xx.h"
 #include "powerLed.h"
+#include "medicalLED.h"
 
 // Function prototypes
 void delay(volatile uint32_t count);
 
-LED_Type redLED;
 LED_Type greenLED;
+MedicalLED_Type redLED;
+
 powerLED_Type yellowLED;
 powerLED_Type blueLED;
 
@@ -16,8 +18,8 @@ led_elec_type blue_led_power;
 int main(void) {
     //USART2_Init();
     
-    LED_constructor(&redLED, RED, LED_OFF);
     LED_constructor(&greenLED, GREEN, LED_OFF);
+    MedicalLED_constructor(&redLED, INFRARED, (LEDColor_Type)INFRARED, LED_OFF);
     powerLED_constructor(&yellowLED, YELLOW, LED_OFF, DIAM_5MM,CURRENT_NORMAL, VOL_NORMAL);
     powerLED_constructor(&blueLED, BLUE, LED_OFF, DIAM_7MM,CURRENT_HIGH, VOL_NORMAL);
 

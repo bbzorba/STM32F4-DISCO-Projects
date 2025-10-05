@@ -38,12 +38,35 @@ typedef enum {
 
 //LED's attributes
 typedef struct {
+    struct led_vtable const *vptr; //virtual pointer (constant => immutable)
     LEDColor_Type color;
     LEDState_Type state;
 } LED_Type;
 
+//LED virtual table
+struct led_vtable
+{
+    void (*run_diagnostics)(LED_Type const * const led);
+    uint32_t (*compute_efficiency)(LED_Type const * const led);
+};
+
+
 void LED_constructor(LED_Type * const led, LEDColor_Type _color, LEDState_Type _state);
 void LED_setState(LED_Type* const led, LEDState_Type _state);
 LEDState_Type LED_getState(const LED_Type* const led);
+
+
+//method 1
+static inline void LED_run_diagnostics(LED_Type const * const led) {
+        (led->vptr->run_diagnostics)(led);
+}
+
+static inline uint32_t LED_compute_efficiency(LED_Type const * const led) {
+        return (led->vptr->compute_efficiency)(led);
+}
+
+//method 2
+#define LED_RUN_DIAGNOSTICS(led) (*(led)->vptr->run_diagnostics(led))
+#define LED_COMPUTE_EFFICIENCY(led) (*(led)->vptr->compute_efficiency(led))
 
 #endif // LED_H
