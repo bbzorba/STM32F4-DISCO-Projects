@@ -20,8 +20,8 @@ int main(void) {
     
     LED_constructor(&greenLED, GREEN, LED_OFF);
     MedicalLED_constructor(&redLED, INFRARED, (LEDColor_Type)INFRARED, LED_OFF);
-    powerLED_constructor(&yellowLED, YELLOW, LED_OFF, DIAM_5MM,CURRENT_NORMAL, VOL_NORMAL);
-    powerLED_constructor(&blueLED, BLUE, LED_OFF, DIAM_7MM,CURRENT_HIGH, VOL_NORMAL);
+    powerLED_constructor(&yellowLED, YELLOW, LED_OFF, DIAM_5MM, CURRENT_NORMAL, VOL_NORMAL);
+    powerLED_constructor(&blueLED, BLUE, LED_OFF, DIAM_7MM, CURRENT_HIGH, VOL_NORMAL);
 
     yellow_led_power = PowerLED_computePower(&yellowLED);
     blue_led_power = PowerLED_computePower(&blueLED);
@@ -33,6 +33,14 @@ int main(void) {
         LED_setState((LED_Type*)&yellowLED, LED_TOGGLE);
         LED_setState((LED_Type*)&blueLED, LED_TOGGLE);
         delay(800000); // ~50ms at 16 MHz
+
+        PowerLED_computeEfficiency(&yellowLED);
+        PowerLED_runDiagnostics(&yellowLED);
+        PowerLED_computeEfficiency(&blueLED);
+        PowerLED_runDiagnostics(&blueLED);
+
+        MedicalLED_computeEfficiency(&redLED);
+        MedicalLED_runDiagnostics(&redLED);
     }
 }
 

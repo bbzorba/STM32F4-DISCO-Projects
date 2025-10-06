@@ -3,6 +3,7 @@
 
 #include "led.h"
 #include "../../Drivers/UART/inc/uart.h"
+#include <stdint.h>
 
 typedef enum {
     INFRARED = 910, // nm
