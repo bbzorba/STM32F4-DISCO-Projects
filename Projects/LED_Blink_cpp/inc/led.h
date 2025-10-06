@@ -37,8 +37,19 @@ private:
     LEDState_Type state;
 public:
     LED(LEDColor_Type _color, LEDState_Type _state);
+    virtual ~LED() = default;
+
     void setState(LEDState_Type _state);
     LEDState_Type getState() const;
+
+    // Virtual interface (mirrors C vtable concept)
+    virtual void runDiagnostics();
+    virtual uint32_t computeEfficiency() const; // returns a computed metric (dummy by default)
+
+protected:
+    LEDColor_Type getColor() const { return color; }
+    LEDState_Type getInternalState() const { return state; }
+    void setInternalState(LEDState_Type s) { state = s; }
 };
 
 #endif // LED_H

@@ -147,4 +147,15 @@ LEDState_Type LED::getState(void) const {
     return this->state;
 }
 
+// Default virtual implementations
+void LED::runDiagnostics() {
+    // Base LED diagnostics placeholder
+    printf("LED (color=%d) base diagnostics\n\r", this->getColor());
+}
+
+uint32_t LED::computeEfficiency() const {
+    // Dummy metric for base
+    return 0U;
+}
+
 

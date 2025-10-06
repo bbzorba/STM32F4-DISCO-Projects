@@ -46,6 +46,10 @@ public:
     led_elec_type powerLED_getDiameter(void);
     led_elec_type powerLED_getCurrent(void);
     led_elec_type powerLED_getVoltage(void);
+
+    // Polymorphic overrides
+    void runDiagnostics() override;
+    uint32_t computeEfficiency() const override;
 };
 
 #endif
