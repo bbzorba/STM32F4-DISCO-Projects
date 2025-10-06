@@ -41,6 +41,15 @@ int main(void) {
         // Cast powerLED_Type* to LED_Type* to match LED_setState signature and silence warnings
         LED_setState((LED_Type*)&yellowLED, LED_TOGGLE);
         LED_setState((LED_Type*)&blueLED, LED_TOGGLE);
+
+        PowerLED_computeEfficiency(&yellowLED);
+        PowerLED_runDiagnostics(&yellowLED);
+        PowerLED_computeEfficiency(&blueLED);
+        PowerLED_runDiagnostics(&blueLED);
+
+        MedicalLED_computeEfficiency(&redLED);
+        MedicalLED_runDiagnostics(&redLED);
+
         delay(800000); // ~50ms at 16 MHz
     }
 }
