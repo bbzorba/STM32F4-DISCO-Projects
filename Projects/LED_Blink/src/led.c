@@ -130,3 +130,16 @@ static uint32_t compute_efficiency(LED_Type const * const led) {
     (void)led; // Suppress unused parameter warning
     return 0U; // Dummy value
 }
+
+//Polymorphic functions implementations (child classes will also run these functions)
+void runSystemsDiagnostics(LED_Type const *led_modules[]) {
+    for (int i = 0; led_modules[i] != (LED_Type *)0; i++) {
+        LED_run_diagnostics(led_modules[i]);
+    }
+}
+
+void computeLEDsEfficiency(LED_Type const *led_modules[]) {
+    for (int i = 0; led_modules[i] != (LED_Type *)0; i++) {
+        LED_compute_efficiency(led_modules[i]);
+    }
+}

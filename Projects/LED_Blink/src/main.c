@@ -17,30 +17,31 @@ led_elec_type blue_led_power;
 //main function
 int main(void) {
     //USART2_Init();
-    
+
     LED_constructor(&greenLED, GREEN, LED_OFF);
-    MedicalLED_constructor(&redLED, INFRARED, (LEDColor_Type)INFRARED, LED_OFF);
-    powerLED_constructor(&yellowLED, YELLOW, LED_OFF, DIAM_5MM, CURRENT_NORMAL, VOL_NORMAL);
-    powerLED_constructor(&blueLED, BLUE, LED_OFF, DIAM_7MM, CURRENT_HIGH, VOL_NORMAL);
+    // Use a valid LEDColor_Type (e.g., RED) instead of casting wavelength enum
+    MedicalLED_constructor(&redLED, INFRARED, RED, LED_OFF);
+    powerLED_constructor(&yellowLED, YELLOW, LED_OFF, DIAM_5MM,CURRENT_NORMAL, VOL_NORMAL);
+    powerLED_constructor(&blueLED, BLUE, LED_OFF, DIAM_7MM,CURRENT_HIGH, VOL_NORMAL);
+
+    LED_Type const *sys_leds[] = {
+        &greenLED,
+        &redLED.super,   // base part of medical LED
+        &yellowLED.super, // powerLED shares layout starting with base
+        &blueLED.super,
+        0
+    };
 
     yellow_led_power = PowerLED_computePower(&yellowLED);
     blue_led_power = PowerLED_computePower(&blueLED);
 
     while (1) {
-        LED_setState(&redLED, LED_TOGGLE);
+        LED_setState(&redLED.super, LED_TOGGLE); // operate on base
         LED_setState(&greenLED, LED_TOGGLE);
         // Cast powerLED_Type* to LED_Type* to match LED_setState signature and silence warnings
         LED_setState((LED_Type*)&yellowLED, LED_TOGGLE);
         LED_setState((LED_Type*)&blueLED, LED_TOGGLE);
         delay(800000); // ~50ms at 16 MHz
-
-        PowerLED_computeEfficiency(&yellowLED);
-        PowerLED_runDiagnostics(&yellowLED);
-        PowerLED_computeEfficiency(&blueLED);
-        PowerLED_runDiagnostics(&blueLED);
-
-        MedicalLED_computeEfficiency(&redLED);
-        MedicalLED_runDiagnostics(&redLED);
     }
 }
 
