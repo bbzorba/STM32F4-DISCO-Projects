@@ -62,19 +62,29 @@
 #define GPIO_PIN_15 (1 << 15) // Pin 15
 #define GPIO_PIN_ALL (0xFFFF) // All pins
 
-// GPIO mode definitions for MODER register
+/* GPIO mode definitions for MODER register */
 #define GPIO_MODE_INPUT 0x00U        // Input mode
 #define GPIO_MODE_OUTPUT 0x01U       // Output mode
 #define GPIO_MODE_ALTERNATE 0x02U    // Alternate function mode
 #define GPIO_MODE_ANALOG 0x03U       // Analog mode
 
-// GPIO pull-up/pull-down definitions for PUPDR register
+/* GPIO output type definitions for OTYPER register */
+#define GPIO_OTYPE_PP 0x00U          // Push-pull
+#define GPIO_OTYPE_OD 0x01U          // Open-drain
+
+/* GPIO pull-up/pull-down definitions for PUPDR register */
 #define GPIO_NOPULL 0x00U          // No pull-up, pull-down
 #define GPIO_PULLUP 0x01U          // Pull-up
 #define GPIO_PULLDOWN 0x02U        // Pull-down
 
+/* Composite modes (preferred) */
+#define GPIO_MODE_OUTPUT_PP    0x00000001U  /* MODER=01, OTYPER=0 */
+#define GPIO_MODE_OUTPUT_OD    0x00000011U  /* MODER=01, OTYPER=1 */
+#define GPIO_MODE_AF_PP        0x00000002U  /* MODER=10, OTYPER=0 */
+#define GPIO_MODE_AF_OD        0x00000012U  /* MODER=10, OTYPER=1 */
 
-// GPIO initialization structure
+
+/* GPIO initialization structure */
 typedef struct {
     uint32_t Pin;            // Specifies the GPIO pins to be configured.
     uint32_t Mode;           // Specifies the operating mode for the selected pins.
@@ -88,7 +98,7 @@ typedef enum {
     GPIO_PIN_SET
 } GPIO_PinState;
 
-// GPIO port mode enumeration
+/* GPIO port mode enumeration */
 typedef struct {
     __IO uint32_t MODER;    // GPIO port mode register
     __IO uint32_t OTYPER;   // GPIO port output type register
@@ -101,7 +111,7 @@ typedef struct {
     __IO uint32_t AFR[2];   // GPIO alternate function registers
 } GPIO_TypeDef;
 
-// RCC register definition structure
+/* RCC register definition structure */
 typedef struct 
 {
     __IO uint32_t CR;              // RCC clock control register
@@ -138,12 +148,13 @@ typedef struct
     __IO uint32_t RCC_DCKCFGR;     // RCC Dedicated Clocks Configuration Register
 } RCC_TypeDef;
 
-// Function prototypes
+/* Function prototypes */
 void LIB_GPIO_Init(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init);
 void LIB_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin);
 void LIB_GPIO_WritePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
 GPIO_PinState LIB_GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin);
 
+/* RCC peripheral clock enable functions */
 void __LIB_RCC_GPIOA_CLK_ENABLE(void);
 void __LIB_RCC_GPIOB_CLK_ENABLE(void);
 void __LIB_RCC_GPIOC_CLK_ENABLE(void);

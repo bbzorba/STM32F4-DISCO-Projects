@@ -19,6 +19,8 @@ void GPIOD_Init_Manual(void) {
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT;
     GPIO_InitStruct.Pin = GPIO_PIN_15 | GPIO_PIN_14 | GPIO_PIN_13 | GPIO_PIN_12;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = 0; // Low speed
+    GPIO_InitStruct.Alternate = 0; // Not used for output mode
 
     __LIB_RCC_GPIOD_CLK_ENABLE();
     LIB_GPIO_Init(GPIOD, &GPIO_InitStruct);

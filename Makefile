@@ -1,7 +1,7 @@
 # Minimal Makefile for STM32F4 Discovery (STM32F407VG)
 
-#PROJECT_DIR = Drivers/UART
-PROJECT_DIR = Projects/LED_Blink_cpp
+PROJECT_DIR = Drivers/GPIO
+#PROJECT_DIR = Projects/LED_Blink_cpp
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
