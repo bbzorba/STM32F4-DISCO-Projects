@@ -21,10 +21,10 @@
 
 // Peripheral declarations
 #define RCC ((RCC_TypeDef *)RCC_BASE)
-#define GPIOA ((GPIO_TypeDef *)GPIOA_BASE)
-#define GPIOB ((GPIO_TypeDef *)GPIOB_BASE)
-#define GPIOC ((GPIO_TypeDef *)GPIOC_BASE)
-#define GPIOD ((GPIO_TypeDef *)GPIOD_BASE)
+#define GPIO_A ((GPIO_TypeDef *)GPIOA_BASE)
+#define GPIO_B ((GPIO_TypeDef *)GPIOB_BASE)
+#define GPIO_C ((GPIO_TypeDef *)GPIOC_BASE)
+#define GPIO_D ((GPIO_TypeDef *)GPIOD_BASE)
 
 // GPIO mode settings for specific pins
 #define MODER_2_OUT (1 << (12 * 2)) // Set PD12 to output mode (01)
