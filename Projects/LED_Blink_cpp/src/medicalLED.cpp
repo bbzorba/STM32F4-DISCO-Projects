@@ -1,11 +1,11 @@
 #include "medicalLED.h"
 
-MedicalLED::MedicalLED(LEDWavelength_Type wavelength,
+medicalLED::medicalLED(LEDWavelength_Type wavelength,
                        LEDColor_Type color,
                        LEDState_Type state)
     : LED(color, state), wavelength(wavelength) {}
 
-uint32_t MedicalLED::computeEfficiency() const {
+uint32_t medicalLED::computeEfficiency() const {
     // Simple reused logic based on wavelength bands
     const uint32_t input = 120U;
     const uint32_t output = 86U;
@@ -18,7 +18,7 @@ uint32_t MedicalLED::computeEfficiency() const {
     return eff;
 }
 
-void MedicalLED::runDiagnostics() {
+void medicalLED::runDiagnostics() {
     for (int i = 0; i < 10; ++i) {
         printf("Medical LED Diagnostics Stage %d wavelength=%u nm\n\r", i, (unsigned)wavelength);
     }

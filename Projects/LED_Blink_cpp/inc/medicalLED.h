@@ -2,7 +2,6 @@
 #define MEDICAL_LED_H
 
 #include <stdint.h>
-#include <new>
 #include "led.h"
 #include "../../Drivers/UART/inc/uart.h"
 
@@ -11,11 +10,11 @@ typedef enum {
     NEAR_INFRARED = 880,
 } LEDWavelength_Type;
 
-class MedicalLED : public LED {
+class medicalLED : public LED {
 private:
     LEDWavelength_Type wavelength;
 public:
-    MedicalLED(LEDWavelength_Type _wavelength, 
+    medicalLED(LEDWavelength_Type _wavelength, 
                LEDColor_Type _color, 
                LEDState_Type _state);
 
