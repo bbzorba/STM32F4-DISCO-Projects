@@ -3,9 +3,10 @@
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
 #PROJECT_DIR = Drivers/UART
-PROJECT_DIR = Drivers/UART_cpp
+#PROJECT_DIR = Drivers/UART_cpp
 #PROJECT_DIR = Drivers/GPIO
 #PROJECT_DIR = Drivers/GPIO_cpp
+PROJECT_DIR = Drivers/SysTick
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
