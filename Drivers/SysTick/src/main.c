@@ -8,21 +8,19 @@ GPIO_InitTypeDef GPIO_InitStruct;
 
 //main function
 int main(void) {
-    __LIB_RCC_GPIOA_CLK_ENABLE(); // Enable clock for GPIOA
+    __LIB_RCC_GPIOD_CLK_ENABLE(); // Enable clock for GPIOD
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT; // Set as output
-    GPIO_InitStruct.Pin = GPIO_PIN_5; // Pin 5 (PA5)
+    GPIO_InitStruct.Pin = GPIO_PIN_15; // Pin 15 (PD15)
     GPIO_InitStruct.Pull = GPIO_NOPULL; // No pull-up or pull-down
 
-    LIB_GPIO_Init(GPIO_A, &GPIO_InitStruct); // Initialize GPIOA with the settings
+    LIB_GPIO_Init(GPIO_D, &GPIO_InitStruct); // Initialize GPIOD with the settings
 
-    SysTick->LOAD = 16000000 - 1; // Load the SysTick timer for 1ms
-    SysTick->VAL = 0; // Clear the current value
-    SysTick->CTRL = 5; // Enable SysTick with processor clock
+    SysTick_delay(1); // Delay for 1 second
     
     while (1) {
-        if (SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) {
-            LIB_GPIO_TogglePin(GPIO_A, GPIO_PIN_5); // Toggle PA5
-        }
+        SysTick_delay_ms(500); // Delay for 500 ms
+        LIB_GPIO_TogglePin(GPIO_D, GPIO_PIN_15); // Toggle PD15
+        
     }
 }
 

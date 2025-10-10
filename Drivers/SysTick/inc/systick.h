@@ -23,4 +23,7 @@ typedef struct
 
 #define SysTick ((SysTick_Type *)SYSTICK_BASE)   /*!< SysTick configuration struct */
 
+void SysTick_delay(volatile uint32_t sec);
+void SysTick_delay_ms(volatile uint32_t ms);
+
 #endif /* __SYSTICK_H */
