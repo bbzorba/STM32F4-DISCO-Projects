@@ -36,14 +36,14 @@ CFLAGS=-mcpu=$(MCU) -mthumb -Wall -O2 -g -DSTM32F407xx -DUSE_HAL_DRIVER \
 
 # C++ flags largely mirror C; disable RTTI/exceptions to keep size small
 CXXFLAGS=$(CFLAGS) -fno-exceptions -fno-rtti -fno-use-cxa-atexit
-	
+
 # Serial monitor settings (Windows PowerShell)
 PORT ?=
 BAUD ?= 115200
 LDFLAGS=-T$(PROJECT_DIR)/linker.ld --specs=nano.specs --specs=nosys.specs -Wl,--gc-sections
 
 # Optional external driver selection -------------------------------------------------
-# By default (when DRIVERS is empty) we now build ONLY the selected PROJECT sources.
+# By default (when DRIVERS is empty) we build ONLY the selected PROJECT sources.
 # To pull in driver code under Drivers/<Name>, invoke:
 #   make DRIVERS="UART I2C"   (names are directory basenames)
 # We still exclude HAL, CMSIS, compat headers, and the active project if it lives
@@ -72,7 +72,7 @@ SRC_C   := $(wildcard $(PROJECT_DIR)/src/*.c)
 SRC_CPP := $(wildcard $(PROJECT_DIR)/src/*.cpp)
 SRC := $(SRC_C) $(SRC_CPP)
 
-# If the project uses HAL (e.g., VCP), add a minimal set of HAL sources
+# If the project uses HAL, add a minimal set of HAL sources
 HAL_SRC := \
 	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.c \
 	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.c \
@@ -81,9 +81,12 @@ HAL_SRC := \
 	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.c \
 	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.c
 
-# Automatically include HAL sources when project includes vcp.c (USB)
-ifneq (,$(findstring vcp.c,$(notdir $(SRC))))
-SRC += $(HAL_SRC)
+GPIO_SRC := \
+	Drivers/GPIO/src/gpio.c
+
+# Automatically include GPIO library when project includes systick.c
+ifneq (,$(findstring systick.c,$(notdir $(SRC))))
+SRC += $(GPIO_SRC)
 endif
 OBJ=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC_C:.c=.o) $(EXTERNAL_SRC_CPP:.cpp=.o)
 TARGET=$(PROJECT_DIR)/main

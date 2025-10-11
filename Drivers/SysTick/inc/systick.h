@@ -2,6 +2,7 @@
 #define __SYSTICK_H
 
 #include <stdint.h>
+#include "../../GPIO/inc/gpio.h"
 
 #define __IOM volatile /* Defines read/write permissions */
 #define __IM  volatile const /* Defines read only permissions */

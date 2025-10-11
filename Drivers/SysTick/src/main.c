@@ -1,5 +1,4 @@
 #include "systick.h"
-#include "../../GPIO/inc/gpio.h"
 
 // Function prototypes
 void delay(volatile uint32_t count);

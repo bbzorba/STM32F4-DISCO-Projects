@@ -2,8 +2,6 @@
 #define LED_H
 
 #include <stdint.h>
-#include "../../Drivers/UART/inc/uart.h"
-#include "stm32f4xx.h"
 
 #define LED_PORT GPIOD
 #define LED_PORT_CLK (1U << 3) // AHB1ENR GPIODEN

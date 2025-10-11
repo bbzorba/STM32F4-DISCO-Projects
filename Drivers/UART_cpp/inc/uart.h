@@ -1,10 +1,9 @@
 #ifndef __UART_H
 #define __UART_H
 
-#include "stm32f4xx.h"
-#include "stm32f4xx_gpio.h"
 #include <stdint.h>
 #include <stdio.h>
+#include "../../GPIO/inc/gpio.h"
 
 #define __IO volatile
 
@@ -27,12 +26,21 @@
 #define GPIOA_AFR_RX      ((uint32_t)0x00000700)          // AF7 for PA3 (RX)
 #define GPIOA_AFR_VALUE      (GPIOA_AFR_TX | GPIOA_AFR_RX)          // AF7 for USART2
 
-// USART register bit definitions
-#define BRR_CNF1_115200 0x1A1                          // Set baud rate to 115200
-#define BRR_CNF2_9600 0x683                          // Set baud rate to 9600
-#define CR2_CNF1 0x0000                         // 1 stop bit, no-op
-#define CR3_CNF1 0x0000                         // No flow control, no-op
-#define USART_2_CR1_DIS 0x0000                  // Disable USART_2
+// USART BRR register bit definitions
+#define BRR_CNF1_115200 0x1A1                               // Set baud rate to 115200
+#define BRR_CNF2_9600 0x683                                 // Set baud rate to 9600
+
+//USART CR1, CR2 & CR3 register bit definitions
+#define CR2_CNF1 0x0000                                     // 1 stop bit, no-op
+#define CR3_CNF1 0x0000                                     // No flow control, no-op
+#define USART_2_CR1_DIS 0x0000                              // Disable USART_2
+#define USART_CR1_TX_EN 0x0008                              // Enable Transmitter
+#define USART_CR1_RX_EN 0x0004                              // Enable Receiver
+#define USART_CR1_EN 0x2000                                 // Enable USART
+
+//USART SR & DR register bit definitions
+#define USART_SR_RX_NOT_EMP 0x0020                          // USART Status Register - Receiver not Empty
+#define USART_SR_TX_EMP 0x0080                              // USART Status Register - Transmitter not Empty
 
 /* USART2 registers structure */
 typedef struct
