@@ -6,7 +6,7 @@
 #PROJECT_DIR = Drivers/UART_cpp
 #PROJECT_DIR = Drivers/GPIO
 #PROJECT_DIR = Drivers/GPIO_cpp
-PROJECT_DIR = Drivers/SysTick
+PROJECT_DIR = Drivers/SysTick_cpp
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -81,12 +81,18 @@ HAL_SRC := \
 	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.c \
 	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.c
 
-GPIO_SRC := \
-	Drivers/GPIO/src/gpio.c
+GPIO_SRC_C := Drivers/GPIO/src/gpio.c
+GPIO_SRC_CPP := Drivers/GPIO_cpp/src/gpio.cpp
 
-# Automatically include GPIO library when project includes systick.c
-ifneq (,$(findstring systick.c,$(notdir $(SRC))))
-SRC += $(GPIO_SRC)
+# Automatically include GPIO library when project includes systick.c or systick.cpp
+ifneq (,$(filter systick.c,$(notdir $(SRC))))
+# Important: OBJ is derived from SRC_C/SRC_CPP (not SRC), so append appropriately.
+SRC_C += $(GPIO_SRC_C)
+CFLAGS += -IDrivers/GPIO/inc
+endif
+ifneq (,$(filter systick.cpp,$(notdir $(SRC))))
+SRC_CPP += $(GPIO_SRC_CPP)
+CFLAGS += -IDrivers/GPIO_cpp/inc
 endif
 OBJ=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC_C:.c=.o) $(EXTERNAL_SRC_CPP:.cpp=.o)
 TARGET=$(PROJECT_DIR)/main

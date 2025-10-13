@@ -1,8 +1,5 @@
 #include "systick.h"
 
-// Function prototypes
-void delay(volatile uint32_t count);
-
 GPIO_InitTypeDef GPIO_InitStruct;
 
 //main function
@@ -20,11 +17,5 @@ int main(void) {
         SysTick_delay_ms(500); // Delay for 500 ms
         LIB_GPIO_TogglePin(GPIO_D, GPIO_PIN_15); // Toggle PD15
         
-    }
-}
-
-void delay(volatile uint32_t count) {
-    while(count--) {
-        __asm__("nop");
     }
 }
