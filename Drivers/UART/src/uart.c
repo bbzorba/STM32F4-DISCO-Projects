@@ -2,8 +2,8 @@
 
 void USART_2_Init(UART_COMType comtype, UART_BaudRateType baudrate)
 {
-    RCC->RCC_APB1ENR |= RCC_APB1ENR_USART_2EN;                          // Enable clock access to USART2
-    RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                            // Enable clock access to GPIOA
+    RCC->RCC_APB1ENR |= RCC_APB1ENR_USART_2EN;                      // Enable clock access to USART2
+    RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                        // Enable clock access to GPIOA
     USART_2->CR1 |= USART_2_CR1_DIS;                                // Disable USART2
 
     switch (comtype)

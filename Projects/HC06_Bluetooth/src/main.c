@@ -1,21 +1,18 @@
-#include "uart.h"
+#include "stm32f4xx.h"
+#include "hc06.h"
 
 // Function prototypes
 void delay(volatile uint32_t count);
+
 
 //main function
 int main(void) {
     USART_2_Init(TX_ONLY, __9600);
 
-    
     while (1) {
-        USART_2_Write('H');
-        USART_2_Write('e');
-        USART_2_Write('l');
-        USART_2_Write('l');
-        USART_2_Write('o');
-        USART_2_Write('\n');
-        delay(1000000); // ~50ms at 16 MHz
+        static const uint8_t msg[] = "Hello HC-06\r\n"; // ASCII with CRLF
+        HC06_SendData((uint8_t*)msg, sizeof(msg) - 1);   // exclude NUL terminator
+        delay(16000000); // ~1s at 16 MHz
     }
 }
 

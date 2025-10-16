@@ -22,8 +22,8 @@
 #define GPIOA_MODER_PIN2     ((uint32_t)0x00000020)         // set AF (10) for PA2
 #define GPIOA_MODER_PIN3     ((uint32_t)0x00000080)         // set AF (10) for PA3
 #define GPIOA_AFR_TYPE       ((uint32_t)0x0000FF00)         // AFRL for PA2 and PA3
-#define GPIOA_AFR_TX      ((uint32_t)0x00007000)            // AF7 for PA2 (TX)
-#define GPIOA_AFR_RX      ((uint32_t)0x00000700)            // AF7 for PA3 (RX)
+#define GPIOA_AFR_TX      ((uint32_t)0x00000700)            // AF7 for PA2 (TX) bits [11:8]
+#define GPIOA_AFR_RX      ((uint32_t)0x00007000)            // AF7 for PA3 (RX) bits [15:12]
 #define GPIOA_AFR_VALUE      (GPIOA_AFR_TX | GPIOA_AFR_RX)  // AF7 for USART2
 
 // USART BRR register bit definitions
