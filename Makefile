@@ -90,20 +90,30 @@ GPIO_SRC_CPP := Drivers/GPIO_cpp/src/gpio.cpp
 UART_SRC_C := Drivers/UART/src/uart.c
 UART_SRC_CPP := Drivers/UART_cpp/src/uart.cpp
 
-# Automatically include GPIO library when project includes systick.c or systick.cpp
-ifneq (,$(filter systick.c hc06.c pwm.c,$(notdir $(SRC))))
+PWM_SRC_C := Drivers/PWM/src/pwm.c
+PWM_SRC_CPP := Drivers/PWM_cpp/src/pwm.cpp
+
+# Automatically include GPIO library when project includes the following source files
+ifneq (,$(filter systick.c hc06.c pwm.c servo.c,$(notdir $(SRC))))
 # Important: OBJ is derived from SRC_C/SRC_CPP (not SRC), so append appropriately.
 SRC_C += $(GPIO_SRC_C)
 CFLAGS += -IDrivers/GPIO/inc
 SRC_C += $(UART_SRC_C)
 CFLAGS += -IDrivers/UART/inc
+SRC_C += $(PWM_SRC_C)
+CFLAGS += -IDrivers/PWM/inc
+SRC_C += $(SERVO_SRC_C)
+CFLAGS += -IDrivers/SERVO/inc
 endif
 
-ifneq (,$(filter systick.cpp hc06.cpp pwm.cpp,$(notdir $(SRC))))
+# Automatically include GPIO_cpp, UART_cpp, and PWM_cpp libraries when project includes the following source files
+ifneq (,$(filter systick.cpp hc06.cpp pwm.cpp servo.cpp,$(notdir $(SRC))))
 SRC_CPP += $(GPIO_SRC_CPP)
 CFLAGS += -IDrivers/GPIO_cpp/inc
 SRC_CPP += $(UART_SRC_CPP)
 CFLAGS += -IDrivers/UART_cpp/inc
+SRC_CPP += $(PWM_SRC_CPP)
+CFLAGS += -IDrivers/PWM_cpp/inc
 endif
 OBJ=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC_C:.c=.o) $(EXTERNAL_SRC_CPP:.cpp=.o)
 TARGET=$(PROJECT_DIR)/main

@@ -3,11 +3,8 @@
 static uint8_t current_angle = SERVO_DEFAULT_ANGLE;
 static uint8_t is_running = 0;
 
+// TIM9 definitions for STM32F407 (APB2)
 // TIM9 base and RCC enable for STM32F407 (APB2)
-#ifndef APB2PERIPH_ADDR_BASE
-#define APB2PERIPH_ADDR_BASE (0x40000000U + 0x00010000U)
-#endif
-#define TIM9_BASE (APB2PERIPH_ADDR_BASE + 0x00004000U)
 #define TIM_9 ((TIM_TypeDef *)TIM9_BASE)
 #define RCC_APB2ENR_TIM9EN ((uint32_t)(1U << 16))
 
@@ -22,8 +19,8 @@ static inline uint32_t servo_angle_to_ticks(uint8_t angle)
 void Servo_Init(void)
 {
     // Enable GPIOE clock
-    RCC->RCC_AHB1ENR |= GPIOE_EN;
-
+    __LIB_RCC_GPIOE_CLK_ENABLE();
+    
     // Configure PE5 as AF mode (AF3 for TIM9_CH1)
     GPIO_E->MODER &= ~(0x3U << (5U * 2U));
     GPIO_E->MODER |=  (0x2U << (5U * 2U));

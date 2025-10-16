@@ -13,9 +13,21 @@
 #define APB1PERIPH_ADDR_BASE (PERIPH_ADDR_BASE + 0x00000000U)
 #define APB2PERIPH_ADDR_BASE (PERIPH_ADDR_BASE + 0x00010000U)
 #define TIM1_BASE (APB2PERIPH_ADDR_BASE + 0x00000000U)
+#define TIM2_BASE (APB1PERIPH_ADDR_BASE + 0x00000000U)
+#define TIM3_BASE (APB1PERIPH_ADDR_BASE + 0x00000400U)
+#define TIM4_BASE (APB1PERIPH_ADDR_BASE + 0x00000800U)
+#define TIM5_BASE (APB1PERIPH_ADDR_BASE + 0x00000C00U)
+#define TIM9_BASE (APB2PERIPH_ADDR_BASE + 0x00004000U)
 
 // RCC register bit definitions
-#define RCC_APB2ENR_TIM1EN ((uint32_t)1 << 0) // Bit 0
+#define RCC_APB2ENR_TIM1EN ((uint32_t)(1U << 0)) // TIM1 clock enable (APB2)
+#define RCC_APB1ENR_TIM2EN ((uint32_t)(1U << 0)) // TIM2 clock enable (APB1)
+#define RCC_APB1ENR_TIM3EN ((uint32_t)(1U << 1)) // TIM3 clock enable (APB1)
+#define RCC_APB1ENR_TIM4EN ((uint32_t)(1U << 2)) // TIM4 clock enable (APB1)
+#define RCC_APB1ENR_TIM5EN ((uint32_t)(1U << 3)) // TIM5 clock enable (APB1)
+#define RCC_APB2ENR_TIM9EN ((uint32_t)(1U << 16)) // TIM9 clock enable (APB2)
+
+// TIM register bit definitions
 #define TIM_CR1_CEN ((uint16_t)0x0001) // Counter enable
 #define TIM_CCER_CC1E        ((uint16_t)1<<0) // Capture/Compare 1 output enable
 #define TIM_CCER_CC1P        ((uint16_t)1<<1) // Capture/Compare 1 output polarity
@@ -86,10 +98,11 @@ typedef enum {
 
 // Peripheral declarations
 #define TIM_1 ((TIM_TypeDef *)TIM1_BASE)
+#define TIM_9 ((TIM_TypeDef *)TIM9_BASE)
 
-// Function prototypes
-void PWM_Init(void);
-void PWM_SetDutyCycle(int channel, uint32_t duty_cycle);
-uint32_t PWM_GetDutyCycle(int channel);
+// Function prototypes (generic per-timer)
+void PWM_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
+void PWM_SetDutyCycle(TIM_TypeDef *TIMx, int channel, uint32_t duty_cycle);
+uint32_t PWM_GetDutyCycle(TIM_TypeDef *TIMx, int channel);
 
 #endif // __PWM_H
