@@ -41,7 +41,7 @@ Discarded input sections
  .text.Servo_GetAngle
                 0x00000000        0xc Projects/Servo_Motor/src/servo.o
  .text.Servo_Stop
-                0x00000000        0x4 Projects/Servo_Motor/src/servo.o
+                0x00000000       0x1c Projects/Servo_Motor/src/servo.o
  .text          0x00000000        0x0 Projects/Servo_Motor/src/startup.o
  .data          0x00000000        0x0 Projects/Servo_Motor/src/startup.o
  .bss           0x00000000        0x0 Projects/Servo_Motor/src/startup.o
@@ -133,81 +133,83 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .isr_vector    0x08000000       0x40 Projects/Servo_Motor/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040      0x134
+.text           0x08000040      0x1f8
                 0x08000040                . = ALIGN (0x4)
  *(.text*)
  .text.startup.main
-                0x08000040       0x14 Projects/Servo_Motor/src/main.o
+                0x08000040       0x34 Projects/Servo_Motor/src/main.o
                 0x08000040                main
  .text.Servo_Init
-                0x08000054       0x6c Projects/Servo_Motor/src/servo.o
-                0x08000054                Servo_Init
+                0x08000074       0xb8 Projects/Servo_Motor/src/servo.o
+                0x08000074                Servo_Init
  .text.Servo_SetAngle
-                0x080000c0       0x10 Projects/Servo_Motor/src/servo.o
-                0x080000c0                Servo_SetAngle
+                0x0800012c       0x34 Projects/Servo_Motor/src/servo.o
+                0x0800012c                Servo_SetAngle
  .text.Servo_Start
-                0x080000d0        0x4 Projects/Servo_Motor/src/servo.o
-                0x080000d0                Servo_Start
+                0x08000160       0x38 Projects/Servo_Motor/src/servo.o
+                0x08000160                Servo_Start
  .text.Default_Handler
-                0x080000d4        0x4 Projects/Servo_Motor/src/startup.o
-                0x080000d4                Default_Handler
+                0x08000198        0x4 Projects/Servo_Motor/src/startup.o
+                0x08000198                Default_Handler
  .text.Reset_Handler
-                0x080000d8       0x50 Projects/Servo_Motor/src/startup.o
-                0x080000d8                Reset_Handler
- .text          0x08000128        0x4 Projects/Servo_Motor/src/system_stm32f4xx.o
-                0x08000128                SystemInit
- .text.memcpy   0x0800012c       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
-                0x0800012c                memcpy
- .text.memset   0x08000148       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
-                0x08000148                memset
+                0x0800019c       0x50 Projects/Servo_Motor/src/startup.o
+                0x0800019c                Reset_Handler
+ .text          0x080001ec        0x4 Projects/Servo_Motor/src/system_stm32f4xx.o
+                0x080001ec                SystemInit
+ .text.memcpy   0x080001f0       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+                0x080001f0                memcpy
+ .text.memset   0x0800020c       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
+                0x0800020c                memset
  *(.rodata*)
  *(.glue_7)
- .glue_7        0x08000158        0x0 linker stubs
+ .glue_7        0x0800021c        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08000158        0x0 linker stubs
+ .glue_7t       0x0800021c        0x0 linker stubs
  *(.init)
- .init          0x08000158        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08000158                _init
- .init          0x0800015c        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .init          0x0800021c        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x0800021c                _init
+ .init          0x08000220        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.fini)
- .fini          0x08000164        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08000164                _fini
- .fini          0x08000168        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .fini          0x08000228        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000228                _fini
+ .fini          0x0800022c        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
  *(.eh_frame)
- .eh_frame      0x08000170        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
- .eh_frame      0x08000170        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
-                0x08000174                __etext = .
+ .eh_frame      0x08000234        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .eh_frame      0x08000234        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+                0x08000238                __etext = .
 
-.vfp11_veneer   0x08000174        0x0
- .vfp11_veneer  0x08000174        0x0 linker stubs
+.vfp11_veneer   0x08000238        0x0
+ .vfp11_veneer  0x08000238        0x0 linker stubs
 
-.v4_bx          0x08000174        0x0
- .v4_bx         0x08000174        0x0 linker stubs
+.v4_bx          0x08000238        0x0
+ .v4_bx         0x08000238        0x0 linker stubs
 
-.iplt           0x08000174        0x0
- .iplt          0x08000174        0x0 Projects/Servo_Motor/src/main.o
+.iplt           0x08000238        0x0
+ .iplt          0x08000238        0x0 Projects/Servo_Motor/src/main.o
 
-.rel.dyn        0x08000174        0x0
- .rel.iplt      0x08000174        0x0 Projects/Servo_Motor/src/main.o
+.rel.dyn        0x08000238        0x0
+ .rel.iplt      0x08000238        0x0 Projects/Servo_Motor/src/main.o
 
-.data           0x20000000        0x1 load address 0x08000174
+.data           0x20000000        0x1 load address 0x08000238
                 0x20000000                __data_start__ = .
  *(.data*)
  .data.current_angle
                 0x20000000        0x1 Projects/Servo_Motor/src/servo.o
                 0x20000001                __data_end__ = .
 
-.igot.plt       0x20000004        0x0 load address 0x08000178
+.igot.plt       0x20000004        0x0 load address 0x0800023c
  .igot.plt      0x20000004        0x0 Projects/Servo_Motor/src/main.o
 
 .bss            0x20000001        0x3
                 0x20000001                __bss_start__ = .
  *(.bss*)
+ .bss.is_running
+                0x20000001        0x1 Projects/Servo_Motor/src/servo.o
  *(COMMON)
                 0x20000004                . = ALIGN (0x4)
- *fill*         0x20000001        0x3 
+ *fill*         0x20000002        0x2 
                 0x20000004                __bss_end__ = .
                 0x20000004                end = .
                 0x20000004                _end = .
@@ -251,17 +253,21 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Projects/Servo_Motor/src/startup.o
  .comment       0x00000049       0x4a Projects/Servo_Motor/src/system_stm32f4xx.o
 
-.debug_info     0x00000000      0x7d6
- .debug_info    0x00000000      0x113 Projects/Servo_Motor/src/main.o
- .debug_info    0x00000113      0x4af Projects/Servo_Motor/src/servo.o
- .debug_info    0x000005c2      0x196 Projects/Servo_Motor/src/startup.o
- .debug_info    0x00000758       0x7e Projects/Servo_Motor/src/system_stm32f4xx.o
+.debug_info     0x00000000      0x926
+ .debug_info    0x00000000      0x1be Projects/Servo_Motor/src/main.o
+ .debug_info    0x000001be      0x554 Projects/Servo_Motor/src/servo.o
+ .debug_info    0x00000712      0x196 Projects/Servo_Motor/src/startup.o
+ .debug_info    0x000008a8       0x7e Projects/Servo_Motor/src/system_stm32f4xx.o
 
-.debug_abbrev   0x00000000      0x321
- .debug_abbrev  0x00000000       0xc2 Projects/Servo_Motor/src/main.o
- .debug_abbrev  0x000000c2      0x106 Projects/Servo_Motor/src/servo.o
- .debug_abbrev  0x000001c8      0x115 Projects/Servo_Motor/src/startup.o
- .debug_abbrev  0x000002dd       0x44 Projects/Servo_Motor/src/system_stm32f4xx.o
+.debug_abbrev   0x00000000      0x3cd
+ .debug_abbrev  0x00000000      0x138 Projects/Servo_Motor/src/main.o
+ .debug_abbrev  0x00000138      0x13c Projects/Servo_Motor/src/servo.o
+ .debug_abbrev  0x00000274      0x115 Projects/Servo_Motor/src/startup.o
+ .debug_abbrev  0x00000389       0x44 Projects/Servo_Motor/src/system_stm32f4xx.o
+
+.debug_loc      0x00000000       0xd8
+ .debug_loc     0x00000000       0x4a Projects/Servo_Motor/src/main.o
+ .debug_loc     0x0000004a       0x8e Projects/Servo_Motor/src/servo.o
 
 .debug_aranges  0x00000000       0xb0
  .debug_aranges
@@ -273,25 +279,25 @@ LOAD linker stubs
  .debug_aranges
                 0x00000090       0x20 Projects/Servo_Motor/src/system_stm32f4xx.o
 
-.debug_ranges   0x00000000       0x60
+.debug_ranges   0x00000000       0xc0
  .debug_ranges  0x00000000       0x18 Projects/Servo_Motor/src/main.o
- .debug_ranges  0x00000018       0x30 Projects/Servo_Motor/src/servo.o
- .debug_ranges  0x00000048       0x18 Projects/Servo_Motor/src/startup.o
+ .debug_ranges  0x00000018       0x90 Projects/Servo_Motor/src/servo.o
+ .debug_ranges  0x000000a8       0x18 Projects/Servo_Motor/src/startup.o
 
-.debug_line     0x00000000      0x68b
- .debug_line    0x00000000      0x1aa Projects/Servo_Motor/src/main.o
- .debug_line    0x000001aa      0x2a1 Projects/Servo_Motor/src/servo.o
- .debug_line    0x0000044b      0x1e4 Projects/Servo_Motor/src/startup.o
- .debug_line    0x0000062f       0x5c Projects/Servo_Motor/src/system_stm32f4xx.o
+.debug_line     0x00000000      0x793
+ .debug_line    0x00000000      0x1e2 Projects/Servo_Motor/src/main.o
+ .debug_line    0x000001e2      0x371 Projects/Servo_Motor/src/servo.o
+ .debug_line    0x00000553      0x1e4 Projects/Servo_Motor/src/startup.o
+ .debug_line    0x00000737       0x5c Projects/Servo_Motor/src/system_stm32f4xx.o
 
-.debug_str      0x00000000      0x5a4
- .debug_str     0x00000000      0x162 Projects/Servo_Motor/src/main.o
-                                0x19f (size before relaxing)
- .debug_str     0x00000162      0x2bb Projects/Servo_Motor/src/servo.o
-                                0x437 (size before relaxing)
- .debug_str     0x0000041d       0xb9 Projects/Servo_Motor/src/startup.o
+.debug_str      0x00000000      0x5cd
+ .debug_str     0x00000000      0x175 Projects/Servo_Motor/src/main.o
+                                0x1c7 (size before relaxing)
+ .debug_str     0x00000175      0x2d1 Projects/Servo_Motor/src/servo.o
+                                0x460 (size before relaxing)
+ .debug_str     0x00000446       0xb9 Projects/Servo_Motor/src/startup.o
                                 0x214 (size before relaxing)
- .debug_str     0x000004d6       0xce Projects/Servo_Motor/src/system_stm32f4xx.o
+ .debug_str     0x000004ff       0xce Projects/Servo_Motor/src/system_stm32f4xx.o
                                 0x15d (size before relaxing)
 
 .debug_frame    0x00000000      0x14c

@@ -3,29 +3,61 @@
 static uint8_t current_angle = SERVO_DEFAULT_ANGLE;
 static uint8_t is_running = 0;
 
-void Servo_Init(void) {
-    RCC->RCC_APB2ENR |= RCC_APB2ENR_TIM1EN; // Enable TIM1 clock
-    RCC->RCC_AHB1ENR |= (1U << 5); // Enable GPIOE clock
+// TIM9 base and RCC enable for STM32F407 (APB2)
+#ifndef APB2PERIPH_ADDR_BASE
+#define APB2PERIPH_ADDR_BASE (0x40000000U + 0x00010000U)
+#endif
+#define TIM9_BASE (APB2PERIPH_ADDR_BASE + 0x00004000U)
+#define TIM_9 ((TIM_TypeDef *)TIM9_BASE)
+#define RCC_APB2ENR_TIM9EN ((uint32_t)(1U << 16))
 
-    // Configure GPIO pin for PWM output (stub implementation)
-    GPIO_E->MODER &= ~(3U << (GPIO_SERVO_PIN * 2));
-    GPIO_E->MODER |= (2U << (GPIO_SERVO_PIN * 2)); // Alternate function mode
-    
-    // Set alternate function to TIM2 (AF1) for the pin (stub implementation)
-    GPIO_E->AFR[0] &= ~(0xF << (GPIO_SERVO_PIN * 4));
-    GPIO_E->AFR[0] |= (1U << (GPIO_SERVO_PIN * 4));
-    
-    // Initialize TIM1 for PWM (stub implementation)
-    TIM_1->TIM_PSC = 1600 - 1; // Prescaler for 10 kHz (assuming 16 MHz clock)
-    TIM_1->TIM_ARR = 20000 - 1; // Auto-reload for 50 Hz
-    TIM_1->TIM_CCR1 = 1500; // Default pulse width for 90 degrees
-    TIM_1->TIM_CCMR1 |= (6U << 4); // PWM mode 1
-    TIM_1->TIM_CCER |= 1U; // Enable output on channel 1
-    TIM_1->TIM_CR1 |= 1U; // Enable TIM1
-
-    current_angle = SERVO_DEFAULT_ANGLE;
-    is_running = 0;
+// Map 0..180 deg to 1.0ms..2.0ms at 50 Hz
+// Using TIM9 with PSC=1599 => 10 kHz tick (0.1 ms); ARR=200 => 20 ms period
+static inline uint32_t servo_angle_to_ticks(uint8_t angle)
+{
+    // ticks = 10 + angle*(10/180) in 0.1ms units
+    return 10U + ((uint32_t)angle * 10U) / 180U;
 }
+
+void Servo_Init(void)
+{
+    // Enable GPIOE clock
+    RCC->RCC_AHB1ENR |= GPIOE_EN;
+
+    // Configure PE5 as AF mode (AF3 for TIM9_CH1)
+    GPIO_E->MODER &= ~(0x3U << (5U * 2U));
+    GPIO_E->MODER |=  (0x2U << (5U * 2U));
+    // Optional: no pull, medium speed
+    GPIO_E->PUPDR &= ~(0x3U << (5U * 2U));
+    GPIO_E->OSPEEDR |= (0x1U << (5U * 2U));
+    // AFRL for pin 5
+    GPIO_E->AFR[0] &= ~(0xFU << (5U * 4U));
+    GPIO_E->AFR[0] |=  (0x3U << (5U * 4U)); // AF3
+
+    // Enable TIM9 clock
+    RCC->RCC_APB2ENR |= RCC_APB2ENR_TIM9EN;
+
+    // Time base: 50Hz using 10kHz tick: PSC=1599 (16MHz/(1599+1)=10kHz), ARR=200 (20ms)
+    TIM_9->TIM_PSC = 1599U;
+    TIM_9->TIM_ARR = 200U;
+
+    // PWM mode 1 on CH1, preload enable
+    TIM_9->TIM_CCMR1 &= ~(0x7U << 4);
+    TIM_9->TIM_CCMR1 |= TIM_CCMR1_OC1M_PWM1; // 110b at OC1M
+    TIM_9->TIM_CCMR1 |= (1U << 3);           // OC1PE
+
+    // Enable channel and set active high
+    TIM_9->TIM_CCER &= ~TIM_CCER_CC1P;
+    TIM_9->TIM_CCER |= TIM_CCER_CC1E;
+
+    // Enable ARR preload and generate update
+    TIM_9->TIM_CR1 |= (1U << 7); // ARPE
+    TIM_9->TIM_EGR |= TIM_EGR_UG;
+
+    // Set default pulse corresponding to current_angle
+    TIM_9->TIM_CCR1 = servo_angle_to_ticks(current_angle);
+}
+
 
 void Servo_SetAngle(uint8_t angle) {
     if (angle < SERVO_MIN_ANGLE || angle > SERVO_MAX_ANGLE) {
@@ -34,6 +66,9 @@ void Servo_SetAngle(uint8_t angle) {
     }
     current_angle = angle;
     // Update PWM signal to set servo position (stub implementation)
+    if (is_running) {
+        TIM_9->TIM_CCR1 = servo_angle_to_ticks(angle);
+    }
 }
 
 uint8_t Servo_GetAngle(void) {
@@ -43,11 +78,12 @@ uint8_t Servo_GetAngle(void) {
 void Servo_Start(void) {
     is_running = 1;
     // Start PWM signal (stub implementation)
-    PWM_SetDutyCycle(PWM_CHANNEL_1, current_angle);
+    TIM_9->TIM_CCR1 = servo_angle_to_ticks(current_angle);
+    TIM_9->TIM_CR1 |= TIM_CR1_CEN;
 }
 
 void Servo_Stop(void) {
     is_running = 0;
     // Stop PWM signal (stub implementation)
-    PWM_SetDutyCycle(PWM_CHANNEL_1, 0);
+    TIM_9->TIM_CR1 &= ~TIM_CR1_CEN;
 }

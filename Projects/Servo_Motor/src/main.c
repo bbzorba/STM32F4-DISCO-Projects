@@ -11,7 +11,14 @@ int main(void) {
     Servo_Start();
 
     while (1) {
-        // Main loop
+        for (uint8_t angle = SERVO_MIN_ANGLE; angle <= SERVO_MAX_ANGLE; angle += 10) {
+            Servo_SetAngle(angle);
+            delay(1000000); // ~100ms at 16 MHz
+        }
+        for (int8_t angle = SERVO_MAX_ANGLE; angle >= SERVO_MIN_ANGLE; angle -= 10) {
+            Servo_SetAngle(angle);
+            delay(1000000); // ~100ms at 16 MHz
+        }
     }
 }
 

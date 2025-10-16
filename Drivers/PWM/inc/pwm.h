@@ -17,12 +17,15 @@
 // RCC register bit definitions
 #define RCC_APB2ENR_TIM1EN ((uint32_t)1 << 0) // Bit 0
 #define TIM_CR1_CEN ((uint16_t)0x0001) // Counter enable
-#define TIM_CCER_CC1E        ((uint16_t)0x0001) // Capture/Compare 1 output enable
-#define TIM_CCER_CC1P        ((uint16_t)0x0002) // Capture/Compare 1 output polarity
-#define TIM_CCMR1_OC1M_PWM1  ((uint16_t)0x0060) // PWM mode 1 on OC1 (110b)
-#define TIM_CCMR1_OC1PE      ((uint16_t)0x0008) // Output Compare 1 preload enable
-#define TIM_EGR_UG           ((uint16_t)0x0001) // Update generation
-#define TIM_BDTR_MOE         ((uint16_t)0x8000) // Main output enable (advanced timers)
+#define TIM_CCER_CC1E        ((uint16_t)1<<0) // Capture/Compare 1 output enable
+#define TIM_CCER_CC1P        ((uint16_t)1<<1) // Capture/Compare 1 output polarity
+#define TIM_CCMR1_OC1M_PWM1  ((uint16_t)(6<<4)) // PWM mode 1 on OC1 (110b)
+#define TIM_CCMR1_OC1PE      ((uint16_t)(0x0008 << 4)) // Output Compare 1 preload enable
+#define TIM_EGR_UG           ((uint16_t)(1<<0)) // Update generation
+#define TIM_BDTR_MOE         ((uint16_t)(1<<7)) // Main output enable (advanced timers)
+#define TIM_CCMR1_OC2M_PWM1  ((uint16_t)(6<<12)) // PWM mode 1 on OC2 (110b)
+#define TIM_CCMR1_OC2PE      ((uint16_t)(0x0008 << 12)) // Output Compare 2 preload enable
+#define TIM_CR1_ARPE        ((uint16_t)(1<<7)) // Auto-reload preload enable
 
 typedef struct
 { 
