@@ -25,6 +25,11 @@
 #define GPIO_B ((GPIO_TypeDef *)GPIOB_BASE)
 #define GPIO_C ((GPIO_TypeDef *)GPIOC_BASE)
 #define GPIO_D ((GPIO_TypeDef *)GPIOD_BASE)
+#define GPIO_E ((GPIO_TypeDef *)GPIOE_BASE)
+#define GPIO_F ((GPIO_TypeDef *)GPIOF_BASE)
+#define GPIO_G ((GPIO_TypeDef *)GPIOG_BASE)
+#define GPIO_H ((GPIO_TypeDef *)GPIOH_BASE)
+#define GPIO_I ((GPIO_TypeDef *)GPIOI_BASE)
 
 // GPIO mode settings for specific pins
 #define MODER_2_OUT (1 << (12 * 2)) // Set PD12 to output mode (01)
