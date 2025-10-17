@@ -19,10 +19,11 @@
 #define GPIO_SERVO_PUPD (0x00U << (GPIO_SERVO_PIN * 2)) // No pull-up/pull-down
 #define GPIO_SERVO_OTYPE (0x00U << GPIO_SERVO_PIN) // Push-pull
 
-void Servo_SetAngle(uint8_t angle);
+void Servo_SetAngle(uint8_t angle, TIM_TypeDef *TIMx);
 uint8_t Servo_GetAngle(void);
-void Servo_Init(void);
-void Servo_Start(void);
-void Servo_Stop(void);
+void Servo_GPIO_Init(GPIO_TypeDef *GPIOx);
+void Servo_PWM_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
+void Servo_Start(TIM_TypeDef *TIMx);
+void Servo_Stop(TIM_TypeDef *TIMx);
 
 #endif // SERVO_H

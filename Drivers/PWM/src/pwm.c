@@ -1,6 +1,6 @@
 #include "pwm.h"
 
-void PWM_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
+void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
     // Enable clock for selected TIMx
     if (TIMx == (TIM_TypeDef *)TIM1_BASE) {
         rcc->RCC_APB2ENR |= RCC_APB2ENR_TIM1EN;
@@ -15,6 +15,9 @@ void PWM_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
     } else if (TIMx == (TIM_TypeDef *)TIM5_BASE) {
         rcc->RCC_APB1ENR |= RCC_APB1ENR_TIM5EN;
     }
+}
+
+void Configure_PWM(TIM_TypeDef *TIMx) {
 
     // Configure TIMx for PWM mode (stub implementation)
     TIMx->TIM_PSC = 15; // Prescaler
