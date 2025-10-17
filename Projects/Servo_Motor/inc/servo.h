@@ -51,7 +51,7 @@ void Servo_Start(Servo *servoMotor);
 void Servo_Stop(Servo *servoMotor);
 
 // Generic GPIO/PWM helpers (procedural, kept for compatibility)
-void Servo_GPIO_Init(GPIO_TypeDef *GPIOx, RCC_TypeDef *rcc, uint8_t pinNumber, uint8_t afNumber, uint32_t gpioEnableMask);
-void Servo_PWM_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
+void Servo_GPIO_Init(Servo *servoMotor);
+void Servo_PWM_Init(Servo *servoMotor);
 
 #endif // SERVO_H
