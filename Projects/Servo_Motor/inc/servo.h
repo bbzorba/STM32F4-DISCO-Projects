@@ -21,7 +21,8 @@
 
 void Servo_SetAngle(uint8_t angle, TIM_TypeDef *TIMx);
 uint8_t Servo_GetAngle(void);
-void Servo_GPIO_Init(GPIO_TypeDef *GPIOx);
+// Generic GPIO init for any PWM-capable pin: pass port, RCC pointer, pin number [0..15], AF number [0..15], and AHB1 enable mask (e.g., GPIOE_EN)
+void Servo_GPIO_Init(GPIO_TypeDef *GPIOx, RCC_TypeDef *rcc, uint8_t pinNumber, uint8_t afNumber, uint32_t gpioEnableMask);
 void Servo_PWM_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
 void Servo_Start(TIM_TypeDef *TIMx);
 void Servo_Stop(TIM_TypeDef *TIMx);

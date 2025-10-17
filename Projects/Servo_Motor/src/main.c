@@ -6,7 +6,7 @@ void delay(volatile uint32_t count);
 //main function
 int main(void) {
     // Initialize servo on TIM9 channel 1 (PE5 AF3)
-    Servo_GPIO_Init(GPIO_E);
+    Servo_GPIO_Init(GPIO_E, RCC, 5, 3, GPIOE_EN);
     Servo_PWM_Init(TIM_9, RCC);
     Servo_SetAngle(90, TIM_9);
     Servo_Start(TIM_9);

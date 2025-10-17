@@ -5,7 +5,7 @@ void delay(volatile uint32_t count);
 
 //main function
 int main(void) {
-    Servo_GPIO_Init(GPIO_E);
+    Servo_GPIO_Init(GPIO_E, RCC, 5, 3, GPIOE_EN);
     Servo_PWM_Init(TIM_9, RCC);
     Servo_Start(TIM_9);
     USART_2_Init(RX_AND_TX, __9600);
