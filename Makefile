@@ -1,7 +1,7 @@
 # Minimal Makefile for STM32F4 Discovery (STM32F407VG)
 
-#PROJECT_DIR = Drivers/PWM
-PROJECT_DIR = Projects/Servo_Motor
+PROJECT_DIR = Drivers/PWM
+#PROJECT_DIR = Projects/Servo_Motor
 #PROJECT_DIR = Projects/HC06_Bluetooth
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
@@ -95,24 +95,22 @@ PWM_SRC_CPP := Drivers/PWM_cpp/src/pwm.cpp
 
 # Automatically include GPIO library when project includes the following source files
 ifneq (,$(filter systick.c hc06.c pwm.c servo.c,$(notdir $(SRC))))
-# Important: OBJ is derived from SRC_C/SRC_CPP (not SRC), so append appropriately.
-SRC_C += $(GPIO_SRC_C)
+# Important: OBJ is derived from SRC_C/SRC_CPP (not SRC). Only add if not already present.
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc
-SRC_C += $(UART_SRC_C)
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/UART/inc
-SRC_C += $(PWM_SRC_C)
+SRC_C += $(filter-out $(SRC_C),$(PWM_SRC_C))
 CFLAGS += -IDrivers/PWM/inc
-SRC_C += $(SERVO_SRC_C)
-CFLAGS += -IDrivers/SERVO/inc
 endif
 
 # Automatically include GPIO_cpp, UART_cpp, and PWM_cpp libraries when project includes the following source files
 ifneq (,$(filter systick.cpp hc06.cpp pwm.cpp servo.cpp,$(notdir $(SRC))))
-SRC_CPP += $(GPIO_SRC_CPP)
+SRC_CPP += $(filter-out $(SRC_CPP),$(GPIO_SRC_CPP))
 CFLAGS += -IDrivers/GPIO_cpp/inc
-SRC_CPP += $(UART_SRC_CPP)
+SRC_CPP += $(filter-out $(SRC_CPP),$(UART_SRC_CPP))
 CFLAGS += -IDrivers/UART_cpp/inc
-SRC_CPP += $(PWM_SRC_CPP)
+SRC_CPP += $(filter-out $(SRC_CPP),$(PWM_SRC_CPP))
 CFLAGS += -IDrivers/PWM_cpp/inc
 endif
 OBJ=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC_C:.c=.o) $(EXTERNAL_SRC_CPP:.cpp=.o)

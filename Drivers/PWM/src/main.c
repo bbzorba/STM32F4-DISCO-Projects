@@ -5,13 +5,14 @@ void delay_fn(volatile int count) {
     for (volatile int i = 0; i < count; i++);
 }
 
-
 int main(void) {
-    PWM_Init(TIM_1, RCC);
+    Timer_Init(TIM_9, RCC);
+    Configure_PWM(TIM_9, 15U, 1000U);
+
     while(1) {
-        PWM_SetDutyCycle(TIM_1, PWM_CHANNEL_1, 500); // 50% of ARR=1000
+        PWM_SetDutyCycle(TIM_9, PWM_CHANNEL_1, 500); // 50% of ARR=1000
         delay_fn(1000000);
-        PWM_SetDutyCycle(TIM_1, PWM_CHANNEL_1, 250); // 25% of ARR=1000
+        PWM_SetDutyCycle(TIM_9, PWM_CHANNEL_1, 250); // 25% of ARR=1000
         delay_fn(1000000);
     }
 }

@@ -17,11 +17,10 @@ void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
     }
 }
 
-void Configure_PWM(TIM_TypeDef *TIMx) {
-
-    // Configure TIMx for PWM mode (stub implementation)
-    TIMx->TIM_PSC = 15; // Prescaler
-    TIMx->TIM_ARR = 1000; // Auto-reload value for 1 kHz frequency
+void Configure_PWM(TIM_TypeDef *TIMx, uint32_t psc, uint32_t arr) {
+    // Time base configuration
+    TIMx->TIM_PSC = psc;
+    TIMx->TIM_ARR = arr;
     TIMx->TIM_CCMR1 |= TIM_CCMR1_OC1M_PWM1; // PWM mode 1 (OC1M=110)
     TIMx->TIM_CCMR1 |= TIM_CCMR1_OC1PE; // Enable preload for CCR1
     TIMx->TIM_CCER &= ~TIM_CCER_CC1P;   // Active high polarity

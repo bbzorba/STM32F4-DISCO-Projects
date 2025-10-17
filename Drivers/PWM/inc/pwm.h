@@ -100,8 +100,10 @@ typedef enum {
 #define TIM_1 ((TIM_TypeDef *)TIM1_BASE)
 #define TIM_9 ((TIM_TypeDef *)TIM9_BASE)
 
-// Function prototypes (generic per-timer)
-void PWM_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
+// Generic timer/PWM configuration APIs
+void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
+void Configure_PWM(TIM_TypeDef *TIMx, uint32_t psc, uint32_t arr);
+
 void PWM_SetDutyCycle(TIM_TypeDef *TIMx, int channel, uint32_t duty_cycle);
 uint32_t PWM_GetDutyCycle(TIM_TypeDef *TIMx, int channel);
 

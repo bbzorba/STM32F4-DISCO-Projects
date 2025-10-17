@@ -28,26 +28,9 @@ void Servo_GPIO_Init(GPIO_TypeDef *GPIOx)
 }
 
 void Servo_PWM_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
-    // Enable TIM9 clock
+    // Enable timer clock and configure PWM for 50Hz (PSC=1599, ARR=200)
     Timer_Init(TIMx, rcc);
-
-    // Time base: 50Hz using 10kHz tick: PSC=1599 (16MHz/(1599+1)=10kHz), ARR=200 (20ms)
-    TIMx->TIM_PSC = 1599U;
-    TIMx->TIM_ARR = 200U;
-
-    // PWM mode 1 on CH1, preload enable
-    TIMx->TIM_CCMR1 &= ~(0x7U << 4);
-    TIMx->TIM_CCMR1 |= TIM_CCMR1_OC1M_PWM1; // 110b at OC1M
-    TIMx->TIM_CCMR1 |= (1U << 3);           // OC1PE
-
-    // Enable channel and set active high
-    TIMx->TIM_CCER &= ~TIM_CCER_CC1P;
-    TIMx->TIM_CCER |= TIM_CCER_CC1E;
-
-    // Enable ARR preload and generate update
-    TIMx->TIM_CR1 |= (1U << 7); // ARPE
-    TIMx->TIM_EGR |= TIM_EGR_UG;
-
+    Configure_PWM(TIMx, 1599U, 200U);
     // Set default pulse corresponding to current_angle
     TIMx->TIM_CCR1 = servo_angle_to_ticks(current_angle);
 }
