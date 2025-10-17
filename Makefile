@@ -1,6 +1,6 @@
 # Minimal Makefile for STM32F4 Discovery (STM32F407VG)
 
-PROJECT_DIR = Drivers/PWM
+#PROJECT_DIR = Drivers/PWM
 #PROJECT_DIR = Projects/Servo_Motor
 #PROJECT_DIR = Projects/HC06_Bluetooth
 #PROJECT_DIR = Projects/LED_Blink
@@ -10,6 +10,7 @@ PROJECT_DIR = Drivers/PWM
 #PROJECT_DIR = Drivers/GPIO
 #PROJECT_DIR = Drivers/GPIO_cpp
 #PROJECT_DIR = Drivers/SysTick_cpp
+PROJECT_DIR = Projects/HC06_Servo_Controller
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -198,3 +199,14 @@ clean:
 	-$(RM) $(TARGET).map 2>nul || exit 0
 
 # End of Makefile
+
+# Project-specific wiring for HC06_Servo_Controller
+ifeq ($(PROJECT_DIR),Projects/HC06_Servo_Controller)
+# Include required drivers and servo/hc06 helpers
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(PWM_SRC_C))
+SRC_C += $(filter-out $(SRC_C),Projects/Servo_Motor/src/servo.c)
+SRC_C += $(filter-out $(SRC_C),Projects/HC06_Bluetooth/src/hc06.c)
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/UART/inc -IDrivers/PWM/inc -IProjects/Servo_Motor/inc -IProjects/HC06_Bluetooth/inc
+endif
