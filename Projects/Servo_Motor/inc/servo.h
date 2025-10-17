@@ -4,27 +4,54 @@
 #include "../../../Drivers/GPIO/inc/gpio.h"
 #include "../../../Drivers/PWM/inc/pwm.h"
 
-// Servo configuration
-#define SERVO_MIN_ANGLE 0
-#define SERVO_MAX_ANGLE 180
-#define SERVO_DEFAULT_ANGLE 90
+typedef enum {
+    SERVO_180_TYPE = 0,
+    SERVO_360_TYPE
+} servo_Type;
 
-// GPIO configuration for servo control
-#define GPIO_SERVO_PIN GPIO_PIN_5 // Example pin, change as needed
-#define GPIO_SERVO_PORT GPIO_E     // Example port, change as needed
-#define GPIO_SERVO_CLK RCC_AHB1ENR_GPIOEEN
-#define GPIO_SERVO_MODE_BIT (0x01U << (GPIO_SERVO_PIN * 2)) // Set as output
-#define GPIO_SERVO_AF 0 // Not used in this example
-#define GPIO_SERVO_SPEED (0x03U << (GPIO_SERVO_PIN * 2)) // High speed
-#define GPIO_SERVO_PUPD (0x00U << (GPIO_SERVO_PIN * 2)) // No pull-up/pull-down
-#define GPIO_SERVO_OTYPE (0x00U << GPIO_SERVO_PIN) // Push-pull
+typedef enum {
+    SERVO_OK = 0,
+    SERVO_ERROR_INVALID_ANGLE,
+    SERVO_ERROR_NOT_INITIALIZED
+} Servo_StatusType;
 
-void Servo_SetAngle(uint8_t angle, TIM_TypeDef *TIMx);
-uint8_t Servo_GetAngle(void);
-// Generic GPIO init for any PWM-capable pin: pass port, RCC pointer, pin number [0..15], AF number [0..15], and AHB1 enable mask (e.g., GPIOE_EN)
+typedef enum {
+    SERVO_MIN_ANGLE = 0,
+    SERVO_DEFAULT_ANGLE = 90,
+    SERVO_MAX_ANGLE = 180
+} servoAngle_Type;
+
+// Object-oriented C: Servo instance state
+typedef struct {
+    servo_Type type;                  // 180 or 360 type
+    servoAngle_Type angle;            // current angle (0..180)
+    uint8_t is_running;               // 0/1 running flag
+    TIM_TypeDef *TIMx;                // bound timer
+    GPIO_TypeDef *GPIOx;              // bound GPIO port
+    RCC_TypeDef *rcc;                 // RCC pointer
+    uint8_t pinNumber;                // GPIO pin index 0..15
+    uint8_t afNumber;                 // AF 0..15
+    uint32_t gpioEnableMask;          // AHB1 enable mask e.g., GPIOE_EN
+} Servo;
+
+void servo_constructor(Servo *servoMotor,
+                       servo_Type type,
+                       servoAngle_Type initial_angle,
+                       TIM_TypeDef *TIMx,
+                       GPIO_TypeDef *GPIOx,
+                       RCC_TypeDef *rcc,
+                       uint8_t pinNumber,
+                       uint8_t afNumber,
+                       uint32_t gpioEnableMask);
+
+// Object-oriented methods
+Servo_StatusType Servo_SetAngle(Servo *servoMotor, servoAngle_Type angle);
+servoAngle_Type Servo_GetAngle(Servo *servoMotor);
+void Servo_Start(Servo *servoMotor);
+void Servo_Stop(Servo *servoMotor);
+
+// Generic GPIO/PWM helpers (procedural, kept for compatibility)
 void Servo_GPIO_Init(GPIO_TypeDef *GPIOx, RCC_TypeDef *rcc, uint8_t pinNumber, uint8_t afNumber, uint32_t gpioEnableMask);
 void Servo_PWM_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
-void Servo_Start(TIM_TypeDef *TIMx);
-void Servo_Stop(TIM_TypeDef *TIMx);
 
 #endif // SERVO_H

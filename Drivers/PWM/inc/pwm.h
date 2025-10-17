@@ -61,13 +61,7 @@ typedef struct
     __IO uint32_t TIM_BDTR;  // Break and dead-time register
     __IO uint32_t TIM_DCR;   // DMA control register
     __IO uint32_t TIM_DMAR;  // DMA address for full transfer
-}TIM_TypeDef;
-
-typedef enum {
-    CLOCK_DIVIDER_1 = 0,
-    CLOCK_DIVIDER_2,
-    CLOCK_DIVIDER_4
-} Clock_Divider_TypeDef;
+} TIM_TypeDef;
 
 typedef enum {
     PWM_CHANNEL_1 = 1,
@@ -77,34 +71,29 @@ typedef enum {
 } PWM_Channel_TypeDef;
 
 typedef enum {
-    PWM_OK = 0,
-    PWM_ERROR
-} PWM_Status_TypeDef;
+     QUARTER_DC = 250,
+     HALF_DC = 500,
+     THREE_QUARTERS_DC = 750,
+     FULL_DC = 1000
+} dutyCycle_TypeDef;
 
+// Prescaler presets; extend with commonly used values to keep enum type usable
 typedef enum {
-    PWM_MODE_1 = 0,
-    PWM_MODE_2
-} PWM_Mode_TypeDef;
+    PWM_PRESCALER_3U    = 3U,
+    PWM_PRESCALER_7U    = 7U,
+    PWM_PRESCALER_15U   = 15U,
+    PWM_PRESCALER_1599U = 1599U  // 16MHz/(1599+1)=10kHz, used for 50Hz servo (ARR=200)
+} PWM_Prescaler_TypeDef;
 
-typedef enum {
-    PWM_POLARITY_HIGH = 0,
-    PWM_POLARITY_LOW
-} PWM_Polarity_TypeDef;
-
-typedef enum {
-    PWM_STATE_DISABLE = 0,
-    PWM_STATE_ENABLE
-} PWM_State_TypeDef;
 
 // Peripheral declarations
 #define TIM_1 ((TIM_TypeDef *)TIM1_BASE)
 #define TIM_9 ((TIM_TypeDef *)TIM9_BASE)
 
-// Generic timer/PWM configuration APIs
+// Function prototypes
 void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
-void Configure_PWM(TIM_TypeDef *TIMx, uint32_t psc, uint32_t arr);
-
-void PWM_SetDutyCycle(TIM_TypeDef *TIMx, int channel, uint32_t duty_cycle);
-uint32_t PWM_GetDutyCycle(TIM_TypeDef *TIMx, int channel);
+void Configure_PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr);
+void PWM_SetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel, dutyCycle_TypeDef duty_cycle);
+uint32_t PWM_GetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel);
 
 #endif // __PWM_H

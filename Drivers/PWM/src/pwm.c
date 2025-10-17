@@ -17,9 +17,9 @@ void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
     }
 }
 
-void Configure_PWM(TIM_TypeDef *TIMx, uint32_t psc, uint32_t arr) {
+void Configure_PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr) {
     // Time base configuration
-    TIMx->TIM_PSC = psc;
+    TIMx->TIM_PSC = (uint32_t)psc;
     TIMx->TIM_ARR = arr;
     TIMx->TIM_CCMR1 |= TIM_CCMR1_OC1M_PWM1; // PWM mode 1 (OC1M=110)
     TIMx->TIM_CCMR1 |= TIM_CCMR1_OC1PE; // Enable preload for CCR1
@@ -34,7 +34,7 @@ void Configure_PWM(TIM_TypeDef *TIMx, uint32_t psc, uint32_t arr) {
     TIMx->TIM_CR1 |= TIM_CR1_CEN; // Enable the timer
 }
 
-void PWM_SetDutyCycle(TIM_TypeDef *TIMx, int channel, uint32_t duty_cycle) {
+void PWM_SetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel, dutyCycle_TypeDef duty_cycle) {
     // Set PWM duty cycle for specified channel (stub implementation)
     switch(channel) {
     case PWM_CHANNEL_1: 
@@ -54,7 +54,7 @@ void PWM_SetDutyCycle(TIM_TypeDef *TIMx, int channel, uint32_t duty_cycle) {
     }
 }
 
-uint32_t PWM_GetDutyCycle(TIM_TypeDef *TIMx, int channel) {
+uint32_t PWM_GetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel) {
     // Get current PWM duty cycle for specified channel (stub implementation)
     switch(channel) {
     case PWM_CHANNEL_1:

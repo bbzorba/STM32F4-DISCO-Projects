@@ -3,6 +3,35 @@
 static uint8_t current_angle = SERVO_DEFAULT_ANGLE;
 static uint8_t is_running = 0;
 
+void servo_constructor(Servo *servoMotor,
+                       servo_Type type,
+                       servoAngle_Type initial_angle,
+                       TIM_TypeDef *TIMx,
+                       GPIO_TypeDef *GPIOx,
+                       RCC_TypeDef *rcc,
+                       uint8_t pinNumber,
+                       uint8_t afNumber,
+                       uint32_t gpioEnableMask)
+{
+    if (!servoMotor) return;
+    servoMotor->type = type;
+    servoMotor->angle = initial_angle;
+    servoMotor->is_running = 0;
+    servoMotor->TIMx = TIMx;
+    servoMotor->GPIOx = GPIOx;
+    servoMotor->rcc = rcc;
+    servoMotor->pinNumber = pinNumber;
+    servoMotor->afNumber = afNumber;
+    servoMotor->gpioEnableMask = gpioEnableMask;
+
+    // Configure hardware
+    Servo_GPIO_Init(GPIOx, rcc, pinNumber, afNumber, gpioEnableMask);
+    Servo_PWM_Init(TIMx, rcc);
+    // Program initial angle into CCR
+    current_angle = initial_angle;
+    servoMotor->TIMx->TIM_CCR1 = 10U + ((uint32_t)initial_angle * 10U) / 180U;
+}
+
 // Map 0..180 deg to 1.0ms..2.0ms at 50 Hz
 // Using TIM9 with PSC=1599 => 10 kHz tick (0.1 ms); ARR=200 => 20 ms period
 static inline uint32_t servo_angle_to_ticks(uint8_t angle)
@@ -11,6 +40,7 @@ static inline uint32_t servo_angle_to_ticks(uint8_t angle)
     return 10U + ((uint32_t)angle * 10U) / 180U;
 }
 
+// Generic GPIO init for any PWM-capable pin: pass port, RCC pointer, pin number [0..15], AF number [0..15], and AHB1 enable mask (e.g., GPIOE_EN)
 void Servo_GPIO_Init(GPIO_TypeDef *GPIOx, RCC_TypeDef *rcc, uint8_t pinNumber, uint8_t afNumber, uint32_t gpioEnableMask)
 {
     // Enable GPIO port clock (AHB1)
@@ -42,37 +72,36 @@ void Servo_GPIO_Init(GPIO_TypeDef *GPIOx, RCC_TypeDef *rcc, uint8_t pinNumber, u
 void Servo_PWM_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
     // Enable timer clock and configure PWM for 50Hz (PSC=1599, ARR=200)
     Timer_Init(TIMx, rcc);
-    Configure_PWM(TIMx, 1599U, 200U);
+    Configure_PWM(TIMx, PWM_PRESCALER_1599U, 200U);
     // Set default pulse corresponding to current_angle
     TIMx->TIM_CCR1 = servo_angle_to_ticks(current_angle);
 }
 
-
-void Servo_SetAngle(uint8_t angle, TIM_TypeDef *TIMx) {
-    if (angle < SERVO_MIN_ANGLE || angle > SERVO_MAX_ANGLE) {
-        // Invalid angle, do nothing or handle error
-        return;
-    }
+Servo_StatusType Servo_SetAngle(Servo *servoMotor, servoAngle_Type angle) {
+    if (!servoMotor) return SERVO_ERROR_NOT_INITIALIZED;
+    if (angle < SERVO_MIN_ANGLE || angle > SERVO_MAX_ANGLE) return SERVO_ERROR_INVALID_ANGLE;
+    servoMotor->angle = angle;
     current_angle = angle;
-    // Update PWM signal to set servo position (stub implementation)
-    if (is_running) {
-        TIMx->TIM_CCR1 = servo_angle_to_ticks(angle);
+    if (servoMotor->is_running) {
+        servoMotor->TIMx->TIM_CCR1 = 10U + ((uint32_t)angle * 10U) / 180U;
     }
+    return SERVO_OK;
 }
 
-uint8_t Servo_GetAngle(void) {
-    return current_angle;
+servoAngle_Type Servo_GetAngle(Servo *servoMotor) {
+    if (!servoMotor) return current_angle;
+    return servoMotor->angle;
 }
 
-void Servo_Start(TIM_TypeDef *TIMx) {
-    is_running = 1;
-    // Start PWM signal (stub implementation)
-    TIMx->TIM_CCR1 = servo_angle_to_ticks(current_angle);
-    TIMx->TIM_CR1 |= TIM_CR1_CEN;
+void Servo_Start(Servo *servoMotor) {
+    if (!servoMotor) return;
+    servoMotor->is_running = 1;
+    servoMotor->TIMx->TIM_CCR1 = 10U + ((uint32_t)servoMotor->angle * 10U) / 180U;
+    servoMotor->TIMx->TIM_CR1 |= TIM_CR1_CEN;
 }
 
-void Servo_Stop(TIM_TypeDef *TIMx) {
-    is_running = 0;
-    // Stop PWM signal (stub implementation)
-    TIMx->TIM_CR1 &= ~TIM_CR1_CEN;
+void Servo_Stop(Servo *servoMotor) {
+    if (!servoMotor) return;
+    servoMotor->is_running = 0;
+    servoMotor->TIMx->TIM_CR1 &= ~TIM_CR1_CEN;
 }
