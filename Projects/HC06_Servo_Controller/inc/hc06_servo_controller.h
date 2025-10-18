@@ -6,6 +6,6 @@
 #include "../../Projects/HC06_Bluetooth/inc/hc06.h"
 #include <stdint.h>
 
-void move_servo_to_direction(uint8_t command);
+void move_servo_to_direction(Servo *servoMotor, uint8_t command);
 
 #endif // HC06_SERVO_CONTROLLER_H

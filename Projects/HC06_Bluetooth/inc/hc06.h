@@ -4,6 +4,7 @@
 #include "../../Drivers/UART/inc/uart.h"
 #include "../../Drivers/GPIO/inc/gpio.h"
 #include <stdint.h>
+#include <stddef.h>
 
 typedef struct
 {
@@ -16,7 +17,8 @@ void HC06_Init(HC06 *hc06,
                UART_BaudRateType baud_rate);
 
 // Function prototypes
-void HC06_SendData(HC06 *hc06, uint16_t *data, uint16_t length);
-void HC06_ReceiveData(HC06 *hc06, uint16_t *buffer, uint16_t length);
+// Send/receive raw bytes with explicit length
+void HC06_SendData(HC06 *hc06, const uint8_t *data, size_t len);
+void HC06_ReceiveData(HC06 *hc06, uint8_t *buffer, size_t len);
 
 #endif // HC06_H

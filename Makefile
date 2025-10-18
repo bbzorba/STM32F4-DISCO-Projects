@@ -9,8 +9,8 @@
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
 #PROJECT_DIR = Projects/Servo_Motor
-PROJECT_DIR = Projects/HC06_Bluetooth
-#PROJECT_DIR = Projects/HC06_Servo_Controller
+#PROJECT_DIR = Projects/HC06_Bluetooth
+PROJECT_DIR = Projects/HC06_Servo_Controller
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -56,9 +56,9 @@ ifeq ($(strip $(DRIVERS)),)
 FILTERED_DRIVER_DIRS :=
 else
 DRIVER_DIRS_REQUESTED := $(addprefix Drivers/,$(DRIVERS))
-# Filter out directories that do not exist to avoid warnings
-DRIVER_DIRS_EXISTING := $(wildcard $(DRIVER_DIRS_REQUESTED))
-FILTERED_DRIVER_DIRS := $(filter-out Drivers/STM32F4xx_HAL_Driver Drivers/CMSIS Drivers/compat_inc $(PROJECT_DIR),$(DRIVER_DIRS_EXISTING))
+# Filter out directories that do not exist to avoid warnings and dedupe
+DRIVER_DIRS_EXISTING := $(sort $(wildcard $(DRIVER_DIRS_REQUESTED)))
+FILTERED_DRIVER_DIRS := $(sort $(filter-out Drivers/STM32F4xx_HAL_Driver Drivers/CMSIS Drivers/compat_inc $(PROJECT_DIR),$(DRIVER_DIRS_EXISTING)))
 endif
 
 DRIVER_INCLUDES := $(foreach d,$(FILTERED_DRIVER_DIRS),-I$(d)/inc)
@@ -66,8 +66,8 @@ EXTERNAL_SRC_C_RAW   := $(foreach d,$(FILTERED_DRIVER_DIRS),$(wildcard $(d)/src/
 EXTERNAL_SRC_CPP_RAW := $(foreach d,$(FILTERED_DRIVER_DIRS),$(wildcard $(d)/src/*.cpp))
 EXTERNAL_EXCLUDE_C   := %/main.c %/startup.c %/system_stm32f4xx.c %/system_%.c
 EXTERNAL_EXCLUDE_CPP := %/main.cpp %/startup.cpp %/system_%.cpp
-EXTERNAL_SRC_C   := $(filter-out $(EXTERNAL_EXCLUDE_C),$(EXTERNAL_SRC_C_RAW))
-EXTERNAL_SRC_CPP := $(filter-out $(EXTERNAL_EXCLUDE_CPP),$(EXTERNAL_SRC_CPP_RAW))
+EXTERNAL_SRC_C   := $(sort $(filter-out $(EXTERNAL_EXCLUDE_C),$(EXTERNAL_SRC_C_RAW)))
+EXTERNAL_SRC_CPP := $(sort $(filter-out $(EXTERNAL_EXCLUDE_CPP),$(EXTERNAL_SRC_CPP_RAW)))
 
 CFLAGS += $(DRIVER_INCLUDES)
 
@@ -114,7 +114,8 @@ CFLAGS += -IDrivers/UART_cpp/inc
 SRC_CPP += $(filter-out $(SRC_CPP),$(PWM_SRC_CPP))
 CFLAGS += -IDrivers/PWM_cpp/inc
 endif
-OBJ=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC_C:.c=.o) $(EXTERNAL_SRC_CPP:.cpp=.o)
+OBJ_UNSORTED=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC_C:.c=.o) $(EXTERNAL_SRC_CPP:.cpp=.o)
+OBJ=$(sort $(OBJ_UNSORTED))
 TARGET=$(PROJECT_DIR)/main
 
 # Use C++ linker if there are any C++ sources (project or external driver), else C linker
