@@ -53,7 +53,6 @@ void USART_2_Init(UART_COMType comtype, UART_BaudRateType baudrate)
         break;
     }
     USART_2->CR1 |= USART_CR1_EN;                                   // UE=1
-
 }
 
 void USART_2_Write(int ch)
@@ -78,14 +77,14 @@ int fgetc(FILE *f) {
     int c;
     c = USART_2_Read();                                             //read a character from USART_2
     if (c == '\r') {                                                // if received character is carriage return
-        USART_2_Write(c);                                       // send carriage return
+        USART_2_Write(c);                                           // send carriage return
         c = '\n';                                                   // change carriage return to newline
     }
-    USART_2_Write(c);                                           // send the character
+    USART_2_Write(c);                                               // send the character
     return c;
 }
 
 int fputc(int c, FILE *f) {
-    USART_2_Write(c);                                           // write a character to USART_2
+    USART_2_Write(c);                                               // write a character to USART_2
     return c;
 }

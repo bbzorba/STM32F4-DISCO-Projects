@@ -8,8 +8,8 @@
 #PROJECT_DIR = Drivers/SysTick_cpp
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
-PROJECT_DIR = Projects/Servo_Motor
-#PROJECT_DIR = Projects/HC06_Bluetooth
+#PROJECT_DIR = Projects/Servo_Motor
+PROJECT_DIR = Projects/HC06_Bluetooth
 #PROJECT_DIR = Projects/HC06_Servo_Controller
 
 CXX=arm-none-eabi-g++
