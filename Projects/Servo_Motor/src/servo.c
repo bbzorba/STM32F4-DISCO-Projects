@@ -1,32 +1,5 @@
 #include "servo.h"
 
-// Map 0..180 deg to 1.0ms..2.0ms at 50 Hz
-// Using TIM9 with PSC=1599 => 10 kHz tick (0.1 ms); ARR=200 => 20 ms period
-static inline uint32_t servo_angle_to_ticks(Servo *servoMotor, uint8_t angle)
-{
-    // 50 Hz period: ARR=200 at 10 kHz -> 1 tick = 0.1 ms
-    // 180°: 0..180 -> 1.0..2.0 ms (10..20 ticks)
-    // 360°: interpret "angle" as speed/direction around center (90 = stop)
-    if (servoMotor->type == SERVO_360_TYPE) {
-        int32_t delta = (int32_t)angle - 90; // -90..+90
-        // optional deadband to reduce jitter around stop
-        const int32_t deadband = 2; // ~0.11 ms window
-        if (delta > -deadband && delta < deadband) {
-            return 15U; // 1.5 ms stop
-        }
-        // scale -90..+90 to -5..+5 ticks around center 15
-        // +/-5 ticks -> 1.0..2.0 ms
-        int32_t offset = (delta * 5) / 90; // integer arithmetic
-        int32_t ticks = 15 + offset;
-        if (ticks < 10) ticks = 10;
-        if (ticks > 20) ticks = 20;
-        return (uint32_t)ticks;
-    } else {
-        // 180° positional servo
-        return 10U + ((uint32_t)angle * 10U) / 180U;
-    }
-}
-
 void servo_constructor(Servo *servoMotor,
                        servo_Type type,
                        servoAngle_Type initial_angle,
@@ -120,4 +93,29 @@ void Servo_Stop(Servo *servoMotor) {
     if (!servoMotor) return;
     servoMotor->is_running = 0;
     servoMotor->TIMx->TIM_CR1 &= ~TIM_CR1_CEN;
+}
+
+uint32_t servo_angle_to_ticks(Servo *servoMotor, servoAngle_Type angle)
+{
+    // 50 Hz period: ARR=200 at 10 kHz -> 1 tick = 0.1 ms
+    // 180°: 0..180 -> 1.0..2.0 ms (10..20 ticks)
+    // 360°: interpret "angle" as speed/direction around center (90 = stop)
+    if (servoMotor->type == SERVO_360_TYPE) {
+        int32_t delta = (int32_t)angle - 90; // -90..+90
+        // optional deadband to reduce jitter around stop
+        const int32_t deadband = 2; // ~0.11 ms window
+        if (delta > -deadband && delta < deadband) {
+            return 15U; // 1.5 ms stop
+        }
+        // scale -90..+90 to -5..+5 ticks around center 15
+        // +/-5 ticks -> 1.0..2.0 ms
+        int32_t offset = (delta * 5) / 90; // integer arithmetic
+        int32_t ticks = 15 + offset;
+        if (ticks < 10) ticks = 10;
+        if (ticks > 20) ticks = 20;
+        return (uint32_t)ticks;
+    } else {
+        // 180° positional servo
+        return 10U + ((uint32_t)angle * 10U) / 180U;
+    }
 }

@@ -49,6 +49,7 @@ Servo_StatusType Servo_SetAngle(Servo *servoMotor, servoAngle_Type angle);
 servoAngle_Type Servo_GetAngle(Servo *servoMotor);
 void Servo_Start(Servo *servoMotor);
 void Servo_Stop(Servo *servoMotor);
+uint32_t servo_angle_to_ticks(Servo *servoMotor, servoAngle_Type angle);
 
 // Generic GPIO/PWM helpers (procedural, kept for compatibility)
 void Servo_GPIO_Init(Servo *servoMotor);

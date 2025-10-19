@@ -31,22 +31,6 @@ Discarded input sections
  .ARM.exidx     0x00000000       0x10 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
  .ARM.attributes
                 0x00000000       0x1c e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
- .text          0x00000000        0x0 Projects/Servo_Motor/src/main.o
- .data          0x00000000        0x0 Projects/Servo_Motor/src/main.o
- .bss           0x00000000        0x0 Projects/Servo_Motor/src/main.o
- .text.delay    0x00000000       0x1c Projects/Servo_Motor/src/main.o
- .text          0x00000000        0x0 Projects/Servo_Motor/src/servo.o
- .data          0x00000000        0x0 Projects/Servo_Motor/src/servo.o
- .bss           0x00000000        0x0 Projects/Servo_Motor/src/servo.o
- .text.Servo_GetAngle
-                0x00000000        0xc Projects/Servo_Motor/src/servo.o
- .text.Servo_Stop
-                0x00000000       0x14 Projects/Servo_Motor/src/servo.o
- .text          0x00000000        0x0 Projects/Servo_Motor/src/startup.o
- .data          0x00000000        0x0 Projects/Servo_Motor/src/startup.o
- .bss           0x00000000        0x0 Projects/Servo_Motor/src/startup.o
- .data          0x00000000        0x0 Projects/Servo_Motor/src/system_stm32f4xx.o
- .bss           0x00000000        0x0 Projects/Servo_Motor/src/system_stm32f4xx.o
  .text          0x00000000        0x0 Drivers/GPIO/src/gpio.o
  .data          0x00000000        0x0 Drivers/GPIO/src/gpio.o
  .bss           0x00000000        0x0 Drivers/GPIO/src/gpio.o
@@ -86,6 +70,13 @@ Discarded input sections
  .debug_frame   0x00000000       0xe8 Drivers/GPIO/src/gpio.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/GPIO/src/gpio.o
+ .text          0x00000000        0x0 Drivers/PWM/src/pwm.o
+ .data          0x00000000        0x0 Drivers/PWM/src/pwm.o
+ .bss           0x00000000        0x0 Drivers/PWM/src/pwm.o
+ .text.PWM_SetDutyCycle
+                0x00000000       0x20 Drivers/PWM/src/pwm.o
+ .text.PWM_GetDutyCycle
+                0x00000000       0x24 Drivers/PWM/src/pwm.o
  .text          0x00000000        0x0 Drivers/UART/src/uart.o
  .data          0x00000000        0x0 Drivers/UART/src/uart.o
  .bss           0x00000000        0x0 Drivers/UART/src/uart.o
@@ -109,13 +100,24 @@ Discarded input sections
  .debug_frame   0x00000000       0x6c Drivers/UART/src/uart.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/UART/src/uart.o
- .text          0x00000000        0x0 Drivers/PWM/src/pwm.o
- .data          0x00000000        0x0 Drivers/PWM/src/pwm.o
- .bss           0x00000000        0x0 Drivers/PWM/src/pwm.o
- .text.PWM_SetDutyCycle
-                0x00000000       0x20 Drivers/PWM/src/pwm.o
- .text.PWM_GetDutyCycle
-                0x00000000       0x24 Drivers/PWM/src/pwm.o
+ .text          0x00000000        0x0 Projects/Servo_Motor/src/main.o
+ .data          0x00000000        0x0 Projects/Servo_Motor/src/main.o
+ .bss           0x00000000        0x0 Projects/Servo_Motor/src/main.o
+ .text.delay    0x00000000       0x1c Projects/Servo_Motor/src/main.o
+ .text          0x00000000        0x0 Projects/Servo_Motor/src/servo.o
+ .data          0x00000000        0x0 Projects/Servo_Motor/src/servo.o
+ .bss           0x00000000        0x0 Projects/Servo_Motor/src/servo.o
+ .text.Servo_GetAngle
+                0x00000000        0xc Projects/Servo_Motor/src/servo.o
+ .text.Servo_Stop
+                0x00000000       0x14 Projects/Servo_Motor/src/servo.o
+ .text.servo_angle_to_ticks
+                0x00000000       0x44 Projects/Servo_Motor/src/servo.o
+ .text          0x00000000        0x0 Projects/Servo_Motor/src/startup.o
+ .data          0x00000000        0x0 Projects/Servo_Motor/src/startup.o
+ .bss           0x00000000        0x0 Projects/Servo_Motor/src/startup.o
+ .data          0x00000000        0x0 Projects/Servo_Motor/src/system_stm32f4xx.o
+ .bss           0x00000000        0x0 Projects/Servo_Motor/src/system_stm32f4xx.o
  .text          0x00000000        0x0 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
  .data          0x00000000        0x0 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
  .bss           0x00000000        0x0 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
@@ -175,13 +177,13 @@ Linker script and memory map
 LOAD e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
 LOAD e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
 LOAD e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+LOAD Drivers/GPIO/src/gpio.o
+LOAD Drivers/PWM/src/pwm.o
+LOAD Drivers/UART/src/uart.o
 LOAD Projects/Servo_Motor/src/main.o
 LOAD Projects/Servo_Motor/src/servo.o
 LOAD Projects/Servo_Motor/src/startup.o
 LOAD Projects/Servo_Motor/src/system_stm32f4xx.o
-LOAD Drivers/GPIO/src/gpio.o
-LOAD Drivers/UART/src/uart.o
-LOAD Drivers/PWM/src/pwm.o
 START GROUP
 LOAD e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp\libgcc.a
 LOAD e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a
@@ -208,38 +210,38 @@ LOAD e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
 .text           0x08000040      0x41c
                 0x08000040                . = ALIGN (0x4)
  *(.text*)
- .text.startup.main
-                0x08000040       0x64 Projects/Servo_Motor/src/main.o
-                0x08000040                main
- .text.Servo_GPIO_Init
-                0x080000a4       0x9c Projects/Servo_Motor/src/servo.o
-                0x080000a4                Servo_GPIO_Init
- .text.Servo_PWM_Init
-                0x08000140       0x68 Projects/Servo_Motor/src/servo.o
-                0x08000140                Servo_PWM_Init
- .text.servo_constructor
-                0x080001a8       0x80 Projects/Servo_Motor/src/servo.o
-                0x080001a8                servo_constructor
- .text.Servo_SetAngle
-                0x08000228       0x5c Projects/Servo_Motor/src/servo.o
-                0x08000228                Servo_SetAngle
- .text.Servo_Start
-                0x08000284       0x64 Projects/Servo_Motor/src/servo.o
-                0x08000284                Servo_Start
- .text.Default_Handler
-                0x080002e8        0x4 Projects/Servo_Motor/src/startup.o
-                0x080002e8                Default_Handler
- .text.Reset_Handler
-                0x080002ec       0x50 Projects/Servo_Motor/src/startup.o
-                0x080002ec                Reset_Handler
- .text          0x0800033c        0x4 Projects/Servo_Motor/src/system_stm32f4xx.o
-                0x0800033c                SystemInit
  .text.Timer_Init
-                0x08000340       0x78 Drivers/PWM/src/pwm.o
-                0x08000340                Timer_Init
+                0x08000040       0x78 Drivers/PWM/src/pwm.o
+                0x08000040                Timer_Init
  .text.Configure_PWM
-                0x080003b8       0x5c Drivers/PWM/src/pwm.o
-                0x080003b8                Configure_PWM
+                0x080000b8       0x5c Drivers/PWM/src/pwm.o
+                0x080000b8                Configure_PWM
+ .text.startup.main
+                0x08000114       0x64 Projects/Servo_Motor/src/main.o
+                0x08000114                main
+ .text.Servo_GPIO_Init
+                0x08000178       0x9c Projects/Servo_Motor/src/servo.o
+                0x08000178                Servo_GPIO_Init
+ .text.Servo_PWM_Init
+                0x08000214       0x68 Projects/Servo_Motor/src/servo.o
+                0x08000214                Servo_PWM_Init
+ .text.servo_constructor
+                0x0800027c       0x80 Projects/Servo_Motor/src/servo.o
+                0x0800027c                servo_constructor
+ .text.Servo_SetAngle
+                0x080002fc       0x5c Projects/Servo_Motor/src/servo.o
+                0x080002fc                Servo_SetAngle
+ .text.Servo_Start
+                0x08000358       0x64 Projects/Servo_Motor/src/servo.o
+                0x08000358                Servo_Start
+ .text.Default_Handler
+                0x080003bc        0x4 Projects/Servo_Motor/src/startup.o
+                0x080003bc                Default_Handler
+ .text.Reset_Handler
+                0x080003c0       0x50 Projects/Servo_Motor/src/startup.o
+                0x080003c0                Reset_Handler
+ .text          0x08000410        0x4 Projects/Servo_Motor/src/system_stm32f4xx.o
+                0x08000410                SystemInit
  .text.memcpy   0x08000414       0x1c e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
                 0x08000414                memcpy
  .text.memset   0x08000430       0x10 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
@@ -308,15 +310,15 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000001e       0x2e e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
  .ARM.attributes
-                0x0000004c       0x2e Projects/Servo_Motor/src/main.o
+                0x0000004c       0x2e Drivers/PWM/src/pwm.o
  .ARM.attributes
-                0x0000007a       0x2e Projects/Servo_Motor/src/servo.o
+                0x0000007a       0x2e Projects/Servo_Motor/src/main.o
  .ARM.attributes
-                0x000000a8       0x2e Projects/Servo_Motor/src/startup.o
+                0x000000a8       0x2e Projects/Servo_Motor/src/servo.o
  .ARM.attributes
-                0x000000d6       0x2e Projects/Servo_Motor/src/system_stm32f4xx.o
+                0x000000d6       0x2e Projects/Servo_Motor/src/startup.o
  .ARM.attributes
-                0x00000104       0x2e Drivers/PWM/src/pwm.o
+                0x00000104       0x2e Projects/Servo_Motor/src/system_stm32f4xx.o
  .ARM.attributes
                 0x00000132       0x2e e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
  .ARM.attributes
@@ -327,74 +329,74 @@ LOAD linker stubs
                 0x000001bc       0x1e e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
 
 .comment        0x00000000       0x49
- .comment       0x00000000       0x49 Projects/Servo_Motor/src/main.o
+ .comment       0x00000000       0x49 Drivers/PWM/src/pwm.o
                                  0x4a (size before relaxing)
+ .comment       0x00000049       0x4a Projects/Servo_Motor/src/main.o
  .comment       0x00000049       0x4a Projects/Servo_Motor/src/servo.o
  .comment       0x00000049       0x4a Projects/Servo_Motor/src/startup.o
  .comment       0x00000049       0x4a Projects/Servo_Motor/src/system_stm32f4xx.o
- .comment       0x00000049       0x4a Drivers/PWM/src/pwm.o
 
-.debug_info     0x00000000     0x18ab
- .debug_info    0x00000000      0x695 Projects/Servo_Motor/src/main.o
- .debug_info    0x00000695      0xad5 Projects/Servo_Motor/src/servo.o
- .debug_info    0x0000116a      0x196 Projects/Servo_Motor/src/startup.o
- .debug_info    0x00001300       0x7e Projects/Servo_Motor/src/system_stm32f4xx.o
- .debug_info    0x0000137e      0x52d Drivers/PWM/src/pwm.o
+.debug_info     0x00000000     0x194f
+ .debug_info    0x00000000      0x52d Drivers/PWM/src/pwm.o
+ .debug_info    0x0000052d      0x695 Projects/Servo_Motor/src/main.o
+ .debug_info    0x00000bc2      0xb79 Projects/Servo_Motor/src/servo.o
+ .debug_info    0x0000173b      0x196 Projects/Servo_Motor/src/startup.o
+ .debug_info    0x000018d1       0x7e Projects/Servo_Motor/src/system_stm32f4xx.o
 
-.debug_abbrev   0x00000000      0x65c
- .debug_abbrev  0x00000000      0x1a6 Projects/Servo_Motor/src/main.o
- .debug_abbrev  0x000001a6      0x228 Projects/Servo_Motor/src/servo.o
- .debug_abbrev  0x000003ce      0x115 Projects/Servo_Motor/src/startup.o
- .debug_abbrev  0x000004e3       0x44 Projects/Servo_Motor/src/system_stm32f4xx.o
- .debug_abbrev  0x00000527      0x135 Drivers/PWM/src/pwm.o
+.debug_abbrev   0x00000000      0x669
+ .debug_abbrev  0x00000000      0x135 Drivers/PWM/src/pwm.o
+ .debug_abbrev  0x00000135      0x1a6 Projects/Servo_Motor/src/main.o
+ .debug_abbrev  0x000002db      0x235 Projects/Servo_Motor/src/servo.o
+ .debug_abbrev  0x00000510      0x115 Projects/Servo_Motor/src/startup.o
+ .debug_abbrev  0x00000625       0x44 Projects/Servo_Motor/src/system_stm32f4xx.o
 
-.debug_loc      0x00000000      0xbf1
- .debug_loc     0x00000000       0x4a Projects/Servo_Motor/src/main.o
- .debug_loc     0x0000004a      0xa91 Projects/Servo_Motor/src/servo.o
- .debug_loc     0x00000adb      0x116 Drivers/PWM/src/pwm.o
+.debug_loc      0x00000000      0xe7f
+ .debug_loc     0x00000000      0x116 Drivers/PWM/src/pwm.o
+ .debug_loc     0x00000116       0x4a Projects/Servo_Motor/src/main.o
+ .debug_loc     0x00000160      0xd1f Projects/Servo_Motor/src/servo.o
 
-.debug_aranges  0x00000000       0xf8
+.debug_aranges  0x00000000      0x100
  .debug_aranges
-                0x00000000       0x28 Projects/Servo_Motor/src/main.o
+                0x00000000       0x38 Drivers/PWM/src/pwm.o
  .debug_aranges
-                0x00000028       0x50 Projects/Servo_Motor/src/servo.o
+                0x00000038       0x28 Projects/Servo_Motor/src/main.o
  .debug_aranges
-                0x00000078       0x28 Projects/Servo_Motor/src/startup.o
+                0x00000060       0x58 Projects/Servo_Motor/src/servo.o
  .debug_aranges
-                0x000000a0       0x20 Projects/Servo_Motor/src/system_stm32f4xx.o
+                0x000000b8       0x28 Projects/Servo_Motor/src/startup.o
  .debug_aranges
-                0x000000c0       0x38 Drivers/PWM/src/pwm.o
+                0x000000e0       0x20 Projects/Servo_Motor/src/system_stm32f4xx.o
 
-.debug_ranges   0x00000000      0x1a0
- .debug_ranges  0x00000000       0x18 Projects/Servo_Motor/src/main.o
- .debug_ranges  0x00000018      0x148 Projects/Servo_Motor/src/servo.o
- .debug_ranges  0x00000160       0x18 Projects/Servo_Motor/src/startup.o
- .debug_ranges  0x00000178       0x28 Drivers/PWM/src/pwm.o
+.debug_ranges   0x00000000      0x1c0
+ .debug_ranges  0x00000000       0x28 Drivers/PWM/src/pwm.o
+ .debug_ranges  0x00000028       0x18 Projects/Servo_Motor/src/main.o
+ .debug_ranges  0x00000040      0x168 Projects/Servo_Motor/src/servo.o
+ .debug_ranges  0x000001a8       0x18 Projects/Servo_Motor/src/startup.o
 
-.debug_line     0x00000000      0xcf3
- .debug_line    0x00000000      0x261 Projects/Servo_Motor/src/main.o
- .debug_line    0x00000261      0x583 Projects/Servo_Motor/src/servo.o
- .debug_line    0x000007e4      0x1e4 Projects/Servo_Motor/src/startup.o
- .debug_line    0x000009c8       0x5c Projects/Servo_Motor/src/system_stm32f4xx.o
- .debug_line    0x00000a24      0x2cf Drivers/PWM/src/pwm.o
+.debug_line     0x00000000      0xd3f
+ .debug_line    0x00000000      0x2cf Drivers/PWM/src/pwm.o
+ .debug_line    0x000002cf      0x261 Projects/Servo_Motor/src/main.o
+ .debug_line    0x00000530      0x5cf Projects/Servo_Motor/src/servo.o
+ .debug_line    0x00000aff      0x1e4 Projects/Servo_Motor/src/startup.o
+ .debug_line    0x00000ce3       0x5c Projects/Servo_Motor/src/system_stm32f4xx.o
 
-.debug_str      0x00000000      0x86f
- .debug_str     0x00000000      0x493 Projects/Servo_Motor/src/main.o
-                                0x4e5 (size before relaxing)
- .debug_str     0x00000493      0x169 Projects/Servo_Motor/src/servo.o
-                                0x61a (size before relaxing)
- .debug_str     0x000005fc       0xb9 Projects/Servo_Motor/src/startup.o
-                                0x214 (size before relaxing)
- .debug_str     0x000006b5       0xce Projects/Servo_Motor/src/system_stm32f4xx.o
-                                0x15d (size before relaxing)
- .debug_str     0x00000783       0xec Drivers/PWM/src/pwm.o
+.debug_str      0x00000000      0x893
+ .debug_str     0x00000000      0x493 Drivers/PWM/src/pwm.o
                                 0x4d9 (size before relaxing)
+ .debug_str     0x00000493      0x158 Projects/Servo_Motor/src/main.o
+                                0x4e5 (size before relaxing)
+ .debug_str     0x000005eb      0x121 Projects/Servo_Motor/src/servo.o
+                                0x614 (size before relaxing)
+ .debug_str     0x0000070c       0xb9 Projects/Servo_Motor/src/startup.o
+                                0x214 (size before relaxing)
+ .debug_str     0x000007c5       0xce Projects/Servo_Motor/src/system_stm32f4xx.o
+                                0x15d (size before relaxing)
 
-.debug_frame    0x00000000      0x1dc
- .debug_frame   0x00000000       0x44 Projects/Servo_Motor/src/main.o
- .debug_frame   0x00000044       0xa8 Projects/Servo_Motor/src/servo.o
- .debug_frame   0x000000ec       0x38 Projects/Servo_Motor/src/startup.o
- .debug_frame   0x00000124       0x20 Projects/Servo_Motor/src/system_stm32f4xx.o
- .debug_frame   0x00000144       0x50 Drivers/PWM/src/pwm.o
- .debug_frame   0x00000194       0x28 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x000001bc       0x20 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
+.debug_frame    0x00000000      0x1ec
+ .debug_frame   0x00000000       0x50 Drivers/PWM/src/pwm.o
+ .debug_frame   0x00000050       0x44 Projects/Servo_Motor/src/main.o
+ .debug_frame   0x00000094       0xb8 Projects/Servo_Motor/src/servo.o
+ .debug_frame   0x0000014c       0x38 Projects/Servo_Motor/src/startup.o
+ .debug_frame   0x00000184       0x20 Projects/Servo_Motor/src/system_stm32f4xx.o
+ .debug_frame   0x000001a4       0x28 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x000001cc       0x20 e:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)

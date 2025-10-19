@@ -5,12 +5,14 @@
 #PROJECT_DIR = Drivers/GPIO
 #PROJECT_DIR = Drivers/GPIO_cpp
 #PROJECT_DIR = Drivers/PWM
+PROJECT_DIR = Drivers/PWM_cpp
 #PROJECT_DIR = Drivers/SysTick_cpp
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
 #PROJECT_DIR = Projects/Servo_Motor
 #PROJECT_DIR = Projects/HC06_Bluetooth
-PROJECT_DIR = Projects/HC06_Servo_Controller
+#PROJECT_DIR = Projects/HC06_Servo_Controller
+#PROJECT_DIR = Projects/Servo_Motor_cpp
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -111,8 +113,8 @@ SRC_CPP += $(filter-out $(SRC_CPP),$(GPIO_SRC_CPP))
 CFLAGS += -IDrivers/GPIO_cpp/inc
 SRC_CPP += $(filter-out $(SRC_CPP),$(UART_SRC_CPP))
 CFLAGS += -IDrivers/UART_cpp/inc
-SRC_CPP += $(filter-out $(SRC_CPP),$(PWM_SRC_CPP))
-CFLAGS += -IDrivers/PWM_cpp/inc
+#SRC_CPP += $(filter-out $(SRC_CPP),$(PWM_SRC_CPP))
+#CFLAGS += -IDrivers/PWM_cpp/inc
 endif
 OBJ_UNSORTED=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC_C:.c=.o) $(EXTERNAL_SRC_CPP:.cpp=.o)
 OBJ=$(sort $(OBJ_UNSORTED))

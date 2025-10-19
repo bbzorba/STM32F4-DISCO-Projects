@@ -294,17 +294,17 @@ LOAD linker stubs
  .debug_ranges  0x00000000       0x68 Drivers/GPIO/src/gpio.o
  .debug_ranges  0x00000068       0xc8 Drivers/GPIO/src/main.o
 
-.debug_line     0x00000000      0x88e
- .debug_line    0x00000000      0x422 Drivers/GPIO/src/gpio.o
- .debug_line    0x00000422      0x2f9 Drivers/GPIO/src/main.o
- .debug_line    0x0000071b      0x173 Drivers/GPIO/src/startup.o
+.debug_line     0x00000000      0x838
+ .debug_line    0x00000000      0x3cc Drivers/GPIO/src/gpio.o
+ .debug_line    0x000003cc      0x2f9 Drivers/GPIO/src/main.o
+ .debug_line    0x000006c5      0x173 Drivers/GPIO/src/startup.o
 
-.debug_str      0x00000000      0x578
+.debug_str      0x00000000      0x5a2
  .debug_str     0x00000000      0x477 Drivers/GPIO/src/gpio.o
                                 0x4d9 (size before relaxing)
- .debug_str     0x00000477       0x59 Drivers/GPIO/src/main.o
+ .debug_str     0x00000477       0x83 Drivers/GPIO/src/main.o
                                 0x23a (size before relaxing)
- .debug_str     0x000004d0       0xa8 Drivers/GPIO/src/startup.o
+ .debug_str     0x000004fa       0xa8 Drivers/GPIO/src/startup.o
                                 0x16f (size before relaxing)
 
 .debug_frame    0x00000000      0x194
