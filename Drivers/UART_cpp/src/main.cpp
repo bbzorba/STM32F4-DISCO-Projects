@@ -6,7 +6,7 @@ void delay(volatile uint32_t count);
 //main function
 int main(void) {
 
-    UARTCom uart(TX_ONLY, __115200);
+    UART uart(TX_ONLY, __115200);
 
     printf("UART Communication Type: %d\n", uart.getComType());
     printf("UART Baud Rate: %d\n", uart.getBaudRate());

@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include "../../GPIO/inc/gpio.h"
+#include "../../GPIO_cpp/inc/gpio.h"
 
 #define __IO volatile
 
@@ -66,13 +66,13 @@ typedef enum {
     __9600,
 } UART_BaudRateType;
 
-class UARTCom
+class UART
 {
 private:
     UART_COMType comType;
     UART_BaudRateType baudRate;
 public:
-    UARTCom(UART_COMType _comType, UART_BaudRateType _baudRate);
+    UART(UART_COMType _comType, UART_BaudRateType _baudRate);
     void USART_2_Write(int ch);
     char USART_2_Read(void);
     UART_COMType getComType() const;

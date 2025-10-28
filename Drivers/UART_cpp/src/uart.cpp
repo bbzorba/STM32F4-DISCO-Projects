@@ -1,6 +1,6 @@
 #include "uart.h"
 
-UARTCom::UARTCom(UART_COMType _comType, UART_BaudRateType _baudRate)
+UART::UART(UART_COMType _comType, UART_BaudRateType _baudRate)
 {   
     this->comType = _comType;
     this->baudRate = _baudRate;
@@ -60,7 +60,7 @@ UARTCom::UARTCom(UART_COMType _comType, UART_BaudRateType _baudRate)
 
 }
 
-void UARTCom::USART_2_Write(int ch)
+void UART::USART_2_Write(int ch)
 {
     //1. wait until Transmitter Empty flag is set in the SR register
     while(!(USART_2->SR & USART_SR_TX_EMP));
@@ -69,7 +69,7 @@ void UARTCom::USART_2_Write(int ch)
     USART_2->DR = (ch & 0xFF);
 }
 
-char UARTCom::USART_2_Read(void)
+char UART::USART_2_Read(void)
 {
     //1. wait until Receiver not Empty flag is set in the SR register
     while(!(USART_2->SR & USART_SR_RX_NOT_EMP));
@@ -78,10 +78,10 @@ char UARTCom::USART_2_Read(void)
     return (USART_2->DR & 0xFF);
 }
 
-UART_COMType UARTCom::getComType() const {
+UART_COMType UART::getComType() const {
     return this->comType;
 }
 
-UART_BaudRateType UARTCom::getBaudRate() const {
+UART_BaudRateType UART::getBaudRate() const {
     return this->baudRate;
 }
