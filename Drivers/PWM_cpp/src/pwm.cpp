@@ -1,13 +1,13 @@
 #include "pwm.h"
 
-pwm::PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr)
+PWM::PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr)
     : tim_instance(TIMx)
 {
     Timer_Init(TIMx, RCC);
     Configure_PWM(TIMx, psc, arr);
 }
 
-void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
+void PWM::Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
     // Enable clock for selected TIMx
     if (TIMx == (TIM_TypeDef *)TIM1_BASE) {
         rcc->RCC_APB2ENR |= RCC_APB2ENR_TIM1EN;
@@ -24,7 +24,7 @@ void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
     }
 }
 
-void Configure_PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr) {
+void PWM::Configure_PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr) {
     // Time base configuration
     TIMx->TIM_PSC = (uint32_t)psc;
     TIMx->TIM_ARR = arr;
@@ -41,7 +41,7 @@ void Configure_PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr) {
     TIMx->TIM_CR1 |= TIM_CR1_CEN; // Enable the timer
 }
 
-void PWM_SetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel, dutyCycle_TypeDef duty_cycle) {
+void PWM::SetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel, dutyCycle_TypeDef duty_cycle) {
     // Set PWM duty cycle for specified channel (stub implementation)
     switch(channel) {
     case PWM_CHANNEL_1: 
@@ -61,7 +61,7 @@ void PWM_SetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel, dutyCycle_
     }
 }
 
-uint32_t PWM_GetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel) {
+uint32_t PWM::GetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel) {
     // Get current PWM duty cycle for specified channel (stub implementation)
     switch(channel) {
     case PWM_CHANNEL_1:

@@ -89,22 +89,19 @@ typedef enum {
     PWM_PRESCALER_1599U = 1599U  // 16MHz/(1599+1)=10kHz, used for 50Hz servo (ARR=200)
 } PWM_Prescaler_TypeDef;
 
-class pwm
+class PWM
 {
 private:
-    TIM_TypeDef *TIMx;
-    PWM_Channel_TypeDef channel;
-    dutyCycle_TypeDef duty_cycle;
+    TIM_TypeDef *tim_instance;
 public:
-    pwm(TIM_TypeDef *TIMx, 
-        PWM_Channel_TypeDef channel, 
-        dutyCycle_TypeDef duty_cycle);
-    
-    // Function prototypes
+    // Constructor consistent with current implementation/usage
+    PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr);
+
+    // Member functions consistent with implementation
     void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
     void Configure_PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr);
-    void setDutyCycle(PWM_Channel_TypeDef channel, dutyCycle_TypeDef duty_cycle);
-    dutyCycle_TypeDef getDutyCycle(PWM_Channel_TypeDef channel) const;
+    void SetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel, dutyCycle_TypeDef duty_cycle);
+    uint32_t GetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel);
 };
 
 #endif // __PWM_H

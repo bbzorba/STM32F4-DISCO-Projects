@@ -8,26 +8,26 @@ Servo::Servo(servo_Type type,
              uint8_t pinNumber,
              uint8_t afNumber,
              uint32_t gpioEnableMask)
+    : type(type),
+      angle(initial_angle),
+      is_running(0),
+      TIMx(TIMx),
+      GPIOx(GPIOx),
+      rcc(rcc),
+      pinNumber(pinNumber),
+      afNumber(afNumber),
+    gpioEnableMask(gpioEnableMask),
+    pwm(TIMx, PWM_PRESCALER_1599U, 200U) // construct PWM instance
 {
-    this->type = type;
-    this->angle = initial_angle;
-    this->is_running = 0;
-    this->TIMx = TIMx;
-    this->GPIOx = GPIOx;
-    this->rcc = rcc;
-    this->pinNumber = pinNumber;
-    this->afNumber = afNumber;
-    this->gpioEnableMask = gpioEnableMask;
-
     // Configure hardware
-    Servo::Servo_GPIO_Init();
-    Servo::Servo_PWM_Init();
+    GPIO_Init();
+    PWM_Init();
     // Program initial angle into CCR
-    this->TIMx->TIM_CCR1 = servo_angle_to_ticks(initial_angle);
+    this->TIMx->TIM_CCR1 = angle_to_ticks(initial_angle);
 }
 
 // Generic GPIO init for any PWM-capable pin: pass port, RCC pointer, pin number [0..15], AF number [0..15], and AHB1 enable mask (e.g., GPIOE_EN)
-void Servo::Servo_GPIO_Init()
+void Servo::GPIO_Init()
 {
 
     // Enable GPIO port clock (AHB1)
@@ -56,39 +56,39 @@ void Servo::Servo_GPIO_Init()
     }
 }
 
-void Servo::Servo_PWM_Init() {
+void Servo::PWM_Init() {
     // Enable timer clock and configure PWM for 50Hz (PSC=1599, ARR=200)
-    Timer_Init(this->TIMx, this->rcc);
-    Configure_PWM(this->TIMx, PWM_PRESCALER_1599U, 200U);
+    pwm.Timer_Init(this->TIMx, this->rcc);
+    pwm.Configure_PWM(this->TIMx, PWM_PRESCALER_1599U, 200U);
     // Set default pulse corresponding to current_angle
-    this->TIMx->TIM_CCR1 = servo_angle_to_ticks(this->angle);
+    this->TIMx->TIM_CCR1 = angle_to_ticks(this->angle);
 }
 
-Servo_StatusType Servo::Servo_SetAngle(servoAngle_Type angle) {
+Servo_StatusType Servo::SetAngle(servoAngle_Type angle) {
     if (angle < SERVO_MIN_ANGLE || angle > SERVO_MAX_ANGLE) return SERVO_ERROR_INVALID_ANGLE;
     this->angle = angle;
     if (this->is_running) {
-    this->TIMx->TIM_CCR1 = servo_angle_to_ticks(angle);
+    this->TIMx->TIM_CCR1 = angle_to_ticks(angle);
     }
     return SERVO_OK;
 }
 
-servoAngle_Type Servo::Servo_GetAngle() {
+servoAngle_Type Servo::GetAngle() {
     return this->angle;
 }
 
-void Servo::Servo_Start() {
+void Servo::Start() {
     this->is_running = 1;
-    this->TIMx->TIM_CCR1 = servo_angle_to_ticks(this->angle);
+    this->TIMx->TIM_CCR1 = angle_to_ticks(this->angle);
     this->TIMx->TIM_CR1 |= TIM_CR1_CEN;
 }
 
-void Servo::Servo_Stop() {
+void Servo::Stop() {
     this->is_running = 0;
     this->TIMx->TIM_CR1 &= ~TIM_CR1_CEN;
 }
 
-uint32_t Servo::servo_angle_to_ticks(servoAngle_Type angle)
+uint32_t Servo::angle_to_ticks(servoAngle_Type angle)
 {
     // 50 Hz period: ARR=200 at 10 kHz -> 1 tick = 0.1 ms
     // 180°: 0..180 -> 1.0..2.0 ms (10..20 ticks)

@@ -2,7 +2,7 @@
 #define SERVO_H
 
 #include "../../../Drivers/GPIO_cpp/inc/gpio.h"
-#include "../../../Drivers/PWM/inc/pwm.h"
+#include "../../../Drivers/PWM_cpp/inc/pwm.h"
 
 typedef enum {
     SERVO_180_TYPE = 0,
@@ -33,6 +33,7 @@ private:
     uint8_t pinNumber;                // GPIO pin index 0..15
     uint8_t afNumber;                 // AF 0..15
     uint32_t gpioEnableMask;          // AHB1 enable mask e.g., GPIOE_EN
+    PWM pwm;                          // PWM helper instance
 public:
     Servo(servo_Type type,
           servoAngle_Type initial_angle,
@@ -43,15 +44,15 @@ public:
           uint8_t afNumber,
           uint32_t gpioEnableMask);
     // Object-oriented methods
-    Servo_StatusType Servo_SetAngle(servoAngle_Type angle);
-    servoAngle_Type Servo_GetAngle();
-    void Servo_Start();
-    void Servo_Stop();
-    uint32_t servo_angle_to_ticks(servoAngle_Type angle);
+    Servo_StatusType SetAngle(servoAngle_Type angle);
+    servoAngle_Type GetAngle();
+    void Start();
+    void Stop();
+    uint32_t angle_to_ticks(servoAngle_Type angle);
 
     // Generic GPIO/PWM helpers (procedural, kept for compatibility)
-    void Servo_GPIO_Init();
-    void Servo_PWM_Init();
+    void GPIO_Init();
+    void PWM_Init();
 };
 
 #endif // SERVO_H
