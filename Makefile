@@ -13,9 +13,9 @@
 #PROJECT_DIR = Projects/Servo_Motor
 #PROJECT_DIR = Projects/Servo_Motor_cpp
 #PROJECT_DIR = Projects/HC06_Bluetooth
-PROJECT_DIR = Projects/HC06_Bluetooth_cpp
+#PROJECT_DIR = Projects/HC06_Bluetooth_cpp
 #PROJECT_DIR = Projects/HC06_Servo_Controller
-#PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
+PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -99,6 +99,12 @@ UART_SRC_CPP := Drivers/UART_cpp/src/uart.cpp
 PWM_SRC_C := Drivers/PWM/src/pwm.c
 PWM_SRC_CPP := Drivers/PWM_cpp/src/pwm.cpp
 
+HC_06_SRC_C := Projects/HC06_Bluetooth/src/hc06.c
+HC_06_SRC_CPP := Projects/HC06_Bluetooth_cpp/src/hc06.cpp
+
+Servo_MOTOR_SRC_C := Projects/Servo_Motor/src/servo.c
+Servo_MOTOR_SRC_CPP := Projects/Servo_Motor_cpp/src/servo.cpp
+
 # Automatically include GPIO library when project includes the following source files
 ifneq (,$(filter systick.c hc06.c pwm.c servo.c,$(notdir $(SRC))))
 # Important: OBJ is derived from SRC_C/SRC_CPP (not SRC). Only add if not already present.
@@ -136,7 +142,8 @@ ifeq ($(PROJECT_DIR),Projects/HC06_Servo_Controller_cpp)
 SRC_CPP += $(filter-out $(SRC_CPP),$(GPIO_SRC_CPP))
 SRC_CPP += $(filter-out $(SRC_CPP),$(UART_SRC_CPP))
 SRC_CPP += $(filter-out $(SRC_CPP),$(PWM_SRC_CPP))
-SRC_C   += $(filter-out $(SRC_C),$(PWM_SRC_C))
+SRC_CPP += $(filter-out $(SRC_CPP),$(HC_06_SRC_CPP))
+SRC_CPP += $(filter-out $(SRC_CPP),$(Servo_MOTOR_SRC_CPP))
 CFLAGS  += -IDrivers/GPIO_cpp/inc -IDrivers/UART_cpp/inc -IDrivers/PWM_cpp/inc -IDrivers/PWM/inc
 endif
 OBJ_UNSORTED=$(SRC_C:.c=.o) $(SRC_CPP:.cpp=.o) $(EXTERNAL_SRC_C:.c=.o) $(EXTERNAL_SRC_CPP:.cpp=.o)
