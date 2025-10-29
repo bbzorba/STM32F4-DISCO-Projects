@@ -9,7 +9,7 @@ int main(void) {
     // Initialize USART2 for both RX and TX at 9600 baud
     HC06 hc06;
 
-    HC06_Init(&hc06, RX_AND_TX, __9600);
+    HC06_Init(&hc06, USART_2, RX_AND_TX, __9600);
 
     // Send a greeting so you can verify TX path and pairing
     static const uint8_t hello[] = "Hello HC-06 (echo mode)\r\n";
@@ -17,10 +17,11 @@ int main(void) {
 
     // Echo loop: anything received will be sent back with CRLF
     while (1) {
-    uint8_t c = (uint8_t)USART_2_Read();
-    HC06_SendData(&hc06, &c, 1);
-    const uint8_t crlf[2] = {'\r', '\n'};
-    HC06_SendData(&hc06, crlf, 2);
+        uint8_t c;
+        HC06_ReceiveData(&hc06, &c, 1);
+        HC06_SendData(&hc06, &c, 1);
+        const uint8_t crlf[2] = {'\r', '\n'};
+        HC06_SendData(&hc06, crlf, 2);
     }
 }
 

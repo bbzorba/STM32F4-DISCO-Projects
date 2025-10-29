@@ -1,6 +1,7 @@
 #include "hc06.h"
 
 void HC06_Init(HC06 *hc06,
+               USART_Manual_TypeDef *USART_x,
                UART_COMType com_type,
                UART_BaudRateType baud_rate) {
     if (hc06 == NULL) {
@@ -9,20 +10,21 @@ void HC06_Init(HC06 *hc06,
     hc06->hc06_com_type = com_type;
     hc06->hc06_baud_rate = baud_rate;
 
-    // Initialize USART2 with specified parameters
-    USART_2_Init(com_type, baud_rate);
+    // Bind and initialize the provided USART instance with specified parameters
+    hc06->usart = USART_x;
+    USART_x_Init(hc06->usart, com_type, baud_rate);
 }
 
 void HC06_SendData(HC06 *hc06, const uint8_t *data, size_t len) {
     if (!hc06 || !data) return;
     for (size_t i = 0; i < len; i++) {
-        USART_2_Write((int)data[i]);
+        USART_x_Write(hc06->usart, (int)data[i]);
     }
 }
 
 void HC06_ReceiveData(HC06 *hc06, uint8_t *buffer, size_t len) {
     if (!hc06 || !buffer) return;
     for (size_t i = 0; i < len; i++) {
-        buffer[i] = (uint8_t)USART_2_Read();
+        buffer[i] = (uint8_t)USART_x_Read(hc06->usart);
     }
 }

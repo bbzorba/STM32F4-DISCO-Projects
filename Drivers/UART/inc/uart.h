@@ -10,12 +10,37 @@
 // Base addresses
 #define PERIPH_ADDR_BASE 0x40000000U
 #define APB1PERIPH_ADDR_BASE (PERIPH_ADDR_BASE + 0x00000000U)
-#define USART_1_BASE (APB1PERIPH_ADDR_BASE + 0x00001000U)
+#define APB2PERIPH_ADDR_BASE (PERIPH_ADDR_BASE + 0x00010000U)
+
+// APB1-related USART peripherals
 #define USART_2_BASE (APB1PERIPH_ADDR_BASE + 0x00004400U)
+#define USART_3_BASE (APB1PERIPH_ADDR_BASE + 0x00004800U)
+#define UART_4_BASE (APB1PERIPH_ADDR_BASE + 0x00004C00U)
+#define UART_5_BASE (APB1PERIPH_ADDR_BASE + 0x00005000U)
+
+// APB2-related USART peripherals
+#define USART_1_BASE (APB2PERIPH_ADDR_BASE + 0x00001000U)
+#define USART_6_BASE (APB2PERIPH_ADDR_BASE + 0x00001400U)
 
 // RCC register bit definitions
+#define RCC_APB2ENR_USART_1EN ((uint32_t)0x00004000)        // Bit 14
 #define RCC_APB1ENR_USART_2EN ((uint32_t)0x00020000)        // Bit 17
+#define RCC_APB1ENR_USART_3EN ((uint32_t)0x00040000)        // Bit 18
+#define RCC_APB1ENR_UART_4EN  ((uint32_t)0x00080000)        // Bit 19
+#define RCC_APB1ENR_UART_5EN  ((uint32_t)0x00100000)        // Bit 20
+#define RCC_APB2ENR_USART_6EN ((uint32_t)0x00020000)        // Bit 5
 #define RCC_AHB1ENR_GPIOAEN  ((uint32_t)0x00000001)         // Bit 0
+
+// GPIOB register bit definitions (USART1 on PB6/PB7 AF7)
+// MODER: 2 bits per pin, PB6 bits 13:12, PB7 bits 15:14 => set to 10b (alternate function)
+#define GPIOB_MODER_ALTERNATE ((uint32_t)0x0000F000)        // mask to clear PB6/PB7 mode bits
+#define GPIOB_MODER_PIN6      ((uint32_t)0x00002000)        // set AF (10) for PB6 (bits 13:12)
+#define GPIOB_MODER_PIN7      ((uint32_t)0x00008000)        // set AF (10) for PB7 (bits 15:14)
+// AFRL: pins 0..7; PB6 uses bits 27:24, PB7 uses bits 31:28; AF7 = 0x7
+#define GPIOB_AFR_TYPE        ((uint32_t)0xFF000000)        // AFRL mask for PB6 and PB7
+#define GPIOB_AFR_TX          ((uint32_t)0x07000000)        // AF7 for PB6 (TX) bits [27:24]
+#define GPIOB_AFR_RX          ((uint32_t)0x70000000)        // AF7 for PB7 (RX) bits [31:28]
+#define GPIOB_AFR_VALUE       (GPIOB_AFR_TX | GPIOB_AFR_RX) // AF7 for USART1
 
 // GPIOA register bit definitions
 #define GPIOA_MODER_ALTERNATE ((uint32_t)0x000000F0)        // mask to clear PA2/PA3 mode bits
@@ -42,7 +67,7 @@
 #define USART_SR_RX_NOT_EMP 0x0020                          // USART Status Register - Receiver not Empty
 #define USART_SR_TX_EMP 0x0080                              // USART Status Register - Transmitter not Empty
 
-/* USART2 registers structure */
+/* USART registers structure */
 typedef struct
 {
     __IO uint32_t SR;    // Status Register
@@ -67,11 +92,17 @@ typedef enum {
 } UART_BaudRateType;
 
 // USART2 peripheral declaration
+#define USART_1 ((USART_Manual_TypeDef *)USART_1_BASE)
 #define USART_2 ((USART_Manual_TypeDef *)USART_2_BASE)
+#define USART_3 ((USART_Manual_TypeDef *)USART_3_BASE)
+#define UART_4  ((USART_Manual_TypeDef *)UART_4_BASE)
+#define UART_5  ((USART_Manual_TypeDef *)UART_5_BASE)
+#define USART_6 ((USART_Manual_TypeDef *)USART_6_BASE)
+
 
 // Function prototypes
-void USART_2_Init(UART_COMType comtype, UART_BaudRateType baudrate);
-void USART_2_Write(int ch);
-char USART_2_Read(void);
+void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudRateType baudrate);
+void USART_x_Write(USART_Manual_TypeDef *USARTx, int ch);
+char USART_x_Read(USART_Manual_TypeDef *USARTx);
 
 #endif // __UART_H

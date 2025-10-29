@@ -10,9 +10,11 @@ typedef struct
 {
     UART_COMType hc06_com_type;
     UART_BaudRateType hc06_baud_rate;
+    USART_Manual_TypeDef *usart; // bound USART instance
 } HC06;
 
 void HC06_Init(HC06 *hc06,
+               USART_Manual_TypeDef *USART_x,
                UART_COMType com_type,
                UART_BaudRateType baud_rate);
 

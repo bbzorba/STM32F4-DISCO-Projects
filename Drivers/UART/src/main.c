@@ -5,16 +5,16 @@ void delay(volatile uint32_t count);
 
 //main function
 int main(void) {
-    USART_2_Init(TX_ONLY, __9600);
+    USART_x_Init(USART_2, TX_ONLY, __9600);
 
     
     while (1) {
-        USART_2_Write('H');
-        USART_2_Write('e');
-        USART_2_Write('l');
-        USART_2_Write('l');
-        USART_2_Write('o');
-        USART_2_Write('\n');
+        USART_x_Write(USART_2, 'H');
+        USART_x_Write(USART_2, 'e');
+        USART_x_Write(USART_2, 'l');
+        USART_x_Write(USART_2, 'l');
+        USART_x_Write(USART_2, 'o');
+        USART_x_Write(USART_2, '\n');
         delay(1000000); // ~50ms at 16 MHz
     }
 }
