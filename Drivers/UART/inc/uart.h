@@ -30,6 +30,10 @@
 #define RCC_APB1ENR_UART_5EN  ((uint32_t)0x00100000)        // Bit 20
 #define RCC_APB2ENR_USART_6EN ((uint32_t)0x00020000)        // Bit 5
 #define RCC_AHB1ENR_GPIOAEN  ((uint32_t)0x00000001)         // Bit 0
+#define RCC_AHB1ENR_GPIOBEN  ((uint32_t)0x00000002)         // Bit 1
+#define RCC_AHB1ENR_GPIOCEN  ((uint32_t)0x00000004)         // Bit 2
+#define RCC_AHB1ENR_GPIODEN  ((uint32_t)0x00000008)         // Bit 3
+#define RCC_AHB1ENR_GPIOEEN  ((uint32_t)0x00000010)         // Bit 4
 
 // GPIOB register bit definitions (USART1 on PB6/PB7 AF7)
 // MODER: 2 bits per pin, PB6 bits 13:12, PB7 bits 15:14 => set to 10b (alternate function)
