@@ -45,28 +45,27 @@
 #define RCC_AHB1ENR_GPIOEEN  ((uint32_t)0x00000010)         // Bit 4
 
 // GPIOA register bit definitions
-#define GPIOA_MODER_ALTERNATE ((uint32_t)0x000000F0)        // mask to clear PA2/PA3 mode bits
-#define GPIOA_MODER_PIN0     ((uint32_t)0x00000001)         // set AF for PA0
-#define GPIOA_MODER_PIN1     ((uint32_t)0x00000004)         // set AF for PA1
-#define GPIOA_MODER_PIN2     ((uint32_t)0x00000020)         // set AF for PA2
-#define GPIOA_MODER_PIN3     ((uint32_t)0x00000080)         // set AF for PA3
-#define GPIOA_MODER_PIN9     ((uint32_t)0x00002000)         // set AF for PA9
-#define GPIOA_MODER_PIN10    ((uint32_t)0x00008000)         // set AF for PA10
-#define GPIOA_AFR_TYPE       ((uint32_t)0x0000FF00)         // AFRL for PA2 and PA3
-#define GPIOA_AFR_TX         ((uint32_t)0x00000700)         // AF7 for PA2 (TX) bits [11:8]
-#define GPIOA_AFR_RX         ((uint32_t)0x00007000)         // AF7 for PA3 (RX) bits [15:12]
-#define GPIOA_AFR_TX         ((uint32_t)0x00000700)         // AF7 for PA2 (TX) bits [11:8]
-#define GPIOA_AFR_RX         ((uint32_t)0x00007000)         // AF7 for PA3 (RX) bits [15:12]
 
-// GPIOB register bit definitions
-#define GPIOB_MODER_ALTERNATE ((uint32_t)0x0000F000)        // mask to clear PB6/PB7 mode bits
-#define GPIOB_MODER_PIN6      ((uint32_t)0x00002000)        // set AF for PB6 (bits 13:12)
-#define GPIOB_MODER_PIN7      ((uint32_t)0x00008000)        // set AF for PB7 (bits 15:14)
-#define GPIOB_MODER_PIN10     ((uint32_t)0x00040000)        // set AF for PB10 (bits 21:20)
-#define GPIOB_MODER_PIN11     ((uint32_t)0x00200000)        // set AF for PB11 (bits 23:22)
-#define GPIOB_AFR_TYPE        ((uint32_t)0xFF000000)        // AFRL mask for PB6 and PB7
-#define GPIOB_AFR_TX          ((uint32_t)0x07000000)        // AF7 for PB6 (TX) bits [27:24]
-#define GPIOB_AFR_RX          ((uint32_t)0x70000000)        // AF7 for PB7 (RX) bits [31:28]
+
+// GPIOB register bit definitions (TODO: check these values)
+#define GPIOB_MODER_PIN6_MASK    ((uint32_t)0x00003000)        // mask to clear PB6 mode bits (bits 13:12)
+#define GPIOB_MODER_PIN7_MASK    ((uint32_t)0x0000C000)        // mask to clear PB7 mode bits (bits 15:14)
+#define GPIOB_MODER_PIN10_MASK   ((uint32_t)0x00300000)        // mask to clear PB10 mode bits (bits 21:20)
+#define GPIOB_MODER_PIN11_MASK   ((uint32_t)0x00C00000)        // mask to clear PB11 mode bits (bits 23:22)
+#define GPIOB_MODER_PIN6_SET      ((uint32_t)0x00002000)        // set AF for PB6 (bits 13:12)
+#define GPIOB_MODER_PIN7_SET      ((uint32_t)0x00008000)        // set AF for PB7 (bits 15:14)
+#define GPIOB_MODER_PIN10_SET     ((uint32_t)0x00200000)        // set AF (10b) for PB10 (bits 21:20)
+#define GPIOB_MODER_PIN11_SET     ((uint32_t)0x00800000)        // set AF (10b) for PB11 (bits 23:22)
+#define GPIOB_AFR_PIN6_MASK      ((uint32_t)0x0F000000)        // AF7 mask for PB6 (bits 27:24)
+#define GPIOB_AFR_PIN6_SET       ((uint32_t)0x07000000)        // AF7 for PB6 (bits 27:24)
+#define GPIOB_AFR_PIN7_MASK      ((uint32_t)0xF0000000)        // AF7 mask for PB7 (bits 31:28)
+#define GPIOB_AFR_PIN7_SET       ((uint32_t)0x70000000)        // AF7 for PB7 (bits 31:28)
+
+// GPIOB AFRH (pins 8..15) helper masks/sets for PB10/PB11 (USART3 AF7)
+#define GPIOB_AFRH_PIN10_MASK    ((uint32_t)0x00000F00)        // mask for PB10 AFRH (bits 11:8)
+#define GPIOB_AFRH_PIN10_SET     ((uint32_t)0x00000700)        // AF7 for PB10 AFRH (bits 11:8)
+#define GPIOB_AFRH_PIN11_MASK    ((uint32_t)0x0000F000)        // mask for PB11 AFRH (bits 15:12)
+#define GPIOB_AFRH_PIN11_SET     ((uint32_t)0x00007000)        // AF7 for PB11 AFRH (bits 15:12)
 
 // USART BRR register bit definitions
 #define BRR_CNF1_115200 0x1A1                               // Set baud rate to 115200

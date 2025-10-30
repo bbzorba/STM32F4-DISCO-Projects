@@ -29,10 +29,10 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
             // configuration for USART1 TX on PB6
             RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                        // GPIOB clock
             USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
-            GPIO_B->MODER &= ~(0x3U << (6U * 2U));                          // clear PB6
-            GPIO_B->MODER |=  (0x2U << (6U * 2U));                          // Set AF for PB6 (bits 13:12)
-            GPIO_B->AFR[0] &= ~(0xFU << (6U * 4U));                         // clear AFRL[27:24]
-            GPIO_B->AFR[0] |=  (0x7U << (6U * 4U));                         // AF7 for PB6
+            GPIO_B->MODER &= ~GPIOB_MODER_PIN6_MASK;                     // clear PB6
+            GPIO_B->MODER |=  GPIOB_MODER_PIN6_SET;                      // Set AF for PB6 (bits 13:12)
+            GPIO_B->AFR[0] &= ~GPIOB_AFR_PIN6_MASK;                      // clear AFRL[27:24]
+            GPIO_B->AFR[0] |=  GPIOB_AFR_PIN6_SET;                       // AF7 for PB6
 
             // configuration for USART1 TX on PA9
             RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                        // GPIOA clock
@@ -125,10 +125,10 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
             // configuration for USART1 RX on PB7
             RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                        // GPIOB clock
             USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
-            GPIO_B->MODER &= ~(0x3U << (7U * 2U));                          // clear PB7
-            GPIO_B->MODER |=  (0x2U << (7U * 2U));                          // AF for PB7
-            GPIO_B->AFR[0] &= ~(0xFU << (7U * 4U));                         // clear AFRL[31:28]
-            GPIO_B->AFR[0] |=  (0x7U << (7U * 4U));                         // AF7 for PB7
+            GPIO_B->MODER &= ~GPIOB_MODER_PIN7_MASK;                          // clear PB7
+            GPIO_B->MODER |=  GPIOB_MODER_PIN7_SET;                          // AF for PB7
+            GPIO_B->AFR[0] &= ~GPIOB_AFR_PIN7_MASK;                         // clear AFRL[31:28]
+            GPIO_B->AFR[0] |=  GPIOB_AFR_PIN7_SET;                           // AF7 for PB7
 
             // configuration for USART1 RX on PA10
             RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                        // GPIOA clock
