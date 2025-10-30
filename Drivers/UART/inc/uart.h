@@ -7,6 +7,15 @@
 
 #define __IO volatile
 
+/* 
+ USART pins for STM32F4xx series:
+ USART1 -> PB6 (TX), PB7 (RX) or PA9 (TX), PA10 (RX)
+ USART2 -> PA2 (TX), PA3 (RX) or PD5 (TX), PD6 (RX)
+ USART3 -> PB10 (TX), PB11 (RX) or PD8 (TX), PD9 (RX)
+ UART4 -> PA0 (TX), PA1 (RX) or PC10 (TX), PC11 (RX)
+ UART5 -> PC12 (TX), PD2 (RX)
+ USART6 -> PC6 (TX), PC7 (RX)*/
+
 // Base addresses
 #define PERIPH_ADDR_BASE 0x40000000U
 #define APB1PERIPH_ADDR_BASE (PERIPH_ADDR_BASE + 0x00000000U)
@@ -35,25 +44,29 @@
 #define RCC_AHB1ENR_GPIODEN  ((uint32_t)0x00000008)         // Bit 3
 #define RCC_AHB1ENR_GPIOEEN  ((uint32_t)0x00000010)         // Bit 4
 
-// GPIOB register bit definitions (USART1 on PB6/PB7 AF7)
-// MODER: 2 bits per pin, PB6 bits 13:12, PB7 bits 15:14 => set to 10b (alternate function)
+// GPIOA register bit definitions
+#define GPIOA_MODER_ALTERNATE ((uint32_t)0x000000F0)        // mask to clear PA2/PA3 mode bits
+#define GPIOA_MODER_PIN0     ((uint32_t)0x00000001)         // set AF for PA0
+#define GPIOA_MODER_PIN1     ((uint32_t)0x00000004)         // set AF for PA1
+#define GPIOA_MODER_PIN2     ((uint32_t)0x00000020)         // set AF for PA2
+#define GPIOA_MODER_PIN3     ((uint32_t)0x00000080)         // set AF for PA3
+#define GPIOA_MODER_PIN9     ((uint32_t)0x00002000)         // set AF for PA9
+#define GPIOA_MODER_PIN10    ((uint32_t)0x00008000)         // set AF for PA10
+#define GPIOA_AFR_TYPE       ((uint32_t)0x0000FF00)         // AFRL for PA2 and PA3
+#define GPIOA_AFR_TX         ((uint32_t)0x00000700)         // AF7 for PA2 (TX) bits [11:8]
+#define GPIOA_AFR_RX         ((uint32_t)0x00007000)         // AF7 for PA3 (RX) bits [15:12]
+#define GPIOA_AFR_TX         ((uint32_t)0x00000700)         // AF7 for PA2 (TX) bits [11:8]
+#define GPIOA_AFR_RX         ((uint32_t)0x00007000)         // AF7 for PA3 (RX) bits [15:12]
+
+// GPIOB register bit definitions
 #define GPIOB_MODER_ALTERNATE ((uint32_t)0x0000F000)        // mask to clear PB6/PB7 mode bits
-#define GPIOB_MODER_PIN6      ((uint32_t)0x00002000)        // set AF (10) for PB6 (bits 13:12)
-#define GPIOB_MODER_PIN7      ((uint32_t)0x00008000)        // set AF (10) for PB7 (bits 15:14)
-// AFRL: pins 0..7; PB6 uses bits 27:24, PB7 uses bits 31:28; AF7 = 0x7
+#define GPIOB_MODER_PIN6      ((uint32_t)0x00002000)        // set AF for PB6 (bits 13:12)
+#define GPIOB_MODER_PIN7      ((uint32_t)0x00008000)        // set AF for PB7 (bits 15:14)
+#define GPIOB_MODER_PIN10     ((uint32_t)0x00040000)        // set AF for PB10 (bits 21:20)
+#define GPIOB_MODER_PIN11     ((uint32_t)0x00200000)        // set AF for PB11 (bits 23:22)
 #define GPIOB_AFR_TYPE        ((uint32_t)0xFF000000)        // AFRL mask for PB6 and PB7
 #define GPIOB_AFR_TX          ((uint32_t)0x07000000)        // AF7 for PB6 (TX) bits [27:24]
 #define GPIOB_AFR_RX          ((uint32_t)0x70000000)        // AF7 for PB7 (RX) bits [31:28]
-#define GPIOB_AFR_VALUE       (GPIOB_AFR_TX | GPIOB_AFR_RX) // AF7 for USART1
-
-// GPIOA register bit definitions
-#define GPIOA_MODER_ALTERNATE ((uint32_t)0x000000F0)        // mask to clear PA2/PA3 mode bits
-#define GPIOA_MODER_PIN2     ((uint32_t)0x00000020)         // set AF (10) for PA2
-#define GPIOA_MODER_PIN3     ((uint32_t)0x00000080)         // set AF (10) for PA3
-#define GPIOA_AFR_TYPE       ((uint32_t)0x0000FF00)         // AFRL for PA2 and PA3
-#define GPIOA_AFR_TX      ((uint32_t)0x00000700)            // AF7 for PA2 (TX) bits [11:8]
-#define GPIOA_AFR_RX      ((uint32_t)0x00007000)            // AF7 for PA3 (RX) bits [15:12]
-#define GPIOA_AFR_VALUE      (GPIOA_AFR_TX | GPIOA_AFR_RX)  // AF7 for USART2
 
 // USART BRR register bit definitions
 #define BRR_CNF1_115200 0x1A1                               // Set baud rate to 115200

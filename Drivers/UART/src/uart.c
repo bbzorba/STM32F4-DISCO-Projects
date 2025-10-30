@@ -1,10 +1,19 @@
+/*
+    Author: Baris Berk Zorba
+    Date: June 2024
+    UART driver for STM32F4xx series
+    This driver provides an interface for initializing and using the UART peripherals
+    on the STM32F4xx microcontrollers.
+    Verified with HC06 Bluetooth module and STM32F4 Discovery board.
+*/
+
 #include "uart.h"
 
 /* 
  USART pins for STM32F4xx series:
  USART1 -> PB6 (TX), PB7 (RX) or PA9 (TX), PA10 (RX)
  USART2 -> PA2 (TX), PA3 (RX) or PD5 (TX), PD6 (RX)
- USART3 -> PB6 (TX), PB7 (RX) or PC10 (TX), PC11 (RX)
+ USART3 -> PB10 (TX), PB11 (RX) or PD8 (TX), PD9 (RX)
  UART4 -> PA0 (TX), PA1 (RX) or PC10 (TX), PC11 (RX)
  UART5 -> PC12 (TX), PD2 (RX)
  USART6 -> PC6 (TX), PC7 (RX)*/
@@ -21,7 +30,7 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
             RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                        // GPIOB clock
             USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_B->MODER &= ~(0x3U << (6U * 2U));                          // clear PB6
-            GPIO_B->MODER |=  (0x2U << (6U * 2U));                          // AF for PB6
+            GPIO_B->MODER |=  (0x2U << (6U * 2U));                          // Set AF for PB6 (bits 13:12)
             GPIO_B->AFR[0] &= ~(0xFU << (6U * 4U));                         // clear AFRL[27:24]
             GPIO_B->AFR[0] |=  (0x7U << (6U * 4U));                         // AF7 for PB6
 
@@ -53,20 +62,21 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
         else if (USARTx == USART_3) {
             RCC->RCC_APB1ENR |= RCC_APB1ENR_USART_3EN;                      // USART3 clock (APB1)
 
-            // configuration for USART3 TX on PB6
+            // configuration for USART3 TX on PB10
             RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                        // GPIOB clock
             USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
-            GPIO_B->MODER &= ~(0x3U << (6U * 2U));                          // clear PB6
-            GPIO_B->MODER |=  (0x2U << (6U * 2U));                          // AF for PB6
-            GPIO_B->AFR[0] &= ~(0xFU << (6U * 4U));                         // clear AFRL[27:24]
-            GPIO_B->AFR[0] |=  (0x7U << (6U * 4U));                         // AF7 for PB6
+            GPIO_B->MODER &= ~(0x3U << (10U * 2U));                         // clear PB10
+            GPIO_B->MODER |=  (0x2U << (10U * 2U));                         // AF for PB10
+            // PB10 is in AFRH: index (10-8)=2 -> bits [11:8]
+            GPIO_B->AFR[1] &= ~(0xFU << ((10U - 8U) * 4U));                 // clear AFRH[11:8]
+            GPIO_B->AFR[1] |=  (0x7U << ((10U - 8U) * 4U));                 // AF7 for PB10
 
-            // configuration for USART3 TX on PC10
-            RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOCEN;                        // GPIOC clock
-            GPIO_C->MODER &= ~(0x3U << (10U * 2U));                         // clear PC10
-            GPIO_C->MODER |=  (0x2U << (10U * 2U));                         // AF for PC10
-            GPIO_C->AFR[1] &= ~(0xFU << (2U * 4U));                         // clear AFRH[11:8]
-            GPIO_C->AFR[1] |=  (0x7U << (2U * 4U));                         // AF7 for PC10
+            // configuration for USART3 TX on PD8
+            RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIODEN;                        // GPIOD clock
+            GPIO_D->MODER &= ~(0x3U << (8U * 2U));                          // clear PD8
+            GPIO_D->MODER |=  (0x2U << (8U * 2U));                          // AF for PD8
+            GPIO_D->AFR[1] &= ~(0xFU << (0U * 4U));                         // clear AFRH[3:0]
+            GPIO_D->AFR[1] |=  (0x7U << (0U * 4U));                         // AF7 for PD8
         }
         else if (USARTx == UART_4) {
             RCC->RCC_APB1ENR |= RCC_APB1ENR_UART_4EN;                       // UART4 clock (APB1)
@@ -148,20 +158,21 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
         else if (USARTx == USART_3) {
             RCC->RCC_APB1ENR |= RCC_APB1ENR_USART_3EN;                      // USART3 clock (APB1)
 
-            // configuration for USART3 RX on PB7
+            // configuration for USART3 RX on PB11
             RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                        // GPIOB clock
             USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
-            GPIO_B->MODER &= ~(0x3U << (7U * 2U));                          // clear PB7
-            GPIO_B->MODER |=  (0x2U << (7U * 2U));                          // AF for PB7
-            GPIO_B->AFR[0] &= ~(0xFU << (7U * 4U));                         // clear AFRL[31:28]
-            GPIO_B->AFR[0] |=  (0x7U << (7U * 4U));                         // AF7 for PB7
-            
-            // configuration for USART3 RX on PC11
-            RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOCEN;                        // GPIOC clock
-            GPIO_C->MODER &= ~(0x3U << (11U * 2U));                         // clear PC11
-            GPIO_C->MODER |=  (0x2U << (11U * 2U));                         // AF for PC11
-            GPIO_C->AFR[1] &= ~(0xFU << (3U * 4U));                         // clear AFRH[15:12]
-            GPIO_C->AFR[1] |=  (0x7U << (3U * 4U));                         // AF7 for PC11
+            GPIO_B->MODER &= ~(0x3U << (11U * 2U));                         // clear PB11
+            GPIO_B->MODER |=  (0x2U << (11U * 2U));                         // AF for PB11
+            // PB11 is in AFRH: index (11-8)=3 -> bits [15:12]
+            GPIO_B->AFR[1] &= ~(0xFU << ((11U - 8U) * 4U));                 // clear AFRH[15:12]
+            GPIO_B->AFR[1] |=  (0x7U << ((11U - 8U) * 4U));                 // AF7 for PB11
+
+            // configuration for USART3 RX on PD9
+            RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIODEN;                        // GPIOD clock
+            GPIO_D->MODER &= ~(0x3U << (9U * 2U));                          // clear PD9
+            GPIO_D->MODER |=  (0x2U << (9U * 2U));                          // AF for PD9
+            GPIO_D->AFR[1] &= ~(0xFU << (1U * 4U));                         // clear AFRH[15:12]
+            GPIO_D->AFR[1] |=  (0x7U << (1U * 4U));                         // AF7 for PD9
         }
         else if (USARTx == UART_4) {
             RCC->RCC_APB1ENR |= RCC_APB1ENR_UART_4EN;                       // UART4 clock (APB1)
