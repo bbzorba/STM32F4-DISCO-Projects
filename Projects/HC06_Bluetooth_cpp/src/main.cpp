@@ -6,7 +6,7 @@ void delay(volatile uint32_t count);
 
 //main function
 int main(void) {
-    // Initialize USART2 for both RX and TX at 9600 baud
+    // Initialize USART for both RX and TX at 9600 baud
     HC06 hc06(RX_AND_TX, __9600);
 
     // Send a greeting so you can verify TX path and pairing

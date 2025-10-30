@@ -28,3 +28,14 @@ void HC06_ReceiveData(HC06 *hc06, uint8_t *buffer, size_t len) {
         buffer[i] = (uint8_t)USART_x_Read(hc06->usart);
     }
 }
+
+const char* HC06_GetPortName(const HC06 *hc06) {
+    if (!hc06 || !hc06->usart) return "USART?";
+    if (hc06->usart == USART_1) return "USART1";
+    if (hc06->usart == USART_2) return "USART2";
+    if (hc06->usart == USART_3) return "USART3";
+    if (hc06->usart == UART_4)  return "UART4";
+    if (hc06->usart == UART_5)  return "UART5";
+    if (hc06->usart == USART_6) return "USART6";
+    return "USART?";
+}

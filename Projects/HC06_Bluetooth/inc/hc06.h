@@ -22,5 +22,6 @@ void HC06_Init(HC06 *hc06,
 // Send/receive raw bytes with explicit length
 void HC06_SendData(HC06 *hc06, const uint8_t *data, size_t len);
 void HC06_ReceiveData(HC06 *hc06, uint8_t *buffer, size_t len);
+const char* HC06_GetPortName(const HC06 *hc06); // return port name as string
 
 #endif // HC06_H

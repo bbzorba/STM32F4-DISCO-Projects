@@ -1,7 +1,7 @@
 #include "hc06.h"
 
 HC06::HC06(UART_COMType com_type,
-                     UART_BaudRateType baud_rate)
+           UART_BaudRateType baud_rate)
         : hc06_com_type(com_type),
             hc06_baud_rate(baud_rate),
             uart(com_type, baud_rate)

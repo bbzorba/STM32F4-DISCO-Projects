@@ -80,8 +80,10 @@ Discarded input sections
  .bss           0x00000000        0x0 Drivers/UART/src/uart.o
  .text.USART_x_Read
                 0x00000000        0xc Drivers/UART/src/uart.o
- .text.fgetc    0x00000000       0x34 Drivers/UART/src/uart.o
- .text.fputc    0x00000000       0x14 Drivers/UART/src/uart.o
+ .text.get_char
+                0x00000000       0x2c Drivers/UART/src/uart.o
+ .text.send_char
+                0x00000000       0x10 Drivers/UART/src/uart.o
  .text          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
  .data          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
  .bss           0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
@@ -263,7 +265,7 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .isr_vector    0x08000000       0x40 Drivers/UART/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040      0x148
+.text           0x08000040      0x158
  *(.text*)
  .text.startup.main
                 0x08000040       0x54 Drivers/UART/src/main.o
@@ -272,45 +274,45 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
                 0x08000094                Default_Handler
                 0x08000098                Reset_Handler
  .text.USART_x_Init
-                0x080000a0       0xd4 Drivers/UART/src/uart.o
+                0x080000a0       0xe4 Drivers/UART/src/uart.o
                 0x080000a0                USART_x_Init
  .text.USART_x_Write
-                0x08000174        0xc Drivers/UART/src/uart.o
-                0x08000174                USART_x_Write
+                0x08000184        0xc Drivers/UART/src/uart.o
+                0x08000184                USART_x_Write
  *(.rodata*)
  *(.glue_7)
- .glue_7        0x08000180        0x0 linker stubs
+ .glue_7        0x08000190        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08000180        0x0 linker stubs
+ .glue_7t       0x08000190        0x0 linker stubs
  *(.init)
- .init          0x08000180        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08000180                _init
+ .init          0x08000190        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000190                _init
  *(.fini)
- .fini          0x08000184        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08000184                _fini
+ .fini          0x08000194        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000194                _fini
 
-.vfp11_veneer   0x08000188        0x0
- .vfp11_veneer  0x08000188        0x0 linker stubs
+.vfp11_veneer   0x08000198        0x0
+ .vfp11_veneer  0x08000198        0x0 linker stubs
 
-.v4_bx          0x08000188        0x0
- .v4_bx         0x08000188        0x0 linker stubs
+.v4_bx          0x08000198        0x0
+ .v4_bx         0x08000198        0x0 linker stubs
 
-.iplt           0x08000188        0x0
- .iplt          0x08000188        0x0 Drivers/UART/src/main.o
+.iplt           0x08000198        0x0
+ .iplt          0x08000198        0x0 Drivers/UART/src/main.o
 
-.rel.dyn        0x08000188        0x0
- .rel.iplt      0x08000188        0x0 Drivers/UART/src/main.o
+.rel.dyn        0x08000198        0x0
+ .rel.iplt      0x08000198        0x0 Drivers/UART/src/main.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x08000188        0x0
-                0x08000188                __exidx_start = .
+.ARM.exidx      0x08000198        0x0
+                0x08000198                __exidx_start = .
  *(.ARM.exidx*)
-                0x08000188                __exidx_end = .
-                0x08000188                __etext = .
+                0x08000198                __exidx_end = .
+                0x08000198                __etext = .
 
-.data           0x20000000        0x0 load address 0x08000188
+.data           0x20000000        0x0 load address 0x08000198
                 0x20000000                __data_start__ = .
  *(.data*)
                 0x20000000                __data_end__ = .
@@ -352,15 +354,15 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/UART/src/startup.o
  .comment       0x00000049       0x4a Drivers/UART/src/uart.o
 
-.debug_info     0x00000000     0x11cb
+.debug_info     0x00000000     0x11db
  .debug_info    0x00000000      0x282 Drivers/UART/src/main.o
  .debug_info    0x00000282       0xf5 Drivers/UART/src/startup.o
- .debug_info    0x00000377      0xe54 Drivers/UART/src/uart.o
+ .debug_info    0x00000377      0xe64 Drivers/UART/src/uart.o
 
-.debug_abbrev   0x00000000      0x51a
+.debug_abbrev   0x00000000      0x529
  .debug_abbrev  0x00000000      0x142 Drivers/UART/src/main.o
  .debug_abbrev  0x00000142       0xc9 Drivers/UART/src/startup.o
- .debug_abbrev  0x0000020b      0x30f Drivers/UART/src/uart.o
+ .debug_abbrev  0x0000020b      0x31e Drivers/UART/src/uart.o
 
 .debug_aranges  0x00000000       0x88
  .debug_aranges
@@ -374,23 +376,23 @@ LOAD linker stubs
  .debug_ranges  0x00000000       0x18 Drivers/UART/src/main.o
  .debug_ranges  0x00000018       0x48 Drivers/UART/src/uart.o
 
-.debug_line     0x00000000      0x820
+.debug_line     0x00000000      0x822
  .debug_line    0x00000000      0x1ce Drivers/UART/src/main.o
  .debug_line    0x000001ce      0x173 Drivers/UART/src/startup.o
- .debug_line    0x00000341      0x4df Drivers/UART/src/uart.o
+ .debug_line    0x00000341      0x4e1 Drivers/UART/src/uart.o
 
-.debug_str      0x00000000      0x801
+.debug_str      0x00000000      0x7ff
  .debug_str     0x00000000      0x199 Drivers/UART/src/main.o
                                 0x1e1 (size before relaxing)
  .debug_str     0x00000199       0xa8 Drivers/UART/src/startup.o
                                 0x16f (size before relaxing)
- .debug_str     0x00000241      0x5c0 Drivers/UART/src/uart.o
-                                0x790 (size before relaxing)
+ .debug_str     0x00000241      0x5be Drivers/UART/src/uart.o
+                                0x78e (size before relaxing)
 
-.debug_frame    0x00000000       0xe4
+.debug_frame    0x00000000       0xec
  .debug_frame   0x00000000       0x40 Drivers/UART/src/main.o
  .debug_frame   0x00000040       0x38 Drivers/UART/src/startup.o
- .debug_frame   0x00000078       0x6c Drivers/UART/src/uart.o
+ .debug_frame   0x00000078       0x74 Drivers/UART/src/uart.o
 
-.debug_loc      0x00000000      0x16d
- .debug_loc     0x00000000      0x16d Drivers/UART/src/uart.o
+.debug_loc      0x00000000      0x193
+ .debug_loc     0x00000000      0x193 Drivers/UART/src/uart.o
