@@ -136,13 +136,13 @@
 #define GPIOD_AFRL_PIN2_MASK      ((uint32_t)0x00000F00)        // AF7 mask for PD2 (bits 11:8)
 #define GPIOD_AFRL_PIN5_MASK      ((uint32_t)0x00F00000)        // AF7 mask for PD5 (bits 23:20)
 #define GPIOD_AFRL_PIN6_MASK      ((uint32_t)0x0F000000)        // AF7 mask for PD6 (bits 27:24)
-#define GPIOD_AFRH_PIN8_MASK      ((uint32_t)0x000000F0)        // AF7 mask for PD8 (bits 7:4)
-#define GPIOD_AFRH_PIN9_MASK      ((uint32_t)0x00000F00)        // AF7 mask for PD9 (bits 15:12)
+#define GPIOD_AFRH_PIN8_MASK      ((uint32_t)0x0000000F)        // AF7 mask for PD8 (bits 3:0)
+#define GPIOD_AFRH_PIN9_MASK      ((uint32_t)0x000000F0)        // AF7 mask for PD9 (bits 7:4)
 #define GPIOD_AFRL_PIN2_SET       ((uint32_t)0x00000700)        // AF7 for PD2 (bits 11:8)
 #define GPIOD_AFRL_PIN5_SET       ((uint32_t)0x00700000)        // AF7 for PD5 (bits 23:20)
 #define GPIOD_AFRL_PIN6_SET       ((uint32_t)0x07000000)        // AF7 for PD6 (bits 27:24)
-#define GPIOD_AFRH_PIN8_SET       ((uint32_t)0x00000070)        // AF7 for PD8 (bits 11:8)
-#define GPIOD_AFRH_PIN9_SET       ((uint32_t)0x00000700)        // AF7 for PD9 (bits 15:12)
+#define GPIOD_AFRH_PIN8_SET       ((uint32_t)0x00000007)        // AF7 for PD8 (bits 3:0)
+#define GPIOD_AFRH_PIN9_SET       ((uint32_t)0x00000070)        // AF7 for PD9 (bits 7:4)
 
 // USART BRR register bit definitions
 #define BRR_CNF1_115200 0x1A1                               // Set baud rate to 115200
