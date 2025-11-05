@@ -76,6 +76,13 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
             GPIO_D->MODER |=  MODER_PIN8_SET;                          // AF for PD8
             GPIO_D->AFR[1] &= ~AFRH_PIN8_MASK;                         // clear AFRH[3:0]
             GPIO_D->AFR[1] |=  AFRH_PIN8_SET_AF7;                         // AF7 for PD8
+
+            // configuration for USART3 TX on PC10
+            RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOCEN;                        // GPIOC clock
+            GPIO_C->MODER &= ~MODER_PIN10_MASK;                         // clear PC10
+            GPIO_C->MODER |=  MODER_PIN10_SET;                         // AF for PC10
+            GPIO_C->AFR[1] &= ~AFRH_PIN10_MASK;                         // clear AFRH[11:8]
+            GPIO_C->AFR[1] |=  AFRH_PIN10_SET_AF7;                         // AF7 for PC10
         }
         else if (USARTx == UART_4) {
             RCC->RCC_APB1ENR |= RCC_APB1ENR_UART_4EN;                       // UART4 clock (APB1)
@@ -175,6 +182,13 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
             GPIO_D->MODER |=  MODER_PIN9_SET;                          // AF for PD9
             GPIO_D->AFR[1] &= ~AFRH_PIN9_MASK;                         // clear AFRH[15:12]
             GPIO_D->AFR[1] |=  AFRH_PIN9_SET_AF7;                         // AF7 for PD9
+
+            //configuration for USART3 RX on PC11
+            RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOCEN;                        // GPIOC clock
+            GPIO_C->MODER &= ~MODER_PIN11_MASK;                         // clear PC11
+            GPIO_C->MODER |=  MODER_PIN11_SET;                         // AF for PC11
+            GPIO_C->AFR[1] &= ~AFRH_PIN11_MASK;                         // clear AFRH[15:12]
+            GPIO_C->AFR[1] |=  AFRH_PIN11_SET_AF7;                         // AF7 for PC11
         }
         else if (USARTx == UART_4) {
             RCC->RCC_APB1ENR |= RCC_APB1ENR_UART_4EN;                       // UART4 clock (APB1)
