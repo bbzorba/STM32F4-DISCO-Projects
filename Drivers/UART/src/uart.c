@@ -11,12 +11,17 @@
 
 /* 
  USART pins for STM32F4xx series:
- USART1 -> PB6 (TX), PB7 (RX) or PA9 (TX), PA10 (RX)
+ USART1 -> PB6 (TX), PB7 (RX)
  USART2 -> PA2 (TX), PA3 (RX) or PD5 (TX), PD6 (RX)
- USART3 -> PB10 (TX), PB11 (RX) or PD8 (TX), PD9 (RX)
+ USART3 -> PB10 (TX), PB11 (RX) or PD8 (TX), PD9 (RX) or PC10 (TX), PC11(RX)
  UART4 -> PA0 (TX), PA1 (RX) or PC10 (TX), PC11 (RX)
  UART5 -> PC12 (TX), PD2 (RX)
  USART6 -> PC6 (TX), PC7 (RX)*/
+
+// Compute BRR for oversampling by 16
+uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud) {
+    return (uint16_t)( (fck_hz + (baud / 2U)) / baud );
+}
 
 void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudRateType baudrate)
 {
@@ -197,8 +202,6 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
             RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                        // GPIOA clock
             USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
             // Enable pull-up on RX to keep line idle-high and reduce noise
-            GPIO_D->PUPDR &= ~(0x3U << (2U * 2U));
-            GPIO_D->PUPDR |=  (0x1U << (2U * 2U));                           // Pull-up (01b)
             GPIO_A->MODER &= ~MODER_PIN1_MASK;                          // clear PA1
             GPIO_A->MODER |=  MODER_PIN1_SET;                          // AF for PA1
             GPIO_A->AFR[0] &= ~AFRL_PIN1_MASK;                         // clear AFRL[7:4]
@@ -235,16 +238,12 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
         }
     }
 
-    // 4) Baud rate before enabling UE
-    switch (baudrate) {
-        case __115200:
-            USARTx->BRR = BRR_CNF1_115200;
-            break;
-        case __9600:
-        default:
-            USARTx->BRR = BRR_CNF2_9600;
-            break;
-    }
+    // 4) Clear any stale status by a dummy SR/DR read, then set baud
+    (void)USARTx->SR; (void)USARTx->DR;
+    // 4) Baud rate before enabling UE; derive from bus clock.
+    uint32_t baud_val = (baudrate == __115200) ? 115200U : 9600U;
+    uint32_t fck_hz = (USARTx == USART_1 || USARTx == USART_6) ? APB2_CLK_HZ : APB1_CLK_HZ;
+    USARTx->BRR = BRR_Oversample_by_16(fck_hz, baud_val);
 
     // 5) 1 stop bit, no flow control
     USARTx->CR2 = CR2_CNF1;
@@ -300,4 +299,29 @@ int get_char(USART_Manual_TypeDef *USARTx, FILE *f) {
 int send_char(USART_Manual_TypeDef *USARTx, int c, FILE *f) {
     USART_x_Write(USARTx, c);                                               // write a character to USART_x
     return c;
+}
+
+void writeString(USART_Manual_TypeDef *USARTx, const char *str) {
+    USART_x_Write(USARTx, '\n');
+    USART_x_Write(USARTx, 'r'); // Carriage return before newline
+    USART_x_Write(USARTx, 'x');
+    USART_x_Write(USARTx, ':');
+    USART_x_Write(USARTx, ' ');
+    USART_x_Write(USARTx, '\n');
+    while (*str) {
+        USART_x_Write(USARTx, *str++);
+    }
+}
+
+void readString(USART_Manual_TypeDef *USARTx, char *buffer, size_t maxLength) {
+    size_t index = 0;
+    char c;
+    while (index < (maxLength - 1)) { // Leave space for null terminator
+        c = USART_x_Read(USARTx);
+        if (c == '\n' || c == '\r') { // Stop on newline or carriage return
+            break;
+        }
+        buffer[index++] = c;
+    }
+    buffer[index] = '\0'; // Null-terminate the string
 }

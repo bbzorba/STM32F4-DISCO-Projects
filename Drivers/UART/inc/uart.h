@@ -7,14 +7,13 @@
 
 #define __IO volatile
 
-/* 
- USART pins for STM32F4xx series:
- USART1 -> PB6 (TX), PB7 (RX) or PA9 (TX), PA10 (RX)
+/* USART pins for STM32F4xx series:
+ USART1 -> PB6 (TX), PB7 (RX)
  USART2 -> PA2 (TX), PA3 (RX) or PD5 (TX), PD6 (RX)
  USART3 -> PB10 (TX), PB11 (RX) or PD8 (TX), PD9 (RX)
  UART4 -> PA0 (TX), PA1 (RX) or PC10 (TX), PC11 (RX)
  UART5 -> PC12 (TX), PD2 (RX)
- USART6 -> PC6 (TX), PC7 (RX)*/
+ USART6 -> PC6 (TX), PC7 (RX) */
 
 // Base addresses
 #define PERIPH_ADDR_BASE 0x40000000U
@@ -44,6 +43,16 @@
 #define RCC_AHB1ENR_GPIOCEN  ((uint32_t)0x00000004)         // Bit 2
 #define RCC_AHB1ENR_GPIODEN  ((uint32_t)0x00000008)         // Bit 3
 #define RCC_AHB1ENR_GPIOEEN  ((uint32_t)0x00000010)         // Bit 4
+
+// Default peripheral clocks (Hz) used for baud calculation when system clock
+// is not explicitly configured elsewhere. On STM32F4 Discovery, using HSI by
+// default gives APB1=APB2=16 MHz.
+#ifndef APB1_CLK_HZ
+#define APB1_CLK_HZ 16000000U
+#endif
+#ifndef APB2_CLK_HZ
+#define APB2_CLK_HZ 16000000U
+#endif
 
 // GPIO MODER register Mask bit definitions
 #define MODER_PIN0_MASK          ((uint32_t)0x00000003)        // mask to clear MODER_PIN0 bits (bits 1:0)
@@ -136,8 +145,8 @@
 #define AFRH_PIN15_SET_AF8       ((uint32_t)0x80000000)        // set AF8 for PIN15 (bits 31:28)
 
 // USART BRR register bit definitions
-#define BRR_CNF1_115200 0x1A1                               // Set baud rate to 115200
-#define BRR_CNF2_9600 0x683                                 // Set baud rate to 9600
+#define BRR_CNF1_115200 0x08B                               // 115200 @ 16 MHz, OVER8=0
+#define BRR_CNF2_9600  0x683                                // 9600 @ 16 MHz, OVER8=0
 
 //USART CR1, CR2 & CR3 register bit definitions
 #define CR2_CNF1 0x0000                                     // 1 stop bit, no-op
@@ -188,5 +197,8 @@ typedef enum {
 void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudRateType baudrate);
 void USART_x_Write(USART_Manual_TypeDef *USARTx, int ch);
 char USART_x_Read(USART_Manual_TypeDef *USARTx);
+uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud);
+void writeString(USART_Manual_TypeDef *USARTx, const char *str);
+void readString(USART_Manual_TypeDef *USARTx, char *buffer, size_t maxLength);
 
 #endif // __UART_H
