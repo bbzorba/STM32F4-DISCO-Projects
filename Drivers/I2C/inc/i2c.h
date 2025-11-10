@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include "../../GPIO/inc/gpio.h"
 
 // Base addresses
 #define PERIPH_ADDR_BASE 0x40000000U
@@ -15,10 +16,10 @@
 #define I2C3_BASE_ADDR    (APB1PERIPH_ADDR_BASE + 0x5C00U)
 #define GPIOB_BASE_ADDR   (AHB1PERIPH_ADDR_BASE + 0x0400U)
 
-// I2C register bit definitions
-#define I2C1              ((I2C_RegDef_t *)I2C1_BASE_ADDR)
-#define I2C2              ((I2C_RegDef_t *)I2C2_BASE_ADDR)
-#define I2C3              ((I2C_RegDef_t *)I2C3_BASE_ADDR)
+// I2C peripheral declarations
+#define I2C_1 ((I2C_TypeDef *)I2C1_BASE_ADDR)
+#define I2C_2 ((I2C_TypeDef *)I2C2_BASE_ADDR)
+#define I2C_3 ((I2C_TypeDef *)I2C3_BASE_ADDR)
 
 // IO definitions
 #define __IO             volatile
@@ -41,6 +42,12 @@
 #define GPIOB_MODER_PIN7     ((uint32_t)0x00008000)         // set AF (10) for PB7
 #define GPIOB_AFR_TYPE       ((uint32_t)0xFF000000)         // AFRL for PB6 and PB7
 #define GPIOB_AFR_VALUE      ((uint32_t)0x77000000)         // AF7 for I2C1 (PB6 and PB7)
+
+// GPIOD register bit definitions
+#define GPIOD_MODER_ALTERNATE ((uint32_t)0x0000F000)        // mask to clear PD0 mode bits
+#define GPIOD_MODER_PIN0      ((uint32_t)0x00002000)         // set AF (10) for PD0
+
+// I2C register bit definitions
 #define I2C_CR1_PE          ((uint32_t)0x0001)             // Peripheral Enable
 #define I2C_CR1_START       ((uint32_t)0x0100)             // Start Generation
 #define I2C_CR2_FREQ        ((uint32_t)0x0028)             // Peripheral Clock Frequency
@@ -87,24 +94,14 @@ typedef enum {
 } I2C_AckType;
 
 typedef enum {
-    I2C_GENERAL_CALL_ENABLE = 0,
-    I2C_GENERAL_CALL_DISABLE
-} I2C_GeneralCallType;
-
-typedef enum {
     I2C_7BIT_ADDRESS = 0,
     I2C_10BIT_ADDRESS
 } I2C_AddressType;
 
-// I2C peripheral declarations
-#define I2C_1 ((I2C_TypeDef *)I2C1_BASE_ADDR)
-#define I2C_2 ((I2C_TypeDef *)I2C2_BASE_ADDR)
-#define I2C_3 ((I2C_TypeDef *)I2C3_BASE_ADDR)
-#define GPIO_B ((GPIO_RegDef_t *)GPIOB_BASE_ADDR) // GPIOB base address
-
 // I2C function prototypes
-void I2C_2_Init(I2C_SpeedType speed);
-int I2C_2_Read(void);
-void I2C_2_Write(int data);
+void I2C_Init(I2C_SpeedType speed);
+int I2C_Read(void);
+void I2C_Write(int data);
+int read_I2C_address(int address);
 
 #endif // __I2C_H

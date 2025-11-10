@@ -15,7 +15,9 @@
 #PROJECT_DIR = Projects/HC06_Bluetooth
 #PROJECT_DIR = Projects/HC06_Bluetooth_cpp
 #PROJECT_DIR = Projects/HC06_Servo_Controller
-PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
+#PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
+PROJECT_DIR = Drivers/I2C
+#PROJECT_DIR = Drivers/I2C_cpp
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc

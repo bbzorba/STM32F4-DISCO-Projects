@@ -8,10 +8,12 @@ void delay(volatile uint32_t count);
 
 //main function
 int main(void) {
-    I2C1_Init();
-    
+    // Initialize I2C1 in standard mode (100kHz)
+    I2C_Init(I2C_STANDARD_MODE);
+
     while (1) {
-        I2C1_Read(i2c_addr);
+        // Issue a read-address phase to the target address
+        (void)read_I2C_address(i2c_addr);
         delay(1000);
     }
 }
