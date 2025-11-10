@@ -8,7 +8,7 @@ void delay(volatile uint32_t count);
 //main function
 int main(void) {
     // Initialize USART for both RX and TX at 9600 baud
-    HC06 hc06(UART_4, RX_AND_TX, __9600);
+    HC06 hc06(USART_3, RX_AND_TX, __9600);
 
     // Send a greeting so you can verify TX path and pairing
     static char hello[] = "Hello HC-06 (echo mode)\r\nConnected on ";

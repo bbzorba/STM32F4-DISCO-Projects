@@ -15,7 +15,7 @@ int main(void) {
     servo_PE5.Start();
     
     // Initialize HC-06 Bluetooth module
-    HC06 hc06(RX_AND_TX, __9600);
+    HC06 hc06(USART_3, RX_AND_TX, __9600);
     
     // Optional: announce ready over Bluetooth
     const uint8_t hello[] = "HC-06 ready. Send L/M/R\r\n";

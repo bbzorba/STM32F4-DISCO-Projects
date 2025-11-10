@@ -17,7 +17,7 @@ int main(void) {
     
     // Initialize HC-06 Bluetooth module
     HC06 hc06;
-    HC06_Init(&hc06, RX_AND_TX, __9600);
+    HC06_Init(&hc06, USART_3, RX_AND_TX, __9600);
     
     // Optional: announce ready over Bluetooth
     const uint8_t hello[] = "HC-06 ready. Send L/M/R\r\n";
