@@ -216,6 +216,9 @@ public:
     // Accessors
     UART_COMType getComType() const;
     UART_BaudRateType getBaudRate() const;
+
+    // Utility
+    const char* GetPortName() const;
 };
 
 #endif // __UART_H

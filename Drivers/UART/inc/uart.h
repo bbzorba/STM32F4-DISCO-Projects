@@ -184,6 +184,12 @@ typedef enum {
     __9600,
 } UART_BaudRateType;
 
+typedef struct {
+    UART_COMType comType;                 // configuration (RX/TX)
+    UART_BaudRateType baudRate;           // selected baud enum
+    USART_Manual_TypeDef *regs;           // pointer to hardware register block
+} USART_TypeDef;                          // High-level handle ("object")
+
 // USART2 peripheral declaration
 #define USART_1 ((USART_Manual_TypeDef *)USART_1_BASE)
 #define USART_2 ((USART_Manual_TypeDef *)USART_2_BASE)
@@ -193,12 +199,17 @@ typedef enum {
 #define USART_6 ((USART_Manual_TypeDef *)USART_6_BASE)
 
 
-// Function prototypes
-void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudRateType baudrate);
+// Low-level (register) API
 void USART_x_Write(USART_Manual_TypeDef *USARTx, int ch);
 char USART_x_Read(USART_Manual_TypeDef *USARTx);
 uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud);
-void writeString(USART_Manual_TypeDef *USARTx, const char *str);
-void readString(USART_Manual_TypeDef *USARTx, char *buffer, size_t maxLength);
+const char* GetPortName(USART_Manual_TypeDef *USARTx);
+
+// High-level (object-style) API
+void USART_Init(USART_TypeDef *handle, USART_Manual_TypeDef *regs, UART_COMType comType, UART_BaudRateType baudRate);
+void USART_WriteChar(USART_TypeDef *handle, int ch);
+char USART_ReadChar(USART_TypeDef *handle);
+void USART_WriteString(USART_TypeDef *handle, const char *str);
+void USART_ReadString(USART_TypeDef *handle, char *buffer, size_t maxLength);
 
 #endif // __UART_H

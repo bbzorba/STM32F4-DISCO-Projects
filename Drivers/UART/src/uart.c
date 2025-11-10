@@ -20,13 +20,19 @@
 
 // Compute BRR for oversampling by 16
 uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud) {
-    return (uint16_t)( (fck_hz + (baud / 2U)) / baud );
+    return (uint16_t)((fck_hz + (baud / 2U)) / baud);
 }
 
-void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudRateType baudrate)
+// High-level init: fill handle then configure hardware
+void USART_Init(USART_TypeDef *handle, USART_Manual_TypeDef *regs, UART_COMType _comtype, UART_BaudRateType _baudrate)
 {
+    handle->comType = _comtype;
+    handle->baudRate = _baudrate;
+    handle->regs = regs;
+    USART_Manual_TypeDef *USARTx = regs; // local alias for readability
+
     // USART TX pin configuration
-    if (comtype == TX_ONLY || comtype == RX_AND_TX) 
+    if (_comtype == TX_ONLY || _comtype == RX_AND_TX) 
     {
         if (USARTx == USART_1) {
             RCC->RCC_APB2ENR |= RCC_APB2ENR_USART_1EN;                      // USART1 clock (APB2)
@@ -132,7 +138,7 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
     }
 
     // USART RX pin configuration
-    if (comtype == RX_ONLY || comtype == RX_AND_TX) 
+    if (_comtype == RX_ONLY || _comtype == RX_AND_TX) 
     {
         if (USARTx == USART_1) {
             RCC->RCC_APB2ENR |= RCC_APB2ENR_USART_1EN;                      // USART1 clock (APB2)
@@ -241,7 +247,7 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
     // 4) Clear any stale status by a dummy SR/DR read, then set baud
     (void)USARTx->SR; (void)USARTx->DR;
     // 4) Baud rate before enabling UE; derive from bus clock.
-    uint32_t baud_val = (baudrate == __115200) ? 115200U : 9600U;
+    uint32_t baud_val = (_baudrate == __115200) ? 115200U : 9600U;
     uint32_t fck_hz = (USARTx == USART_1 || USARTx == USART_6) ? APB2_CLK_HZ : APB1_CLK_HZ;
     USARTx->BRR = BRR_Oversample_by_16(fck_hz, baud_val);
 
@@ -250,7 +256,7 @@ void USART_x_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudR
     USARTx->CR3 = CR3_CNF1;
 
     // 6) Enable TX/RX as requested, then UE last
-    switch (comtype) {
+    switch (_comtype) {
         case TX_ONLY:
             USARTx->CR1 = USART_CR1_TX_EN;
             break;
@@ -285,23 +291,8 @@ char USART_x_Read(USART_Manual_TypeDef *USARTx)
     return (USARTx->DR & 0xFF);
 }
 
-int get_char(USART_Manual_TypeDef *USARTx, FILE *f) {
-    int c;
-    c = USART_x_Read(USARTx);                                               //read a character from USART_x
-    if (c == '\r') {                                                        // if received character is carriage return
-        USART_x_Write(USARTx, c);                                           // send carriage return
-        c = '\n';                                                           // change carriage return to newline
-    }
-    USART_x_Write(USARTx, c);                                               // send the character
-    return c;
-}
 
-int send_char(USART_Manual_TypeDef *USARTx, int c, FILE *f) {
-    USART_x_Write(USARTx, c);                                               // write a character to USART_x
-    return c;
-}
-
-void writeString(USART_Manual_TypeDef *USARTx, const char *str) {
+/* void writeString(USART_Manual_TypeDef *USARTx, const char *str) {
     USART_x_Write(USARTx, '\n');
     USART_x_Write(USARTx, 'r'); // Carriage return before newline
     USART_x_Write(USARTx, 'x');
@@ -324,4 +315,45 @@ void readString(USART_Manual_TypeDef *USARTx, char *buffer, size_t maxLength) {
         buffer[index++] = c;
     }
     buffer[index] = '\0'; // Null-terminate the string
+}
+ */
+
+const char* GetPortName(USART_Manual_TypeDef *USARTx) {
+    if (!USARTx) return "USART?";
+    if (USARTx == USART_1) return "USART1";
+    if (USARTx == USART_2) return "USART2";
+    if (USARTx == USART_3) return "USART3";
+    if (USARTx == UART_4) return "UART4";
+    if (USARTx == UART_5) return "UART5";
+    if (USARTx == USART_6) return "USART6";
+    return "USART?";
+}
+
+// Object style wrappers -------------------------------------------------
+void USART_WriteChar(USART_TypeDef *handle, int ch) {
+    USART_x_Write(handle->regs, ch);
+}
+
+char USART_ReadChar(USART_TypeDef *handle) {
+    return USART_x_Read(handle->regs);
+}
+
+void USART_WriteString(USART_TypeDef *handle, const char *str) {
+    while (*str) {
+        char c = *str++;
+        if (c == '\n') {
+            USART_x_Write(handle->regs, '\r');
+        }
+        USART_x_Write(handle->regs, c);
+    }
+}
+
+void USART_ReadString(USART_TypeDef *handle, char *buffer, size_t maxLength) {
+    size_t i = 0; char c;
+    while (i < maxLength - 1) {
+        c = USART_ReadChar(handle);
+        if (c == '\n' || c == '\r') break;
+        buffer[i++] = c;
+    }
+    buffer[i] = '\0';
 }

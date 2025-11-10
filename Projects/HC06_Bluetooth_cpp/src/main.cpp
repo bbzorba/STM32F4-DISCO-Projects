@@ -1,4 +1,5 @@
 #include "hc06.h"
+#include <string.h>
 
 // Function prototypes
 void delay(volatile uint32_t count);
@@ -7,11 +8,14 @@ void delay(volatile uint32_t count);
 //main function
 int main(void) {
     // Initialize USART for both RX and TX at 9600 baud
-    HC06 hc06(RX_AND_TX, __9600);
+    HC06 hc06(UART_4, RX_AND_TX, __9600);
 
     // Send a greeting so you can verify TX path and pairing
-    static const uint8_t hello[] = "Hello HC-06 (echo mode)\r\n";
-    hc06.SendData(hello, sizeof(hello)-1);
+    static char hello[] = "Hello HC-06 (echo mode)\r\nConnected on ";
+    hc06.SendData((const uint8_t*)hello, strlen(hello));
+    const char *port = hc06.GetPortName();
+    hc06.SendData((const uint8_t*)port, strlen(port));
+    hc06.SendData((const uint8_t*)"\r\n", 2);
 
     // Echo loop: anything received will be sent back with CRLF
     while (1) {

@@ -10,15 +10,13 @@
 #include "uart.h"
 
 USART::USART(USART_Manual_TypeDef *uartx, UART_COMType _comType, UART_BaudRateType _baudRate)
-{   
-    this->USARTx = uartx;
-    this->comType = _comType;
-    this->baudRate = _baudRate;
+: USARTx(uartx), comType(_comType), baudRate(_baudRate)
+{
 
     // USART TX pin configuration
     if (_comType == TX_ONLY || _comType == RX_AND_TX) 
     {
-        if (this->USARTx == USART_1) {
+    if (this->USARTx == USART_1) {
             RCC->RCC_APB2ENR |= RCC_APB2ENR_USART_1EN;                      // USART1 clock (APB2)
 
             // configuration for USART1 TX on PB6
@@ -36,12 +34,12 @@ USART::USART(USART_Manual_TypeDef *uartx, UART_COMType _comType, UART_BaudRateTy
             GPIO_A->AFR[1] &= ~AFRH_PIN9_MASK;                         // clear AFRH[11:8]
             GPIO_A->AFR[1] |=  AFRH_PIN9_SET_AF7;                         // AF7 for PA9
         }
-        else if (this->USARTx == USART_2) {
+    else if (this->USARTx == USART_2) {
             RCC->RCC_APB1ENR |= RCC_APB1ENR_USART_2EN;                      // USART2 clock (APB1)
             
             // configuration for USART2 TX on PA2
             RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                        // GPIOA clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->USARTx->CR1 = 0x0000;                                    // Disable USART before configuration
             GPIO_A->MODER &= ~MODER_PIN2_MASK;                          // clear PA2
             GPIO_A->MODER |=  MODER_PIN2_SET;                          // AF for PA2
             GPIO_A->AFR[0] &= ~AFRL_PIN2_MASK;                         // clear AFRL[11:8]
@@ -297,14 +295,12 @@ int USART::send_char(int c, FILE *f) {
 }
 
 void USART::writeString(const char *str) {
-    this->USART_x_Write('\n');
-    this->USART_x_Write('r'); // Carriage return before newline
-    this->USART_x_Write('x');
-    this->USART_x_Write(':');
-    this->USART_x_Write(' ');
-    this->USART_x_Write('\n');
     while (*str) {
-        this->USART_x_Write(*str++);
+        char c = *str++;
+        if (c == '\n') {
+            this->USART_x_Write('\r');
+        }
+        this->USART_x_Write(c);
     }
 }
 
@@ -328,4 +324,15 @@ UART_COMType USART::getComType() const {
 
 UART_BaudRateType USART::getBaudRate() const {
     return this->baudRate;
+}
+
+const char* USART::GetPortName() const {
+    if (!this->USARTx) return "USART?";
+    if (this->USARTx == USART_1) return "USART1";
+    if (this->USARTx == USART_2) return "USART2";
+    if (this->USARTx == USART_3) return "USART3";
+    if (this->USARTx == UART_4)  return "UART4";
+    if (this->USARTx == UART_5)  return "UART5";
+    if (this->USARTx == USART_6) return "USART6";
+    return "USART?";
 }

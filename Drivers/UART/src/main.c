@@ -5,15 +5,19 @@ char buffer[64];
 // Function prototypes
 void delay(volatile uint32_t count);
 
-//main function
 int main(void) {
-    USART_x_Init(USART_1, RX_AND_TX, __115200);
-    writeString(USART_1, "Welcome to Echo Mode!\n");
+    USART_TypeDef usart;
+    USART_Init(&usart, USART_1, RX_AND_TX, __115200);
+
+    USART_WriteString(&usart, "Welcome to Echo Mode!\r\n");
+    USART_WriteString(&usart, "Connected on: ");
+    USART_WriteString(&usart, GetPortName(usart.regs));
+    USART_WriteString(&usart, "\r\n");
     
     while (1) {
-        readString(USART_1, buffer, 64);
-        writeString(USART_1, buffer);
-        writeString(USART_1, "\n");
+        USART_ReadString(&usart, buffer, sizeof(buffer));
+        USART_WriteString(&usart, buffer);
+        USART_WriteString(&usart, "\r\n");
     }
 }
 
