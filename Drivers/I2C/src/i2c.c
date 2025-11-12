@@ -2,14 +2,15 @@
 
 void I2C_Init(I2C_SpeedType speed)
 {
-    RCC->RCC_APB1ENR |= RCC_APB1ENR_I2C2EN;                          // Enable clock access to I2C2
+    RCC->RCC_APB1ENR |= RCC_APB1ENR_I2C1EN;                          // Enable clock access to I2C1
     RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                         // Enable clock access to GPIOB
-    I2C_1->CR1 |= I2C_CR1_PE;                                        // Disable I2C2
-    
-    GPIO_B->MODER   &= GPIOB_MODER_ALTERNATE;                        // Set PB6 and PB7 to Alternate Function
-    GPIO_B->MODER   |= (GPIOB_MODER_PIN6 | GPIOB_MODER_PIN7);
-    GPIO_B->AFR[0]  &= GPIOB_AFR_TYPE;                               // Clear AFRL for PB6 and PB7
-    GPIO_B->AFR[0]  |= GPIOB_AFR_VALUE;                              // Set AF7 for PB6 and PB7 (I2C2)
+    I2C_1->CR1 &= ~I2C_CR1_PE;                                       // Disable I2C1 before configuring
+
+    // Configure PB6/PB7 as AF4 for I2C1 (SCL/SDA)
+    GPIO_B->MODER   &= ~(MODER_PIN6_MASK | MODER_PIN7_MASK);         // Clear mode bits
+    GPIO_B->MODER   |= (MODER_PIN6_SET | MODER_PIN7_SET);            // Alternate function mode
+    GPIO_B->AFR[0]  &= ~(AFRL_PIN6_MASK | AFRL_PIN7_MASK);           // Clear AFRL for PB6/PB7
+    GPIO_B->AFR[0]  |= (AFRL_PIN6_SET_AF4 | AFRL_PIN7_SET_AF4);      // AF4 = I2C
     I2C_1->CR2 = I2C_CR2_FREQ;                                       // Peripheral clock frequency
     if (speed == I2C_STANDARD_MODE)
     {
@@ -66,4 +67,47 @@ void I2C_Write(int data)
 
     //2. write to DR register
     I2C_1->DR = (data & 0xFF);
+}
+
+void I2C_Stop(void)
+{
+    // Generate STOP condition and wait for bus to become free
+    I2C_1->CR1 |= I2C_CR1_STOP;
+    // Optionally poll BUSY flag clear (simple delay loop here)
+    for(volatile int i=0; i<1000; ++i) { __asm__("nop"); }
+}
+
+void I2C_Start(void)
+{
+    // Wait until bus is free then generate START and wait for SB
+    while (I2C_1->SR2 & I2C_SR2_BUSY);
+    I2C_1->CR1 |= I2C_CR1_START;
+    while (!(I2C_1->SR1 & I2C_SR1_SB));
+}
+
+void I2C_Restart(void)
+{
+    // Generate repeated START and wait for SB
+    I2C_1->CR1 |= I2C_CR1_START;
+    while (!(I2C_1->SR1 & I2C_SR1_SB));
+}
+
+void I2C_SendAddress(uint8_t address, int read)
+{
+    // Send 7-bit address and R/W bit
+    I2C_1->DR = (uint32_t)((address << 1) | (read ? 1 : 0));
+    while (!(I2C_1->SR1 & I2C_SR1_ADDR));
+    // Clear ADDR by reading SR1 and SR2
+    volatile uint32_t tmp = I2C_1->SR1; (void)tmp;
+    tmp = I2C_1->SR2; (void)tmp;
+}
+
+void I2C_EnableAck(void)
+{
+    I2C_1->CR1 |= I2C_CR1_ACK;
+}
+
+void I2C_DisableAck(void)
+{
+    I2C_1->CR1 &= ~I2C_CR1_ACK;
 }

@@ -1,0 +1,37 @@
+#include "hc06_bme68x_env_sensor.h"
+
+// Function prototypes
+void delay(volatile uint32_t count);
+
+//main function
+int main(void) {
+    // Initialize I2C1 in standard mode (100kHz)
+    HC06 hc06;
+    HC06_Init(&hc06, USART_2, RX_AND_TX, __9600);
+    BME68x_Init();
+
+    while (1) {
+        char msg[96];
+        int m = snprintf(msg, sizeof(msg), "\r\nEnvironmental Sensor Measurement \r\n HC06 Connected on %s\r\n", HC06_GetPortName(&hc06));
+        if (m > 0) {
+            if (m > (int)sizeof(msg)) m = (int)sizeof(msg);
+        HC06_SendData(&hc06, (const uint8_t*)msg, (size_t)m);
+        }
+
+        send_temp(&hc06);
+        delay(1000);
+
+        send_gas_density(&hc06);
+        delay(1000);
+
+        send_humidity(&hc06);
+        delay(5000);
+    }
+}
+
+
+void delay(volatile uint32_t count) {
+    while(count--) {
+        __asm__("nop");
+    }
+}

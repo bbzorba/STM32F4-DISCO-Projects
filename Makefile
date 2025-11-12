@@ -16,8 +16,12 @@
 #PROJECT_DIR = Projects/HC06_Bluetooth_cpp
 #PROJECT_DIR = Projects/HC06_Servo_Controller
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
-PROJECT_DIR = Drivers/I2C
+#PROJECT_DIR = Drivers/I2C
 #PROJECT_DIR = Drivers/I2C_cpp
+#PROJECT_DIR = Projects/MLX90614_Temp
+#PROJECT_DIR = Projects/HC06_MLX90614_Temp
+#PROJECT_DIR = Projects/BME68x_Env_Sensor
+PROJECT_DIR = Projects/HC06_BME68x_Env_Sensor
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -95,6 +99,9 @@ HAL_SRC := \
 GPIO_SRC_C := Drivers/GPIO/src/gpio.c
 GPIO_SRC_CPP := Drivers/GPIO_cpp/src/gpio.cpp
 
+I2C_SRC_C := Drivers/I2C/src/i2c.c
+I2C_SRC_CPP := Drivers/I2C_cpp/src/i2c.cpp
+
 UART_SRC_C := Drivers/UART/src/uart.c
 UART_SRC_CPP := Drivers/UART_cpp/src/uart.cpp
 
@@ -106,6 +113,12 @@ HC_06_SRC_CPP := Projects/HC06_Bluetooth_cpp/src/hc06.cpp
 
 Servo_MOTOR_SRC_C := Projects/Servo_Motor/src/servo.c
 Servo_MOTOR_SRC_CPP := Projects/Servo_Motor_cpp/src/servo.cpp
+
+MLX90614_SRC_C := Projects/MLX90614_Temp/src/mlx90614_temp.c
+MLX90614_SRC_CPP := Projects/MLX90614_Temp_cpp/src/mlx90614_temp.cpp
+
+# BME68x environmental sensor sources
+BME68X_SRC_C := Projects/BME68x_Env_Sensor/src/bme68x_env_sensor.c
 
 # Automatically include GPIO library when project includes the following source files
 ifneq (,$(filter systick.c hc06.c pwm.c servo.c,$(notdir $(SRC))))
@@ -235,7 +248,7 @@ clean:
 
 # End of Makefile
 
-# Project-specific wiring for HC06_Servo_Controller
+# Project-specific wiring for HC06_Servo_Controller: needs GPIO, UART, PWM, Servo, HC06
 ifeq ($(PROJECT_DIR),Projects/HC06_Servo_Controller)
 # Include required drivers and servo/hc06 helpers
 SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
@@ -244,4 +257,38 @@ SRC_C += $(filter-out $(SRC_C),$(PWM_SRC_C))
 SRC_C += $(filter-out $(SRC_C),Projects/Servo_Motor/src/servo.c)
 SRC_C += $(filter-out $(SRC_C),Projects/HC06_Bluetooth/src/hc06.c)
 CFLAGS += -IDrivers/GPIO/inc -IDrivers/UART/inc -IDrivers/PWM/inc -IProjects/Servo_Motor/inc -IProjects/HC06_Bluetooth/inc
+endif
+
+# Project-specific wiring for MLX90614_Temp: needs I2C driver
+ifeq ($(PROJECT_DIR),Projects/MLX90614_Temp)
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc
+endif
+
+# Project-specific wiring for HC06_MLX90614_Temp: needs MLX90614, HC06, GPIO, I2C
+ifeq ($(PROJECT_DIR),Projects/HC06_MLX90614_Temp)
+SRC_C += $(filter-out $(SRC_C),$(MLX90614_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(HC_06_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc -IDrivers/UART/inc -IProjects/MLX90614_Temp/inc -IProjects/HC06_Bluetooth/inc
+endif
+
+# Project-specific wiring for BME68x: needs GPIO, I2C
+ifeq ($(PROJECT_DIR),Projects/BME68x_Env_Sensor)
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc -IProjects/BME68x_Env_Sensor/inc
+endif
+
+# Project-specific wiring for HC06_BME68x_Env_Sensor: needs BME68x, HC06, GPIO, I2C
+ifeq ($(PROJECT_DIR),Projects/HC06_BME68x_Env_Sensor)
+SRC_C += $(filter-out $(SRC_C),$(BME68X_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(HC_06_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc -IDrivers/UART/inc -IProjects/BME68x_Env_Sensor/inc -IProjects/HC06_Bluetooth/inc
 endif
