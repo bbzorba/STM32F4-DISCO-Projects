@@ -1,19 +1,74 @@
 #include "i2c.h"
 
+static void short_delay(volatile int n) { while (n--) { __asm__("nop"); } }
+
+void I2C_BusRecover(void)
+{
+    // Ensure GPIOB clock is enabled
+    RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+
+    // Use PB6 (SCL) and PB9 (SDA) for recovery (HAL-style mapping for I2C1)
+    // Configure as GPIO open-drain outputs with pull-ups
+    GPIO_B->MODER &= ~(0x3U << (6*2));
+    GPIO_B->MODER |=  (0x1U << (6*2));
+    GPIO_B->MODER &= ~(0x3U << (9*2));
+    GPIO_B->MODER |=  (0x1U << (9*2));
+    GPIO_B->OTYPER |= (1U << 6) | (1U << 9);
+    GPIO_B->PUPDR &= ~((0x3U << (6*2)) | (0x3U << (9*2)));
+    GPIO_B->PUPDR |=  ((0x1U << (6*2)) | (0x1U << (9*2)));
+    // Release lines high
+    GPIO_B->ODR |= (1U << 6) | (1U << 9);
+    short_delay(1000);
+
+    // If SDA is stuck low, toggle SCL up to 9 pulses
+    for (int i = 0; i < 9; ++i) {
+        if (GPIO_B->IDR & (1U << 9)) {
+            break; // SDA released
+        }
+        GPIO_B->ODR &= ~(1U << 6);
+        short_delay(400);
+        GPIO_B->ODR |= (1U << 6);
+        short_delay(400);
+    }
+
+    // Manual STOP: SDA low while SCL high then release SDA
+    GPIO_B->ODR |= (1U << 6); // ensure SCL high
+    short_delay(200);
+    GPIO_B->ODR &= ~(1U << 9); // SDA low
+    short_delay(200);
+    GPIO_B->ODR |= (1U << 9);  // SDA high
+    short_delay(400);
+}
+
 void I2C_Init(I2C_SpeedType speed)
 {
-    RCC->RCC_APB1ENR |= RCC_APB1ENR_I2C1EN;                          // Enable clock access to I2C1
-    RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                         // Enable clock access to GPIOB
-    I2C_1->CR1 &= ~I2C_CR1_PE;                                       // Disable I2C1 before configuring
+    // Enable clocks
+    RCC->RCC_APB1ENR |= RCC_APB1ENR_I2C1EN;
+    RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
 
-    // Configure PB6/PB7 as AF4 for I2C1 (SCL/SDA), open-drain, medium speed
-    GPIO_B->MODER   &= ~(MODER_PIN6_MASK | MODER_PIN7_MASK);         // Clear mode bits
-    GPIO_B->MODER   |= (MODER_PIN6_SET | MODER_PIN7_SET);            // Alternate function mode
-    GPIO_B->AFR[0]  &= ~(AFRL_PIN6_MASK | AFRL_PIN7_MASK);           // Clear AFRL for PB6/PB7
-    GPIO_B->AFR[0]  |= (AFRL_PIN6_SET_AF4 | AFRL_PIN7_SET_AF4);      // AF4 = I2C
-    GPIO_B->OTYPER  |= (1U << 6) | (1U << 7);                        // Open-drain for SCL/SDA
-    GPIO_B->OSPEEDR |= (0x2U << (6*2)) | (0x2U << (7*2));            // Medium speed
-    I2C_1->CR2 = I2C_CR2_FREQ;                                       // Peripheral clock frequency
+    // Ensure peripheral disabled and perform a software reset (HAL-like)
+    I2C_1->CR1 &= ~I2C_CR1_PE;
+    I2C_1->CR1 |= I2C_CR1_SWRST;
+    short_delay(1000);
+    I2C_1->CR1 &= ~I2C_CR1_SWRST;
+
+    // Try to recover the bus in case SCL/SDA are stuck low
+    I2C_BusRecover();
+
+    // Configure PB6 (SCL) and PB9 (SDA) as AF4 for I2C1
+    GPIO_B->MODER   &= ~(MODER_PIN6_MASK | MODER_PIN9_MASK);         // Clear mode bits
+    GPIO_B->MODER   |= (MODER_PIN6_SET | MODER_PIN9_SET);            // Alternate function
+    GPIO_B->AFR[0]  &= ~(AFRL_PIN6_MASK);                            // Clear AFRL for PB6
+    GPIO_B->AFR[0]  |= (AFRL_PIN6_SET_AF4);                          // Set AF4 for PB6
+    GPIO_B->AFR[1]  &= ~(AFRH_PIN9_MASK);                            // Clear AFRH for PB9
+    GPIO_B->AFR[1]  |= (AFRH_PIN9_SET_AF4);                          // Set AF4 for PB9
+    GPIO_B->OTYPER  |= (1U << 6) | (1U << 9);                        // Open-drain
+    GPIO_B->OSPEEDR |= (0x2U << (6*2)) | (0x2U << (9*2));            // Medium speed
+    GPIO_B->PUPDR   &= ~((0x3U << (6*2)) | (0x3U << (9*2)));         // Clear pulls
+    GPIO_B->PUPDR   |=  ((0x1U << (6*2)) | (0x1U << (9*2)));         // Pull-up on SCL/SDA
+
+    // Timing configuration (assumes APB1 ~16 MHz unless system clock changed)
+    I2C_1->CR2 = I2C_CR2_FREQ;                                       // Peripheral clock frequency (MHz)
     if (speed == I2C_STANDARD_MODE)
     {
         I2C_1->CCR = 0x28;                                           // Standard mode, 100kHz
@@ -25,7 +80,11 @@ void I2C_Init(I2C_SpeedType speed)
         I2C_1->TRISE = 0x03;                                         // Maximum rise time
     }
 
-    I2C_1->CR1 |= I2C_CR1_PE;                                        // Enable I2C1
+    // Own address register (bit 14 must be kept at 1 in 7-bit mode per RM)
+    I2C_1->OAR1 = 0x4000;                                            // 7-bit, address 0
+
+    // Enable peripheral
+    I2C_1->CR1 |= I2C_CR1_PE;
 }
 
 int read_I2C_address(int address)
@@ -94,14 +153,26 @@ void I2C_Restart(void)
     while (!(I2C_1->SR1 & I2C_SR1_SB));
 }
 
-void I2C_SendAddress(uint8_t address, int read)
+int I2C_SendAddress(uint8_t address, int read)
 {
     // Send 7-bit address and R/W bit
     I2C_1->DR = (uint32_t)((address << 1) | (read ? 1 : 0));
-    while (!(I2C_1->SR1 & I2C_SR1_ADDR));
-    // Clear ADDR by reading SR1 and SR2
-    volatile uint32_t tmp = I2C_1->SR1; (void)tmp;
-    tmp = I2C_1->SR2; (void)tmp;
+    // Wait for either ADDR (ACK) or AF (NACK)
+    while (1) {
+        uint32_t sr1 = I2C_1->SR1;
+        if (sr1 & I2C_SR1_ADDR) {
+            // Clear ADDR by reading SR1 then SR2
+            volatile uint32_t tmp = I2C_1->SR1; (void)tmp;
+            tmp = I2C_1->SR2; (void)tmp;
+            return 1; // ACK
+        }
+        if (sr1 & I2C_SR1_AF) {
+            // Clear AF and generate STOP to release bus
+            I2C_1->SR1 &= ~I2C_SR1_AF;
+            I2C_1->CR1 |= I2C_CR1_STOP;
+            return 0; // NACK
+        }
+    }
 }
 
 void I2C_EnableAck(void)

@@ -40,17 +40,23 @@
 #define MODER_PIN0_MASK         ((uint32_t)0x00000003)        // mask for PD0 mode bits (bits 1:0)
 #define MODER_PIN6_MASK         ((uint32_t)0x00003000)        // mask for PB6 mode bits (bits 13:12)
 #define MODER_PIN7_MASK         ((uint32_t)0x0000C000)        // mask for PB7 mode bits (bits 15:14)
+#define MODER_PIN9_MASK         ((uint32_t)0x000C0000)        // mask for PB9 mode bits (bits 19:18)
 #define MODER_PIN0_SET          ((uint32_t)0x00000002)        // set AF (10) for PD0
 #define MODER_PIN6_SET          ((uint32_t)0x00002000)        // set AF (10) for PB6
 #define MODER_PIN7_SET          ((uint32_t)0x00008000)        // set AF (10) for PB7
+#define MODER_PIN9_SET          ((uint32_t)0x00080000)        // set AF (10) for PB9
 
 // Alternate Function register bit definitions
 #define AFRL_PIN0_MASK           ((uint32_t)0x0000000F)       // mask to clear AFRL_PIN0 bits (bits 3:0)
 #define AFRL_PIN6_MASK           ((uint32_t)0x0F000000)       // mask to clear AFRL_PIN6 bits (bits 27:24)
 #define AFRL_PIN7_MASK           ((uint32_t)0xF0000000)       // mask to clear AFRL_PIN7 bits (bits 31:28)
-// I2C on STM32F4 uses AF4 on PB6/PB7
+#define AFRH_PIN9_MASK           ((uint32_t)0x000000F0)       // mask to clear AFRH_PIN9 bits (bits 7:4)
+#define AFRH_PIN9_MASK           ((uint32_t)0x000000F0)       // mask to clear AFRH_PIN9 bits (bits 7:4)
+// I2C on STM32F4 uses AF4 on PB6/PB7/PB9
 #define AFRL_PIN6_SET_AF4        ((uint32_t)0x04000000)       // set AF4 for PB6 (I2C1 SCL)
-#define AFRL_PIN7_SET_AF4        ((uint32_t)0x40000000)       // set AF4 for PB7 (I2C1 SDA)
+#define AFRL_PIN7_SET_AF4        ((uint32_t)0x40000000)       // set AF4 for PB7 (I2C1 SDA option)
+#define AFRH_PIN9_SET_AF4        ((uint32_t)0x00000040)       // set AF4 for PB9 (I2C1 SDA preferred)
+#define AFRH_PIN9_SET_AF4        ((uint32_t)0x00000040)       // set AF4 for PB9 (I2C1 SDA alt)
 
 // I2C register bit definitions
 #define I2C_CR1_PE              ((uint32_t)0x0001)            // Peripheral Enable
@@ -63,6 +69,8 @@
 #define I2C_SR1_BTF             ((uint32_t)0x0004)            // Byte Transfer Finished
 #define I2C_SR1_TXE             ((uint32_t)0x0080)            // Data Register Empty
 #define I2C_SR1_SB              ((uint32_t)0x0001)            // Start Bit (Master mode)
+#define I2C_SR1_AF              ((uint32_t)0x0400)            // Acknowledge Failure
+#define I2C_CR1_SWRST           ((uint32_t)0x8000)            // Software reset
 #define I2C_SR2_MSL             ((uint32_t)0x0001)            // Master/Slave
 #define I2C_SR2_BUSY            ((uint32_t)0x0002)            // Bus Busy
 #define I2C_SR2_TRA             ((uint32_t)0x0004)            // Transmitter/Receiver
@@ -115,8 +123,10 @@ void I2C_Stop(void);
 // Minimal helper APIs for master transactions
 void I2C_Start(void);
 void I2C_Restart(void);
-void I2C_SendAddress(uint8_t address, int read);
+int  I2C_SendAddress(uint8_t address, int read); // returns 1 if ACK (ADDR set), 0 if NACK (AF)
 void I2C_EnableAck(void);
 void I2C_DisableAck(void);
+// Bus recovery helper (HAL-like): release stuck SCL/SDA by toggling SCL
+void I2C_BusRecover(void);
 
 #endif // __I2C_H
