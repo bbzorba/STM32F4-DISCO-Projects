@@ -663,15 +663,15 @@ LOAD linker stubs
  .debug_ranges  0x00000180       0x30 Projects/HC06_MLX90614_Temp/src/main.o
  .debug_ranges  0x000001b0       0x30 Projects/MLX90614_Temp/src/mlx90614_temp.o
 
-.debug_line     0x00000000     0x2058
+.debug_line     0x00000000     0x206f
  .debug_line    0x00000000      0x4e7 Drivers/I2C/src/i2c.o
  .debug_line    0x000004e7      0xa8c Drivers/UART/src/uart.o
  .debug_line    0x00000f73      0x350 Projects/HC06_Bluetooth/src/hc06.o
  .debug_line    0x000012c3      0x326 Projects/HC06_MLX90614_Temp/src/hc06_mlx90614_temp.o
- .debug_line    0x000015e9      0x38d Projects/HC06_MLX90614_Temp/src/main.o
- .debug_line    0x00001976      0x173 Projects/HC06_MLX90614_Temp/src/startup.o
- .debug_line    0x00001ae9      0x299 Projects/HC06_MLX90614_Temp/src/stubs.o
- .debug_line    0x00001d82      0x2d6 Projects/MLX90614_Temp/src/mlx90614_temp.o
+ .debug_line    0x000015e9      0x3a4 Projects/HC06_MLX90614_Temp/src/main.o
+ .debug_line    0x0000198d      0x173 Projects/HC06_MLX90614_Temp/src/startup.o
+ .debug_line    0x00001b00      0x299 Projects/HC06_MLX90614_Temp/src/stubs.o
+ .debug_line    0x00001d99      0x2d6 Projects/MLX90614_Temp/src/mlx90614_temp.o
 
 .debug_str      0x00000000      0x92b
  .debug_str     0x00000000      0x3af Drivers/I2C/src/i2c.o

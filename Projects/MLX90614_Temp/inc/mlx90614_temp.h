@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "../../../Drivers/I2C/inc/i2c.h"
+#include "../../../Drivers/UART/inc/uart.h"
 
 // MLX90614 default 7-bit address is 0x5A (per datasheet)
 #ifndef MLX90614_ADDR

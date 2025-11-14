@@ -6,11 +6,6 @@
 #include "../../MLX90614_Temp/inc/mlx90614_temp.h"
 #include "../../HC06_Bluetooth/inc/hc06.h"
 
-// MLX90614 default 7-bit address is 0x5A (per datasheet)
-#ifndef MLX90614_ADDR
-#define MLX90614_ADDR 0x5A
-#endif
-
 // I2C function prototypes
 void send_obj_temp(HC06 *hc06);
 void send_amb_temp(HC06 *hc06);

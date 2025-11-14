@@ -7,7 +7,7 @@ void delay(volatile uint32_t count);
 int main(void) {
     // Initialize I2C1 in standard mode (100kHz)
     HC06 hc06;
-    HC06_Init(&hc06, USART_2, RX_AND_TX, __9600);
+    HC06_Init(&hc06, USART_2, TX_ONLY, __9600);
     MLX90614_Init();
 
     while (1) {

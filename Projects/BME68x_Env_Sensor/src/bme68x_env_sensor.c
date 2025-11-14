@@ -41,9 +41,9 @@ int read_temp(uint8_t address)
     return temp_c;
 }
 
-int read_gas_density(uint8_t address)
+int read_gas_resistance(uint8_t address)
 {
-    // Gas density register = 0x2C (example)
+    // Gas resistance register = 0x2C (example)
     uint16_t raw = bme68x_read_word(address, 0x2C);
     // Convert raw value to gas density in hPa (example conversion)
     int density_hPa = (int)(raw / 100); // Placeholder conversion

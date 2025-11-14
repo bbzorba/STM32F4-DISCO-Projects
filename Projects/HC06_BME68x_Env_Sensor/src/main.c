@@ -21,7 +21,7 @@ int main(void) {
         send_temp(&hc06);
         delay(1000);
 
-        send_gas_density(&hc06);
+        send_gas_resistance(&hc06);
         delay(1000);
 
         send_humidity(&hc06);

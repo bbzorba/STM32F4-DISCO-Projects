@@ -8,26 +8,25 @@ void MLX90614_Init()
 // Read a 16-bit word from an MLX90614 register using SMBus-like sequence
 static uint16_t mlx_read_word(uint8_t address, uint8_t reg)
 {
-    uint8_t low, high;
-    // Write phase: send command register
+    // Write register pointer
     I2C_Start();
-    I2C_SendAddress(address, 0); // write
+    I2C_SendAddress(address, 0);      // write
     I2C_Write(reg);
 
-    // Read phase: repeated start then 2-byte read (low then high)
+    // Repeated start for read
     I2C_Restart();
-    I2C_SendAddress(address, 1); // read
+    I2C_SendAddress(address, 1);      // read
 
-    // For 2-byte reception on F4, disable ACK before last byte and use BTF
-    I2C_DisableAck();
-    // Wait until two bytes are received (BTF = 1)
-    while (!(I2C_1->SR1 & I2C_SR1_BTF));
-    // Generate STOP then read both bytes
-    I2C_Stop();
-    low  = (uint8_t)I2C_1->DR;
-    high = (uint8_t)I2C_1->DR;
-    // Re-enable ACK for future receptions
+    // Receive first byte (ACK it)
     I2C_EnableAck();
+    while (!(I2C_1->SR1 & I2C_SR1_RXNE));
+    uint8_t low = (uint8_t)I2C_1->DR;
+
+    // Prepare to NACK second (last) byte
+    I2C_DisableAck();
+    while (!(I2C_1->SR1 & I2C_SR1_RXNE));
+    uint8_t high = (uint8_t)I2C_1->DR;
+    I2C_Stop();
 
     return (uint16_t)((uint16_t)low | ((uint16_t)high << 8));
 }

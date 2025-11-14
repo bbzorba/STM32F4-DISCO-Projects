@@ -12,9 +12,9 @@ int main(void) {
 
     while (1) {
         int temperature = read_temp(BME68X_ADDR);
-        int density = read_gas_density(BME68X_ADDR);
+        int resistance = read_gas_resistance(BME68X_ADDR);
         int humidity = read_humidity(BME68X_ADDR);
-        printf("Temp: %d C, Density: %d hPa, Humidity: %d %%\r\n", temperature, density, humidity);
+        printf("Temp: %d C, Resistance: %d Ohms, Humidity: %d %%\r\n", temperature, resistance, humidity);
         delay(1000);
     }
 }

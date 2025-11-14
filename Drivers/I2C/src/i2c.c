@@ -6,11 +6,13 @@ void I2C_Init(I2C_SpeedType speed)
     RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                         // Enable clock access to GPIOB
     I2C_1->CR1 &= ~I2C_CR1_PE;                                       // Disable I2C1 before configuring
 
-    // Configure PB6/PB7 as AF4 for I2C1 (SCL/SDA)
+    // Configure PB6/PB7 as AF4 for I2C1 (SCL/SDA), open-drain, medium speed
     GPIO_B->MODER   &= ~(MODER_PIN6_MASK | MODER_PIN7_MASK);         // Clear mode bits
     GPIO_B->MODER   |= (MODER_PIN6_SET | MODER_PIN7_SET);            // Alternate function mode
     GPIO_B->AFR[0]  &= ~(AFRL_PIN6_MASK | AFRL_PIN7_MASK);           // Clear AFRL for PB6/PB7
     GPIO_B->AFR[0]  |= (AFRL_PIN6_SET_AF4 | AFRL_PIN7_SET_AF4);      // AF4 = I2C
+    GPIO_B->OTYPER  |= (1U << 6) | (1U << 7);                        // Open-drain for SCL/SDA
+    GPIO_B->OSPEEDR |= (0x2U << (6*2)) | (0x2U << (7*2));            // Medium speed
     I2C_1->CR2 = I2C_CR2_FREQ;                                       // Peripheral clock frequency
     if (speed == I2C_STANDARD_MODE)
     {

@@ -11,7 +11,15 @@ int main(void) {
     MLX90614_Init();
 
     while (1) {
-        int temperature = read_temp(MLX90614_ADDR);
+        int obj_temp = read_obj_temp(MLX90614_ADDR);
+        UART_SendString("Object Temperature: ");
+        UART_SendInt(obj_temp);
+        UART_SendString("\r\n");
+        delay(1000);
+        int amb_temp = read_amb_temp(MLX90614_ADDR);
+        UART_SendString("Ambient Temperature: ");
+        UART_SendInt(amb_temp);
+        UART_SendString("\r\n");
         delay(1000);
     }
 }
