@@ -1,4 +1,13 @@
-#include "mlx90614_temp.h"
+﻿#include "mlx90614_temp.h"
+
+/*
+ * MLX90614 SMBus read word sequence returns 3 bytes: LSB, MSB, PEC.
+ * We must read (and discard) the PEC byte; prematurely STOP after two bytes can corrupt the next transaction.
+ * This implementation:
+ *  - Checks ACK for both write and read address phases.
+ *  - Reads all 3 bytes with correct ACK/NACK (ACK first two, NACK PEC).
+ *  - Returns 0xFFFF on any address NACK so caller can treat as error.
+ */
 
 void MLX90614_Init()
 {

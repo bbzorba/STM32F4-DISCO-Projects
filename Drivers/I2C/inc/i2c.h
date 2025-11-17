@@ -140,7 +140,7 @@ typedef enum {
 void I2C_Init(I2C_SpeedType speed);
 int I2C_Read(void);
 void I2C_Write(int data);
-int read_I2C_address(int address);
+int scan_i2c_bus(void);
 void I2C_Stop(void);
 
 // Minimal helper APIs for master transactions

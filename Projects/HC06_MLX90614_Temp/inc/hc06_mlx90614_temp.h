@@ -9,5 +9,6 @@
 // I2C function prototypes
 void send_obj_temp(HC06 *hc06);
 void send_amb_temp(HC06 *hc06);
+void hc06_scan_i2c(HC06 *hc06); // Scan I2C bus and report ACKed addresses over Bluetooth
 
 #endif // HC06_MLX90614_TEMP_H

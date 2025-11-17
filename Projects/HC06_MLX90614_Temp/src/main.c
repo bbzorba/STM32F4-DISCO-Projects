@@ -11,18 +11,20 @@ int main(void) {
     MLX90614_Init();
 
     while (1) {
+        hc06_scan_i2c(&hc06); // Scan I2C bus and report ACKed addresses over Bluetooth
+
         char msg[96];
         int m = snprintf(msg, sizeof(msg), "\r\nTemperature Measurement Mode \r\n HC06 Connected on %s\r\n", HC06_GetPortName(&hc06));
         if (m > 0) {
             if (m > (int)sizeof(msg)) m = (int)sizeof(msg);
-        HC06_SendData(&hc06, (const uint8_t*)msg, (size_t)m);
+            HC06_SendData(&hc06, (const uint8_t*)msg, (size_t)m);
         }
 
         send_obj_temp(&hc06);
-        delay(1000);
+        delay(50000);
 
         send_amb_temp(&hc06);
-        delay(1000);
+        delay(50000);
     }
 }
 

@@ -64,10 +64,10 @@ void I2C_Init(I2C_SpeedType speed)
     GPIO_B->AFR[0]  |= (AFRL_PIN6_SET_AF4);                             // Set AF4 for PB6
     GPIO_B->AFR[0]  &= ~(AFRL_PIN7_MASK);                               // Clear AFRL for PB7
     GPIO_B->AFR[0]  |= (AFRL_PIN7_SET_AF4);                             // Set AF4 for PB7
-    GPIO_B->OTYPER  |= OTYPER_PIN6_OPEN_DRAIN | OTYPER_PIN7_OPEN_DRAIN; // Open-drain
-    GPIO_B->OSPEEDR |= OSPEEDR_PIN6_MEDIUM | OSPEEDR_PIN7_MEDIUM;       // Medium speed
-    GPIO_B->PUPDR   &= ~(PUPDR_PIN6_MASK | PUPDR_PIN7_MASK);            // Clear pulls
-    GPIO_B->PUPDR   |=  (PUPDR_PIN6_PU | PUPDR_PIN7_PU);                // Pull-up on SCL/SDA
+    //GPIO_B->OTYPER  |= OTYPER_PIN6_OPEN_DRAIN | OTYPER_PIN7_OPEN_DRAIN; // Open-drain
+    //GPIO_B->OSPEEDR |= OSPEEDR_PIN6_MEDIUM | OSPEEDR_PIN7_MEDIUM;       // Medium speed
+    //GPIO_B->PUPDR   &= ~(PUPDR_PIN6_MASK | PUPDR_PIN7_MASK);            // Clear pulls
+    //GPIO_B->PUPDR   |=  (PUPDR_PIN6_PU | PUPDR_PIN7_PU);                // Pull-up on SCL/SDA
 
     // Timing configuration (assumes APB1 ~16 MHz unless system clock changed)
     I2C_1->CR2 = I2C_CR2_FREQ;                                          // Peripheral clock frequency (MHz)
@@ -89,29 +89,18 @@ void I2C_Init(I2C_SpeedType speed)
     I2C_1->CR1 |= I2C_CR1_PE;
 }
 
-int read_I2C_address(int address)
+int scan_i2c_bus(void)
 {
-    //1. wait until BUSY is reset in the SR2 register
-    while(I2C_1->SR2 & I2C_SR2_BUSY);
-
-    //2. generate START condition
-    I2C_1->CR1 |= I2C_CR1_START;
-
-    //3. wait until SB is set in the SR1 register
-    while(!(I2C_1->SR1 & I2C_SR1_SB));
-
-    //4. send address (left aligned) + R/W bit (1 for read)
-    I2C_1->DR = (address << 1) | 1;
-
-    //5. wait until ADDR is set in the SR1 register
-    while(!(I2C_1->SR1 & I2C_SR1_ADDR));
-
-    //6. clear ADDR by reading SR1 and SR2 registers
-    volatile uint32_t temp = I2C_1->SR1;
-    temp = I2C_1->SR2;
-    (void)temp; // Prevent unused variable warning
-
-    return 0;
+    int acked_addresses = 0;
+    for (uint8_t address = 1; address < 128; ++address) {
+        I2C_Start();
+        int ack = I2C_SendAddress(address, 0); // Write mode
+        I2C_Stop();
+        if (ack) {
+            acked_addresses++;
+        }
+    }
+    return acked_addresses;
 }
 
 int I2C_Read(void)

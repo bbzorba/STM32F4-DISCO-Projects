@@ -16,10 +16,10 @@
 #PROJECT_DIR = Projects/HC06_Bluetooth_cpp
 #PROJECT_DIR = Projects/HC06_Servo_Controller
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
-PROJECT_DIR = Drivers/I2C
+#PROJECT_DIR = Drivers/I2C
 #PROJECT_DIR = Drivers/I2C_cpp
 #PROJECT_DIR = Projects/MLX90614_Temp
-#PROJECT_DIR = Projects/HC06_MLX90614_Temp
+PROJECT_DIR = Projects/HC06_MLX90614_Temp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/HC06_BME68x_Env_Sensor
 #PROJECT_DIR = Projects/HC06_MLX90614_Temp
@@ -293,4 +293,10 @@ SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc -IDrivers/UART/inc -IProjects/BME68x_Env_Sensor/inc -IProjects/HC06_Bluetooth/inc
+endif
+
+# Project-specific wiring for I2C: needs GPIO driver
+ifeq ($(PROJECT_DIR),Drivers/I2C)
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc
 endif
