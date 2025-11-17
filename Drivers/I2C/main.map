@@ -269,7 +269,7 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .isr_vector    0x08000000       0x40 Drivers/I2C/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040      0x2bc
+.text           0x08000040      0x330
  *(.text*)
  .text.I2C_BusRecover
                 0x08000040       0xe4 Drivers/I2C/src/i2c.o
@@ -290,45 +290,45 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
                 0x08000258       0x48 Drivers/I2C/src/i2c.o
                 0x08000258                I2C_SendAddress
  .text.startup.main
-                0x080002a0       0x48 Drivers/I2C/src/main.o
+                0x080002a0       0xbc Drivers/I2C/src/main.o
                 0x080002a0                main
- .text          0x080002e8        0xc Drivers/I2C/src/startup.o
-                0x080002e8                Default_Handler
-                0x080002ec                Reset_Handler
+ .text          0x0800035c        0xc Drivers/I2C/src/startup.o
+                0x0800035c                Default_Handler
+                0x08000360                Reset_Handler
  *(.rodata*)
  *(.glue_7)
- .glue_7        0x080002f4        0x0 linker stubs
+ .glue_7        0x08000368        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x080002f4        0x0 linker stubs
+ .glue_7t       0x08000368        0x0 linker stubs
  *(.init)
- .init          0x080002f4        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x080002f4                _init
+ .init          0x08000368        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000368                _init
  *(.fini)
- .fini          0x080002f8        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x080002f8                _fini
+ .fini          0x0800036c        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x0800036c                _fini
 
-.vfp11_veneer   0x080002fc        0x0
- .vfp11_veneer  0x080002fc        0x0 linker stubs
+.vfp11_veneer   0x08000370        0x0
+ .vfp11_veneer  0x08000370        0x0 linker stubs
 
-.v4_bx          0x080002fc        0x0
- .v4_bx         0x080002fc        0x0 linker stubs
+.v4_bx          0x08000370        0x0
+ .v4_bx         0x08000370        0x0 linker stubs
 
-.iplt           0x080002fc        0x0
- .iplt          0x080002fc        0x0 Drivers/I2C/src/i2c.o
+.iplt           0x08000370        0x0
+ .iplt          0x08000370        0x0 Drivers/I2C/src/i2c.o
 
-.rel.dyn        0x080002fc        0x0
- .rel.iplt      0x080002fc        0x0 Drivers/I2C/src/i2c.o
+.rel.dyn        0x08000370        0x0
+ .rel.iplt      0x08000370        0x0 Drivers/I2C/src/i2c.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x080002fc        0x0
-                0x080002fc                __exidx_start = .
+.ARM.exidx      0x08000370        0x0
+                0x08000370                __exidx_start = .
  *(.ARM.exidx*)
-                0x080002fc                __exidx_end = .
-                0x080002fc                __etext = .
+                0x08000370                __exidx_end = .
+                0x08000370                __etext = .
 
-.data           0x20000000        0x0 load address 0x080002fc
+.data           0x20000000        0x0 load address 0x08000370
                 0x20000000                __data_start__ = .
  *(.data*)
                 0x20000000                __data_end__ = .
@@ -370,19 +370,19 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/I2C/src/main.o
  .comment       0x00000049       0x4a Drivers/I2C/src/startup.o
 
-.debug_info     0x00000000      0x973
+.debug_info     0x00000000      0xc8d
  .debug_info    0x00000000      0x69c Drivers/I2C/src/i2c.o
- .debug_info    0x0000069c      0x1e2 Drivers/I2C/src/main.o
- .debug_info    0x0000087e       0xf5 Drivers/I2C/src/startup.o
+ .debug_info    0x0000069c      0x4fc Drivers/I2C/src/main.o
+ .debug_info    0x00000b98       0xf5 Drivers/I2C/src/startup.o
 
-.debug_abbrev   0x00000000      0x3b9
+.debug_abbrev   0x00000000      0x473
  .debug_abbrev  0x00000000      0x1d3 Drivers/I2C/src/i2c.o
- .debug_abbrev  0x000001d3      0x11d Drivers/I2C/src/main.o
- .debug_abbrev  0x000002f0       0xc9 Drivers/I2C/src/startup.o
+ .debug_abbrev  0x000001d3      0x1d7 Drivers/I2C/src/main.o
+ .debug_abbrev  0x000003aa       0xc9 Drivers/I2C/src/startup.o
 
-.debug_loc      0x00000000      0x1be
+.debug_loc      0x00000000      0x269
  .debug_loc     0x00000000      0x1a4 Drivers/I2C/src/i2c.o
- .debug_loc     0x000001a4       0x1a Drivers/I2C/src/main.o
+ .debug_loc     0x000001a4       0xc5 Drivers/I2C/src/main.o
 
 .debug_aranges  0x00000000       0xb8
  .debug_aranges
@@ -392,21 +392,21 @@ LOAD linker stubs
  .debug_aranges
                 0x00000098       0x20 Drivers/I2C/src/startup.o
 
-.debug_ranges   0x00000000      0x190
+.debug_ranges   0x00000000      0x1d8
  .debug_ranges  0x00000000      0x178 Drivers/I2C/src/i2c.o
- .debug_ranges  0x00000178       0x18 Drivers/I2C/src/main.o
+ .debug_ranges  0x00000178       0x60 Drivers/I2C/src/main.o
 
-.debug_line     0x00000000      0xa64
+.debug_line     0x00000000      0xb47
  .debug_line    0x00000000      0x72d Drivers/I2C/src/i2c.o
- .debug_line    0x0000072d      0x1c4 Drivers/I2C/src/main.o
- .debug_line    0x000008f1      0x173 Drivers/I2C/src/startup.o
+ .debug_line    0x0000072d      0x2a7 Drivers/I2C/src/main.o
+ .debug_line    0x000009d4      0x173 Drivers/I2C/src/startup.o
 
-.debug_str      0x00000000      0x49e
+.debug_str      0x00000000      0x4b9
  .debug_str     0x00000000      0x3d4 Drivers/I2C/src/i2c.o
                                 0x426 (size before relaxing)
- .debug_str     0x000003d4       0x22 Drivers/I2C/src/main.o
-                                0x1d7 (size before relaxing)
- .debug_str     0x000003f6       0xa8 Drivers/I2C/src/startup.o
+ .debug_str     0x000003d4       0x3d Drivers/I2C/src/main.o
+                                0x397 (size before relaxing)
+ .debug_str     0x00000411       0xa8 Drivers/I2C/src/startup.o
                                 0x16f (size before relaxing)
 
 .debug_frame    0x00000000      0x15c

@@ -37,40 +37,63 @@
 #define RCC_AHB1ENR_GPIOBEN     ((uint32_t)(1 << 1))          // Bit 1
 
 // MODE register bit definitions
-#define MODER_PIN0_MASK         ((uint32_t)0x00000003)        // mask for PD0 mode bits (bits 1:0)
-#define MODER_PIN6_MASK         ((uint32_t)0x00003000)        // mask for PB6 mode bits (bits 13:12)
-#define MODER_PIN7_MASK         ((uint32_t)0x0000C000)        // mask for PB7 mode bits (bits 15:14)
-#define MODER_PIN9_MASK         ((uint32_t)0x000C0000)        // mask for PB9 mode bits (bits 19:18)
-#define MODER_PIN0_SET          ((uint32_t)0x00000002)        // set AF (10) for PD0
-#define MODER_PIN6_SET          ((uint32_t)0x00002000)        // set AF (10) for PB6
-#define MODER_PIN7_SET          ((uint32_t)0x00008000)        // set AF (10) for PB7
-#define MODER_PIN9_SET          ((uint32_t)0x00080000)        // set AF (10) for PB9
+#define MODER_PIN0_MASK         ((uint32_t)0x00000003)        // mask for PIN0 mode bits (bits 1:0)
+#define MODER_PIN6_MASK         ((uint32_t)0x00003000)        // mask for PIN6 mode bits (bits 13:12)
+#define MODER_PIN7_MASK         ((uint32_t)0x0000C000)        // mask for PIN7 mode bits (bits 15:14)
+#define MODER_PIN9_MASK         ((uint32_t)0x000C0000)        // mask for PIN9 mode bits (bits 19:18)
+#define MODER_PIN0_SET          ((uint32_t)0x00000002)        // set AF (10) for PIN0
+#define MODER_PIN6_SET          ((uint32_t)0x00002000)        // set AF (10) for PIN6
+#define MODER_PIN7_SET          ((uint32_t)0x00008000)        // set AF (10) for PIN7
+#define MODER_PIN9_SET          ((uint32_t)0x00080000)        // set AF (10) for PIN9
+
+// OTYPER register bit definitions
+#define OTYPER_PIN6_OPEN_DRAIN  ((uint32_t)0x00000040)        // set open-drain for PIN6
+#define OTYPER_PIN7_OPEN_DRAIN  ((uint32_t)0x00000080)        // set open-drain for PIN7
+#define OTYPER_PIN9_OPEN_DRAIN  ((uint32_t)0x00000200)        // set open-drain for PIN9
+
+// PUPDR register bit definitions
+#define PUPDR_PIN6_MASK         ((uint32_t)0x0000C000)        // mask for PIN6 PUPD bits (bits 15:14)
+#define PUPDR_PIN7_MASK         ((uint32_t)0x00030000)        // mask for PIN7 PUPD bits (bits 17:16)
+#define PUPDR_PIN9_MASK         ((uint32_t)0x00300000)        // mask for PIN9 PUPD bits (bits 21:20)
+#define PUPDR_PIN6_PU           ((uint32_t)0x00004000)        // set pull-up for PIN6
+#define PUPDR_PIN7_PU           ((uint32_t)0x00020000)        // set pull-up for PIN7
+#define PUPDR_PIN9_PU           ((uint32_t)0x00200000)        // set pull-up for PIN9
+
+// OSPEEDR register bit definitions
+#define OSPEEDR_PIN6_MEDIUM     ((uint32_t)0x00002000)        // set medium speed for PIN6
+#define OSPEEDR_PIN7_MEDIUM     ((uint32_t)0x00008000)        // set medium speed for PIN7
+#define OSPEEDR_PIN9_MEDIUM     ((uint32_t)0x00080000)        // set medium speed for PIN9
+
+// ODR & IDR register bit definitions
+#define ODR_PIN6_HIGH           ((uint32_t)0x00000040)        // set PIN6 high
+#define ODR_PIN7_HIGH           ((uint32_t)0x00000080)        // set PIN7 high
+#define ODR_PIN9_HIGH           ((uint32_t)0x00000200)        // set PIN9 high
+#define IDR_PIN7_HIGH           ((uint32_t)0x00000080)        // read PIN7 high
 
 // Alternate Function register bit definitions
 #define AFRL_PIN0_MASK           ((uint32_t)0x0000000F)       // mask to clear AFRL_PIN0 bits (bits 3:0)
 #define AFRL_PIN6_MASK           ((uint32_t)0x0F000000)       // mask to clear AFRL_PIN6 bits (bits 27:24)
 #define AFRL_PIN7_MASK           ((uint32_t)0xF0000000)       // mask to clear AFRL_PIN7 bits (bits 31:28)
 #define AFRH_PIN9_MASK           ((uint32_t)0x000000F0)       // mask to clear AFRH_PIN9 bits (bits 7:4)
-#define AFRH_PIN9_MASK           ((uint32_t)0x000000F0)       // mask to clear AFRH_PIN9 bits (bits 7:4)
 // I2C on STM32F4 uses AF4 on PB6/PB7/PB9
 #define AFRL_PIN6_SET_AF4        ((uint32_t)0x04000000)       // set AF4 for PB6 (I2C1 SCL)
-#define AFRL_PIN7_SET_AF4        ((uint32_t)0x40000000)       // set AF4 for PB7 (I2C1 SDA option)
-#define AFRH_PIN9_SET_AF4        ((uint32_t)0x00000040)       // set AF4 for PB9 (I2C1 SDA preferred)
+#define AFRL_PIN7_SET_AF4        ((uint32_t)0x40000000)       // set AF4 for PB7 (I2C1 SDA)
 #define AFRH_PIN9_SET_AF4        ((uint32_t)0x00000040)       // set AF4 for PB9 (I2C1 SDA alt)
 
 // I2C register bit definitions
 #define I2C_CR1_PE              ((uint32_t)0x0001)            // Peripheral Enable
+#define I2C_CR1_SMBUS           ((uint32_t)0x0002)            // SMBus Mode
 #define I2C_CR1_START           ((uint32_t)0x0100)            // Start Generation
-#define I2C_CR2_FREQ            ((uint32_t)0x0010)            // Peripheral Clock Frequency (16 MHz)
 #define I2C_CR1_STOP            ((uint32_t)0x0200)            // Stop generation
 #define I2C_CR1_ACK             ((uint32_t)0x0400)            // Acknowledge enable
-#define I2C_SR1_RXNE            ((uint32_t)0x0040)            // Data Register not Empty
+#define I2C_CR1_SWRST           ((uint32_t)0x8000)            // Software reset
+#define I2C_CR2_FREQ            ((uint32_t)0x0010)            // Peripheral Clock Frequency (16 MHz)
+#define I2C_SR1_SB              ((uint32_t)0x0001)            // Start Bit (Master mode)
 #define I2C_SR1_ADDR            ((uint32_t)0x0002)            // Address sent (master mode)/matched (slave mode)
 #define I2C_SR1_BTF             ((uint32_t)0x0004)            // Byte Transfer Finished
+#define I2C_SR1_RXNE            ((uint32_t)0x0040)            // Data Register not Empty
 #define I2C_SR1_TXE             ((uint32_t)0x0080)            // Data Register Empty
-#define I2C_SR1_SB              ((uint32_t)0x0001)            // Start Bit (Master mode)
 #define I2C_SR1_AF              ((uint32_t)0x0400)            // Acknowledge Failure
-#define I2C_CR1_SWRST           ((uint32_t)0x8000)            // Software reset
 #define I2C_SR2_MSL             ((uint32_t)0x0001)            // Master/Slave
 #define I2C_SR2_BUSY            ((uint32_t)0x0002)            // Bus Busy
 #define I2C_SR2_TRA             ((uint32_t)0x0004)            // Transmitter/Receiver
