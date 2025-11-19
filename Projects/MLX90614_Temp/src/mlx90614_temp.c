@@ -1,4 +1,4 @@
-﻿#include "mlx90614_temp.h"
+#include "mlx90614_temp.h"
 
 /*
  * MLX90614 SMBus read word sequence returns 3 bytes: LSB, MSB, PEC.

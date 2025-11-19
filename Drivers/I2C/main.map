@@ -84,12 +84,12 @@ Discarded input sections
  .text          0x00000000        0x0 Drivers/I2C/src/i2c.o
  .data          0x00000000        0x0 Drivers/I2C/src/i2c.o
  .bss           0x00000000        0x0 Drivers/I2C/src/i2c.o
- .text.read_I2C_address
-                0x00000000       0x40 Drivers/I2C/src/i2c.o
  .text.I2C_Read
                 0x00000000       0x14 Drivers/I2C/src/i2c.o
  .text.I2C_Restart
                 0x00000000       0x18 Drivers/I2C/src/i2c.o
+ .text.scan_i2c_bus
+                0x00000000       0x60 Drivers/I2C/src/i2c.o
  .text.I2C_EnableAck
                 0x00000000       0x10 Drivers/I2C/src/i2c.o
  .text.I2C_DisableAck
@@ -410,19 +410,19 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/I2C/src/main.o
  .comment       0x00000049       0x4a Drivers/I2C/src/startup.o
 
-.debug_info     0x00000000      0x973
- .debug_info    0x00000000      0x69c Drivers/I2C/src/i2c.o
- .debug_info    0x0000069c      0x1e2 Drivers/I2C/src/main.o
- .debug_info    0x0000087e       0xf5 Drivers/I2C/src/startup.o
+.debug_info     0x00000000      0xa6c
+ .debug_info    0x00000000      0x795 Drivers/I2C/src/i2c.o
+ .debug_info    0x00000795      0x1e2 Drivers/I2C/src/main.o
+ .debug_info    0x00000977       0xf5 Drivers/I2C/src/startup.o
 
-.debug_abbrev   0x00000000      0x3b9
- .debug_abbrev  0x00000000      0x1d3 Drivers/I2C/src/i2c.o
- .debug_abbrev  0x000001d3      0x11d Drivers/I2C/src/main.o
- .debug_abbrev  0x000002f0       0xc9 Drivers/I2C/src/startup.o
+.debug_abbrev   0x00000000      0x4bf
+ .debug_abbrev  0x00000000      0x2d9 Drivers/I2C/src/i2c.o
+ .debug_abbrev  0x000002d9      0x11d Drivers/I2C/src/main.o
+ .debug_abbrev  0x000003f6       0xc9 Drivers/I2C/src/startup.o
 
-.debug_loc      0x00000000      0x1be
- .debug_loc     0x00000000      0x1a4 Drivers/I2C/src/i2c.o
- .debug_loc     0x000001a4       0x1a Drivers/I2C/src/main.o
+.debug_loc      0x00000000      0x219
+ .debug_loc     0x00000000      0x1ff Drivers/I2C/src/i2c.o
+ .debug_loc     0x000001ff       0x1a Drivers/I2C/src/main.o
 
 .debug_aranges  0x00000000       0xb8
  .debug_aranges
@@ -432,24 +432,24 @@ LOAD linker stubs
  .debug_aranges
                 0x00000098       0x20 Drivers/I2C/src/startup.o
 
-.debug_ranges   0x00000000      0x190
- .debug_ranges  0x00000000      0x178 Drivers/I2C/src/i2c.o
- .debug_ranges  0x00000178       0x18 Drivers/I2C/src/main.o
+.debug_ranges   0x00000000      0x1f0
+ .debug_ranges  0x00000000      0x1d8 Drivers/I2C/src/i2c.o
+ .debug_ranges  0x000001d8       0x18 Drivers/I2C/src/main.o
 
-.debug_line     0x00000000      0xa44
- .debug_line    0x00000000      0x70f Drivers/I2C/src/i2c.o
- .debug_line    0x0000070f      0x1c2 Drivers/I2C/src/main.o
- .debug_line    0x000008d1      0x173 Drivers/I2C/src/startup.o
+.debug_line     0x00000000      0xa68
+ .debug_line    0x00000000      0x733 Drivers/I2C/src/i2c.o
+ .debug_line    0x00000733      0x1c2 Drivers/I2C/src/main.o
+ .debug_line    0x000008f5      0x173 Drivers/I2C/src/startup.o
 
-.debug_str      0x00000000      0x49e
- .debug_str     0x00000000      0x3d4 Drivers/I2C/src/i2c.o
-                                0x426 (size before relaxing)
- .debug_str     0x000003d4       0x22 Drivers/I2C/src/main.o
+.debug_str      0x00000000      0x4ad
+ .debug_str     0x00000000      0x3e3 Drivers/I2C/src/i2c.o
+                                0x42d (size before relaxing)
+ .debug_str     0x000003e3       0x22 Drivers/I2C/src/main.o
                                 0x1d7 (size before relaxing)
- .debug_str     0x000003f6       0xa8 Drivers/I2C/src/startup.o
+ .debug_str     0x00000405       0xa8 Drivers/I2C/src/startup.o
                                 0x16f (size before relaxing)
 
-.debug_frame    0x00000000      0x15c
- .debug_frame   0x00000000       0xe4 Drivers/I2C/src/i2c.o
- .debug_frame   0x000000e4       0x40 Drivers/I2C/src/main.o
- .debug_frame   0x00000124       0x38 Drivers/I2C/src/startup.o
+.debug_frame    0x00000000      0x168
+ .debug_frame   0x00000000       0xf0 Drivers/I2C/src/i2c.o
+ .debug_frame   0x000000f0       0x40 Drivers/I2C/src/main.o
+ .debug_frame   0x00000130       0x38 Drivers/I2C/src/startup.o

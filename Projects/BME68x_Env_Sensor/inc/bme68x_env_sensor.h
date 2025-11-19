@@ -13,7 +13,7 @@
 // I2C function prototypes
 void BME68x_Init(void);
 int read_temp(uint8_t address);
-int read_gas_resistance(uint8_t address);
-int read_humidity(uint8_t address);
+int bme68x_get_cal_and_raw(uint8_t address, uint16_t *out_t1, int16_t *out_t2, int8_t *out_t3, uint32_t *out_adc_temp);
+int read_raw_temp(uint8_t address);
 
 #endif // BME68X_ENV_SENSOR_H

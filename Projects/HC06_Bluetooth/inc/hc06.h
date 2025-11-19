@@ -25,5 +25,6 @@ void HC06_SendData(HC06 *hc06, const uint8_t *data, size_t len);
 void HC06_ReceiveData(HC06 *hc06, uint8_t *buffer, size_t len);
 uint8_t HC06_ReceiveByte(HC06 *hc06);
 const char* HC06_GetPortName(const HC06 *hc06); // return port name as string
+void hc06_scan_i2c(HC06 *hc06); // Scan I2C bus and report ACKed addresses over Bluetooth
 
 #endif // HC06_H
