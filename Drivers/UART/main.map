@@ -372,15 +372,15 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/UART/src/startup.o
  .comment       0x00000049       0x4a Drivers/UART/src/uart.o
 
-.debug_info     0x00000000      0xc36
+.debug_info     0x00000000      0xc47
  .debug_info    0x00000000      0x326 Drivers/UART/src/main.o
  .debug_info    0x00000326       0xf5 Drivers/UART/src/startup.o
- .debug_info    0x0000041b      0x81b Drivers/UART/src/uart.o
+ .debug_info    0x0000041b      0x82c Drivers/UART/src/uart.o
 
-.debug_abbrev   0x00000000      0x4ac
+.debug_abbrev   0x00000000      0x4ec
  .debug_abbrev  0x00000000      0x159 Drivers/UART/src/main.o
  .debug_abbrev  0x00000159       0xc9 Drivers/UART/src/startup.o
- .debug_abbrev  0x00000222      0x28a Drivers/UART/src/uart.o
+ .debug_abbrev  0x00000222      0x2ca Drivers/UART/src/uart.o
 
 .debug_aranges  0x00000000       0xa8
  .debug_aranges
@@ -399,13 +399,13 @@ LOAD linker stubs
  .debug_line    0x0000019e      0x173 Drivers/UART/src/startup.o
  .debug_line    0x00000311      0xa8c Drivers/UART/src/uart.o
 
-.debug_str      0x00000000      0x4ab
- .debug_str     0x00000000      0x20e Drivers/UART/src/main.o
-                                0x250 (size before relaxing)
- .debug_str     0x0000020e       0xa8 Drivers/UART/src/startup.o
+.debug_str      0x00000000      0x4b0
+ .debug_str     0x00000000      0x20d Drivers/UART/src/main.o
+                                0x24f (size before relaxing)
+ .debug_str     0x0000020d       0xa8 Drivers/UART/src/startup.o
                                 0x16f (size before relaxing)
- .debug_str     0x000002b6      0x1f5 Drivers/UART/src/uart.o
-                                0x424 (size before relaxing)
+ .debug_str     0x000002b5      0x1fb Drivers/UART/src/uart.o
+                                0x429 (size before relaxing)
 
 .debug_frame    0x00000000      0x144
  .debug_frame   0x00000000       0x40 Drivers/UART/src/main.o

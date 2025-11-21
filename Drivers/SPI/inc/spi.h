@@ -100,19 +100,32 @@ typedef enum {
     SPI_CLOCK_PHASE_2EDGE
 }SPI_ClockPhaseType;
 
+typedef enum {
+    SPI1_PORTA = 0,
+    SPI1_PORTB,
+    SPI2_PORTB,
+    SPI2_PORTC,
+    SPI3_PORTB,
+    SPI3_PORTC
+} SPI_PinConfigType;
+
 typedef struct
 {
     SPI_Manual_TypeDef *regs;           // pointer to hardware register block
+    SPI_PinConfigType pinConfig;        // selected pin configuration
     SPI_BaudRateType baudrate;          // selected baud rate enum
     SPI_ModeType mode;                  // SPI mode (master/slave)
     SPI_DirectionType direction;        // SPI direction
     SPI_DataSizeType datasize;          // SPI data size
 }SPI_TypeDef; // High-level handle ("object")
 
-// SPI function prototypes
-void SPI_Init(SPI_Manual_TypeDef *SPIx, SPI_BaudRateType baudrate);
-void SPI_x_Write(SPI_Manual_TypeDef *SPIx, uint8_t data);
-uint8_t SPI_x_Read(SPI_Manual_TypeDef *SPIx);
+// SPI function prototypes (high-level handle based)
+void SPI_Init(SPI_TypeDef *spi, SPI_Manual_TypeDef *regs, SPI_PinConfigType pinConfig, SPI_ModeType mode, SPI_BaudRateType baudrate, SPI_DirectionType direction);
+int  SPI_WriteRead(SPI_TypeDef *spi, const uint8_t *txData, uint8_t *rxData, size_t length);
+void SPI_DeInit(SPI_TypeDef *spi);
+void SPI_CS_Init(GPIO_TypeDef *GPIOx, uint16_t pin);
+void SPI_CS_Low(GPIO_TypeDef *GPIOx, uint16_t pin);
+void SPI_CS_High(GPIO_TypeDef *GPIOx, uint16_t pin);
 
 
 #endif // __SPI_H

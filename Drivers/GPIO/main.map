@@ -35,24 +35,28 @@ Discarded input sections
  .text          0x00000000        0x0 Drivers/GPIO/src/gpio.o
  .data          0x00000000        0x0 Drivers/GPIO/src/gpio.o
  .bss           0x00000000        0x0 Drivers/GPIO/src/gpio.o
- .text.LIB_GPIO_ReadPin
+ .text.GPIO_Init
+                0x00000000       0xfc Drivers/GPIO/src/gpio.o
+ .text.GPIO_ReadPin
                 0x00000000        0xc Drivers/GPIO/src/gpio.o
- .text.LIB_GPIO_WritePin
+ .text.GPIO_WritePin
                 0x00000000        0x8 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOA_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOB_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOC_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOE_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOF_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOG_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOH_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
+ .text.GPIO_TogglePin
+                0x00000000        0x8 Drivers/GPIO/src/gpio.o
+ .text.__RCC_GPIO_CLK_ENABLE
+                0x00000000       0xcc Drivers/GPIO/src/gpio.o
+ .debug_info    0x00000000      0x5a5 Drivers/GPIO/src/gpio.o
+ .debug_abbrev  0x00000000      0x175 Drivers/GPIO/src/gpio.o
+ .debug_loc     0x00000000      0x29f Drivers/GPIO/src/gpio.o
+ .debug_aranges
+                0x00000000       0x40 Drivers/GPIO/src/gpio.o
+ .debug_ranges  0x00000000       0x30 Drivers/GPIO/src/gpio.o
+ .debug_line    0x00000000      0x3ed Drivers/GPIO/src/gpio.o
+ .debug_str     0x00000000      0x3bc Drivers/GPIO/src/gpio.o
+ .comment       0x00000000       0x4a Drivers/GPIO/src/gpio.o
+ .debug_frame   0x00000000       0x78 Drivers/GPIO/src/gpio.o
+ .ARM.attributes
+                0x00000000       0x2e Drivers/GPIO/src/gpio.o
  .text          0x00000000        0x0 Drivers/GPIO/src/main.o
  .data          0x00000000        0x0 Drivers/GPIO/src/main.o
  .bss           0x00000000        0x0 Drivers/GPIO/src/main.o
@@ -169,60 +173,51 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .isr_vector    0x08000000       0x40 Drivers/GPIO/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040      0x1e8
+.text           0x08000040       0xd8
  *(.text*)
- .text.LIB_GPIO_Init
-                0x08000040       0xfc Drivers/GPIO/src/gpio.o
-                0x08000040                LIB_GPIO_Init
- .text.LIB_GPIO_TogglePin
-                0x0800013c        0x8 Drivers/GPIO/src/gpio.o
-                0x0800013c                LIB_GPIO_TogglePin
- .text.__LIB_RCC_GPIOD_CLK_ENABLE
-                0x08000144       0x10 Drivers/GPIO/src/gpio.o
-                0x08000144                __LIB_RCC_GPIOD_CLK_ENABLE
  .text.GPIOD_Init_Manual
-                0x08000154       0x30 Drivers/GPIO/src/main.o
-                0x08000154                GPIOD_Init_Manual
+                0x08000040       0x34 Drivers/GPIO/src/main.o
+                0x08000040                GPIOD_Init_Manual
  .text.startup.main
-                0x08000184       0x90 Drivers/GPIO/src/main.o
-                0x08000184                main
- .text          0x08000214        0xc Drivers/GPIO/src/startup.o
-                0x08000214                Default_Handler
-                0x08000218                Reset_Handler
+                0x08000074       0x90 Drivers/GPIO/src/main.o
+                0x08000074                main
+ .text          0x08000104        0xc Drivers/GPIO/src/startup.o
+                0x08000104                Default_Handler
+                0x08000108                Reset_Handler
  *(.rodata*)
  *(.glue_7)
- .glue_7        0x08000220        0x0 linker stubs
+ .glue_7        0x08000110        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08000220        0x0 linker stubs
+ .glue_7t       0x08000110        0x0 linker stubs
  *(.init)
- .init          0x08000220        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08000220                _init
+ .init          0x08000110        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000110                _init
  *(.fini)
- .fini          0x08000224        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08000224                _fini
+ .fini          0x08000114        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000114                _fini
 
-.vfp11_veneer   0x08000228        0x0
- .vfp11_veneer  0x08000228        0x0 linker stubs
+.vfp11_veneer   0x08000118        0x0
+ .vfp11_veneer  0x08000118        0x0 linker stubs
 
-.v4_bx          0x08000228        0x0
- .v4_bx         0x08000228        0x0 linker stubs
+.v4_bx          0x08000118        0x0
+ .v4_bx         0x08000118        0x0 linker stubs
 
-.iplt           0x08000228        0x0
- .iplt          0x08000228        0x0 Drivers/GPIO/src/main.o
+.iplt           0x08000118        0x0
+ .iplt          0x08000118        0x0 Drivers/GPIO/src/main.o
 
-.rel.dyn        0x08000228        0x0
- .rel.iplt      0x08000228        0x0 Drivers/GPIO/src/main.o
+.rel.dyn        0x08000118        0x0
+ .rel.iplt      0x08000118        0x0 Drivers/GPIO/src/main.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x08000228        0x0
-                0x08000228                __exidx_start = .
+.ARM.exidx      0x08000118        0x0
+                0x08000118                __exidx_start = .
  *(.ARM.exidx*)
-                0x08000228                __exidx_end = .
-                0x08000228                __etext = .
+                0x08000118                __exidx_end = .
+                0x08000118                __etext = .
 
-.data           0x20000000        0x0 load address 0x08000228
+.data           0x20000000        0x0 load address 0x08000118
                 0x20000000                __data_start__ = .
  *(.data*)
                 0x20000000                __data_end__ = .
@@ -256,58 +251,45 @@ LOAD linker stubs
  .ARM.attributes
                 0x00000000       0x1e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
  .ARM.attributes
-                0x0000001e       0x2e Drivers/GPIO/src/gpio.o
+                0x0000001e       0x2e Drivers/GPIO/src/main.o
  .ARM.attributes
-                0x0000004c       0x2e Drivers/GPIO/src/main.o
- .ARM.attributes
-                0x0000007a       0x2e Drivers/GPIO/src/startup.o
+                0x0000004c       0x2e Drivers/GPIO/src/startup.o
 
 .comment        0x00000000       0x49
- .comment       0x00000000       0x49 Drivers/GPIO/src/gpio.o
+ .comment       0x00000000       0x49 Drivers/GPIO/src/main.o
                                  0x4a (size before relaxing)
- .comment       0x00000049       0x4a Drivers/GPIO/src/main.o
  .comment       0x00000049       0x4a Drivers/GPIO/src/startup.o
 
-.debug_info     0x00000000      0xa3b
- .debug_info    0x00000000      0x574 Drivers/GPIO/src/gpio.o
- .debug_info    0x00000574      0x3d2 Drivers/GPIO/src/main.o
- .debug_info    0x00000946       0xf5 Drivers/GPIO/src/startup.o
+.debug_info     0x00000000      0x4e4
+ .debug_info    0x00000000      0x3ef Drivers/GPIO/src/main.o
+ .debug_info    0x000003ef       0xf5 Drivers/GPIO/src/startup.o
 
-.debug_abbrev   0x00000000      0x3b9
- .debug_abbrev  0x00000000      0x135 Drivers/GPIO/src/gpio.o
- .debug_abbrev  0x00000135      0x1bb Drivers/GPIO/src/main.o
- .debug_abbrev  0x000002f0       0xc9 Drivers/GPIO/src/startup.o
+.debug_abbrev   0x00000000      0x2b5
+ .debug_abbrev  0x00000000      0x1ec Drivers/GPIO/src/main.o
+ .debug_abbrev  0x000001ec       0xc9 Drivers/GPIO/src/startup.o
 
-.debug_loc      0x00000000      0x2c8
- .debug_loc     0x00000000      0x27a Drivers/GPIO/src/gpio.o
- .debug_loc     0x0000027a       0x4e Drivers/GPIO/src/main.o
+.debug_loc      0x00000000       0x4e
+ .debug_loc     0x00000000       0x4e Drivers/GPIO/src/main.o
 
-.debug_aranges  0x00000000       0xd0
+.debug_aranges  0x00000000       0x58
  .debug_aranges
-                0x00000000       0x78 Drivers/GPIO/src/gpio.o
+                0x00000000       0x38 Drivers/GPIO/src/main.o
  .debug_aranges
-                0x00000078       0x38 Drivers/GPIO/src/main.o
- .debug_aranges
-                0x000000b0       0x20 Drivers/GPIO/src/startup.o
+                0x00000038       0x20 Drivers/GPIO/src/startup.o
 
-.debug_ranges   0x00000000      0x130
- .debug_ranges  0x00000000       0x68 Drivers/GPIO/src/gpio.o
- .debug_ranges  0x00000068       0xc8 Drivers/GPIO/src/main.o
+.debug_ranges   0x00000000       0xc8
+ .debug_ranges  0x00000000       0xc8 Drivers/GPIO/src/main.o
 
-.debug_line     0x00000000      0x88e
- .debug_line    0x00000000      0x422 Drivers/GPIO/src/gpio.o
- .debug_line    0x00000422      0x2f9 Drivers/GPIO/src/main.o
- .debug_line    0x0000071b      0x173 Drivers/GPIO/src/startup.o
+.debug_line     0x00000000      0x477
+ .debug_line    0x00000000      0x304 Drivers/GPIO/src/main.o
+ .debug_line    0x00000304      0x173 Drivers/GPIO/src/startup.o
 
-.debug_str      0x00000000      0x50f
- .debug_str     0x00000000      0x40e Drivers/GPIO/src/gpio.o
-                                0x475 (size before relaxing)
- .debug_str     0x0000040e       0x59 Drivers/GPIO/src/main.o
-                                0x23a (size before relaxing)
- .debug_str     0x00000467       0xa8 Drivers/GPIO/src/startup.o
+.debug_str      0x00000000      0x2a4
+ .debug_str     0x00000000      0x1fc Drivers/GPIO/src/main.o
+                                0x239 (size before relaxing)
+ .debug_str     0x000001fc       0xa8 Drivers/GPIO/src/startup.o
                                 0x16f (size before relaxing)
 
-.debug_frame    0x00000000      0x194
- .debug_frame   0x00000000       0xe8 Drivers/GPIO/src/gpio.o
- .debug_frame   0x000000e8       0x74 Drivers/GPIO/src/main.o
- .debug_frame   0x0000015c       0x38 Drivers/GPIO/src/startup.o
+.debug_frame    0x00000000       0xb4
+ .debug_frame   0x00000000       0x7c Drivers/GPIO/src/main.o
+ .debug_frame   0x0000007c       0x38 Drivers/GPIO/src/startup.o

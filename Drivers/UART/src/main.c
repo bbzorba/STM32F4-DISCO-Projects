@@ -6,7 +6,7 @@ char buffer[64];
 void delay(volatile uint32_t count);
 
 int main(void) {
-    USART_TypeDef usart;
+    USART_HandleType usart;
     USART_Init(&usart, USART_1, RX_AND_TX, __115200);
 
     USART_WriteString(&usart, "Welcome to Echo Mode!\r\n");

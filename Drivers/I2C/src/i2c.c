@@ -5,7 +5,7 @@ static void short_delay(volatile int n) { while (n--) { __asm__("nop"); } }
 void I2C_BusRecover(void)
 {
     // Ensure GPIOB clock is enabled
-    RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
 
     // Use PB6 (SCL) and PB7 (SDA) for recovery
     GPIO_B->MODER &= ~MODER_PIN6_MASK;
@@ -45,8 +45,8 @@ void I2C_BusRecover(void)
 void I2C_Init(I2C_SpeedType speed)
 {
     // Enable clocks
-    RCC->RCC_APB1ENR |= RCC_APB1ENR_I2C1EN;
-    RCC->RCC_AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+    RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
 
     // Ensure peripheral disabled and perform a software reset (HAL-like)
     I2C_1->CR1 &= ~I2C_CR1_PE;

@@ -31,7 +31,7 @@ void Servo::GPIO_Init()
 {
 
     // Enable GPIO port clock (AHB1)
-    this->rcc->RCC_AHB1ENR |= this->gpioEnableMask;
+    this->rcc->AHB1ENR |= this->gpioEnableMask;
 
     // Configure pin as Alternate Function
     uint32_t pin = (uint32_t)this->pinNumber & 0xFU;

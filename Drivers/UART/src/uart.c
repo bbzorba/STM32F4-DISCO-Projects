@@ -24,12 +24,12 @@ uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud) {
 }
 
 // High-level init: fill handle then configure hardware
-void USART_Init(USART_TypeDef *handle, USART_Manual_TypeDef *regs, UART_COMType _comtype, UART_BaudRateType _baudrate)
+void USART_Init(USART_HandleType *handle, USART_ManualType *regs, UART_COMType _comtype, UART_BaudRateType _baudrate)
 {
     handle->comType = _comtype;
     handle->baudRate = _baudrate;
     handle->regs = regs;
-    USART_Manual_TypeDef *USARTx = regs; // local alias for readability
+    USART_ManualType *USARTx = regs; // local alias for readability
 
     // USART TX pin configuration
     if (_comtype == TX_ONLY || _comtype == RX_AND_TX) 
@@ -269,11 +269,11 @@ void USART_Init(USART_TypeDef *handle, USART_Manual_TypeDef *regs, UART_COMType 
             break;
     }
     
-    USARTx->CR1 |= USART_CR1_EN;                                            // Enable USART at the end of initialization
+    USARTx->CR1 |= USART_CR1_EN;    // Enable USART at the end of initialization
 }
 
 
-void USART_x_Write(USART_Manual_TypeDef *USARTx, int ch)
+void USART_x_Write(USART_ManualType *USARTx, int ch)
 {
     //1. wait until Transmitter Empty flag is set in the SR register
     while(!(USARTx->SR & USART_SR_TX_EMP));
@@ -282,7 +282,7 @@ void USART_x_Write(USART_Manual_TypeDef *USARTx, int ch)
     USARTx->DR = (ch & 0xFF);
 }
 
-char USART_x_Read(USART_Manual_TypeDef *USARTx)
+char USART_x_Read(USART_ManualType *USARTx)
 {
     //1. wait until Receiver not Empty flag is set in the SR register
     while(!(USARTx->SR & USART_SR_RX_NOT_EMP));
@@ -292,7 +292,7 @@ char USART_x_Read(USART_Manual_TypeDef *USARTx)
 }
 
 
-/* void writeString(USART_Manual_TypeDef *USARTx, const char *str) {
+/* void writeString(USART_ManualType *USARTx, const char *str) {
     USART_x_Write(USARTx, '\n');
     USART_x_Write(USARTx, 'r'); // Carriage return before newline
     USART_x_Write(USARTx, 'x');
@@ -304,7 +304,7 @@ char USART_x_Read(USART_Manual_TypeDef *USARTx)
     }
 }
 
-void readString(USART_Manual_TypeDef *USARTx, char *buffer, size_t maxLength) {
+void readString(USART_ManualType *USARTx, char *buffer, size_t maxLength) {
     size_t index = 0;
     char c;
     while (index < (maxLength - 1)) { // Leave space for null terminator
@@ -318,7 +318,7 @@ void readString(USART_Manual_TypeDef *USARTx, char *buffer, size_t maxLength) {
 }
  */
 
-const char* GetPortName(USART_Manual_TypeDef *USARTx) {
+const char* GetPortName(USART_ManualType *USARTx) {
     if (!USARTx) return "USART?";
     if (USARTx == USART_1) return "USART1";
     if (USARTx == USART_2) return "USART2";
@@ -330,15 +330,15 @@ const char* GetPortName(USART_Manual_TypeDef *USARTx) {
 }
 
 // Object style wrappers -------------------------------------------------
-void USART_WriteChar(USART_TypeDef *handle, int ch) {
+void USART_WriteChar(USART_HandleType *handle, int ch) {
     USART_x_Write(handle->regs, ch);
 }
 
-char USART_ReadChar(USART_TypeDef *handle) {
+char USART_ReadChar(USART_HandleType *handle) {
     return USART_x_Read(handle->regs);
 }
 
-void USART_WriteString(USART_TypeDef *handle, const char *str) {
+void USART_WriteString(USART_HandleType *handle, const char *str) {
     while (*str) {
         char c = *str++;
         if (c == '\n') {
@@ -348,7 +348,7 @@ void USART_WriteString(USART_TypeDef *handle, const char *str) {
     }
 }
 
-void USART_ReadString(USART_TypeDef *handle, char *buffer, size_t maxLength) {
+void USART_ReadString(USART_HandleType *handle, char *buffer, size_t maxLength) {
     size_t i = 0; char c;
     while (i < maxLength - 1) {
         c = USART_ReadChar(handle);

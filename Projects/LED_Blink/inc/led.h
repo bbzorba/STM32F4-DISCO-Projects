@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define LED_PORT GPIOD
+#define LED_PORT GPIO_D
 #define LED_PORT_CLK (1U << 3) // AHB1ENR GPIODEN
 // STM32F4-Discovery onboard LEDs:
 // PD12 = Green, PD13 = Orange, PD14 = Red, PD15 = Blue

@@ -75,8 +75,8 @@ Discarded input sections
  .debug_aranges
                 0x00000000       0x78 Drivers/GPIO/src/gpio.o
  .debug_ranges  0x00000000       0x68 Drivers/GPIO/src/gpio.o
- .debug_line    0x00000000      0x3cc Drivers/GPIO/src/gpio.o
- .debug_str     0x00000000      0x4d9 Drivers/GPIO/src/gpio.o
+ .debug_line    0x00000000      0x422 Drivers/GPIO/src/gpio.o
+ .debug_str     0x00000000      0x475 Drivers/GPIO/src/gpio.o
  .comment       0x00000000       0x4a Drivers/GPIO/src/gpio.o
  .debug_frame   0x00000000       0xe8 Drivers/GPIO/src/gpio.o
  .ARM.attributes
@@ -441,12 +441,12 @@ LOAD linker stubs
  .debug_line    0x00000733      0x1c2 Drivers/I2C/src/main.o
  .debug_line    0x000008f5      0x173 Drivers/I2C/src/startup.o
 
-.debug_str      0x00000000      0x4ad
- .debug_str     0x00000000      0x3e3 Drivers/I2C/src/i2c.o
-                                0x42d (size before relaxing)
- .debug_str     0x000003e3       0x22 Drivers/I2C/src/main.o
+.debug_str      0x00000000      0x444
+ .debug_str     0x00000000      0x37a Drivers/I2C/src/i2c.o
+                                0x3c9 (size before relaxing)
+ .debug_str     0x0000037a       0x22 Drivers/I2C/src/main.o
                                 0x1d7 (size before relaxing)
- .debug_str     0x00000405       0xa8 Drivers/I2C/src/startup.o
+ .debug_str     0x0000039c       0xa8 Drivers/I2C/src/startup.o
                                 0x16f (size before relaxing)
 
 .debug_frame    0x00000000      0x168

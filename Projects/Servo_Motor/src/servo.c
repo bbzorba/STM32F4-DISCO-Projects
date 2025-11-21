@@ -34,7 +34,7 @@ void Servo_GPIO_Init(Servo *servoMotor)
     if (!servoMotor) return;
 
     // Enable GPIO port clock (AHB1)
-    servoMotor->rcc->RCC_AHB1ENR |= servoMotor->gpioEnableMask;
+    servoMotor->rcc->AHB1ENR |= servoMotor->gpioEnableMask;
 
     // Configure pin as Alternate Function
     uint32_t pin = (uint32_t)servoMotor->pinNumber & 0xFU;
