@@ -11,7 +11,7 @@ void delay_fn(volatile int count) {
 // Initialize LEDs on STM32F4-Discovery
 void GPIOD_Init(void) {
     __LIB_RCC_GPIOD_CLK_ENABLE();
-    GPIOD->MODER |= MODER_2_OUT | MODER_3_OUT | MODER_4_OUT | MODER_5_OUT; // Set PD12, PD13, PD14, PD15 to output mode
+    GPIO_D->MODER |= MODER_2_OUT | MODER_3_OUT | MODER_4_OUT | MODER_5_OUT; // Set PD12, PD13, PD14, PD15 to output mode
 }
 
 // Manual GPIO initialization using GPIO_InitTypeDef
@@ -23,7 +23,7 @@ void GPIOD_Init_Manual(void) {
     GPIO_InitStruct.Alternate = 0; // Not used for output mode
 
     __LIB_RCC_GPIOD_CLK_ENABLE();
-    LIB_GPIO_Init(GPIOD, &GPIO_InitStruct);
+    LIB_GPIO_Init(GPIO_D, &GPIO_InitStruct);
 }
 
 
@@ -33,13 +33,13 @@ int main(void) {
 
     while(1) {
         //GPIOD_TogglePins(delay);
-        LIB_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
+        LIB_GPIO_TogglePin(GPIO_D, GPIO_PIN_15);
         delay_fn(delay);
-        LIB_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+        LIB_GPIO_TogglePin(GPIO_D, GPIO_PIN_14);
         delay_fn(delay);
-        LIB_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
+        LIB_GPIO_TogglePin(GPIO_D, GPIO_PIN_13);
         delay_fn(delay);
-        LIB_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+        LIB_GPIO_TogglePin(GPIO_D, GPIO_PIN_12);
         delay_fn(delay);
     }
 }

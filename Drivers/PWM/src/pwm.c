@@ -3,17 +3,17 @@
 void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
     // Enable clock for selected TIMx
     if (TIMx == (TIM_TypeDef *)TIM1_BASE) {
-        rcc->RCC_APB2ENR |= RCC_APB2ENR_TIM1EN;
+        rcc->APB2ENR |= RCC_APB2ENR_TIM1EN;
     } else if (TIMx == (TIM_TypeDef *)TIM9_BASE) {
-        rcc->RCC_APB2ENR |= RCC_APB2ENR_TIM9EN;
+        rcc->APB2ENR |= RCC_APB2ENR_TIM9EN;
     } else if (TIMx == (TIM_TypeDef *)TIM2_BASE) {
-        rcc->RCC_APB1ENR |= RCC_APB1ENR_TIM2EN;
+        rcc->APB1ENR |= RCC_APB1ENR_TIM2EN;
     } else if (TIMx == (TIM_TypeDef *)TIM3_BASE) {
-        rcc->RCC_APB1ENR |= RCC_APB1ENR_TIM3EN;
+        rcc->APB1ENR |= RCC_APB1ENR_TIM3EN;
     } else if (TIMx == (TIM_TypeDef *)TIM4_BASE) {
-        rcc->RCC_APB1ENR |= RCC_APB1ENR_TIM4EN;
+        rcc->APB1ENR |= RCC_APB1ENR_TIM4EN;
     } else if (TIMx == (TIM_TypeDef *)TIM5_BASE) {
-        rcc->RCC_APB1ENR |= RCC_APB1ENR_TIM5EN;
+        rcc->APB1ENR |= RCC_APB1ENR_TIM5EN;
     }
 }
 

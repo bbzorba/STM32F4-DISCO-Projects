@@ -84,33 +84,33 @@ void LIB_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin) {
 }
 
 void __LIB_RCC_GPIOA_CLK_ENABLE(void) {
-    RCC->RCC_AHB1ENR |= GPIOA_EN;
+    RCC->AHB1ENR |= GPIOA_EN;
 }
 
 void __LIB_RCC_GPIOB_CLK_ENABLE(void) {
-    RCC->RCC_AHB1ENR |= GPIOB_EN;
+    RCC->AHB1ENR |= GPIOB_EN;
 }
 
 void __LIB_RCC_GPIOC_CLK_ENABLE(void) {
-    RCC->RCC_AHB1ENR |= GPIOC_EN;
+    RCC->AHB1ENR |= GPIOC_EN;
 }
 
 void __LIB_RCC_GPIOD_CLK_ENABLE(void) {
-    RCC->RCC_AHB1ENR |= GPIOD_EN;
+    RCC->AHB1ENR |= GPIOD_EN;
 }
 
 void __LIB_RCC_GPIOE_CLK_ENABLE(void) {
-    RCC->RCC_AHB1ENR |= GPIOE_EN;
+    RCC->AHB1ENR |= GPIOE_EN;
 }
 
 void __LIB_RCC_GPIOF_CLK_ENABLE(void) {
-    RCC->RCC_AHB1ENR |= GPIOF_EN;
+    RCC->AHB1ENR |= GPIOF_EN;
 }
 
 void __LIB_RCC_GPIOG_CLK_ENABLE(void) {
-    RCC->RCC_AHB1ENR |= GPIOG_EN;
+    RCC->AHB1ENR |= GPIOG_EN;
 }
 
 void __LIB_RCC_GPIOH_CLK_ENABLE(void) {
-    RCC->RCC_AHB1ENR |= GPIOH_EN;
+    RCC->AHB1ENR |= GPIOH_EN;
 }

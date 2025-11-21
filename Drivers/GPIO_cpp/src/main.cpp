@@ -13,10 +13,10 @@ void delay_fn(volatile int count) {
 int main(void) {
 
     GPIO_D_LEDS_InitStruct = __GPIO_PIN_Params(GPIO_PIN_15 | GPIO_PIN_14 | GPIO_PIN_13 | GPIO_PIN_12, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, 0, 0);
-    GPIO GPIO_D_LEDS(PORT_D,GPIOD, &GPIO_D_LEDS_InitStruct);
+    GPIO GPIO_D_LEDS(PORT_D,GPIO_D, &GPIO_D_LEDS_InitStruct);
 
     GPIO_A_Button_InitStruct = __GPIO_PIN_Params(GPIO_PIN_0, GPIO_MODE_INPUT, GPIO_NOPULL, 0, 0);
-    GPIO GPIO_A_Button(PORT_A,GPIOA, &GPIO_A_Button_InitStruct);
+    GPIO GPIO_A_Button(PORT_A,GPIO_A, &GPIO_A_Button_InitStruct);
 
     uint8_t prevPressed = 0; // simple edge detection
     while(1) {

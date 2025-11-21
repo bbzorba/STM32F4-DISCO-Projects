@@ -73,6 +73,29 @@ Discarded input sections
  .debug_frame   0x00000000       0xf8 Drivers/GPIO_cpp/src/gpio.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/GPIO_cpp/src/gpio.o
+ .text          0x00000000        0x0 Drivers/PWM/src/pwm.o
+ .data          0x00000000        0x0 Drivers/PWM/src/pwm.o
+ .bss           0x00000000        0x0 Drivers/PWM/src/pwm.o
+ .text.Timer_Init
+                0x00000000       0x78 Drivers/PWM/src/pwm.o
+ .text.Configure_PWM
+                0x00000000       0x5c Drivers/PWM/src/pwm.o
+ .text.PWM_SetDutyCycle
+                0x00000000       0x20 Drivers/PWM/src/pwm.o
+ .text.PWM_GetDutyCycle
+                0x00000000       0x24 Drivers/PWM/src/pwm.o
+ .debug_info    0x00000000      0x52d Drivers/PWM/src/pwm.o
+ .debug_abbrev  0x00000000      0x135 Drivers/PWM/src/pwm.o
+ .debug_loc     0x00000000      0x116 Drivers/PWM/src/pwm.o
+ .debug_aranges
+                0x00000000       0x38 Drivers/PWM/src/pwm.o
+ .debug_ranges  0x00000000       0x28 Drivers/PWM/src/pwm.o
+ .debug_line    0x00000000      0x2cf Drivers/PWM/src/pwm.o
+ .debug_str     0x00000000      0x475 Drivers/PWM/src/pwm.o
+ .comment       0x00000000       0x4a Drivers/PWM/src/pwm.o
+ .debug_frame   0x00000000       0x50 Drivers/PWM/src/pwm.o
+ .ARM.attributes
+                0x00000000       0x2e Drivers/PWM/src/pwm.o
  .text          0x00000000        0x0 Drivers/PWM_cpp/src/main.o
  .data          0x00000000        0x0 Drivers/PWM_cpp/src/main.o
  .bss           0x00000000        0x0 Drivers/PWM_cpp/src/main.o
@@ -105,26 +128,40 @@ Discarded input sections
  .text          0x00000000        0x0 Drivers/UART_cpp/src/uart.o
  .data          0x00000000        0x0 Drivers/UART_cpp/src/uart.o
  .bss           0x00000000        0x0 Drivers/UART_cpp/src/uart.o
- .text._ZN7UARTComC2E12UART_COMType17UART_BaudRateType
-                0x00000000       0xd0 Drivers/UART_cpp/src/uart.o
- .text._ZN7UARTCom13USART_2_WriteEi
-                0x00000000       0x14 Drivers/UART_cpp/src/uart.o
- .text._ZN7UARTCom12USART_2_ReadEv
-                0x00000000       0x14 Drivers/UART_cpp/src/uart.o
- .text._ZNK7UARTCom10getComTypeEv
+ .text._ZN5USARTC2EP20USART_Manual_TypeDef12UART_COMType17UART_BaudRateType
+                0x00000000      0x59c Drivers/UART_cpp/src/uart.o
+ .text._ZN5USART20BRR_Oversample_by_16Emm
+                0x00000000        0xc Drivers/UART_cpp/src/uart.o
+ .text._ZN5USART13USART_x_WriteEi
+                0x00000000       0x10 Drivers/UART_cpp/src/uart.o
+ .text._ZN5USART12USART_x_ReadEv
+                0x00000000       0x10 Drivers/UART_cpp/src/uart.o
+ .text._ZN5USART8get_charEP7__sFILE
+                0x00000000       0x2c Drivers/UART_cpp/src/uart.o
+ .text._ZN5USART9send_charEiP7__sFILE
+                0x00000000       0x10 Drivers/UART_cpp/src/uart.o
+ .text._ZN5USART11writeStringEPKc
+                0x00000000       0x34 Drivers/UART_cpp/src/uart.o
+ .text._ZN5USART10readStringEPcj
+                0x00000000       0x38 Drivers/UART_cpp/src/uart.o
+ .text._ZNK5USART10getComTypeEv
                 0x00000000        0x4 Drivers/UART_cpp/src/uart.o
- .text._ZNK7UARTCom11getBaudRateEv
+ .text._ZNK5USART11getBaudRateEv
                 0x00000000        0x4 Drivers/UART_cpp/src/uart.o
- .debug_info    0x00000000      0x379 Drivers/UART_cpp/src/uart.o
- .debug_abbrev  0x00000000      0x1b7 Drivers/UART_cpp/src/uart.o
- .debug_loc     0x00000000      0x153 Drivers/UART_cpp/src/uart.o
+ .rodata._ZNK5USART11GetPortNameEv.str1.4
+                0x00000000       0x37 Drivers/UART_cpp/src/uart.o
+ .text._ZNK5USART11GetPortNameEv
+                0x00000000       0x74 Drivers/UART_cpp/src/uart.o
+ .debug_info    0x00000000     0x1116 Drivers/UART_cpp/src/uart.o
+ .debug_abbrev  0x00000000      0x424 Drivers/UART_cpp/src/uart.o
+ .debug_loc     0x00000000      0x4fd Drivers/UART_cpp/src/uart.o
  .debug_aranges
-                0x00000000       0x40 Drivers/UART_cpp/src/uart.o
- .debug_ranges  0x00000000       0x30 Drivers/UART_cpp/src/uart.o
- .debug_line    0x00000000      0x278 Drivers/UART_cpp/src/uart.o
- .debug_str     0x00000000      0x389 Drivers/UART_cpp/src/uart.o
+                0x00000000       0x70 Drivers/UART_cpp/src/uart.o
+ .debug_ranges  0x00000000      0x130 Drivers/UART_cpp/src/uart.o
+ .debug_line    0x00000000      0xab2 Drivers/UART_cpp/src/uart.o
+ .debug_str     0x00000000      0x91f Drivers/UART_cpp/src/uart.o
  .comment       0x00000000       0x4a Drivers/UART_cpp/src/uart.o
- .debug_frame   0x00000000       0x6c Drivers/UART_cpp/src/uart.o
+ .debug_frame   0x00000000       0xf0 Drivers/UART_cpp/src/uart.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/UART_cpp/src/uart.o
  .text          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
@@ -195,6 +232,7 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
 LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
 LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
 LOAD Drivers/GPIO_cpp/src/gpio.o
+LOAD Drivers/PWM/src/pwm.o
 LOAD Drivers/PWM_cpp/src/main.o
 LOAD Drivers/PWM_cpp/src/pwm.o
 LOAD Drivers/PWM_cpp/src/startup.o
@@ -350,7 +388,7 @@ LOAD linker stubs
  .debug_str     0x00000000      0x5d0 Drivers/PWM_cpp/src/main.o
                                 0x699 (size before relaxing)
  .debug_str     0x000005d0       0x75 Drivers/PWM_cpp/src/pwm.o
-                                0x6cf (size before relaxing)
+                                0x66b (size before relaxing)
  .debug_str     0x00000645       0xa8 Drivers/PWM_cpp/src/startup.o
                                 0x16f (size before relaxing)
 

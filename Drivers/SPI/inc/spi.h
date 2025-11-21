@@ -73,10 +73,8 @@ typedef enum {
 
 // SPI mode enums
 typedef enum {
-    SPI_MODE_0 = 0, // CPOL=0, CPHA=0
-    SPI_MODE_1,     // CPOL=0, CPHA=1
-    SPI_MODE_2,     // CPOL=1, CPHA=0
-    SPI_MODE_3      // CPOL=1, CPHA=1
+    SPI_MODE_SLAVE = 0,
+    SPI_MODE_MASTER = 1,
 } SPI_ModeType;
 
 // SPI direction enums
@@ -92,27 +90,23 @@ typedef enum {
     SPI_DATASIZE_16BIT
 } SPI_DataSizeType;
 
-// SPI clock polarity enums
 typedef enum {
-    SPI_CPOL_LOW = 0,
-    SPI_CPOL_HIGH
-} SPI_ClockPolarityType;
+    SPI_CLOCK_POLARITY_LOW = 0,
+    SPI_CLOCK_POLARITY_HIGH
+}SPI_ClockPolarityType;
 
-// SPI clock phase enums
 typedef enum {
-    SPI_CPHA_1EDGE = 0,
-    SPI_CPHA_2EDGE
-} SPI_ClockPhaseType;
+    SPI_CLOCK_PHASE_1EDGE = 0,
+    SPI_CLOCK_PHASE_2EDGE
+}SPI_ClockPhaseType;
 
 typedef struct
 {
     SPI_Manual_TypeDef *regs;           // pointer to hardware register block
     SPI_BaudRateType baudrate;          // selected baud rate enum
-    SPI_ModeType mode;                  // SPI mode (clock polarity and phase)
+    SPI_ModeType mode;                  // SPI mode (master/slave)
     SPI_DirectionType direction;        // SPI direction
     SPI_DataSizeType datasize;          // SPI data size
-    SPI_ClockPolarityType cpol;         // Clock polarity
-    SPI_ClockPhaseType cpha;             // Clock phase
 }SPI_TypeDef; // High-level handle ("object")
 
 // SPI function prototypes
