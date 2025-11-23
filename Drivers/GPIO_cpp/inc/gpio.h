@@ -1,10 +1,10 @@
 // GPIO header file for STM32F4xx microcontrollers
-#include "stdint.h"
+#include <stdint.h>
 
 #ifndef __GPIO_H
 #define __GPIO_H
 
-/////////////////////////////////GPIO ADDRESS & PERIPHERAL DEFINITONS///////////////////////////////////////////
+///////////////////////////////////////GPIO ADDRESS DEFINITIONS//////////////////////////////////////////////////
 /* GPIO initialization structure */
 // Base addresses
 #define __IO volatile
@@ -20,18 +20,6 @@
 #define GPIOG_BASE (AHB1PERIPH_BASE + 0x00001800U)
 #define GPIOH_BASE (AHB1PERIPH_BASE + 0x00001C00U)
 #define GPIOI_BASE (AHB1PERIPH_BASE + 0x00002000U)
-
-// Peripheral declarations
-#define RCC ((RCC_TypeDef *)RCC_BASE)
-#define GPIO_A ((GPIO_TypeDef *)GPIOA_BASE)
-#define GPIO_B ((GPIO_TypeDef *)GPIOB_BASE)
-#define GPIO_C ((GPIO_TypeDef *)GPIOC_BASE)
-#define GPIO_D ((GPIO_TypeDef *)GPIOD_BASE)
-#define GPIO_E ((GPIO_TypeDef *)GPIOE_BASE)
-#define GPIO_F ((GPIO_TypeDef *)GPIOF_BASE)
-#define GPIO_G ((GPIO_TypeDef *)GPIOG_BASE)
-#define GPIO_H ((GPIO_TypeDef *)GPIOH_BASE)
-#define GPIO_I ((GPIO_TypeDef *)GPIOI_BASE)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -225,6 +213,12 @@
 #define GPIO_PULLUP 0x01U          // Pull-up
 #define GPIO_PULLDOWN 0x02U        // Pull-down
 
+/* GPIO speed definitions for OSPEEDR register */
+#define GPIO_SPEED_LOW       0x00U   // Low speed
+#define GPIO_SPEED_MEDIUM    0x01U   // Medium speed  
+#define GPIO_SPEED_HIGH      0x02U   // High speed
+#define GPIO_SPEED_VERY_HIGH 0x03U   // Very high speed
+
 /* Composite modes (preferred) */
 #define GPIO_MODE_OUTPUT_PP    0x00000001U  /* MODER=01, OTYPER=0 */
 #define GPIO_MODE_OUTPUT_OD    0x00000011U  /* MODER=01, OTYPER=1 */
@@ -235,33 +229,6 @@
 
 
 /////////////////////////////////GPIO STRUCTURES AND ENUMERATIONS/////////////////////////////////////////////
-/* GPIO initialization structure */
-typedef struct {
-    uint32_t Pin;            // Specifies the GPIO pins to be configured.
-    uint32_t Mode;           // Specifies the operating mode for the selected pins.
-    uint32_t Pull;           // Specifies the Pull-up or Pull-down activation for the selected pins.
-    uint32_t Speed;          // Specifies the speed for the selected pins.
-    uint32_t Alternate;     // Specifies the alternate function for the selected pins.
-} GPIO_InitTypeDef;
-
-typedef enum {
-    GPIO_PIN_RESET = 0,
-    GPIO_PIN_SET
-} GPIO_PinState;
-
-/* GPIO port mode enumeration */
-typedef struct {
-    __IO uint32_t MODER;    // GPIO port mode register
-    __IO uint32_t OTYPER;   // GPIO port output type register
-    __IO uint32_t OSPEEDR;  // GPIO port output speed register
-    __IO uint32_t PUPDR;    // GPIO port pull-up/pull-down register
-    __IO uint32_t IDR;      // GPIO port input data register
-    __IO uint32_t ODR;      // GPIO port output data register
-    __IO uint32_t BSRR;     // GPIO port bit set/reset register
-    __IO uint32_t LCKR;     // GPIO port configuration lock register
-    __IO uint32_t AFR[2];   // GPIO alternate function registers
-} GPIO_ManualTypeDef;
-
 /* RCC register definition structure */
 typedef struct 
 {
@@ -298,27 +265,65 @@ typedef struct
     __IO uint32_t PLLSAICFGR;      // RCC PLLSAI configuration register
     __IO uint32_t DCKCFGR;         // RCC Dedicated Clocks Configuration Register
 } RCC_TypeDef;
+
+/* GPIO initialization structure */
+typedef struct {
+    uint32_t Pin;            // Specifies the GPIO pins to be configured.
+    uint32_t Mode;           // Specifies the operating mode for the selected pins.
+    uint32_t Pull;           // Specifies the Pull-up or Pull-down activation for the selected pins.
+    uint32_t Speed;          // Specifies the speed for the selected pins.
+    uint32_t Alternate;     // Specifies the alternate function for the selected pins.
+} GPIO_InitTypeDef;
+
+/* GPIO port mode enumeration */
+typedef struct {
+    __IO uint32_t MODER;    // GPIO port mode register
+    __IO uint32_t OTYPER;   // GPIO port output type register
+    __IO uint32_t OSPEEDR;  // GPIO port output speed register
+    __IO uint32_t PUPDR;    // GPIO port pull-up/pull-down register
+    __IO uint32_t IDR;      // GPIO port input data register
+    __IO uint32_t ODR;      // GPIO port output data register
+    __IO uint32_t BSRR;     // GPIO port bit set/reset register
+    __IO uint32_t LCKR;     // GPIO port configuration lock register
+    __IO uint32_t AFR[2];   // GPIO alternate function registers
+} GPIO_ManualTypeDef;
+
+/* GPIO pin state enumeration */
+typedef enum {
+    GPIO_PIN_RESET = 0,
+    GPIO_PIN_SET
+} GPIO_PinState;
+
+/* GPIO handle structure */
+class GPIO {
+public:
+     GPIO(GPIO_ManualTypeDef *regs, GPIO_InitTypeDef *GPIO_Init);
+     GPIO_PinState GPIO_ReadPin(uint16_t GPIO_Pin);
+     void GPIO_WritePin(uint16_t GPIO_Pin, GPIO_PinState PinState);
+     void GPIO_TogglePin(uint16_t GPIO_Pin);
+private:
+    GPIO_ManualTypeDef *regs;  // Pointer to GPIO port base address
+     GPIO_InitTypeDef *init;     // GPIO initialization structure
+};
+
+// Peripheral declarations
+#define RCC ((RCC_TypeDef *)RCC_BASE)
+#define GPIO_A ((GPIO_ManualTypeDef *)GPIOA_BASE)
+#define GPIO_B ((GPIO_ManualTypeDef *)GPIOB_BASE)
+#define GPIO_C ((GPIO_ManualTypeDef *)GPIOC_BASE)
+#define GPIO_D ((GPIO_ManualTypeDef *)GPIOD_BASE)
+#define GPIO_E ((GPIO_ManualTypeDef *)GPIOE_BASE)
+#define GPIO_F ((GPIO_ManualTypeDef *)GPIOF_BASE)
+#define GPIO_G ((GPIO_ManualTypeDef *)GPIOG_BASE)
+#define GPIO_H ((GPIO_ManualTypeDef *)GPIOH_BASE)
+#define GPIO_I ((GPIO_ManualTypeDef *)GPIOI_BASE)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-/////////////////////////////////////GPIO CLASS/////////////////////////////////////////////////
-class GPIO {
-public:
-    GPIO(GPIO_ManualTypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init);
-    void TogglePin(uint16_t GPIO_Pin);
-    void WritePin(uint16_t GPIO_Pin, GPIO_PinState PinState);
-    GPIO_PinState ReadPin(uint16_t GPIO_Pin);
-private:
-    GPIO_ManualTypeDef *m_GPIOx; // Pointer to GPIO port
-};
-
+/////////////////////////////////////GPIO FUNCTION PROTOTYPES/////////////////////////////////////////////////
 /* Function prototypes */
-void LIB_GPIO_Init(GPIO_ManualTypeDef *GPIOx, GPIO_InitTypeDef *GPIO_Init);
-void LIB_GPIO_TogglePin(GPIO_ManualTypeDef *GPIOx, uint16_t GPIO_Pin);
-void LIB_GPIO_WritePin(GPIO_ManualTypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
-GPIO_PinState LIB_GPIO_ReadPin(GPIO_ManualTypeDef *GPIOx, uint16_t GPIO_Pin);
-void __LIB_RCC_GPIO_CLK_ENABLE(GPIO_ManualTypeDef *GPIOx); // RCC peripheral clock enable function
+void __RCC_GPIO_CLK_ENABLE(GPIO_ManualTypeDef *regs); // RCC peripheral clock enable function
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
