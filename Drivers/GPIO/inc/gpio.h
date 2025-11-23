@@ -1,5 +1,5 @@
 // GPIO header file for STM32F4xx microcontrollers
-#include "stdint.h"
+#include <stdint.h>
 
 #ifndef __GPIO_H
 #define __GPIO_H
@@ -213,6 +213,12 @@
 #define GPIO_PULLUP 0x01U          // Pull-up
 #define GPIO_PULLDOWN 0x02U        // Pull-down
 
+/* GPIO speed definitions for OSPEEDR register */
+#define GPIO_SPEED_LOW       0x00U   // Low speed
+#define GPIO_SPEED_MEDIUM    0x01U   // Medium speed  
+#define GPIO_SPEED_HIGH      0x02U   // High speed
+#define GPIO_SPEED_VERY_HIGH 0x03U   // Very high speed
+
 /* Composite modes (preferred) */
 #define GPIO_MODE_OUTPUT_PP    0x00000001U  /* MODER=01, OTYPER=0 */
 #define GPIO_MODE_OUTPUT_OD    0x00000011U  /* MODER=01, OTYPER=1 */
@@ -315,7 +321,7 @@ void GPIO_Init(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, GPIO_InitTyp
 void GPIO_TogglePin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, uint16_t GPIO_Pin);
 void GPIO_WritePin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, uint16_t GPIO_Pin, GPIO_PinState PinState);
 GPIO_PinState GPIO_ReadPin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, uint16_t GPIO_Pin);
-void __RCC_GPIO_CLK_ENABLE(GPIO_HandleTypeDef *GPIOx); // RCC peripheral clock enable function
+void __RCC_GPIO_CLK_ENABLE(GPIO_ManualTypeDef *regs); // RCC peripheral clock enable function
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

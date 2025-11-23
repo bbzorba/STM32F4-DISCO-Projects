@@ -10,7 +10,7 @@
 
 void GPIO_Init(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, GPIO_InitTypeDef *GPIO_Init) {
     
-    __RCC_GPIO_CLK_ENABLE(GPIOx); // Enable GPIO clock
+    __RCC_GPIO_CLK_ENABLE(regs); // Enable GPIO clock
     
     uint32_t position;
     uint32_t temp = 0x00U;
@@ -86,24 +86,24 @@ void GPIO_TogglePin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, uint16_
     regs->ODR ^= GPIO_Pin; // Toggle the specified pin
 }
 
-void __RCC_GPIO_CLK_ENABLE(GPIO_HandleTypeDef *GPIOx) {
-    if (GPIOx == GPIO_A) {
+void __RCC_GPIO_CLK_ENABLE(GPIO_ManualTypeDef *regs) {
+    if (regs == GPIO_A) {
         RCC->AHB1ENR |= GPIOA_EN;
-    } else if (GPIOx == GPIO_B) {
+    } else if (regs == GPIO_B) {
         RCC->AHB1ENR |= GPIOB_EN;
-    } else if (GPIOx == GPIO_C) {
+    } else if (regs == GPIO_C) {
         RCC->AHB1ENR |= GPIOC_EN;
-    } else if (GPIOx == GPIO_D) {
+    } else if (regs == GPIO_D) {
         RCC->AHB1ENR |= GPIOD_EN;
-    } else if (GPIOx == GPIO_E) {
+    } else if (regs == GPIO_E) {
         RCC->AHB1ENR |= GPIOE_EN;
-    } else if (GPIOx == GPIO_F) {
+    } else if (regs == GPIO_F) {
         RCC->AHB1ENR |= GPIOF_EN;
-    } else if (GPIOx == GPIO_G) {
+    } else if (regs == GPIO_G) {
         RCC->AHB1ENR |= GPIOG_EN;
-    } else if (GPIOx == GPIO_H) {
+    } else if (regs == GPIO_H) {
         RCC->AHB1ENR |= GPIOH_EN;
-    } else if (GPIOx == GPIO_I) {
+    } else if (regs == GPIO_I) {
         RCC->AHB1ENR |= GPIOI_EN;
     }
 }

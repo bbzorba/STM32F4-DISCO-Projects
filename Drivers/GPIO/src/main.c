@@ -10,19 +10,24 @@ void delay_fn(volatile int count) {
 
 int main(void) {
     GPIO_HandleTypeDef GPIO_LEDS;
-    GPIO_Init(&GPIO_LEDS, GPIO_D, &GPIO_InitStruct);
     
-    GPIO_D->MODER |= MODER_2_OUT | MODER_3_OUT | MODER_4_OUT | MODER_5_OUT; // Set PD12, PD13, PD14, PD15 to output mode
+    // Configure GPIO_InitStruct for output pins
+    GPIO_InitStruct.Pin = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;  // Push-pull output mode
+    GPIO_InitStruct.Pull = GPIO_NOPULL;          // No pull-up/pull-down
+    GPIO_InitStruct.Speed = GPIO_SPEED_MEDIUM;   // Medium speed
+    
+    GPIO_Init(&GPIO_LEDS, GPIO_D, &GPIO_InitStruct);
 
     while(1) {
         //GPIOD_TogglePins(delay);
-        GPIO_TogglePin(GPIO_LEDS, GPIO_D, GPIO_PIN_15);
+        GPIO_TogglePin(&GPIO_LEDS, GPIO_D, GPIO_PIN_15);
         delay_fn(delay);
-        GPIO_TogglePin(GPIO_LEDS, GPIO_D, GPIO_PIN_14);
+        GPIO_TogglePin(&GPIO_LEDS, GPIO_D, GPIO_PIN_14);
         delay_fn(delay);
-        GPIO_TogglePin(GPIO_LEDS, GPIO_D, GPIO_PIN_13);
+        GPIO_TogglePin(&GPIO_LEDS, GPIO_D, GPIO_PIN_13);
         delay_fn(delay);
-        GPIO_TogglePin(GPIO_LEDS, GPIO_D, GPIO_PIN_12);
+        GPIO_TogglePin(&GPIO_LEDS, GPIO_D, GPIO_PIN_12);
         delay_fn(delay);
     }
 }
