@@ -1,4 +1,4 @@
-#include "servo.h"
+#include "../inc/servo.h"
 
 // Function prototypes
 void delay(volatile uint32_t count);

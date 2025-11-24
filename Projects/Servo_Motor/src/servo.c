@@ -1,10 +1,11 @@
-#include "servo.h"
+#include "../inc/servo.h"
 
 void servo_constructor(Servo *servoMotor,
                        servo_Type type,
                        servoAngle_Type initial_angle,
                        TIM_TypeDef *TIMx,
-                       GPIO_TypeDef *GPIOx,
+                       GPIO_ManualTypeDef *GPIO_regs,
+                       GPIO_HandleTypeDef *GPIOx,
                        RCC_TypeDef *rcc,
                        uint8_t pinNumber,
                        uint8_t afNumber,
@@ -15,6 +16,7 @@ void servo_constructor(Servo *servoMotor,
     servoMotor->angle = initial_angle;
     servoMotor->is_running = 0;
     servoMotor->TIMx = TIMx;
+    servoMotor->GPIO_regs = GPIO_regs;
     servoMotor->GPIOx = GPIOx;
     servoMotor->rcc = rcc;
     servoMotor->pinNumber = pinNumber;
@@ -22,41 +24,26 @@ void servo_constructor(Servo *servoMotor,
     servoMotor->gpioEnableMask = gpioEnableMask;
 
     // Configure hardware
-    Servo_GPIO_Init(servoMotor);
+    Servo_GPIO_Init(servoMotor, GPIOx);
     Servo_PWM_Init(servoMotor);
     // Program initial angle into CCR
     servoMotor->TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, initial_angle);
 }
 
 // Generic GPIO init for any PWM-capable pin: pass port, RCC pointer, pin number [0..15], AF number [0..15], and AHB1 enable mask (e.g., GPIOE_EN)
-void Servo_GPIO_Init(Servo *servoMotor)
+void Servo_GPIO_Init(Servo *servoMotor, GPIO_HandleTypeDef *GPIOx)
 {
     if (!servoMotor) return;
+    // Prepare init struct and delegate to generic GPIO driver
+    GPIO_InitTypeDef init;
+    init.Pin       = (1U << servoMotor->pinNumber); // single pin mask
+    init.Mode      = GPIO_MODE_AF_PP;               // alternate function push-pull
+    init.Pull      = GPIO_NOPULL;                   // no pull resistors
+    init.Speed     = GPIO_SPEED_MEDIUM;             // medium speed adequate for PWM
+    init.Alternate = servoMotor->afNumber & 0xFU;   // AF index
 
-    // Enable GPIO port clock (AHB1)
-    servoMotor->rcc->AHB1ENR |= servoMotor->gpioEnableMask;
-
-    // Configure pin as Alternate Function
-    uint32_t pin = (uint32_t)servoMotor->pinNumber & 0xFU;
-    uint32_t af  = (uint32_t)servoMotor->afNumber & 0xFU;
-
-    servoMotor->GPIOx->MODER &= ~(0x3U << (pin * 2U));
-    servoMotor->GPIOx->MODER |=  (0x2U << (pin * 2U));   // MODER: set to 10b for AF mode
-
-    servoMotor->GPIOx->PUPDR &= ~(0x3U << (pin * 2U));   // PUPDR: no pull
-
-    servoMotor->GPIOx->OSPEEDR &= ~(0x3U << (pin * 2U)); // OSPEEDR: medium speed
-    servoMotor->GPIOx->OSPEEDR |=  (0x1U << (pin * 2U));
-
-    // AFR: select AFRL for pins 0..7, AFRH for 8..15
-    if (pin < 8U) {
-        servoMotor->GPIOx->AFR[0] &= ~(0xFU << (pin * 4U));
-        servoMotor->GPIOx->AFR[0] |=  (af   << (pin * 4U));
-    } else {
-        uint32_t pinH = pin - 8U;
-        servoMotor->GPIOx->AFR[1] &= ~(0xFU << (pinH * 4U));
-        servoMotor->GPIOx->AFR[1] |=  (af   << (pinH * 4U));
-    }
+    // Driver call handles clock enable + configuration
+    GPIO_Init(GPIOx, servoMotor->GPIO_regs, &init);
 }
 
 void Servo_PWM_Init(Servo *servoMotor) {

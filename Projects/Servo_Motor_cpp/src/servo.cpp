@@ -1,9 +1,10 @@
-#include "servo.h"
+#include "../inc/servo.h"
 
-Servo::Servo(servo_Type type,
+Servo::Servo(GPIO *GPIOx,
+             servo_Type type,
              servoAngle_Type initial_angle,
              TIM_TypeDef *TIMx,
-             GPIO_TypeDef *GPIOx,
+             GPIO_ManualTypeDef *GPIO_regs,
              RCC_TypeDef *rcc,
              uint8_t pinNumber,
              uint8_t afNumber,
@@ -13,6 +14,7 @@ Servo::Servo(servo_Type type,
       is_running(0),
       TIMx(TIMx),
       GPIOx(GPIOx),
+      GPIO_regs(GPIO_regs),
       rcc(rcc),
       pinNumber(pinNumber),
       afNumber(afNumber),
@@ -37,22 +39,22 @@ void Servo::GPIO_Init()
     uint32_t pin = (uint32_t)this->pinNumber & 0xFU;
     uint32_t af  = (uint32_t)this->afNumber & 0xFU;
 
-    this->GPIOx->MODER &= ~(0x3U << (pin * 2U));
-    this->GPIOx->MODER |=  (0x2U << (pin * 2U));   // MODER: set to 10b for AF mode
+    this->GPIO_regs->MODER &= ~(0x3U << (pin * 2U));
+    this->GPIO_regs->MODER |=  (0x2U << (pin * 2U));   // MODER: set to 10b for AF mode
 
-    this->GPIOx->PUPDR &= ~(0x3U << (pin * 2U));   // PUPDR: no pull
+    this->GPIO_regs->PUPDR &= ~(0x3U << (pin * 2U));   // PUPDR: no pull
 
-    this->GPIOx->OSPEEDR &= ~(0x3U << (pin * 2U)); // OSPEEDR: medium speed
-    this->GPIOx->OSPEEDR |=  (0x1U << (pin * 2U));
+    this->GPIO_regs->OSPEEDR &= ~(0x3U << (pin * 2U)); // OSPEEDR: medium speed
+    this->GPIO_regs->OSPEEDR |=  (0x1U << (pin * 2U));
 
     // AFR: select AFRL for pins 0..7, AFRH for 8..15
     if (pin < 8U) {
-        this->GPIOx->AFR[0] &= ~(0xFU << (pin * 4U));
-        this->GPIOx->AFR[0] |=  (af   << (pin * 4U));
+        this->GPIO_regs->AFR[0] &= ~(0xFU << (pin * 4U));
+        this->GPIO_regs->AFR[0] |=  (af   << (pin * 4U));
     } else {
         uint32_t pinH = pin - 8U;
-        this->GPIOx->AFR[1] &= ~(0xFU << (pinH * 4U));
-        this->GPIOx->AFR[1] |=  (af   << (pinH * 4U));
+        this->GPIO_regs->AFR[1] &= ~(0xFU << (pinH * 4U));
+        this->GPIO_regs->AFR[1] |=  (af   << (pinH * 4U));
     }
 }
 

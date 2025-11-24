@@ -28,21 +28,24 @@ private:
     servoAngle_Type angle;            // current angle (0..180)
     uint8_t is_running;               // 0/1 running flag
     TIM_TypeDef *TIMx;                // bound timer
-    GPIO_TypeDef *GPIOx;              // bound GPIO port
+    GPIO *GPIOx;                      // bound GPIO port
+    GPIO_ManualTypeDef *GPIO_regs;    // GPIO registers
     RCC_TypeDef *rcc;                 // RCC pointer
     uint8_t pinNumber;                // GPIO pin index 0..15
     uint8_t afNumber;                 // AF 0..15
     uint32_t gpioEnableMask;          // AHB1 enable mask e.g., GPIOE_EN
     PWM pwm;                          // PWM helper instance
 public:
-    Servo(servo_Type type,
+    Servo(GPIO *GPIOx,
+          servo_Type type,
           servoAngle_Type initial_angle,
           TIM_TypeDef *TIMx,
-          GPIO_TypeDef *GPIOx,
+          GPIO_ManualTypeDef *GPIO_regs,
           RCC_TypeDef *rcc,
           uint8_t pinNumber,
           uint8_t afNumber,
           uint32_t gpioEnableMask);
+
     // Object-oriented methods
     Servo_StatusType SetAngle(servoAngle_Type angle);
     servoAngle_Type GetAngle();

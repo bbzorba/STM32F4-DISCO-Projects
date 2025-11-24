@@ -801,13 +801,13 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Projects/LED_Blink/src/startup.o
  .comment       0x00000049       0x4a Projects/LED_Blink/src/system_stm32f4xx.o
 
-.debug_info     0x00000000     0x1863
+.debug_info     0x00000000     0x1855
  .debug_info    0x00000000      0x687 Projects/LED_Blink/src/led.o
- .debug_info    0x00000687      0x5fb Projects/LED_Blink/src/main.o
- .debug_info    0x00000c82      0x415 Projects/LED_Blink/src/medicalLED.o
- .debug_info    0x00001097      0x5b8 Projects/LED_Blink/src/powerLed.o
- .debug_info    0x0000164f      0x196 Projects/LED_Blink/src/startup.o
- .debug_info    0x000017e5       0x7e Projects/LED_Blink/src/system_stm32f4xx.o
+ .debug_info    0x00000687      0x5ed Projects/LED_Blink/src/main.o
+ .debug_info    0x00000c74      0x415 Projects/LED_Blink/src/medicalLED.o
+ .debug_info    0x00001089      0x5b8 Projects/LED_Blink/src/powerLed.o
+ .debug_info    0x00001641      0x196 Projects/LED_Blink/src/startup.o
+ .debug_info    0x000017d7       0x7e Projects/LED_Blink/src/system_stm32f4xx.o
 
 .debug_abbrev   0x00000000      0x8dc
  .debug_abbrev  0x00000000      0x298 Projects/LED_Blink/src/led.o
@@ -842,22 +842,22 @@ LOAD linker stubs
  .debug_ranges  0x00000088       0x48 Projects/LED_Blink/src/medicalLED.o
  .debug_ranges  0x000000d0       0x70 Projects/LED_Blink/src/powerLed.o
 
-.debug_line     0x00000000      0xf9e
+.debug_line     0x00000000      0xfa5
  .debug_line    0x00000000      0x567 Projects/LED_Blink/src/led.o
- .debug_line    0x00000567      0x246 Projects/LED_Blink/src/main.o
- .debug_line    0x000007ad      0x295 Projects/LED_Blink/src/medicalLED.o
- .debug_line    0x00000a42      0x323 Projects/LED_Blink/src/powerLed.o
- .debug_line    0x00000d65      0x1dd Projects/LED_Blink/src/startup.o
- .debug_line    0x00000f42       0x5c Projects/LED_Blink/src/system_stm32f4xx.o
+ .debug_line    0x00000567      0x24d Projects/LED_Blink/src/main.o
+ .debug_line    0x000007b4      0x295 Projects/LED_Blink/src/medicalLED.o
+ .debug_line    0x00000a49      0x323 Projects/LED_Blink/src/powerLed.o
+ .debug_line    0x00000d6c      0x1dd Projects/LED_Blink/src/startup.o
+ .debug_line    0x00000f49       0x5c Projects/LED_Blink/src/system_stm32f4xx.o
 
 .debug_str      0x00000000      0x8c3
  .debug_str     0x00000000      0x353 Projects/LED_Blink/src/led.o
                                 0x3f2 (size before relaxing)
- .debug_str     0x00000353      0x225 Projects/LED_Blink/src/main.o
-                                0x45a (size before relaxing)
- .debug_str     0x00000578       0x7d Projects/LED_Blink/src/medicalLED.o
+ .debug_str     0x00000353      0x24f Projects/LED_Blink/src/main.o
+                                0x44f (size before relaxing)
+ .debug_str     0x000005a2       0x7d Projects/LED_Blink/src/medicalLED.o
                                 0x337 (size before relaxing)
- .debug_str     0x000005f5       0xe7 Projects/LED_Blink/src/powerLed.o
+ .debug_str     0x0000061f       0xbd Projects/LED_Blink/src/powerLed.o
                                 0x43c (size before relaxing)
  .debug_str     0x000006dc      0x119 Projects/LED_Blink/src/startup.o
                                 0x1ee (size before relaxing)

@@ -35,42 +35,26 @@ Discarded input sections
  .text          0x00000000        0x0 Drivers/GPIO_cpp/src/gpio.o
  .data          0x00000000        0x0 Drivers/GPIO_cpp/src/gpio.o
  .bss           0x00000000        0x0 Drivers/GPIO_cpp/src/gpio.o
- .text._ZN4GPIOC2E13port_NameTypeP12GPIO_TypeDefP16GPIO_InitTypeDef
-                0x00000000      0x178 Drivers/GPIO_cpp/src/gpio.o
- .text._ZN4GPIO16LIB_GPIO_ReadPinEt
+ .text._ZN4GPIO12GPIO_ReadPinEt
                 0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZN4GPIO17LIB_GPIO_WritePinEt13GPIO_PinState
+ .text._ZN4GPIO13GPIO_WritePinEt13GPIO_PinState
                 0x00000000        0xc Drivers/GPIO_cpp/src/gpio.o
- .text._ZN4GPIO18LIB_GPIO_TogglePinEt
+ .text._ZN4GPIO14GPIO_TogglePinEt
                 0x00000000        0xc Drivers/GPIO_cpp/src/gpio.o
- .text._Z17__GPIO_PIN_Paramsmmmmm
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOA_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOB_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOC_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOD_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOE_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOF_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOG_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOH_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .debug_info    0x00000000      0xb13 Drivers/GPIO_cpp/src/gpio.o
- .debug_abbrev  0x00000000      0x2a3 Drivers/GPIO_cpp/src/gpio.o
- .debug_loc     0x00000000      0x36d Drivers/GPIO_cpp/src/gpio.o
+ .text._Z21__RCC_GPIO_CLK_ENABLEP18GPIO_ManualTypeDef
+                0x00000000       0xcc Drivers/GPIO_cpp/src/gpio.o
+ .text._ZN4GPIOC2EP18GPIO_ManualTypeDefP16GPIO_InitTypeDef
+                0x00000000      0x10c Drivers/GPIO_cpp/src/gpio.o
+ .debug_info    0x00000000      0x6c8 Drivers/GPIO_cpp/src/gpio.o
+ .debug_abbrev  0x00000000      0x29d Drivers/GPIO_cpp/src/gpio.o
+ .debug_loc     0x00000000      0x353 Drivers/GPIO_cpp/src/gpio.o
  .debug_aranges
-                0x00000000       0x80 Drivers/GPIO_cpp/src/gpio.o
- .debug_ranges  0x00000000       0x90 Drivers/GPIO_cpp/src/gpio.o
- .debug_line    0x00000000      0x510 Drivers/GPIO_cpp/src/gpio.o
- .debug_str     0x00000000      0x851 Drivers/GPIO_cpp/src/gpio.o
+                0x00000000       0x40 Drivers/GPIO_cpp/src/gpio.o
+ .debug_ranges  0x00000000       0x78 Drivers/GPIO_cpp/src/gpio.o
+ .debug_line    0x00000000      0x3b8 Drivers/GPIO_cpp/src/gpio.o
+ .debug_str     0x00000000      0x517 Drivers/GPIO_cpp/src/gpio.o
  .comment       0x00000000       0x4a Drivers/GPIO_cpp/src/gpio.o
- .debug_frame   0x00000000       0xf8 Drivers/GPIO_cpp/src/gpio.o
+ .debug_frame   0x00000000       0x78 Drivers/GPIO_cpp/src/gpio.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/GPIO_cpp/src/gpio.o
  .text          0x00000000        0x0 Drivers/PWM/src/pwm.o

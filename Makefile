@@ -3,7 +3,7 @@
 #PROJECT_DIR = Drivers/UART
 #PROJECT_DIR = Drivers/UART_cpp
 #PROJECT_DIR = Drivers/GPIO
-PROJECT_DIR = Drivers/GPIO_cpp
+#PROJECT_DIR = Drivers/GPIO_cpp
 #PROJECT_DIR = Drivers/PWM
 #PROJECT_DIR = Drivers/PWM_cpp
 #PROJECT_DIR = Drivers/SysTick
@@ -11,7 +11,7 @@ PROJECT_DIR = Drivers/GPIO_cpp
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
 #PROJECT_DIR = Projects/Servo_Motor
-#PROJECT_DIR = Projects/Servo_Motor_cpp
+PROJECT_DIR = Projects/Servo_Motor_cpp
 #PROJECT_DIR = Projects/HC06_Bluetooth
 #PROJECT_DIR = Projects/HC06_Bluetooth_cpp
 #PROJECT_DIR = Projects/HC06_Servo_Controller

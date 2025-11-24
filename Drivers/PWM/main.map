@@ -35,40 +35,26 @@ Discarded input sections
  .text          0x00000000        0x0 Drivers/GPIO/src/gpio.o
  .data          0x00000000        0x0 Drivers/GPIO/src/gpio.o
  .bss           0x00000000        0x0 Drivers/GPIO/src/gpio.o
- .text.LIB_GPIO_Init
-                0x00000000       0xfc Drivers/GPIO/src/gpio.o
- .text.LIB_GPIO_ReadPin
+ .text.GPIO_ReadPin
                 0x00000000        0xc Drivers/GPIO/src/gpio.o
- .text.LIB_GPIO_WritePin
+ .text.GPIO_WritePin
                 0x00000000        0x8 Drivers/GPIO/src/gpio.o
- .text.LIB_GPIO_TogglePin
+ .text.GPIO_TogglePin
                 0x00000000        0x8 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOA_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOB_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOC_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOD_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOE_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOF_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOG_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOH_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .debug_info    0x00000000      0x574 Drivers/GPIO/src/gpio.o
- .debug_abbrev  0x00000000      0x135 Drivers/GPIO/src/gpio.o
- .debug_loc     0x00000000      0x27a Drivers/GPIO/src/gpio.o
+ .text.__RCC_GPIO_CLK_ENABLE
+                0x00000000       0xcc Drivers/GPIO/src/gpio.o
+ .text.GPIO_Init
+                0x00000000      0x104 Drivers/GPIO/src/gpio.o
+ .debug_info    0x00000000      0x5e8 Drivers/GPIO/src/gpio.o
+ .debug_abbrev  0x00000000      0x1cf Drivers/GPIO/src/gpio.o
+ .debug_loc     0x00000000      0x31f Drivers/GPIO/src/gpio.o
  .debug_aranges
-                0x00000000       0x78 Drivers/GPIO/src/gpio.o
- .debug_ranges  0x00000000       0x68 Drivers/GPIO/src/gpio.o
- .debug_line    0x00000000      0x422 Drivers/GPIO/src/gpio.o
- .debug_str     0x00000000      0x475 Drivers/GPIO/src/gpio.o
+                0x00000000       0x40 Drivers/GPIO/src/gpio.o
+ .debug_ranges  0x00000000       0x58 Drivers/GPIO/src/gpio.o
+ .debug_line    0x00000000      0x3fb Drivers/GPIO/src/gpio.o
+ .debug_str     0x00000000      0x3b6 Drivers/GPIO/src/gpio.o
  .comment       0x00000000       0x4a Drivers/GPIO/src/gpio.o
- .debug_frame   0x00000000       0xe8 Drivers/GPIO/src/gpio.o
+ .debug_frame   0x00000000       0x78 Drivers/GPIO/src/gpio.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/GPIO/src/gpio.o
  .text          0x00000000        0x0 Drivers/PWM/src/main.o
@@ -119,14 +105,14 @@ Discarded input sections
                 0x00000000       0x34 Drivers/UART/src/uart.o
  .text.USART_ReadString
                 0x00000000       0x38 Drivers/UART/src/uart.o
- .debug_info    0x00000000      0x81b Drivers/UART/src/uart.o
- .debug_abbrev  0x00000000      0x28a Drivers/UART/src/uart.o
+ .debug_info    0x00000000      0x82c Drivers/UART/src/uart.o
+ .debug_abbrev  0x00000000      0x2ca Drivers/UART/src/uart.o
  .debug_loc     0x00000000      0x453 Drivers/UART/src/uart.o
  .debug_aranges
                 0x00000000       0x60 Drivers/UART/src/uart.o
  .debug_ranges  0x00000000       0x98 Drivers/UART/src/uart.o
  .debug_line    0x00000000      0xa8c Drivers/UART/src/uart.o
- .debug_str     0x00000000      0x424 Drivers/UART/src/uart.o
+ .debug_str     0x00000000      0x429 Drivers/UART/src/uart.o
  .comment       0x00000000       0x4a Drivers/UART/src/uart.o
  .debug_frame   0x00000000       0xcc Drivers/UART/src/uart.o
  .ARM.attributes

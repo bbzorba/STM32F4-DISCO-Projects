@@ -2,7 +2,6 @@
 #define MEDICAL_LED_H
 
 #include "led.h"
-#include "../../Drivers/UART/inc/uart.h"
 #include <stdint.h>
 
 typedef enum {

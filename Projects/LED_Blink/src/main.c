@@ -1,6 +1,6 @@
 #include "stm32f4xx.h"
-#include "powerLed.h"
-#include "medicalLED.h"
+#include "../inc/powerLed.h"
+#include "../inc/medicalLED.h"
 
 // Function prototypes
 void delay(volatile uint32_t count);

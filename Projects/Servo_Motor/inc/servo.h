@@ -27,7 +27,8 @@ typedef struct {
     servoAngle_Type angle;            // current angle (0..180)
     uint8_t is_running;               // 0/1 running flag
     TIM_TypeDef *TIMx;                // bound timer
-    GPIO_TypeDef *GPIOx;              // bound GPIO port
+    GPIO_ManualTypeDef *GPIO_regs; // GPIO register base
+    GPIO_HandleTypeDef *GPIOx;              // bound GPIO port
     RCC_TypeDef *rcc;                 // RCC pointer
     uint8_t pinNumber;                // GPIO pin index 0..15
     uint8_t afNumber;                 // AF 0..15
@@ -38,7 +39,8 @@ void servo_constructor(Servo *servoMotor,
                        servo_Type type,
                        servoAngle_Type initial_angle,
                        TIM_TypeDef *TIMx,
-                       GPIO_TypeDef *GPIOx,
+                       GPIO_ManualTypeDef *GPIO_regs,
+                       GPIO_HandleTypeDef *GPIOx,
                        RCC_TypeDef *rcc,
                        uint8_t pinNumber,
                        uint8_t afNumber,
@@ -52,7 +54,7 @@ void Servo_Stop(Servo *servoMotor);
 uint32_t servo_angle_to_ticks(Servo *servoMotor, servoAngle_Type angle);
 
 // Generic GPIO/PWM helpers (procedural, kept for compatibility)
-void Servo_GPIO_Init(Servo *servoMotor);
+void Servo_GPIO_Init(Servo *servoMotor, GPIO_HandleTypeDef *GPIOx);
 void Servo_PWM_Init(Servo *servoMotor);
 
 #endif // SERVO_H

@@ -2,6 +2,7 @@
 #define delay 200000
 
 GPIO_InitTypeDef GPIO_InitStruct;
+GPIO_HandleTypeDef GPIO_LEDS;
 
 // Simple delay function
 void delay_fn(volatile int count) {
@@ -9,8 +10,6 @@ void delay_fn(volatile int count) {
 }
 
 int main(void) {
-    GPIO_HandleTypeDef GPIO_LEDS;
-    
     // Configure GPIO_InitStruct for output pins
     GPIO_InitStruct.Pin = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;  // Push-pull output mode
