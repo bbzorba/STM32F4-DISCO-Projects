@@ -170,7 +170,7 @@ typedef struct
     __IO uint32_t CR2;   // Control Register 2
     __IO uint32_t CR3;   // Control Register 3
     __IO uint32_t GTPR;  // Guard time and prescaler register
-} USART_Manual_TypeDef;
+} USART_ManualType;
 
 // UART configuration enums
 typedef enum {
@@ -185,24 +185,24 @@ typedef enum {
 } UART_BaudRateType;
 
 // USART2 peripheral declaration
-#define USART_1 ((USART_Manual_TypeDef *)USART_1_BASE)
-#define USART_2 ((USART_Manual_TypeDef *)USART_2_BASE)
-#define USART_3 ((USART_Manual_TypeDef *)USART_3_BASE)
-#define UART_4  ((USART_Manual_TypeDef *)UART_4_BASE)
-#define UART_5  ((USART_Manual_TypeDef *)UART_5_BASE)
-#define USART_6 ((USART_Manual_TypeDef *)USART_6_BASE)
+#define USART_1 ((USART_ManualType *)USART_1_BASE)
+#define USART_2 ((USART_ManualType *)USART_2_BASE)
+#define USART_3 ((USART_ManualType *)USART_3_BASE)
+#define UART_4  ((USART_ManualType *)UART_4_BASE)
+#define UART_5  ((USART_ManualType *)UART_5_BASE)
+#define USART_6 ((USART_ManualType *)USART_6_BASE)
 
 class USART
 {
 private:
-    USART_Manual_TypeDef *USARTx;
+    USART_ManualType *USARTx;
     UART_COMType comType;
     UART_BaudRateType baudRate;
 public:
     // Construct and initialize a USART instance
-    USART(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudRateType baudrate);
+    USART(USART_ManualType *USARTx, UART_COMType comtype, UART_BaudRateType baudrate);
 
-    void USART_Init(USART_Manual_TypeDef *USARTx, UART_COMType comtype, UART_BaudRateType baudrate);
+    void USART_Init(USART_ManualType *USARTx, UART_COMType comtype, UART_BaudRateType baudrate);
     void USART_x_Write(int ch);
     char USART_x_Read(void);
     uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud);

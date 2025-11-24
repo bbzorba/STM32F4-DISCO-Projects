@@ -14,7 +14,7 @@ private:
     USART usart;
 
 public:
-    HC06(USART_Manual_TypeDef *USARTx, UART_COMType com_type, UART_BaudRateType baud_rate);
+    HC06(USART_ManualType *USARTx, UART_COMType com_type, UART_BaudRateType baud_rate);
 
     // Function prototypes
     void SendData(const uint8_t *data, size_t len);

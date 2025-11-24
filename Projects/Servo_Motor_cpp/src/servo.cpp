@@ -1,25 +1,23 @@
 #include "../inc/servo.h"
 
-Servo::Servo(GPIO *GPIOx,
-             servo_Type type,
-             servoAngle_Type initial_angle,
-             TIM_TypeDef *TIMx,
-             GPIO_ManualTypeDef *GPIO_regs,
-             RCC_TypeDef *rcc,
-             uint8_t pinNumber,
-             uint8_t afNumber,
-             uint32_t gpioEnableMask)
-    : type(type),
-      angle(initial_angle),
-      is_running(0),
-      TIMx(TIMx),
-      GPIOx(GPIOx),
-      GPIO_regs(GPIO_regs),
-      rcc(rcc),
-      pinNumber(pinNumber),
-      afNumber(afNumber),
-    gpioEnableMask(gpioEnableMask),
-    pwm(TIMx, PWM_PRESCALER_1599U, 200U) // construct PWM instance
+Servo::Servo(servo_Type type,
+                         servoAngle_Type initial_angle,
+                         TIM_TypeDef *TIMx,
+                         GPIO_ManualTypeDef *GPIO_regs,
+                         RCC_TypeDef *rcc,
+                         uint8_t pinNumber,
+                         uint8_t afNumber,
+                         uint32_t gpioEnableMask)
+        : type(type),
+            angle(initial_angle),
+            is_running(0),
+            TIMx(TIMx),
+            GPIO_regs(GPIO_regs),
+            rcc(rcc),
+            pinNumber(pinNumber),
+            afNumber(afNumber),
+            gpioEnableMask(gpioEnableMask),
+            pwm(TIMx, PWM_PRESCALER_1599U, 200U) // construct PWM instance
 {
     // Configure hardware
     GPIO_Init();
@@ -28,34 +26,16 @@ Servo::Servo(GPIO *GPIOx,
     this->TIMx->TIM_CCR1 = angle_to_ticks(initial_angle);
 }
 
-// Generic GPIO init for any PWM-capable pin: pass port, RCC pointer, pin number [0..15], AF number [0..15], and AHB1 enable mask (e.g., GPIOE_EN)
-void Servo::GPIO_Init()
-{
-
-    // Enable GPIO port clock (AHB1)
-    this->rcc->AHB1ENR |= this->gpioEnableMask;
-
-    // Configure pin as Alternate Function
-    uint32_t pin = (uint32_t)this->pinNumber & 0xFU;
-    uint32_t af  = (uint32_t)this->afNumber & 0xFU;
-
-    this->GPIO_regs->MODER &= ~(0x3U << (pin * 2U));
-    this->GPIO_regs->MODER |=  (0x2U << (pin * 2U));   // MODER: set to 10b for AF mode
-
-    this->GPIO_regs->PUPDR &= ~(0x3U << (pin * 2U));   // PUPDR: no pull
-
-    this->GPIO_regs->OSPEEDR &= ~(0x3U << (pin * 2U)); // OSPEEDR: medium speed
-    this->GPIO_regs->OSPEEDR |=  (0x1U << (pin * 2U));
-
-    // AFR: select AFRL for pins 0..7, AFRH for 8..15
-    if (pin < 8U) {
-        this->GPIO_regs->AFR[0] &= ~(0xFU << (pin * 4U));
-        this->GPIO_regs->AFR[0] |=  (af   << (pin * 4U));
-    } else {
-        uint32_t pinH = pin - 8U;
-        this->GPIO_regs->AFR[1] &= ~(0xFU << (pinH * 4U));
-        this->GPIO_regs->AFR[1] |=  (af   << (pinH * 4U));
-    }
+// Configure GPIO for the servo PWM pin using C++ GPIO driver
+void Servo::GPIO_Init() {
+    GPIO_InitTypeDef init;
+    init.Pin       = (1U << this->pinNumber);      // single pin mask
+    init.Mode      = GPIO_MODE_AF_PP;              // alternate function push-pull
+    init.Pull      = GPIO_NOPULL;                  // no pull resistors
+    init.Speed     = GPIO_SPEED_MEDIUM;            // medium speed adequate for PWM
+    init.Alternate = (this->afNumber & 0xFU);      // AF index
+    GPIO gpio_local(this->GPIO_regs, &init);       // configure via constructor (scope local)
+    (void)gpio_local;                              // suppress unused warning
 }
 
 void Servo::PWM_Init() {

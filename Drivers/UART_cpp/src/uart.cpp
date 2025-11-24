@@ -9,7 +9,7 @@
 
 #include "uart.h"
 
-USART::USART(USART_Manual_TypeDef *uartx, UART_COMType _comType, UART_BaudRateType _baudRate)
+USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _baudRate)
 : USARTx(uartx), comType(_comType), baudRate(_baudRate)
 {
 

@@ -1,7 +1,7 @@
-#include "hc06.h"
+#include "../inc/hc06.h"
 
 void HC06_Init(HC06 *hc06,
-               USART_Manual_TypeDef *usart_regs,
+               USART_ManualType *usart_regs,
                UART_COMType com_type,
                UART_BaudRateType baud_rate) {
     if (hc06 == NULL) {

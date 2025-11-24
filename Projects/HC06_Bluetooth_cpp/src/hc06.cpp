@@ -1,11 +1,11 @@
-#include "hc06.h"
+#include "../inc/hc06.h"
 
-HC06::HC06(USART_Manual_TypeDef *USARTx,
+HC06::HC06(USART_ManualType *USART_regs,
            UART_COMType com_type,
            UART_BaudRateType baud_rate)
            : hc06_com_type(com_type),
            hc06_baud_rate(baud_rate),
-           usart(USARTx, com_type, baud_rate)
+           usart(USART_regs, com_type, baud_rate)
 {
 }
 

@@ -1,4 +1,4 @@
-#include "hc06_servo_controller.h"
+#include "../inc/hc06_servo_controller.h"
 
 void move_servo_to_direction(Servo *servoMotor, uint8_t command) {
     switch (command)

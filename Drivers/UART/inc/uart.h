@@ -104,15 +104,15 @@ typedef struct {
 #define USART_6 ((USART_ManualType *)USART_6_BASE)
 
 // Low-level (register) API
-void USART_x_Write(USART_ManualType *USARTx, int ch);
-char USART_x_Read(USART_ManualType *USARTx);
+void USART_x_Write(USART_HandleType *handle, USART_ManualType *regs, int ch);
+char USART_x_Read(USART_HandleType *handle, USART_ManualType *regs);
 uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud);
-const char* GetPortName(USART_ManualType *USARTx);
+const char* GetPortName(USART_HandleType *handle, USART_ManualType *regs);
 
 // High-level (object-style) API
-void USART_Init(USART_HandleType *handle, USART_ManualType *regs, UART_COMType comType, UART_BaudRateType baudRate);
-void USART_WriteChar(USART_HandleType *handle, int ch);
-char USART_ReadChar(USART_HandleType *handle);
-void USART_WriteString(USART_HandleType *handle, const char *str);
-void USART_ReadString(USART_HandleType *handle, char *buffer, size_t maxLength);
+void USART_Init(USART_HandleType *handle, USART_ManualType *regs, UART_COMType _comtype, UART_BaudRateType _baudrate);
+void USART_WriteChar(USART_HandleType *handle, USART_ManualType *regs, int ch);
+char USART_ReadChar(USART_HandleType *handle, USART_ManualType *regs);
+void USART_WriteString(USART_HandleType *handle, USART_ManualType *regs, const char *str);
+void USART_ReadString(USART_HandleType *handle, USART_ManualType *regs, char *buffer, size_t maxLength);
 #endif // __UART_H

@@ -1,4 +1,4 @@
-#include "hc06_servo_controller.h"
+#include "../inc/hc06_servo_controller.h"
 
 // Function prototypes
 void delay(volatile uint32_t count);

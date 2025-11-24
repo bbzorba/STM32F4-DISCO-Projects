@@ -36,42 +36,26 @@ Discarded input sections
  .text          0x00000000        0x0 Drivers/GPIO_cpp/src/gpio.o
  .data          0x00000000        0x0 Drivers/GPIO_cpp/src/gpio.o
  .bss           0x00000000        0x0 Drivers/GPIO_cpp/src/gpio.o
- .text._ZN4GPIOC2E13port_NameTypeP12GPIO_TypeDefP16GPIO_InitTypeDef
-                0x00000000      0x178 Drivers/GPIO_cpp/src/gpio.o
- .text._ZN4GPIO16LIB_GPIO_ReadPinEt
+ .text._ZN4GPIO12GPIO_ReadPinEt
                 0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZN4GPIO17LIB_GPIO_WritePinEt13GPIO_PinState
+ .text._ZN4GPIO13GPIO_WritePinEt13GPIO_PinState
                 0x00000000        0xc Drivers/GPIO_cpp/src/gpio.o
- .text._ZN4GPIO18LIB_GPIO_TogglePinEt
+ .text._ZN4GPIO14GPIO_TogglePinEt
                 0x00000000        0xc Drivers/GPIO_cpp/src/gpio.o
- .text._Z17__GPIO_PIN_Paramsmmmmm
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOA_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOB_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOC_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOD_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOE_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOF_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOG_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .text._ZNK4GPIO26__LIB_RCC_GPIOH_CLK_ENABLEEv
-                0x00000000       0x10 Drivers/GPIO_cpp/src/gpio.o
- .debug_info    0x00000000      0xb13 Drivers/GPIO_cpp/src/gpio.o
- .debug_abbrev  0x00000000      0x2a3 Drivers/GPIO_cpp/src/gpio.o
- .debug_loc     0x00000000      0x36d Drivers/GPIO_cpp/src/gpio.o
+ .text._Z21__RCC_GPIO_CLK_ENABLEP18GPIO_ManualTypeDef
+                0x00000000       0xcc Drivers/GPIO_cpp/src/gpio.o
+ .text._ZN4GPIOC2EP18GPIO_ManualTypeDefP16GPIO_InitTypeDef
+                0x00000000      0x10c Drivers/GPIO_cpp/src/gpio.o
+ .debug_info    0x00000000      0x6c8 Drivers/GPIO_cpp/src/gpio.o
+ .debug_abbrev  0x00000000      0x29d Drivers/GPIO_cpp/src/gpio.o
+ .debug_loc     0x00000000      0x353 Drivers/GPIO_cpp/src/gpio.o
  .debug_aranges
-                0x00000000       0x80 Drivers/GPIO_cpp/src/gpio.o
- .debug_ranges  0x00000000       0x90 Drivers/GPIO_cpp/src/gpio.o
- .debug_line    0x00000000      0x510 Drivers/GPIO_cpp/src/gpio.o
- .debug_str     0x00000000      0x851 Drivers/GPIO_cpp/src/gpio.o
+                0x00000000       0x40 Drivers/GPIO_cpp/src/gpio.o
+ .debug_ranges  0x00000000       0x78 Drivers/GPIO_cpp/src/gpio.o
+ .debug_line    0x00000000      0x3bc Drivers/GPIO_cpp/src/gpio.o
+ .debug_str     0x00000000      0x51d Drivers/GPIO_cpp/src/gpio.o
  .comment       0x00000000       0x4a Drivers/GPIO_cpp/src/gpio.o
- .debug_frame   0x00000000       0xf8 Drivers/GPIO_cpp/src/gpio.o
+ .debug_frame   0x00000000       0x78 Drivers/GPIO_cpp/src/gpio.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/GPIO_cpp/src/gpio.o
  .text          0x00000000        0x0 Drivers/PWM/src/pwm.o
@@ -85,14 +69,14 @@ Discarded input sections
                 0x00000000       0x20 Drivers/PWM/src/pwm.o
  .text.PWM_GetDutyCycle
                 0x00000000       0x24 Drivers/PWM/src/pwm.o
- .debug_info    0x00000000      0x52d Drivers/PWM/src/pwm.o
- .debug_abbrev  0x00000000      0x135 Drivers/PWM/src/pwm.o
+ .debug_info    0x00000000      0x539 Drivers/PWM/src/pwm.o
+ .debug_abbrev  0x00000000      0x166 Drivers/PWM/src/pwm.o
  .debug_loc     0x00000000      0x116 Drivers/PWM/src/pwm.o
  .debug_aranges
                 0x00000000       0x38 Drivers/PWM/src/pwm.o
  .debug_ranges  0x00000000       0x28 Drivers/PWM/src/pwm.o
  .debug_line    0x00000000      0x2cf Drivers/PWM/src/pwm.o
- .debug_str     0x00000000      0x4d9 Drivers/PWM/src/pwm.o
+ .debug_str     0x00000000      0x475 Drivers/PWM/src/pwm.o
  .comment       0x00000000       0x4a Drivers/PWM/src/pwm.o
  .debug_frame   0x00000000       0x50 Drivers/PWM/src/pwm.o
  .ARM.attributes
@@ -110,14 +94,14 @@ Discarded input sections
                 0x00000000       0x20 Drivers/PWM_cpp/src/pwm.o
  .text._ZN3PWM12GetDutyCycleEP11TIM_TypeDef19PWM_Channel_TypeDef
                 0x00000000       0x24 Drivers/PWM_cpp/src/pwm.o
- .debug_info    0x00000000      0x82c Drivers/PWM_cpp/src/pwm.o
- .debug_abbrev  0x00000000      0x230 Drivers/PWM_cpp/src/pwm.o
+ .debug_info    0x00000000      0x838 Drivers/PWM_cpp/src/pwm.o
+ .debug_abbrev  0x00000000      0x261 Drivers/PWM_cpp/src/pwm.o
  .debug_loc     0x00000000      0x48d Drivers/PWM_cpp/src/pwm.o
  .debug_aranges
                 0x00000000       0x40 Drivers/PWM_cpp/src/pwm.o
  .debug_ranges  0x00000000       0xb8 Drivers/PWM_cpp/src/pwm.o
  .debug_line    0x00000000      0x3c0 Drivers/PWM_cpp/src/pwm.o
- .debug_str     0x00000000      0x6cf Drivers/PWM_cpp/src/pwm.o
+ .debug_str     0x00000000      0x66b Drivers/PWM_cpp/src/pwm.o
  .comment       0x00000000       0x4a Drivers/PWM_cpp/src/pwm.o
  .debug_frame   0x00000000       0x70 Drivers/PWM_cpp/src/pwm.o
  .ARM.attributes
@@ -250,10 +234,10 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
 .text           0x08000040      0x7d8
                 0x08000040                . = ALIGN (0x4)
  *(.text*)
- .text._ZN5USARTC2EP20USART_Manual_TypeDef12UART_COMType17UART_BaudRateType
+ .text._ZN5USARTC2EP16USART_ManualType12UART_COMType17UART_BaudRateType
                 0x08000040      0x59c Drivers/UART_cpp/src/uart.o
-                0x08000040                USART::USART(USART_Manual_TypeDef*, UART_COMType, UART_BaudRateType)
-                0x08000040                USART::USART(USART_Manual_TypeDef*, UART_COMType, UART_BaudRateType)
+                0x08000040                USART::USART(USART_ManualType*, UART_COMType, UART_BaudRateType)
+                0x08000040                USART::USART(USART_ManualType*, UART_COMType, UART_BaudRateType)
  .text._ZN5USART13USART_x_WriteEi
                 0x080005dc       0x10 Drivers/UART_cpp/src/uart.o
                 0x080005dc                USART::USART_x_Write(int)
@@ -263,10 +247,10 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .text._ZNK5USART11GetPortNameEv
                 0x080005fc       0x74 Drivers/UART_cpp/src/uart.o
                 0x080005fc                USART::GetPortName() const
- .text._ZN4HC06C2EP20USART_Manual_TypeDef12UART_COMType17UART_BaudRateType
+ .text._ZN4HC06C2EP16USART_ManualType12UART_COMType17UART_BaudRateType
                 0x08000670       0x14 Projects/HC06_Bluetooth_cpp/src/hc06.o
-                0x08000670                HC06::HC06(USART_Manual_TypeDef*, UART_COMType, UART_BaudRateType)
-                0x08000670                HC06::HC06(USART_Manual_TypeDef*, UART_COMType, UART_BaudRateType)
+                0x08000670                HC06::HC06(USART_ManualType*, UART_COMType, UART_BaudRateType)
+                0x08000670                HC06::HC06(USART_ManualType*, UART_COMType, UART_BaudRateType)
  .text._ZN4HC068SendDataEPKhj
                 0x08000684       0x20 Projects/HC06_Bluetooth_cpp/src/hc06.o
                 0x08000684                HC06::SendData(unsigned char const*, unsigned int)
@@ -427,23 +411,23 @@ LOAD linker stubs
  .debug_ranges  0x00000130       0x60 Projects/HC06_Bluetooth_cpp/src/hc06.o
  .debug_ranges  0x00000190       0x30 Projects/HC06_Bluetooth_cpp/src/main.o
 
-.debug_line     0x00000000     0x1384
+.debug_line     0x00000000     0x1392
  .debug_line    0x00000000      0xab2 Drivers/UART_cpp/src/uart.o
- .debug_line    0x00000ab2      0x346 Projects/HC06_Bluetooth_cpp/src/hc06.o
- .debug_line    0x00000df8      0x353 Projects/HC06_Bluetooth_cpp/src/main.o
- .debug_line    0x0000114b      0x1dd Projects/HC06_Bluetooth_cpp/src/startup.o
- .debug_line    0x00001328       0x5c Projects/HC06_Bluetooth_cpp/src/system_stm32f4xx.o
+ .debug_line    0x00000ab2      0x34d Projects/HC06_Bluetooth_cpp/src/hc06.o
+ .debug_line    0x00000dff      0x35a Projects/HC06_Bluetooth_cpp/src/main.o
+ .debug_line    0x00001159      0x1dd Projects/HC06_Bluetooth_cpp/src/startup.o
+ .debug_line    0x00001336       0x5c Projects/HC06_Bluetooth_cpp/src/system_stm32f4xx.o
 
-.debug_str      0x00000000      0xbeb
- .debug_str     0x00000000      0x850 Drivers/UART_cpp/src/uart.o
-                                0x91f (size before relaxing)
- .debug_str     0x00000850      0x15a Projects/HC06_Bluetooth_cpp/src/hc06.o
-                                0x9f8 (size before relaxing)
- .debug_str     0x000009aa       0x5a Projects/HC06_Bluetooth_cpp/src/main.o
-                                0x9c7 (size before relaxing)
- .debug_str     0x00000a04      0x119 Projects/HC06_Bluetooth_cpp/src/startup.o
+.debug_str      0x00000000      0xbde
+ .debug_str     0x00000000      0x840 Drivers/UART_cpp/src/uart.o
+                                0x90b (size before relaxing)
+ .debug_str     0x00000840      0x15d Projects/HC06_Bluetooth_cpp/src/hc06.o
+                                0x9eb (size before relaxing)
+ .debug_str     0x0000099d       0x5a Projects/HC06_Bluetooth_cpp/src/main.o
+                                0x9b3 (size before relaxing)
+ .debug_str     0x000009f7      0x119 Projects/HC06_Bluetooth_cpp/src/startup.o
                                 0x1ee (size before relaxing)
- .debug_str     0x00000b1d       0xce Projects/HC06_Bluetooth_cpp/src/system_stm32f4xx.o
+ .debug_str     0x00000b10       0xce Projects/HC06_Bluetooth_cpp/src/system_stm32f4xx.o
                                 0x15d (size before relaxing)
 
 .debug_frame    0x00000000      0x264

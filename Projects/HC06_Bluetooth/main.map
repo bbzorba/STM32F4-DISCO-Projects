@@ -11,7 +11,7 @@ c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-
 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
                               c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o (memset)
 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
-                              Projects/HC06_Bluetooth/src/main.o (snprintf)
+                              Projects/HC06_Bluetooth/src/hc06.o (snprintf)
 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
                               c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o) (_svfprintf_r)
 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
@@ -62,40 +62,26 @@ Discarded input sections
  .text          0x00000000        0x0 Drivers/GPIO/src/gpio.o
  .data          0x00000000        0x0 Drivers/GPIO/src/gpio.o
  .bss           0x00000000        0x0 Drivers/GPIO/src/gpio.o
- .text.LIB_GPIO_Init
-                0x00000000       0xfc Drivers/GPIO/src/gpio.o
- .text.LIB_GPIO_ReadPin
+ .text.GPIO_ReadPin
                 0x00000000        0xc Drivers/GPIO/src/gpio.o
- .text.LIB_GPIO_WritePin
+ .text.GPIO_WritePin
                 0x00000000        0x8 Drivers/GPIO/src/gpio.o
- .text.LIB_GPIO_TogglePin
+ .text.GPIO_TogglePin
                 0x00000000        0x8 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOA_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOB_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOC_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOD_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOE_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOF_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOG_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .text.__LIB_RCC_GPIOH_CLK_ENABLE
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
- .debug_info    0x00000000      0x574 Drivers/GPIO/src/gpio.o
- .debug_abbrev  0x00000000      0x135 Drivers/GPIO/src/gpio.o
- .debug_loc     0x00000000      0x27a Drivers/GPIO/src/gpio.o
+ .text.__RCC_GPIO_CLK_ENABLE
+                0x00000000       0xcc Drivers/GPIO/src/gpio.o
+ .text.GPIO_Init
+                0x00000000      0x104 Drivers/GPIO/src/gpio.o
+ .debug_info    0x00000000      0x5e8 Drivers/GPIO/src/gpio.o
+ .debug_abbrev  0x00000000      0x1cf Drivers/GPIO/src/gpio.o
+ .debug_loc     0x00000000      0x31f Drivers/GPIO/src/gpio.o
  .debug_aranges
-                0x00000000       0x78 Drivers/GPIO/src/gpio.o
- .debug_ranges  0x00000000       0x68 Drivers/GPIO/src/gpio.o
- .debug_line    0x00000000      0x3cc Drivers/GPIO/src/gpio.o
- .debug_str     0x00000000      0x4d9 Drivers/GPIO/src/gpio.o
+                0x00000000       0x40 Drivers/GPIO/src/gpio.o
+ .debug_ranges  0x00000000       0x58 Drivers/GPIO/src/gpio.o
+ .debug_line    0x00000000      0x3ff Drivers/GPIO/src/gpio.o
+ .debug_str     0x00000000      0x3bc Drivers/GPIO/src/gpio.o
  .comment       0x00000000       0x4a Drivers/GPIO/src/gpio.o
- .debug_frame   0x00000000       0xe8 Drivers/GPIO/src/gpio.o
+ .debug_frame   0x00000000       0x78 Drivers/GPIO/src/gpio.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/GPIO/src/gpio.o
  .text          0x00000000        0x0 Drivers/PWM/src/pwm.o
@@ -109,14 +95,14 @@ Discarded input sections
                 0x00000000       0x20 Drivers/PWM/src/pwm.o
  .text.PWM_GetDutyCycle
                 0x00000000       0x24 Drivers/PWM/src/pwm.o
- .debug_info    0x00000000      0x52d Drivers/PWM/src/pwm.o
- .debug_abbrev  0x00000000      0x135 Drivers/PWM/src/pwm.o
+ .debug_info    0x00000000      0x539 Drivers/PWM/src/pwm.o
+ .debug_abbrev  0x00000000      0x166 Drivers/PWM/src/pwm.o
  .debug_loc     0x00000000      0x116 Drivers/PWM/src/pwm.o
  .debug_aranges
                 0x00000000       0x38 Drivers/PWM/src/pwm.o
  .debug_ranges  0x00000000       0x28 Drivers/PWM/src/pwm.o
  .debug_line    0x00000000      0x2cf Drivers/PWM/src/pwm.o
- .debug_str     0x00000000      0x4d9 Drivers/PWM/src/pwm.o
+ .debug_str     0x00000000      0x475 Drivers/PWM/src/pwm.o
  .comment       0x00000000       0x4a Drivers/PWM/src/pwm.o
  .debug_frame   0x00000000       0x50 Drivers/PWM/src/pwm.o
  .ARM.attributes
@@ -143,6 +129,10 @@ Discarded input sections
  .bss           0x00000000        0x0 Projects/HC06_Bluetooth/src/hc06.o
  .text.HC06_ReceiveByte
                 0x00000000        0x8 Projects/HC06_Bluetooth/src/hc06.o
+ .rodata.hc06_scan_i2c.str1.4
+                0x00000000       0x3b Projects/HC06_Bluetooth/src/hc06.o
+ .text.hc06_scan_i2c
+                0x00000000       0xb8 Projects/HC06_Bluetooth/src/hc06.o
  .text          0x00000000        0x0 Projects/HC06_Bluetooth/src/main.o
  .data          0x00000000        0x0 Projects/HC06_Bluetooth/src/main.o
  .bss           0x00000000        0x0 Projects/HC06_Bluetooth/src/main.o
@@ -554,79 +544,79 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Projects/HC06_Bluetooth/src/startup.o
  .comment       0x00000049       0x4a Projects/HC06_Bluetooth/src/system_stm32f4xx.o
 
-.debug_info     0x00000000     0x123d
- .debug_info    0x00000000      0x81b Drivers/UART/src/uart.o
- .debug_info    0x0000081b      0x42a Projects/HC06_Bluetooth/src/hc06.o
- .debug_info    0x00000c45      0x3e4 Projects/HC06_Bluetooth/src/main.o
- .debug_info    0x00001029      0x196 Projects/HC06_Bluetooth/src/startup.o
- .debug_info    0x000011bf       0x7e Projects/HC06_Bluetooth/src/system_stm32f4xx.o
+.debug_info     0x00000000     0x159e
+ .debug_info    0x00000000      0x832 Drivers/UART/src/uart.o
+ .debug_info    0x00000832      0x774 Projects/HC06_Bluetooth/src/hc06.o
+ .debug_info    0x00000fa6      0x3e4 Projects/HC06_Bluetooth/src/main.o
+ .debug_info    0x0000138a      0x196 Projects/HC06_Bluetooth/src/startup.o
+ .debug_info    0x00001520       0x7e Projects/HC06_Bluetooth/src/system_stm32f4xx.o
 
-.debug_abbrev   0x00000000      0x6c6
- .debug_abbrev  0x00000000      0x28a Drivers/UART/src/uart.o
- .debug_abbrev  0x0000028a      0x160 Projects/HC06_Bluetooth/src/hc06.o
- .debug_abbrev  0x000003ea      0x183 Projects/HC06_Bluetooth/src/main.o
- .debug_abbrev  0x0000056d      0x115 Projects/HC06_Bluetooth/src/startup.o
- .debug_abbrev  0x00000682       0x44 Projects/HC06_Bluetooth/src/system_stm32f4xx.o
+.debug_abbrev   0x00000000      0x84f
+ .debug_abbrev  0x00000000      0x2ca Drivers/UART/src/uart.o
+ .debug_abbrev  0x000002ca      0x2a9 Projects/HC06_Bluetooth/src/hc06.o
+ .debug_abbrev  0x00000573      0x183 Projects/HC06_Bluetooth/src/main.o
+ .debug_abbrev  0x000006f6      0x115 Projects/HC06_Bluetooth/src/startup.o
+ .debug_abbrev  0x0000080b       0x44 Projects/HC06_Bluetooth/src/system_stm32f4xx.o
 
-.debug_loc      0x00000000      0x82c
+.debug_loc      0x00000000      0xaba
  .debug_loc     0x00000000      0x453 Drivers/UART/src/uart.o
- .debug_loc     0x00000453      0x3aa Projects/HC06_Bluetooth/src/hc06.o
- .debug_loc     0x000007fd       0x2f Projects/HC06_Bluetooth/src/main.o
+ .debug_loc     0x00000453      0x638 Projects/HC06_Bluetooth/src/hc06.o
+ .debug_loc     0x00000a8b       0x2f Projects/HC06_Bluetooth/src/main.o
 
-.debug_aranges  0x00000000      0x108
+.debug_aranges  0x00000000      0x110
  .debug_aranges
                 0x00000000       0x60 Drivers/UART/src/uart.o
  .debug_aranges
-                0x00000060       0x40 Projects/HC06_Bluetooth/src/hc06.o
+                0x00000060       0x48 Projects/HC06_Bluetooth/src/hc06.o
  .debug_aranges
-                0x000000a0       0x28 Projects/HC06_Bluetooth/src/main.o
+                0x000000a8       0x28 Projects/HC06_Bluetooth/src/main.o
  .debug_aranges
-                0x000000c8       0x20 Projects/HC06_Bluetooth/src/startup.o
+                0x000000d0       0x20 Projects/HC06_Bluetooth/src/startup.o
  .debug_aranges
-                0x000000e8       0x20 Projects/HC06_Bluetooth/src/system_stm32f4xx.o
+                0x000000f0       0x20 Projects/HC06_Bluetooth/src/system_stm32f4xx.o
 
-.debug_ranges   0x00000000      0x128
+.debug_ranges   0x00000000      0x190
  .debug_ranges  0x00000000       0x98 Drivers/UART/src/uart.o
- .debug_ranges  0x00000098       0x60 Projects/HC06_Bluetooth/src/hc06.o
- .debug_ranges  0x000000f8       0x30 Projects/HC06_Bluetooth/src/main.o
+ .debug_ranges  0x00000098       0xc8 Projects/HC06_Bluetooth/src/hc06.o
+ .debug_ranges  0x00000160       0x30 Projects/HC06_Bluetooth/src/main.o
 
-.debug_line     0x00000000     0x12f7
+.debug_line     0x00000000     0x14a4
  .debug_line    0x00000000      0xa8c Drivers/UART/src/uart.o
- .debug_line    0x00000a8c      0x350 Projects/HC06_Bluetooth/src/hc06.o
- .debug_line    0x00000ddc      0x2e2 Projects/HC06_Bluetooth/src/main.o
- .debug_line    0x000010be      0x1dd Projects/HC06_Bluetooth/src/startup.o
- .debug_line    0x0000129b       0x5c Projects/HC06_Bluetooth/src/system_stm32f4xx.o
+ .debug_line    0x00000a8c      0x4f6 Projects/HC06_Bluetooth/src/hc06.o
+ .debug_line    0x00000f82      0x2e9 Projects/HC06_Bluetooth/src/main.o
+ .debug_line    0x0000126b      0x1dd Projects/HC06_Bluetooth/src/startup.o
+ .debug_line    0x00001448       0x5c Projects/HC06_Bluetooth/src/system_stm32f4xx.o
 
-.debug_str      0x00000000      0x70a
- .debug_str     0x00000000      0x425 Drivers/UART/src/uart.o
-                                0x488 (size before relaxing)
- .debug_str     0x00000425       0xbc Projects/HC06_Bluetooth/src/hc06.o
-                                0x2eb (size before relaxing)
- .debug_str     0x000004e1       0x42 Projects/HC06_Bluetooth/src/main.o
-                                0x2b4 (size before relaxing)
- .debug_str     0x00000523      0x119 Projects/HC06_Bluetooth/src/startup.o
+.debug_str      0x00000000      0x6ee
+ .debug_str     0x00000000      0x3c1 Drivers/UART/src/uart.o
+                                0x429 (size before relaxing)
+ .debug_str     0x000003c1      0x10d Projects/HC06_Bluetooth/src/hc06.o
+                                0x33b (size before relaxing)
+ .debug_str     0x000004ce       0x39 Projects/HC06_Bluetooth/src/main.o
+                                0x2b3 (size before relaxing)
+ .debug_str     0x00000507      0x119 Projects/HC06_Bluetooth/src/startup.o
                                 0x1ee (size before relaxing)
- .debug_str     0x0000063c       0xce Projects/HC06_Bluetooth/src/system_stm32f4xx.o
+ .debug_str     0x00000620       0xce Projects/HC06_Bluetooth/src/system_stm32f4xx.o
                                 0x15d (size before relaxing)
 
-.debug_frame    0x00000000      0x644
+.debug_frame    0x00000000      0x66c
  .debug_frame   0x00000000       0xcc Drivers/UART/src/uart.o
- .debug_frame   0x000000cc       0x98 Projects/HC06_Bluetooth/src/hc06.o
- .debug_frame   0x00000164       0x44 Projects/HC06_Bluetooth/src/main.o
- .debug_frame   0x000001a8       0x38 Projects/HC06_Bluetooth/src/startup.o
- .debug_frame   0x000001e0       0x20 Projects/HC06_Bluetooth/src/system_stm32f4xx.o
- .debug_frame   0x00000200       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x00000228       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
- .debug_frame   0x00000248       0x7c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
- .debug_frame   0x000002c4       0x90 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
- .debug_frame   0x00000354       0x60 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
- .debug_frame   0x000003b4       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memmove.o)
- .debug_frame   0x000003dc       0x38 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x00000414       0x4c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x00000460       0x3c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-reallocr.o)
- .debug_frame   0x0000049c       0x2c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x000004c8       0x30 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
- .debug_frame   0x000004f8       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-msizer.o)
- .debug_frame   0x00000518       0x5c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-reent.o)
- .debug_frame   0x00000574       0xb0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
- .debug_frame   0x00000624       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(sbrk.o)
+ .debug_frame   0x000000cc       0xc0 Projects/HC06_Bluetooth/src/hc06.o
+ .debug_frame   0x0000018c       0x44 Projects/HC06_Bluetooth/src/main.o
+ .debug_frame   0x000001d0       0x38 Projects/HC06_Bluetooth/src/startup.o
+ .debug_frame   0x00000208       0x20 Projects/HC06_Bluetooth/src/system_stm32f4xx.o
+ .debug_frame   0x00000228       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x00000250       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
+ .debug_frame   0x00000270       0x7c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
+ .debug_frame   0x000002ec       0x90 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
+ .debug_frame   0x0000037c       0x60 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
+ .debug_frame   0x000003dc       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memmove.o)
+ .debug_frame   0x00000404       0x38 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x0000043c       0x4c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x00000488       0x3c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-reallocr.o)
+ .debug_frame   0x000004c4       0x2c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x000004f0       0x30 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
+ .debug_frame   0x00000520       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-msizer.o)
+ .debug_frame   0x00000540       0x5c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-reent.o)
+ .debug_frame   0x0000059c       0xb0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
+ .debug_frame   0x0000064c       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(sbrk.o)

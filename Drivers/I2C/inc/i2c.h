@@ -16,11 +16,6 @@
 #define I2C3_BASE_ADDR          (APB1PERIPH_ADDR_BASE + 0x5C00U)
 #define GPIOB_BASE_ADDR         (AHB1PERIPH_ADDR_BASE + 0x0400U)
 
-// I2C peripheral declarations
-#define I2C_1                   ((I2C_TypeDef *)I2C1_BASE_ADDR)
-#define I2C_2                   ((I2C_TypeDef *)I2C2_BASE_ADDR)
-#define I2C_3                   ((I2C_TypeDef *)I2C3_BASE_ADDR)
-
 // IO definitions
 #define __IO volatile
 
@@ -118,7 +113,7 @@ typedef struct
     __IO uint32_t CCR;                                        // Clock control register
     __IO uint32_t TRISE;                                      // TRISE register
     __IO uint32_t FLTR;                                       // Filter register
-} I2C_TypeDef;
+} I2C_ManualTypeDef;
 
 // I2C configuration enums
 typedef enum {
@@ -136,20 +131,32 @@ typedef enum {
     I2C_10BIT_ADDRESS
 } I2C_AddressType;
 
+typedef struct
+{
+    I2C_ManualTypeDef    *regs;
+    I2C_SpeedType speed;
+    I2C_AckType   ack;
+    I2C_AddressType address;
+}I2C_HandleType;
+
+// I2C peripheral declarations
+#define I2C_1                   ((I2C_ManualTypeDef *)I2C1_BASE_ADDR)
+#define I2C_2                   ((I2C_ManualTypeDef *)I2C2_BASE_ADDR)
+#define I2C_3                   ((I2C_ManualTypeDef *)I2C3_BASE_ADDR)
+
 // I2C function prototypes
-void I2C_Init(I2C_SpeedType speed);
-int I2C_Read(void);
-void I2C_Write(int data);
-int scan_i2c_bus(void);
-void I2C_Stop(void);
+void I2C_Init(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs, I2C_SpeedType speed);
+int I2C_Read(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
+void I2C_Write(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs, int data);
+int scan_i2c_bus(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
 
 // Minimal helper APIs for master transactions
-void I2C_Start(void);
-void I2C_Restart(void);
-int  I2C_SendAddress(uint8_t address, int read); // returns 1 if ACK (ADDR set), 0 if NACK (AF)
-void I2C_EnableAck(void);
-void I2C_DisableAck(void);
-// Bus recovery helper (HAL-like): release stuck SCL/SDA by toggling SCL
-void I2C_BusRecover(void);
+void I2C_Start(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
+void I2C_Restart(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
+void I2C_Stop(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
+int  I2C_SendAddress(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs, uint8_t address, int read); // returns 1 if ACK (ADDR set), 0 if NACK (AF)
+void I2C_EnableAck(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
+void I2C_DisableAck(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
+void I2C_BusRecover(void); // Bus recovery helper (HAL-like): release stuck SCL/SDA by toggling SCL
 
 #endif // __I2C_H

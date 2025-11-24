@@ -378,10 +378,10 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
                 0x080000e0                _kill
                 0x080000f0                _getpid
                 0x080000f4                _sbrk
- .text._ZN5USARTC2EP20USART_Manual_TypeDef12UART_COMType17UART_BaudRateType
+ .text._ZN5USARTC2EP16USART_ManualType12UART_COMType17UART_BaudRateType
                 0x08000110      0x59c Drivers/UART_cpp/src/uart.o
-                0x08000110                USART::USART(USART_Manual_TypeDef*, UART_COMType, UART_BaudRateType)
-                0x08000110                USART::USART(USART_Manual_TypeDef*, UART_COMType, UART_BaudRateType)
+                0x08000110                USART::USART(USART_ManualType*, UART_COMType, UART_BaudRateType)
+                0x08000110                USART::USART(USART_ManualType*, UART_COMType, UART_BaudRateType)
  .text._ZN5USART11writeStringEPKc
                 0x080006ac       0x34 Drivers/UART_cpp/src/uart.o
                 0x080006ac                USART::writeString(char const*)
@@ -691,11 +691,11 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/UART_cpp/src/stubs.o
  .comment       0x00000049       0x4a Drivers/UART_cpp/src/uart.o
 
-.debug_info     0x00000000     0x2465
- .debug_info    0x00000000      0xd60 Drivers/UART_cpp/src/main.o
- .debug_info    0x00000d60       0xf5 Drivers/UART_cpp/src/startup.o
- .debug_info    0x00000e55      0x4fa Drivers/UART_cpp/src/stubs.o
- .debug_info    0x0000134f     0x1116 Drivers/UART_cpp/src/uart.o
+.debug_info     0x00000000     0x2484
+ .debug_info    0x00000000      0xd7f Drivers/UART_cpp/src/main.o
+ .debug_info    0x00000d7f       0xf5 Drivers/UART_cpp/src/startup.o
+ .debug_info    0x00000e74      0x4fa Drivers/UART_cpp/src/stubs.o
+ .debug_info    0x0000136e     0x1116 Drivers/UART_cpp/src/uart.o
 
 .debug_abbrev   0x00000000      0x930
  .debug_abbrev  0x00000000      0x2cd Drivers/UART_cpp/src/main.o
@@ -723,15 +723,15 @@ LOAD linker stubs
  .debug_line    0x0000043e      0x299 Drivers/UART_cpp/src/stubs.o
  .debug_line    0x000006d7      0xab2 Drivers/UART_cpp/src/uart.o
 
-.debug_str      0x00000000      0xaa2
- .debug_str     0x00000000      0x7a8 Drivers/UART_cpp/src/main.o
-                                0x89a (size before relaxing)
- .debug_str     0x000007a8       0xa8 Drivers/UART_cpp/src/startup.o
+.debug_str      0x00000000      0xa92
+ .debug_str     0x00000000      0x7c2 Drivers/UART_cpp/src/main.o
+                                0x8b0 (size before relaxing)
+ .debug_str     0x000007c2       0xa8 Drivers/UART_cpp/src/startup.o
                                 0x16f (size before relaxing)
- .debug_str     0x00000850      0x186 Drivers/UART_cpp/src/stubs.o
+ .debug_str     0x0000086a      0x186 Drivers/UART_cpp/src/stubs.o
                                 0x2f3 (size before relaxing)
- .debug_str     0x000009d6       0xcc Drivers/UART_cpp/src/uart.o
-                                0x91f (size before relaxing)
+ .debug_str     0x000009f0       0xa2 Drivers/UART_cpp/src/uart.o
+                                0x90b (size before relaxing)
 
 .debug_frame    0x00000000      0x9f4
  .debug_frame   0x00000000       0x40 Drivers/UART_cpp/src/main.o

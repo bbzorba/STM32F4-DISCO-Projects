@@ -1,4 +1,4 @@
-#include "hc06.h"
+#include "../inc/hc06.h"
 #include <stdio.h>
 
 // Function prototypes
