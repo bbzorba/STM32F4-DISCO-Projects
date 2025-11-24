@@ -272,85 +272,56 @@ void USART_Init(USART_HandleType *handle, USART_ManualType *regs, UART_COMType _
 }
 
 
-void USART_x_Write(USART_HandleType *handle, USART_ManualType *regs, int ch)
+void USART_x_Write(USART_HandleType *handle, int ch)
 {
     //1. wait until Transmitter Empty flag is set in the SR register
     while(!(handle->regs->SR & USART_SR_TX_EMP));
-
     //2. write to DR register
     handle->regs->DR = (ch & 0xFF);
 }
 
-char USART_x_Read(USART_HandleType *handle, USART_ManualType *regs)
+char USART_x_Read(USART_HandleType *handle)
 {
     //1. wait until Receiver not Empty flag is set in the SR register
     while(!(handle->regs->SR & USART_SR_RX_NOT_EMP));
-
     //2. read data from DR register
-    return (handle->regs->DR & 0xFF);
+    return (char)(handle->regs->DR & 0xFF);
 }
 
-
-/* void writeString(USART_ManualType *regs, const char *str) {
-    USART_x_Write(regs, '\n');
-    USART_x_Write(regs, 'r'); // Carriage return before newline
-    USART_x_Write(regs, 'x');
-    USART_x_Write(regs, ':');
-    USART_x_Write(regs, ' ');
-    USART_x_Write(regs, '\n');
-    while (*str) {
-        USART_x_Write(regs, *str++);
-    }
-}
-
-void readString(USART_ManualType *regs, char *buffer, size_t maxLength) {
-    size_t index = 0;
-    char c;
-    while (index < (maxLength - 1)) { // Leave space for null terminator
-        c = USART_x_Read(regs);
-        if (c == '\n' || c == '\r') { // Stop on newline or carriage return
-            break;
-        }
-        buffer[index++] = c;
-    }
-    buffer[index] = '\0'; // Null-terminate the string
-}
- */
-
-const char* GetPortName(USART_HandleType *handle, USART_ManualType *regs) {
+const char* GetPortName(USART_HandleType *handle) {
     if (!handle->regs) return "USART?";
     if (handle->regs == USART_1) return "USART1";
     if (handle->regs == USART_2) return "USART2";
     if (handle->regs == USART_3) return "USART3";
-    if (handle->regs == UART_4) return "UART4";
-    if (handle->regs == UART_5) return "UART5";
+    if (handle->regs == UART_4)  return "UART4";
+    if (handle->regs == UART_5)  return "UART5";
     if (handle->regs == USART_6) return "USART6";
     return "USART?";
 }
 
 // Object style wrappers -------------------------------------------------
-void USART_WriteChar(USART_HandleType *handle, USART_ManualType *regs, int ch) {
-    USART_x_Write(handle, regs, ch);
+void USART_WriteChar(USART_HandleType *handle, int ch) {
+    USART_x_Write(handle, ch);
 }
 
-char USART_ReadChar(USART_HandleType *handle, USART_ManualType *regs) {
-    return USART_x_Read(handle, regs);
+char USART_ReadChar(USART_HandleType *handle) {
+    return USART_x_Read(handle);
 }
 
-void USART_WriteString(USART_HandleType *handle, USART_ManualType *regs, const char *str) {
+void USART_WriteString(USART_HandleType *handle, const char *str) {
     while (*str) {
         char c = *str++;
         if (c == '\n') {
-            USART_x_Write(handle, regs, '\r');
+            USART_x_Write(handle, '\r');
         }
-        USART_x_Write(handle, regs, c);
+        USART_x_Write(handle, c);
     }
 }
 
-void USART_ReadString(USART_HandleType *handle, USART_ManualType *regs, char *buffer, size_t maxLength) {
+void USART_ReadString(USART_HandleType *handle, char *buffer, size_t maxLength) {
     size_t i = 0; char c;
     while (i < maxLength - 1) {
-        c = USART_ReadChar(handle, regs);
+        c = USART_ReadChar(handle);
         if (c == '\n' || c == '\r') break;
         buffer[i++] = c;
     }

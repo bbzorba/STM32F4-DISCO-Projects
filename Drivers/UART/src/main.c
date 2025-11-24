@@ -7,17 +7,21 @@ void delay(volatile uint32_t count);
 
 int main(void) {
     USART_HandleType usart;
-    USART_Init(&usart, USART_1, RX_AND_TX, __115200);
+    USART_Init(&usart, USART_2, RX_AND_TX, __115200);
 
     USART_WriteString(&usart, "Welcome to Echo Mode!\r\n");
     USART_WriteString(&usart, "Connected on: ");
-    USART_WriteString(&usart, GetPortName(usart.regs));
-    USART_WriteString(&usart, "\r\n");
-    
+    USART_WriteString(&usart, GetPortName(&usart));
+    USART_WriteString(&usart, "\r\nType something and press Enter to echo:\r\n");
+
     while (1) {
+        USART_WriteString(&usart, "> "); // Prompt
         USART_ReadString(&usart, buffer, sizeof(buffer));
-        USART_WriteString(&usart, buffer);
-        USART_WriteString(&usart, "\r\n");
+        if (buffer[0] != '\0') {
+            USART_WriteString(&usart, "Echo: ");
+            USART_WriteString(&usart, buffer);
+            USART_WriteString(&usart, "\r\n");
+        }
     }
 }
 
