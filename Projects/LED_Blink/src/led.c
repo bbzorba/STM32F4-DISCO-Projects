@@ -1,4 +1,4 @@
-#include "led.h"
+#include "../inc/led.h"
 
 static void run_diagnostics(LED_Type const * const led);
 static uint32_t compute_efficiency(LED_Type const * const led);

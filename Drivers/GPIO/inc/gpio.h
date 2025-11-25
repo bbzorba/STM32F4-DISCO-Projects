@@ -294,6 +294,10 @@ typedef struct {
      GPIO_InitTypeDef *init;     // GPIO initialization structure
 } GPIO_HandleTypeDef;
 
+void GPIO_constructor(GPIO_HandleTypeDef *GPIOx, 
+                      GPIO_ManualTypeDef *regs, 
+                      GPIO_InitTypeDef *GPIO_InitStruct);
+
 /* GPIO pin state enumeration */
 typedef enum {
     GPIO_PIN_RESET = 0,
@@ -317,11 +321,11 @@ typedef enum {
 
 /////////////////////////////////////GPIO FUNCTION PROTOTYPES/////////////////////////////////////////////////
 /* Function prototypes */
-void GPIO_Init(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, GPIO_InitTypeDef *GPIO_Init);
-void GPIO_TogglePin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, uint16_t GPIO_Pin);
-void GPIO_WritePin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, uint16_t GPIO_Pin, GPIO_PinState PinState);
-GPIO_PinState GPIO_ReadPin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, uint16_t GPIO_Pin);
-void __RCC_GPIO_CLK_ENABLE(GPIO_ManualTypeDef *regs); // RCC peripheral clock enable function
+void GPIO_Init(GPIO_HandleTypeDef *GPIOx);
+void GPIO_TogglePin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin);
+void GPIO_WritePin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
+GPIO_PinState GPIO_ReadPin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin);
+void __RCC_GPIO_CLK_ENABLE(GPIO_HandleTypeDef *GPIOx); // RCC peripheral clock enable function
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

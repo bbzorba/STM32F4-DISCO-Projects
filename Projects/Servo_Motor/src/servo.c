@@ -5,7 +5,7 @@ void servo_constructor(Servo *servoMotor,
                        servoAngle_Type initial_angle,
                        TIM_TypeDef *TIMx,
                        GPIO_ManualTypeDef *GPIO_regs,
-                       GPIO_HandleTypeDef *GPIOx,
+                       GPIO_InitTypeDef *GPIOx_Init,
                        RCC_TypeDef *rcc,
                        uint8_t pinNumber,
                        uint8_t afNumber,
@@ -17,33 +17,32 @@ void servo_constructor(Servo *servoMotor,
     servoMotor->is_running = 0;
     servoMotor->TIMx = TIMx;
     servoMotor->GPIO_regs = GPIO_regs;
-    servoMotor->GPIOx = GPIOx;
+    servoMotor->GPIOx_Init = GPIO_Init;
     servoMotor->rcc = rcc;
     servoMotor->pinNumber = pinNumber;
     servoMotor->afNumber = afNumber;
     servoMotor->gpioEnableMask = gpioEnableMask;
 
     // Configure hardware
-    Servo_GPIO_Init(servoMotor, GPIOx);
+    Servo_GPIO_Init(servoMotor);
     Servo_PWM_Init(servoMotor);
     // Program initial angle into CCR
     servoMotor->TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, initial_angle);
 }
 
 // Generic GPIO init for any PWM-capable pin: pass port, RCC pointer, pin number [0..15], AF number [0..15], and AHB1 enable mask (e.g., GPIOE_EN)
-void Servo_GPIO_Init(Servo *servoMotor, GPIO_HandleTypeDef *GPIOx)
+void Servo_GPIO_Init(Servo *servoMotor)
 {
     if (!servoMotor) return;
     // Prepare init struct and delegate to generic GPIO driver
-    GPIO_InitTypeDef init;
-    init.Pin       = (1U << servoMotor->pinNumber); // single pin mask
-    init.Mode      = GPIO_MODE_AF_PP;               // alternate function push-pull
-    init.Pull      = GPIO_NOPULL;                   // no pull resistors
-    init.Speed     = GPIO_SPEED_MEDIUM;             // medium speed adequate for PWM
-    init.Alternate = servoMotor->afNumber & 0xFU;   // AF index
+    servoMotor->GPIOx_Init->Pin       = (1U << servoMotor->pinNumber); // single pin mask
+    servoMotor->GPIOx_Init->Mode      = GPIO_MODE_AF_PP;               // alternate function push-pull
+    servoMotor->GPIOx_Init->Pull      = GPIO_NOPULL;                   // no pull resistors
+    servoMotor->GPIOx_Init->Speed     = GPIO_SPEED_MEDIUM;             // medium speed adequate for PWM
+    servoMotor->GPIOx_Init->Alternate = servoMotor->afNumber & 0xFU;   // AF index
 
     // Driver call handles clock enable + configuration
-    GPIO_Init(GPIOx, servoMotor->GPIO_regs, &init);
+    GPIO_Init(servoMotor);
 }
 
 void Servo_PWM_Init(Servo *servoMotor) {

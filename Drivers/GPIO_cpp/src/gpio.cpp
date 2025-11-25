@@ -1,4 +1,4 @@
-#include "gpio.h"
+#include "../inc/gpio.h"
 
 #define GPIO_NUM 16
 #define GPIO_MODER_MODE0 0x3U
@@ -11,7 +11,7 @@
 GPIO::GPIO(GPIO_ManualTypeDef *regs, GPIO_InitTypeDef *GPIO_Init)
 : regs(regs), init(GPIO_Init) {
 
-    __RCC_GPIO_CLK_ENABLE(regs); // Enable GPIO clock
+    this->RCC_GPIO_CLK_ENABLE(); // Enable GPIO clock
     
     uint32_t position;
     uint32_t temp = 0x00U;
@@ -87,24 +87,24 @@ void GPIO::GPIO_TogglePin(uint16_t GPIO_Pin) {
     this->regs->ODR ^= GPIO_Pin; // Toggle the specified pin
 }
 
-void __RCC_GPIO_CLK_ENABLE(GPIO_ManualTypeDef *regs) {
-    if (regs == GPIO_A) {
+void GPIO::RCC_GPIO_CLK_ENABLE(void) {
+    if (this->regs == GPIO_A) {
         RCC->AHB1ENR |= GPIOA_EN;
-    } else if (regs == GPIO_B) {
+    } else if (this->regs == GPIO_B) {
         RCC->AHB1ENR |= GPIOB_EN;
-    } else if (regs == GPIO_C) {
+    } else if (this->regs == GPIO_C) {
         RCC->AHB1ENR |= GPIOC_EN;
-    } else if (regs == GPIO_D) {
+    } else if (this->regs == GPIO_D) {
         RCC->AHB1ENR |= GPIOD_EN;
-    } else if (regs == GPIO_E) {
+    } else if (this->regs == GPIO_E) {
         RCC->AHB1ENR |= GPIOE_EN;
-    } else if (regs == GPIO_F) {
+    } else if (this->regs == GPIO_F) {
         RCC->AHB1ENR |= GPIOF_EN;
-    } else if (regs == GPIO_G) {
+    } else if (this->regs == GPIO_G) {
         RCC->AHB1ENR |= GPIOG_EN;
-    } else if (regs == GPIO_H) {
+    } else if (this->regs == GPIO_H) {
         RCC->AHB1ENR |= GPIOH_EN;
-    } else if (regs == GPIO_I) {
+    } else if (this->regs == GPIO_I) {
         RCC->AHB1ENR |= GPIOI_EN;
     }
 }

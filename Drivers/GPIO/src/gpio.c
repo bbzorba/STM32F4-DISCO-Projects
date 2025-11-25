@@ -1,4 +1,4 @@
-#include "gpio.h"
+#include "../inc/gpio.h"
 
 #define GPIO_NUM 16
 #define GPIO_MODER_MODE0 0x3U
@@ -8,9 +8,20 @@
 #define GPIO_OTYPER_OT0 0x1U
 #define GPIO_OUTPUT_TYPE_MASK 0x10U
 
-void GPIO_Init(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, GPIO_InitTypeDef *GPIO_Init) {
-    
-    __RCC_GPIO_CLK_ENABLE(regs); // Enable GPIO clock
+void GPIO_constructor(GPIO_HandleTypeDef *GPIOx, 
+                      GPIO_ManualTypeDef *regs, 
+                      GPIO_InitTypeDef *GPIO_InitStruct) 
+{
+    GPIOx->regs = regs;
+    GPIOx->init = GPIO_InitStruct;
+
+    GPIO_Init(GPIOx);
+}
+
+void GPIO_Init(GPIO_HandleTypeDef *GPIOx) {
+
+    // Pass the handle (contains regs) to match function signature
+    __RCC_GPIO_CLK_ENABLE(GPIOx); // Enable GPIO clock
     
     uint32_t position;
     uint32_t temp = 0x00U;
@@ -19,53 +30,53 @@ void GPIO_Init(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, GPIO_InitTyp
 
     for(position = 0; position < GPIO_NUM; position++) {
         ioposition = (1U << position);
-        iocurrent = (GPIO_Init->Pin & ioposition);
+        iocurrent = (GPIOx->init->Pin & ioposition);
 
         if (iocurrent == ioposition) {
             
             // Alternate function selection 
-            if (GPIO_Init->Mode == GPIO_MODE_AF_PP || GPIO_Init->Mode == GPIO_MODE_AF_OD) {
-                temp = regs->AFR[position >> 3U];
+            if (GPIOx->init->Mode == GPIO_MODE_AF_PP || GPIOx->init->Mode == GPIO_MODE_AF_OD) {
+                temp = GPIOx->regs->AFR[position >> 3U];
                 temp &= ~(0xFU << (((uint32_t)position & 0x07U) * 4U));
-                temp |= ((GPIO_Init->Alternate & 0x0FU) << (((uint32_t)position & 0x07U) * 4U));
-                regs->AFR[position >> 3U] = temp;
+                temp |= ((GPIOx->init->Alternate & 0x0FU) << (((uint32_t)position & 0x07U) * 4U));
+                GPIOx->regs->AFR[position >> 3U] = temp;
             }
 
             // Direction mode configuration
-            temp = regs->MODER;
+            temp = GPIOx->regs->MODER;
             temp &= ~(GPIO_MODER_MODE0 << (position * 2U));
-            temp |= ((GPIO_Init->Mode & GPIO_MODE) << (position * 2U));
-            regs->MODER = temp;
+            temp |= ((GPIOx->init->Mode & GPIO_MODE) << (position * 2U));
+            GPIOx->regs->MODER = temp;
 
             // Alternate function selection 
-            if ((GPIO_Init->Mode == GPIO_MODE_OUTPUT_PP) || (GPIO_Init->Mode == GPIO_MODE_OUTPUT_OD) ||
-                (GPIO_Init->Mode == GPIO_MODE_AF_PP) || (GPIO_Init->Mode == GPIO_MODE_AF_OD)) {
-                temp = regs->OSPEEDR;
+            if ((GPIOx->init->Mode == GPIO_MODE_OUTPUT_PP) || (GPIOx->init->Mode == GPIO_MODE_OUTPUT_OD) ||
+                (GPIOx->init->Mode == GPIO_MODE_AF_PP) || (GPIOx->init->Mode == GPIO_MODE_AF_OD)) {
+                temp = GPIOx->regs->OSPEEDR;
                 temp &= ~(GPIO_OSPEEDR_OSPEED0 << (position * 2U));
-                temp |= (GPIO_Init->Speed  << (position * 2U));
-                regs->OSPEEDR = temp;
+                temp |= (GPIOx->init->Speed  << (position * 2U));
+                GPIOx->regs->OSPEEDR = temp;
 
                 // Output type configuration
-                temp = regs->OTYPER;
+                temp = GPIOx->regs->OTYPER;
                 temp &= ~(GPIO_OTYPER_OT0 << position);
-                temp |= (((GPIO_Init->Mode & GPIO_OUTPUT_TYPE_MASK) >> 4U) << position);
-                regs->OTYPER = temp;
+                temp |= (((GPIOx->init->Mode & GPIO_OUTPUT_TYPE_MASK) >> 4U) << position);
+                GPIOx->regs->OTYPER = temp;
             }
 
             // Pull-up Pull down resistor configuration
-            temp = regs->PUPDR;
+            temp = GPIOx->regs->PUPDR;
             temp &= ~(GPIO_PUPDR_PUPD0 << (position * 2U));
-            temp |= ((GPIO_Init->Pull & GPIO_PUPDR_PUPD0) << (position * 2U));
-            regs->PUPDR = temp;
+            temp |= ((GPIOx->init->Pull & GPIO_PUPDR_PUPD0) << (position * 2U));
+            GPIOx->regs->PUPDR = temp;
         }
     }
 }
 
 // Read the specified input port pin state
-GPIO_PinState GPIO_ReadPin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs,  uint16_t GPIO_Pin) {
+GPIO_PinState GPIO_ReadPin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin) {
     GPIO_PinState bitstatus;
 
-    if ((regs->IDR & GPIO_Pin) != (uint32_t)GPIO_PIN_RESET) {
+    if ((GPIOx->regs->IDR & GPIO_Pin) != (uint32_t)GPIO_PIN_RESET) {
         bitstatus = GPIO_PIN_SET;
     } else {
         bitstatus = GPIO_PIN_RESET;
@@ -74,36 +85,36 @@ GPIO_PinState GPIO_ReadPin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, 
 }
 
 // Write to the specified output port pin
-void GPIO_WritePin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, uint16_t GPIO_Pin, GPIO_PinState PinState) {
+void GPIO_WritePin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState) {
     if (PinState != GPIO_PIN_RESET) {
-        regs->BSRR = (uint32_t)GPIO_Pin; // Set the pin
+        GPIOx->regs->BSRR = (uint32_t)GPIO_Pin; // Set the pin
     } else {
-        regs->BSRR = (uint32_t)(GPIO_Pin << 16U); // Reset the pin (upper half of BSRR)
+        GPIOx->regs->BSRR = (uint32_t)(GPIO_Pin << 16U); // Reset the pin (upper half of BSRR)
     }
 }
 
-void GPIO_TogglePin(GPIO_HandleTypeDef *GPIOx, GPIO_ManualTypeDef *regs, uint16_t GPIO_Pin) {
-    regs->ODR ^= GPIO_Pin; // Toggle the specified pin
+void GPIO_TogglePin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin) {
+    GPIOx->regs->ODR ^= GPIO_Pin; // Toggle the specified pin
 }
 
-void __RCC_GPIO_CLK_ENABLE(GPIO_ManualTypeDef *regs) {
-    if (regs == GPIO_A) {
+void __RCC_GPIO_CLK_ENABLE(GPIO_HandleTypeDef *GPIOx) {
+    if (GPIOx->regs == GPIO_A) {
         RCC->AHB1ENR |= GPIOA_EN;
-    } else if (regs == GPIO_B) {
+    } else if (GPIOx->regs == GPIO_B) {
         RCC->AHB1ENR |= GPIOB_EN;
-    } else if (regs == GPIO_C) {
+    } else if (GPIOx->regs == GPIO_C) {
         RCC->AHB1ENR |= GPIOC_EN;
-    } else if (regs == GPIO_D) {
+    } else if (GPIOx->regs == GPIO_D) {
         RCC->AHB1ENR |= GPIOD_EN;
-    } else if (regs == GPIO_E) {
+    } else if (GPIOx->regs == GPIO_E) {
         RCC->AHB1ENR |= GPIOE_EN;
-    } else if (regs == GPIO_F) {
+    } else if (GPIOx->regs == GPIO_F) {
         RCC->AHB1ENR |= GPIOF_EN;
-    } else if (regs == GPIO_G) {
+    } else if (GPIOx->regs == GPIO_G) {
         RCC->AHB1ENR |= GPIOG_EN;
-    } else if (regs == GPIO_H) {
+    } else if (GPIOx->regs == GPIO_H) {
         RCC->AHB1ENR |= GPIOH_EN;
-    } else if (regs == GPIO_I) {
+    } else if (GPIOx->regs == GPIO_I) {
         RCC->AHB1ENR |= GPIOI_EN;
     }
 }

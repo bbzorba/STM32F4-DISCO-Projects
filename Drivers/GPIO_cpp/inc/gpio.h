@@ -302,6 +302,7 @@ public:
      GPIO_PinState GPIO_ReadPin(uint16_t GPIO_Pin);
      void GPIO_WritePin(uint16_t GPIO_Pin, GPIO_PinState PinState);
      void GPIO_TogglePin(uint16_t GPIO_Pin);
+     void RCC_GPIO_CLK_ENABLE(void);
 private:
     GPIO_ManualTypeDef *regs;  // Pointer to GPIO port base address
      GPIO_InitTypeDef *init;     // GPIO initialization structure
@@ -320,13 +321,5 @@ private:
 #define GPIO_H ((GPIO_ManualTypeDef *)GPIOH_BASE)
 #define GPIO_I ((GPIO_ManualTypeDef *)GPIOI_BASE)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-/////////////////////////////////////GPIO FUNCTION PROTOTYPES/////////////////////////////////////////////////
-/* Function prototypes */
-void __RCC_GPIO_CLK_ENABLE(GPIO_ManualTypeDef *regs); // RCC peripheral clock enable function
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 #endif // __GPIO_H

@@ -1,4 +1,4 @@
-#include "gpio.h"
+#include "../inc/gpio.h"
 #define delay 200000
 
 GPIO_InitTypeDef GPIO_InitStruct;
@@ -16,17 +16,19 @@ int main(void) {
     GPIO_InitStruct.Pull = GPIO_NOPULL;          // No pull-up/pull-down
     GPIO_InitStruct.Speed = GPIO_SPEED_MEDIUM;   // Medium speed
     
-    GPIO_Init(&GPIO_LEDS, GPIO_D, &GPIO_InitStruct);
+    GPIO_LEDS.init = &GPIO_InitStruct;
+    GPIO_LEDS.regs = GPIO_D;
+    GPIO_Init(&GPIO_LEDS);
 
     while(1) {
         //GPIOD_TogglePins(delay);
-        GPIO_TogglePin(&GPIO_LEDS, GPIO_D, GPIO_PIN_15);
+        GPIO_TogglePin(&GPIO_LEDS, GPIO_PIN_15);
         delay_fn(delay);
-        GPIO_TogglePin(&GPIO_LEDS, GPIO_D, GPIO_PIN_14);
+        GPIO_TogglePin(&GPIO_LEDS, GPIO_PIN_14);
         delay_fn(delay);
-        GPIO_TogglePin(&GPIO_LEDS, GPIO_D, GPIO_PIN_13);
+        GPIO_TogglePin(&GPIO_LEDS, GPIO_PIN_13);
         delay_fn(delay);
-        GPIO_TogglePin(&GPIO_LEDS, GPIO_D, GPIO_PIN_12);
+        GPIO_TogglePin(&GPIO_LEDS, GPIO_PIN_12);
         delay_fn(delay);
     }
 }
