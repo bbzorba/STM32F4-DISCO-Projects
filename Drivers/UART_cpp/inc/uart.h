@@ -195,14 +195,14 @@ typedef enum {
 class USART
 {
 private:
-    USART_ManualType *USARTx;
+    USART_ManualType *regs;
     UART_COMType comType;
     UART_BaudRateType baudRate;
 public:
     // Construct and initialize a USART instance
-    USART(USART_ManualType *USARTx, UART_COMType comtype, UART_BaudRateType baudrate);
+    USART(USART_ManualType *regs, UART_COMType comtype, UART_BaudRateType baudrate);
 
-    void USART_Init(USART_ManualType *USARTx, UART_COMType comtype, UART_BaudRateType baudrate);
+    void USART_Init(USART_ManualType *regs, UART_COMType comtype, UART_BaudRateType baudrate);
     void USART_x_Write(int ch);
     char USART_x_Read(void);
     uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud);

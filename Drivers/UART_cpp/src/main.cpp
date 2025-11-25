@@ -1,4 +1,4 @@
-#include "uart.h"
+#include "../inc/uart.h"
 
 char buffer[64];
 

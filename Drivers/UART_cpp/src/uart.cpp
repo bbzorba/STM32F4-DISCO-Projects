@@ -7,21 +7,21 @@
  UART5 -> PC12 (TX), PD2 (RX)
  USART6 -> PC6 (TX), PC7 (RX)*/
 
-#include "uart.h"
+#include "../inc/uart.h"
 
-USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _baudRate)
-: USARTx(uartx), comType(_comType), baudRate(_baudRate)
+USART::USART(USART_ManualType *regs, UART_COMType _comType, UART_BaudRateType _baudRate)
+: regs(regs), comType(_comType), baudRate(_baudRate)
 {
 
     // USART TX pin configuration
     if (_comType == TX_ONLY || _comType == RX_AND_TX) 
     {
-    if (this->USARTx == USART_1) {
+    if (this->regs == USART_1) {
             RCC->APB2ENR |= RCC_APB2ENR_USART_1EN;                      // USART1 clock (APB2)
 
             // configuration for USART1 TX on PB6
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                        // GPIOB clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_B->MODER &= ~MODER_PIN6_MASK;                               // clear PB6
             GPIO_B->MODER |=  MODER_PIN6_SET;                               // Set AF for PB6 (bits 13:12)
             GPIO_B->AFR[0] &= ~AFRL_PIN6_MASK;                              // clear AFRL[27:24]
@@ -34,12 +34,12 @@ USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _
             GPIO_A->AFR[1] &= ~AFRH_PIN9_MASK;                         // clear AFRH[11:8]
             GPIO_A->AFR[1] |=  AFRH_PIN9_SET_AF7;                         // AF7 for PA9
         }
-    else if (this->USARTx == USART_2) {
+    else if (this->regs == USART_2) {
             RCC->APB1ENR |= RCC_APB1ENR_USART_2EN;                      // USART2 clock (APB1)
             
             // configuration for USART2 TX on PA2
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                        // GPIOA clock
-            this->USARTx->CR1 = 0x0000;                                    // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                    // Disable USART before configuration
             GPIO_A->MODER &= ~MODER_PIN2_MASK;                          // clear PA2
             GPIO_A->MODER |=  MODER_PIN2_SET;                          // AF for PA2
             GPIO_A->AFR[0] &= ~AFRL_PIN2_MASK;                         // clear AFRL[11:8]
@@ -52,12 +52,12 @@ USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _
             GPIO_D->AFR[0] &= ~AFRL_PIN5_MASK;                         // clear AFRL[23:20]
             GPIO_D->AFR[0] |=  AFRL_PIN5_SET_AF7;                         // AF7 for PD5
         }
-        else if (this->USARTx == USART_3) {
+        else if (this->regs == USART_3) {
             RCC->APB1ENR |= RCC_APB1ENR_USART_3EN;                      // USART3 clock (APB1)
 
             // configuration for USART3 TX on PB10
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                        // GPIOB clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_B->MODER &= ~MODER_PIN10_MASK;                         // clear PB10
             GPIO_B->MODER |=  MODER_PIN10_SET;                         // AF for PB10
             GPIO_B->AFR[1] &= ~AFRH_PIN10_MASK;                       // clear AFRH[11:8]
@@ -77,12 +77,12 @@ USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _
             GPIO_C->AFR[1] &= ~AFRH_PIN10_MASK;                         // clear AFRH[11:8]
             GPIO_C->AFR[1] |=  AFRH_PIN10_SET_AF7;                         // AF7 for PC10
         }
-        else if (this->USARTx == UART_4) {
+        else if (this->regs == UART_4) {
             RCC->APB1ENR |= RCC_APB1ENR_UART_4EN;                       // UART4 clock (APB1)
 
             // configuration for UART4 TX on PA0
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                        // GPIOA clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_A->MODER &= ~MODER_PIN0_MASK;                          // clear PA0
             GPIO_A->MODER |=  MODER_PIN0_SET;                          // AF for PA0
             GPIO_A->AFR[0] &= ~AFRL_PIN0_MASK;                         // clear AFRL[3:0]
@@ -95,23 +95,23 @@ USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _
             GPIO_C->AFR[1] &= ~AFRH_PIN10_MASK;                         // clear AFRH[11:8]
             GPIO_C->AFR[1] |=  AFRH_PIN10_SET_AF8;                         // AF8 for PC10
         }
-        else if (this->USARTx == UART_5) {
+        else if (this->regs == UART_5) {
             RCC->APB1ENR |= RCC_APB1ENR_UART_5EN;                       // UART5 clock (APB1)
 
             // configuration for UART5 TX on PC12
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;                        // GPIOC clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_C->MODER &= ~MODER_PIN12_MASK;                         // clear PC12
             GPIO_C->MODER |=  MODER_PIN12_SET;                         // AF for PC12
             GPIO_C->AFR[1] &= ~AFRH_PIN12_MASK;                         // clear AFRH[15:12]
             GPIO_C->AFR[1] |=  AFRH_PIN12_SET_AF8;                         // AF8 for PC12
         }
-        else if (this->USARTx == USART_6) {
+        else if (this->regs == USART_6) {
             RCC->APB2ENR |= RCC_APB2ENR_USART_6EN;                      // USART6 clock (APB2)
 
             // configuration for USART6 TX on PC6
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;                        // GPIOC clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_C->MODER &= ~MODER_PIN6_MASK;                          // clear PC6
             GPIO_C->MODER |=  MODER_PIN6_SET;                          // AF for PC6
             GPIO_C->AFR[0] &= ~AFRL_PIN6_MASK;                         // clear AFRL[27:24]
@@ -122,12 +122,12 @@ USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _
     // USART RX pin configuration
     if (_comType == RX_ONLY || _comType == RX_AND_TX) 
     {
-        if (this->USARTx == USART_1) {
+        if (this->regs == USART_1) {
             RCC->APB2ENR |= RCC_APB2ENR_USART_1EN;                      // USART1 clock (APB2)
 
             // configuration for USART1 RX on PB7
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                        // GPIOB clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_B->MODER &= ~MODER_PIN7_MASK;                          // clear PB7
             GPIO_B->MODER |=  MODER_PIN7_SET;                          // AF for PB7
             GPIO_B->AFR[0] &= ~AFRL_PIN7_MASK;                         // clear AFRL[31:28]
@@ -140,12 +140,12 @@ USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _
             GPIO_A->AFR[1] &= ~AFRH_PIN10_MASK;                         // clear AFRH[11:8]
             GPIO_A->AFR[1] |=  AFRH_PIN10_SET_AF7;                      // AF7 for PA10
         }
-        else if (this->USARTx == USART_2) {
+        else if (this->regs == USART_2) {
             RCC->APB1ENR |= RCC_APB1ENR_USART_2EN;                      // USART2 clock (APB1)
             
             // configuration for USART2 RX on PA3
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                        // GPIOA clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_A->MODER &= ~MODER_PIN3_MASK;                         // clear PA3
             GPIO_A->MODER |=  MODER_PIN3_SET;                         // AF for PA3
             GPIO_A->AFR[0] &= ~AFRL_PIN3_MASK;                         // clear AFRL[15:12]
@@ -158,12 +158,12 @@ USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _
             GPIO_D->AFR[0] &= ~AFRL_PIN6_MASK;                         // clear AFRL[27:24]
             GPIO_D->AFR[0] |=  AFRL_PIN6_SET_AF7;                         // AF7 for PD6
         }
-        else if (this->USARTx == USART_3) {
+        else if (this->regs == USART_3) {
             RCC->APB1ENR |= RCC_APB1ENR_USART_3EN;                      // USART3 clock (APB1)
 
             // configuration for USART3 RX on PB11
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;                        // GPIOB clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_B->MODER &= ~MODER_PIN11_MASK;                         // clear PB11
             GPIO_B->MODER |=  MODER_PIN11_SET;                         // AF for PB11
             GPIO_B->AFR[1] &= ~AFRH_PIN11_MASK;                       // clear AFRH[15:12]
@@ -183,12 +183,12 @@ USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _
             GPIO_C->AFR[1] &= ~AFRH_PIN11_MASK;                         // clear AFRH[15:12]
             GPIO_C->AFR[1] |=  AFRH_PIN11_SET_AF7;                         // AF7 for PC11
         }
-        else if (this->USARTx == UART_4) {
+        else if (this->regs == UART_4) {
             RCC->APB1ENR |= RCC_APB1ENR_UART_4EN;                       // UART4 clock (APB1)
 
             // configuration for UART4 RX on PA1
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;                        // GPIOA clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             // Enable pull-up on RX to keep line idle-high and reduce noise
             GPIO_A->MODER &= ~MODER_PIN1_MASK;                          // clear PA1
             GPIO_A->MODER |=  MODER_PIN1_SET;                          // AF for PA1
@@ -202,23 +202,23 @@ USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _
             GPIO_C->AFR[1] &= ~AFRH_PIN11_MASK;                         // clear AFRH[15:12]
             GPIO_C->AFR[1] |=  AFRH_PIN11_SET_AF8;                         // AF8 for PC11
         }
-        else if (this->USARTx == UART_5) {
+        else if (this->regs == UART_5) {
             RCC->APB1ENR |= RCC_APB1ENR_UART_5EN;                       // UART5 clock (APB1)
 
             // configuration for UART5 RX on PD2
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;                        // GPIOD clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_D->MODER &= ~MODER_PIN2_MASK;                          // clear PD2
             GPIO_D->MODER |=  MODER_PIN2_SET;                          // AF for PD2
             GPIO_D->AFR[0] &= ~AFRL_PIN2_MASK;                         // clear AFRL[11:8]
             GPIO_D->AFR[0] |=  AFRL_PIN2_SET_AF8;                         // AF8 for PD2
         }
-        else if (this->USARTx == USART_6) {
+        else if (this->regs == USART_6) {
             RCC->APB2ENR |= RCC_APB2ENR_USART_6EN;                      // USART6 clock (APB2)
 
             // configuration for USART6 RX on PC7
             RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;                        // GPIOC clock
-            this->USARTx->CR1 = 0x0000;                                           // Disable USART before configuration
+            this->regs->CR1 = 0x0000;                                           // Disable USART before configuration
             GPIO_C->MODER &= ~MODER_PIN7_MASK;                          // clear PC7
             GPIO_C->MODER |=  MODER_PIN7_SET;                          // AF for PC7
             GPIO_C->AFR[0] &= ~AFRL_PIN7_MASK;                         // clear AFRL[31:28]
@@ -227,32 +227,30 @@ USART::USART(USART_ManualType *uartx, UART_COMType _comType, UART_BaudRateType _
     }
 
     // 4) Clear any stale status by a dummy SR/DR read, then set baud
-    (void)this->USARTx->SR; (void)this->USARTx->DR;
+    (void)this->regs->SR; (void)this->regs->DR;
     // 4) Baud rate before enabling UE; derive from bus clock.
     uint32_t baud_val = (_baudRate == __115200) ? 115200U : 9600U;
-    uint32_t fck_hz = (this->USARTx == USART_1 || this->USARTx == USART_6) ? APB2_CLK_HZ : APB1_CLK_HZ;
-    this->USARTx->BRR = this->BRR_Oversample_by_16(fck_hz, baud_val);
-
+    uint32_t fck_hz = (this->regs == USART_1 || this->regs == USART_6) ? APB2_CLK_HZ : APB1_CLK_HZ;
+    this->regs->BRR = this->BRR_Oversample_by_16(fck_hz, baud_val);
     // 5) 1 stop bit, no flow control
-    this->USARTx->CR2 = CR2_CNF1;
-    this->USARTx->CR3 = CR3_CNF1;
+    this->regs->CR2 = CR2_CNF1;
+    this->regs->CR3 = CR3_CNF1;
 
     // 6) Enable TX/RX as requested, then UE last
     switch (_comType) {
         case TX_ONLY:
-            this->USARTx->CR1 = USART_CR1_TX_EN;
+            this->regs->CR1 = USART_CR1_TX_EN;
             break;
         case RX_ONLY:
-            this->USARTx->CR1 = USART_CR1_RX_EN;
+            this->regs->CR1 = USART_CR1_RX_EN;
             break;
         case RX_AND_TX:
         default:
-            this->USARTx->CR1 = (USART_CR1_TX_EN | USART_CR1_RX_EN);
+            this->regs->CR1 = (USART_CR1_TX_EN | USART_CR1_RX_EN);
             break;
     }
     
-    this->USARTx->CR1 |= USART_CR1_EN;                                            // Enable USART at the end of initialization
-
+    this->regs->CR1 |= USART_CR1_EN;                                            // Enable USART at the end of initialization
 }
 
 // Compute BRR for oversampling by 16
@@ -263,19 +261,19 @@ uint16_t USART::BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud) {
 void USART::USART_x_Write(int ch)
 {
     //1. wait until Transmitter Empty flag is set in the SR register
-    while(!(this->USARTx->SR & USART_SR_TX_EMP));
+    while(!(this->regs->SR & USART_SR_TX_EMP));
 
     //2. write to DR register
-    this->USARTx->DR = (ch & 0xFF);
+    this->regs->DR = (ch & 0xFF);
 }
 
 char USART::USART_x_Read()
 {
     //1. wait until Receiver not Empty flag is set in the SR register
-    while(!(this->USARTx->SR & USART_SR_RX_NOT_EMP));
+    while(!(this->regs->SR & USART_SR_RX_NOT_EMP));
 
     //2. read data from DR register
-    return (this->USARTx->DR & 0xFF);
+    return (this->regs->DR & 0xFF);
 }
 
 int USART::get_char(FILE *f) {
@@ -327,12 +325,12 @@ UART_BaudRateType USART::getBaudRate() const {
 }
 
 const char* USART::GetPortName() const {
-    if (!this->USARTx) return "USART?";
-    if (this->USARTx == USART_1) return "USART1";
-    if (this->USARTx == USART_2) return "USART2";
-    if (this->USARTx == USART_3) return "USART3";
-    if (this->USARTx == UART_4)  return "UART4";
-    if (this->USARTx == UART_5)  return "UART5";
-    if (this->USARTx == USART_6) return "USART6";
+    if (!this->regs) return "USART?";
+    if (this->regs == USART_1) return "USART1";
+    if (this->regs == USART_2) return "USART2";
+    if (this->regs == USART_3) return "USART3";
+    if (this->regs == UART_4)  return "UART4";
+    if (this->regs == UART_5)  return "UART5";
+    if (this->regs == USART_6) return "USART6";
     return "USART?";
 }
