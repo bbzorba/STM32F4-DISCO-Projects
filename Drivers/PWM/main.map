@@ -36,25 +36,27 @@ Discarded input sections
  .data          0x00000000        0x0 Drivers/GPIO/src/gpio.o
  .bss           0x00000000        0x0 Drivers/GPIO/src/gpio.o
  .text.GPIO_ReadPin
-                0x00000000        0xc Drivers/GPIO/src/gpio.o
+                0x00000000       0x10 Drivers/GPIO/src/gpio.o
  .text.GPIO_WritePin
-                0x00000000        0x8 Drivers/GPIO/src/gpio.o
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
  .text.GPIO_TogglePin
-                0x00000000        0x8 Drivers/GPIO/src/gpio.o
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
  .text.__RCC_GPIO_CLK_ENABLE
-                0x00000000       0xcc Drivers/GPIO/src/gpio.o
+                0x00000000       0xdc Drivers/GPIO/src/gpio.o
  .text.GPIO_Init
-                0x00000000      0x104 Drivers/GPIO/src/gpio.o
- .debug_info    0x00000000      0x5e8 Drivers/GPIO/src/gpio.o
- .debug_abbrev  0x00000000      0x1cf Drivers/GPIO/src/gpio.o
- .debug_loc     0x00000000      0x31f Drivers/GPIO/src/gpio.o
+                0x00000000       0xfc Drivers/GPIO/src/gpio.o
+ .text.GPIO_constructor
+                0x00000000        0x8 Drivers/GPIO/src/gpio.o
+ .debug_info    0x00000000      0x5cb Drivers/GPIO/src/gpio.o
+ .debug_abbrev  0x00000000      0x19a Drivers/GPIO/src/gpio.o
+ .debug_loc     0x00000000      0x318 Drivers/GPIO/src/gpio.o
  .debug_aranges
-                0x00000000       0x40 Drivers/GPIO/src/gpio.o
- .debug_ranges  0x00000000       0x58 Drivers/GPIO/src/gpio.o
- .debug_line    0x00000000      0x3fb Drivers/GPIO/src/gpio.o
- .debug_str     0x00000000      0x3b6 Drivers/GPIO/src/gpio.o
+                0x00000000       0x48 Drivers/GPIO/src/gpio.o
+ .debug_ranges  0x00000000       0x38 Drivers/GPIO/src/gpio.o
+ .debug_line    0x00000000      0x42f Drivers/GPIO/src/gpio.o
+ .debug_str     0x00000000      0x3dd Drivers/GPIO/src/gpio.o
  .comment       0x00000000       0x4a Drivers/GPIO/src/gpio.o
- .debug_frame   0x00000000       0x78 Drivers/GPIO/src/gpio.o
+ .debug_frame   0x00000000       0x88 Drivers/GPIO/src/gpio.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/GPIO/src/gpio.o
  .text          0x00000000        0x0 Drivers/PWM/src/main.o
@@ -89,10 +91,20 @@ Discarded input sections
                 0x00000000        0xc Drivers/UART/src/uart.o
  .text.USART_Init
                 0x00000000      0x5a4 Drivers/UART/src/uart.o
+ .text.USART_x_Init
+                0x00000000       0x18 Drivers/UART/src/uart.o
+ .text.USART_x_Write_regs
+                0x00000000        0xc Drivers/UART/src/uart.o
+ .text.USART_x_Read_regs
+                0x00000000        0xc Drivers/UART/src/uart.o
+ .text.writeString
+                0x00000000       0x2c Drivers/UART/src/uart.o
+ .text.readString
+                0x00000000       0x34 Drivers/UART/src/uart.o
  .text.USART_x_Write
-                0x00000000        0xc Drivers/UART/src/uart.o
+                0x00000000       0x10 Drivers/UART/src/uart.o
  .text.USART_x_Read
-                0x00000000        0xc Drivers/UART/src/uart.o
+                0x00000000       0x10 Drivers/UART/src/uart.o
  .rodata.GetPortName.str1.4
                 0x00000000       0x37 Drivers/UART/src/uart.o
  .text.GetPortName
@@ -105,16 +117,16 @@ Discarded input sections
                 0x00000000       0x34 Drivers/UART/src/uart.o
  .text.USART_ReadString
                 0x00000000       0x38 Drivers/UART/src/uart.o
- .debug_info    0x00000000      0x82c Drivers/UART/src/uart.o
- .debug_abbrev  0x00000000      0x2ca Drivers/UART/src/uart.o
- .debug_loc     0x00000000      0x453 Drivers/UART/src/uart.o
+ .debug_info    0x00000000      0x9ab Drivers/UART/src/uart.o
+ .debug_abbrev  0x00000000      0x325 Drivers/UART/src/uart.o
+ .debug_loc     0x00000000      0x55c Drivers/UART/src/uart.o
  .debug_aranges
-                0x00000000       0x60 Drivers/UART/src/uart.o
- .debug_ranges  0x00000000       0x98 Drivers/UART/src/uart.o
- .debug_line    0x00000000      0xa8c Drivers/UART/src/uart.o
- .debug_str     0x00000000      0x429 Drivers/UART/src/uart.o
+                0x00000000       0x78 Drivers/UART/src/uart.o
+ .debug_ranges  0x00000000      0x118 Drivers/UART/src/uart.o
+ .debug_line    0x00000000      0xb9c Drivers/UART/src/uart.o
+ .debug_str     0x00000000      0x47d Drivers/UART/src/uart.o
  .comment       0x00000000       0x4a Drivers/UART/src/uart.o
- .debug_frame   0x00000000       0xcc Drivers/UART/src/uart.o
+ .debug_frame   0x00000000      0x140 Drivers/UART/src/uart.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/UART/src/uart.o
  .text          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
@@ -305,15 +317,15 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/PWM/src/pwm.o
  .comment       0x00000049       0x4a Drivers/PWM/src/startup.o
 
-.debug_info     0x00000000      0xb80
+.debug_info     0x00000000      0xb8c
  .debug_info    0x00000000      0x55e Drivers/PWM/src/main.o
- .debug_info    0x0000055e      0x52d Drivers/PWM/src/pwm.o
- .debug_info    0x00000a8b       0xf5 Drivers/PWM/src/startup.o
+ .debug_info    0x0000055e      0x539 Drivers/PWM/src/pwm.o
+ .debug_info    0x00000a97       0xf5 Drivers/PWM/src/startup.o
 
-.debug_abbrev   0x00000000      0x396
+.debug_abbrev   0x00000000      0x3c7
  .debug_abbrev  0x00000000      0x198 Drivers/PWM/src/main.o
- .debug_abbrev  0x00000198      0x135 Drivers/PWM/src/pwm.o
- .debug_abbrev  0x000002cd       0xc9 Drivers/PWM/src/startup.o
+ .debug_abbrev  0x00000198      0x166 Drivers/PWM/src/pwm.o
+ .debug_abbrev  0x000002fe       0xc9 Drivers/PWM/src/startup.o
 
 .debug_loc      0x00000000      0x130
  .debug_loc     0x00000000       0x1a Drivers/PWM/src/main.o

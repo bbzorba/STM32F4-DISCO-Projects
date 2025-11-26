@@ -5,20 +5,22 @@ char buffer[64];
 // Function prototypes
 void delay(volatile uint32_t count);
 
-//main function
 int main(void) {
+    USART usart(USART_2, RX_AND_TX, __115200);
 
-    USART usart2(USART_2, RX_AND_TX, __115200);
+    usart.USART_WriteString("Welcome to Echo Mode!\r\n");
+    usart.USART_WriteString("Connected on: ");
+    usart.USART_WriteString(usart.GetPortName());
+    usart.USART_WriteString("\r\nType something and press Enter to echo:\r\n");
 
-    printf("USART Communication Type: %d\n", usart2.getComType());
-    printf("USART Baud Rate: %d\n", usart2.getBaudRate());
-
-    usart2.writeString("Welcome to Echo Mode!\n");
-    
     while (1) {
-        usart2.readString(buffer, 64);
-        usart2.writeString(buffer);
-        usart2.writeString("\n");
+        usart.USART_WriteString("> "); // Prompt
+        usart.USART_ReadString(buffer, sizeof(buffer));
+        if (buffer[0] != '\0') {
+            usart.USART_WriteString( "Echo: ");
+            usart.USART_WriteString(buffer);
+            usart.USART_WriteString("\r\n");
+        }
     }
 }
 

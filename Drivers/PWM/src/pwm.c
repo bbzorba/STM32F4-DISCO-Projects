@@ -1,4 +1,4 @@
-#include "pwm.h"
+#include "../inc/pwm.h"
 
 void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc) {
     // Enable clock for selected TIMx

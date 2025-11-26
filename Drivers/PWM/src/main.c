@@ -1,4 +1,4 @@
-#include "pwm.h"
+#include "../inc/pwm.h"
 
 // Simple delay function
 void delay_fn(volatile int count) {
