@@ -4,6 +4,7 @@
 #include "stdint.h"
 
 #include "../../GPIO/inc/gpio.h"
+#include "../../Drivers/UART/inc/uart.h"
 #include <stdint.h>
 
 #define __IO volatile
@@ -89,10 +90,21 @@ typedef enum {
     PWM_PRESCALER_1599U = 1599U  // 16MHz/(1599+1)=10kHz, used for 50Hz servo (ARR=200)
 } PWM_Prescaler_TypeDef;
 
+typedef struct
+{
+    PWM_Channel_TypeDef channel;
+    dutyCycle_TypeDef dutyCycle;
+    PWM_Prescaler_TypeDef prescaler;
+    TIM_TypeDef *TIMx;
+    uint32_t arr;
+} PWM_HandleType;
+
+
 // Function prototypes
-void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
-void Configure_PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr);
-void PWM_SetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel, dutyCycle_TypeDef duty_cycle);
-uint32_t PWM_GetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel);
+void PWM_constructor(PWM_HandleType* const pwmHandle, PWM_Channel_TypeDef channel, dutyCycle_TypeDef dutyCycle, PWM_Prescaler_TypeDef prescaler, uint32_t arr, TIM_TypeDef *TIMx);
+void Timer_Init(PWM_HandleType* pwmHandle);
+void Configure_PWM(PWM_HandleType* pwmHandle);
+void PWM_SetDutyCycle(PWM_HandleType* pwmHandle);
+uint32_t PWM_GetDutyCycle(PWM_HandleType* pwmHandle);
 
 #endif // __PWM_H

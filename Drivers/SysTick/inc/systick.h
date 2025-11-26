@@ -20,11 +20,24 @@ typedef struct
   __IOM uint32_t LOAD;                   /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register       */
   __IOM uint32_t VAL;                    /*!< Offset: 0x008 (R/W)  SysTick Current Value Register      */
   __IM  uint32_t CALIB;                  /*!< Offset: 0x00C (R/ )  SysTick Calibration Register        */
-} SysTick_Type;
+} SysTick_ManualType;
 
-#define SysTick ((SysTick_Type *)SYSTICK_BASE)   /*!< SysTick configuration struct */
+typedef enum {
+  SYSTICK_OK = 0,
+  SYSTICK_ERROR = 1
+}SysTick_StatusTypeDef;
 
-void SysTick_delay(volatile uint32_t sec);
-void SysTick_delay_ms(volatile uint32_t ms);
+typedef struct
+{
+  SysTick_ManualType *regs;   /*!< Pointer to SysTick registers */
+  SysTick_StatusTypeDef status; /*!< Status of the SysTick */
+  uint32_t SystemCoreClock;   /*!< System Core Clock Frequency */
+}SysTick_HandleTypeDef;
+
+#define SysTick ((SysTick_ManualType *)SYSTICK_BASE)   /*!< SysTick configuration struct */
+
+void SysTick_constructor(SysTick_HandleTypeDef *handle, SysTick_ManualType *regs, SysTick_StatusTypeDef status);
+void SysTick_delay(SysTick_HandleTypeDef *handle, volatile uint32_t sec);
+void SysTick_delay_ms(SysTick_HandleTypeDef *handle, volatile uint32_t ms);
 
 #endif /* __SYSTICK_H */

@@ -1,4 +1,4 @@
-#include "uart.h"
+#include "../inc/uart.h"
 
 char buffer[64];
 
@@ -7,7 +7,7 @@ void delay(volatile uint32_t count);
 
 int main(void) {
     USART_HandleType usart;
-    USART_Init(&usart, USART_2, RX_AND_TX, __115200);
+    USART_constructor(&usart, USART_2, RX_AND_TX, __115200);
 
     USART_WriteString(&usart, "Welcome to Echo Mode!\r\n");
     USART_WriteString(&usart, "Connected on: ");

@@ -4,6 +4,7 @@
 #include "stdint.h"
 
 #include "../../GPIO_cpp/inc/gpio.h"
+#include "../../UART_cpp/inc/uart.h"
 #include <stdint.h>
 
 #define __IO volatile
@@ -89,19 +90,23 @@ typedef enum {
     PWM_PRESCALER_1599U = 1599U  // 16MHz/(1599+1)=10kHz, used for 50Hz servo (ARR=200)
 } PWM_Prescaler_TypeDef;
 
-class PWM
-{
+class PWM {
 private:
-    TIM_TypeDef *tim_instance;
+    PWM_Channel_TypeDef channel;
+    dutyCycle_TypeDef dutyCycle;
+    PWM_Prescaler_TypeDef prescaler;
+    TIM_TypeDef *TIMx;
+    uint32_t arr;
 public:
-    // Constructor consistent with current implementation/usage
-    PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr);
-
-    // Member functions consistent with implementation
-    void Timer_Init(TIM_TypeDef *TIMx, RCC_TypeDef *rcc);
-    void Configure_PWM(TIM_TypeDef *TIMx, PWM_Prescaler_TypeDef psc, uint32_t arr);
-    void SetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel, dutyCycle_TypeDef duty_cycle);
-    uint32_t GetDutyCycle(TIM_TypeDef *TIMx, PWM_Channel_TypeDef channel);
+    PWM(PWM_Channel_TypeDef channel, dutyCycle_TypeDef dutyCycle, PWM_Prescaler_TypeDef prescaler, uint32_t arr, TIM_TypeDef *TIMx);
+    void Timer_Init(void);
+    void Configure_PWM(void);
+    void PWM_SetDutyCycle(void);
+    uint32_t PWM_GetDutyCycle(void);
+    void SetDutyCycle(dutyCycle_TypeDef duty);
 };
+
+
+// Function prototypes
 
 #endif // __PWM_H

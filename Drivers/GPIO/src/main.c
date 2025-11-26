@@ -2,7 +2,6 @@
 #define delay 200000
 
 GPIO_InitTypeDef GPIO_InitStruct;
-GPIO_HandleTypeDef GPIO_LEDS;
 
 // Simple delay function
 void delay_fn(volatile int count) {
@@ -16,9 +15,8 @@ int main(void) {
     GPIO_InitStruct.Pull = GPIO_NOPULL;          // No pull-up/pull-down
     GPIO_InitStruct.Speed = GPIO_SPEED_MEDIUM;   // Medium speed
     
-    GPIO_LEDS.init = &GPIO_InitStruct;
-    GPIO_LEDS.regs = GPIO_D;
-    GPIO_Init(&GPIO_LEDS);
+    GPIO_HandleTypeDef GPIO_LEDS;
+    GPIO_constructor(&GPIO_LEDS, GPIO_D, &GPIO_InitStruct);
 
     while(1) {
         //GPIOD_TogglePins(delay);

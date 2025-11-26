@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
-#include "../../GPIO/inc/gpio.h"
+#include "../../GPIO_cpp/inc/gpio.h"
 
 #define __IO volatile
 

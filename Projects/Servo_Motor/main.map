@@ -381,13 +381,13 @@ LOAD linker stubs
  .debug_ranges  0x00000078      0x1c0 Projects/Servo_Motor/src/servo.o
  .debug_ranges  0x00000238       0x18 Projects/Servo_Motor/src/startup.o
 
-.debug_line     0x00000000     0x117a
+.debug_line     0x00000000     0x1188
  .debug_line    0x00000000      0x42f Drivers/GPIO/src/gpio.o
- .debug_line    0x0000042f      0x2cf Drivers/PWM/src/pwm.o
- .debug_line    0x000006fe      0x28d Projects/Servo_Motor/src/main.o
- .debug_line    0x0000098b      0x5af Projects/Servo_Motor/src/servo.o
- .debug_line    0x00000f3a      0x1e4 Projects/Servo_Motor/src/startup.o
- .debug_line    0x0000111e       0x5c Projects/Servo_Motor/src/system_stm32f4xx.o
+ .debug_line    0x0000042f      0x2dd Drivers/PWM/src/pwm.o
+ .debug_line    0x0000070c      0x28d Projects/Servo_Motor/src/main.o
+ .debug_line    0x00000999      0x5af Projects/Servo_Motor/src/servo.o
+ .debug_line    0x00000f48      0x1e4 Projects/Servo_Motor/src/startup.o
+ .debug_line    0x0000112c       0x5c Projects/Servo_Motor/src/system_stm32f4xx.o
 
 .debug_str      0x00000000      0x941
  .debug_str     0x00000000      0x371 Drivers/GPIO/src/gpio.o

@@ -110,7 +110,8 @@ uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud);
 const char* GetPortName(USART_HandleType *handle);
 
 // High-level (object-style) API
-void USART_Init(USART_HandleType *handle, USART_ManualType *regs, UART_COMType _comtype, UART_BaudRateType _baudrate);
+void USART_constructor(USART_HandleType *handle, USART_ManualType *regs, UART_COMType _comtype, UART_BaudRateType _baudrate);
+void USART_Init(USART_HandleType *handle);
 void USART_WriteChar(USART_HandleType *handle, int ch);
 char USART_ReadChar(USART_HandleType *handle);
 void USART_WriteString(USART_HandleType *handle, const char *str);

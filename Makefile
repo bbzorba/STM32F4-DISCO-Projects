@@ -1,16 +1,19 @@
 # Minimal Makefile for STM32F4 Discovery (STM32F407VG)
 
-#done
+#DONE
 #PROJECT_DIR = Drivers/UART
 #PROJECT_DIR = Drivers/UART_cpp
 #PROJECT_DIR = Drivers/GPIO
 #PROJECT_DIR = Drivers/GPIO_cpp
+#PROJECT_DIR = Drivers/PWM
+#PROJECT_DIR = Drivers/PWM_cpp
+PROJECT_DIR = Drivers/SysTick
 
 #TBD
-PROJECT_DIR = Drivers/PWM
-#PROJECT_DIR = Drivers/PWM_cpp
-#PROJECT_DIR = Drivers/SysTick
 #PROJECT_DIR = Drivers/SysTick_cpp
+#PROJECT_DIR = Drivers/I2C
+#PROJECT_DIR = Drivers/I2C_cpp
+#PROJECT_DIR = Drivers/SPI
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
 #PROJECT_DIR = Projects/Servo_Motor
@@ -19,14 +22,11 @@ PROJECT_DIR = Drivers/PWM
 #PROJECT_DIR = Projects/HC06_Bluetooth_cpp
 #PROJECT_DIR = Projects/HC06_Servo_Controller
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
-#PROJECT_DIR = Drivers/I2C
-#PROJECT_DIR = Drivers/I2C_cpp
 #PROJECT_DIR = Projects/MLX90614_Temp
 #PROJECT_DIR = Projects/HC06_MLX90614_Temp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/HC06_BME68x_Env_Sensor
 #PROJECT_DIR = Projects/HC06_MLX90614_Temp
-#PROJECT_DIR = Drivers/SPI
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -303,4 +303,11 @@ endif
 ifeq ($(PROJECT_DIR),Drivers/I2C)
 SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc
+endif
+
+# Project-specific wiring for PWM: needs GPIO & UART drivers
+ifeq ($(PROJECT_DIR),Drivers/PWM)
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/UART/inc
 endif

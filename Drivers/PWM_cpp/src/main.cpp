@@ -1,4 +1,4 @@
-#include "pwm.h"
+#include "../inc/pwm.h"
 
 // Simple delay function
 void delay_fn(volatile int count) {
@@ -6,12 +6,24 @@ void delay_fn(volatile int count) {
 }
 
 int main(void) {
-    PWM pwm_timer(TIM_9, PWM_PRESCALER_1599U, 1000U); // 10kHz, ARR=1000 for 10Hz PWM
+    PWM pwm1(PWM_CHANNEL_1, QUARTER_DC, PWM_PRESCALER_15U, 1000U, TIM_9);
+
+    USART usart(USART_2, TX_ONLY, __115200);
+
+    usart.USART_WriteString("PWM Debugging:\r\n");
+    usart.USART_WriteString("Connected on: ");
+    usart.USART_WriteString(usart.GetPortName());
+    usart.USART_WriteString("\r\n");
 
     while(1) {
-        pwm_timer.SetDutyCycle(TIM_9, PWM_CHANNEL_1, HALF_DC); // 50% of ARR=1000
+        usart.USART_WriteString("Setting duty cycle to 50%\r\n");
+        pwm1.SetDutyCycle(HALF_DC); // 50% of ARR=1000
+        usart.USART_WriteString("Duty cycle set to 50%\r\n");
         delay_fn(1000000);
-        pwm_timer.SetDutyCycle(TIM_9, PWM_CHANNEL_1, QUARTER_DC); // 25% of ARR=1000
+
+        usart.USART_WriteString("Setting duty cycle to 25%\r\n");
+        pwm1.SetDutyCycle(QUARTER_DC); // 25% of ARR=1000
+        usart.USART_WriteString("Duty cycle set to 25%\r\n");
         delay_fn(1000000);
     }
 }
