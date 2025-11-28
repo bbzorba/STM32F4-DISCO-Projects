@@ -122,6 +122,14 @@
 #define AFRH_PIN14_MASK          ((uint32_t)0x0F000000)        // mask to clear AFRH_PIN14 bits (bits 27:24)
 #define AFRH_PIN15_MASK          ((uint32_t)0xF0000000)        // mask to clear AFRH_PIN15 bits (bits 31:28)
 
+//GPIO AFR register Set bit definitions for AF4 (0100b) [I2C1, I2C2, I2C3]
+#define AFRL_PIN6_SET_AF4        ((uint32_t)0x04000000)        // set AF4 for PB6 (I2C1 SCL)
+#define AFRL_PIN7_SET_AF4        ((uint32_t)0x07000000)        // set AF4 for PB7 (I2C1 SDA)
+#define AFRH_PIN8_SET_AF4        ((uint32_t)0x00000040)        // set AF4 for PB8 (I2C1 SCL alt)
+#define AFRH_PIN9_SET_AF4        ((uint32_t)0x00000400)        // set AF4 for PB9 (I2C1 SDA alt)
+#define AFRH_PIN10_SET_AF4       ((uint32_t)0x00000040)        // set AF4 for PB10 (I2C2 SCL alt)
+#define AFRH_PIN11_SET_AF4       ((uint32_t)0x00000400)        // set AF4 for PB11 (I2C2 SDA alt)
+
 //GPIO AFR register Set bit definitions for AF5 (0101b) [SPI1, SPI2]
 #define AFRL_PIN0_SET_AF5        ((uint32_t)0x00000005)        // set AF5 for PIN0 (bits 3:0)
 #define AFRL_PIN1_SET_AF5        ((uint32_t)0x00000050)        // set AF5 for PIN1 (bits 7:4)

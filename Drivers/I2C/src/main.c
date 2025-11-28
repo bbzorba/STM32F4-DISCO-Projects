@@ -14,15 +14,15 @@ int main(void) {
 
     while (1) {
         // Simple visible transaction: START -> address write -> dummy byte -> STOP
-        I2C_Start(&hi2c1, hi2c1.regs);
-        if (!I2C_SendAddress(&hi2c1, hi2c1.regs, i2c_addr, 0)) { // write
+        I2C_Start(&hi2c1);
+        if (!I2C_SendAddress(&hi2c1, i2c_addr, 0)) { // write
             // NACK received, stop and retry after a short delay
-            I2C_Stop(&hi2c1, hi2c1.regs);
+            I2C_Stop(&hi2c1);
             delay(100000);
             continue;
         }
-        I2C_Write(&hi2c1, hi2c1.regs, 0x15);              // dummy data
-        I2C_Stop(&hi2c1, hi2c1.regs);
+        I2C_Write(&hi2c1, 0x15);              // dummy data
+        I2C_Stop(&hi2c1);
         delay(200000);                 // brief gap between transactions for visibility
     }
 }

@@ -121,22 +121,10 @@ typedef enum {
     I2C_FAST_MODE
 } I2C_SpeedType;
 
-typedef enum {
-    I2C_ACK_ENABLE = 0,
-    I2C_ACK_DISABLE
-} I2C_AckType;
-
-typedef enum {
-    I2C_7BIT_ADDRESS = 0,
-    I2C_10BIT_ADDRESS
-} I2C_AddressType;
-
 typedef struct
 {
-    I2C_ManualTypeDef    *regs;
+    I2C_ManualTypeDef *regs;
     I2C_SpeedType speed;
-    I2C_AckType   ack;
-    I2C_AddressType address;
 }I2C_HandleType;
 
 // I2C peripheral declarations
@@ -146,17 +134,16 @@ typedef struct
 
 // I2C function prototypes
 void I2C_Init(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs, I2C_SpeedType speed);
-int I2C_Read(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
-void I2C_Write(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs, int data);
-int scan_i2c_bus(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
+int I2C_Read(I2C_HandleType *hi2c);
+void I2C_Write(I2C_HandleType *hi2c, int data);
+int scan_i2c_bus(I2C_HandleType *hi2c);
 
 // Minimal helper APIs for master transactions
-void I2C_Start(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
-void I2C_Restart(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
-void I2C_Stop(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
-int  I2C_SendAddress(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs, uint8_t address, int read); // returns 1 if ACK (ADDR set), 0 if NACK (AF)
-void I2C_EnableAck(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
-void I2C_DisableAck(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs);
-void I2C_BusRecover(void); // Bus recovery helper (HAL-like): release stuck SCL/SDA by toggling SCL
+void I2C_Start(I2C_HandleType *hi2c);
+void I2C_Restart(I2C_HandleType *hi2c);
+void I2C_Stop(I2C_HandleType *hi2c);
+int  I2C_SendAddress(I2C_HandleType *hi2c, uint8_t address, int read); // returns 1 if ACK (ADDR set), 0 if NACK (AF)
+void I2C_EnableAck(I2C_HandleType *hi2c);
+void I2C_DisableAck(I2C_HandleType *hi2c);
 
 #endif // __I2C_H
