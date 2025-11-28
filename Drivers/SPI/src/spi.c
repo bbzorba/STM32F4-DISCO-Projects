@@ -1,6 +1,6 @@
-#include "spi.h"
+#include "../inc/spi.h"
 
-void SPI_Init(SPI_TypeDef *spi, SPI_Manual_TypeDef *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode, SPI_BaudRateType _baudrate, SPI_DirectionType _direction)
+void SPI_Init(SPI_HandleType *spi, SPI_ManualType *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode, SPI_BaudRateType _baudrate, SPI_DirectionType _direction)
 {
     spi->regs = regs;
     spi->pinConfig = _pinConfig;
@@ -88,10 +88,10 @@ void SPI_Init(SPI_TypeDef *spi, SPI_Manual_TypeDef *regs, SPI_PinConfigType _pin
 }
 
 
-int SPI_WriteRead(SPI_TypeDef *spi, const uint8_t *txData, uint8_t *rxData, size_t length)
+int SPI_WriteRead(SPI_HandleType *spi, const uint8_t *txData, uint8_t *rxData, size_t length)
 {
     if (!spi || !spi->regs || length == 0) return -1;
-    SPI_Manual_TypeDef *regs = spi->regs;
+    SPI_ManualType *regs = spi->regs;
 
     for (size_t i = 0; i < length; i++) {
         // Wait until TXE (bit1) set
@@ -125,35 +125,26 @@ int SPI_WriteRead(SPI_TypeDef *spi, const uint8_t *txData, uint8_t *rxData, size
     return 0;
 }
 
-void SPI_DeInit(SPI_TypeDef *spi)
+void SPI_DeInit(SPI_HandleType *spi)
 {
     if (!spi || !spi->regs) return;
-    SPI_Manual_TypeDef *regs = spi->regs;
-    regs->CR1 &= ~SPI_CR1_SPE;
+    spi->regs->CR1 &= ~SPI_CR1_SPE;
 
-    if (regs == SPI_1) {
+    if (spi->regs == SPI_1) {
         RCC->APB2ENR &= ~RCC_APB2ENR_SPI_1EN;
-    } else if (regs == SPI_2) {
+    } else if (spi->regs == SPI_2) {
         RCC->APB1ENR &= ~RCC_APB1ENR_SPI_2EN;
-    } else if (regs == SPI_3) {
+    } else if (spi->regs == SPI_3) {
         RCC->APB1ENR &= ~RCC_APB1ENR_SPI_3EN;
     }
 }
 
 // Chip Select helpers (simple GPIO output)
-void SPI_CS_Init(GPIO_TypeDef *GPIOx, uint16_t pin)
+void SPI_CS_Init(GPIO_HandleTypeDef *GPIOx, uint16_t pin)
 {
-    __LIB_RCC_GPIO_CLK_ENABLE(GPIOx);
-
-    // Determine pin index (0..15)
-    uint32_t pos = 0;
-    while (((pin >> pos) & 0x1U) == 0U && pos < 16U) pos++;
-    // Configure as output: MODER bits = 01
-    GPIOx->MODER &= ~(0x3U << (pos * 2));
-    GPIOx->MODER |=  (0x1U << (pos * 2));
-    // Set high (inactive)
-    GPIOx->ODR |= pin;
+    GPIO_Init(GPIOx); // Initialize GPIO pin
+    GPIOx->regs->ODR |= pin; // Set high (not selected)
 }
 
-void SPI_CS_Low(GPIO_TypeDef *GPIOx, uint16_t pin)  { GPIOx->ODR &= ~pin; }
-void SPI_CS_High(GPIO_TypeDef *GPIOx, uint16_t pin) { GPIOx->ODR |=  pin; }
+void SPI_CS_Low(GPIO_HandleTypeDef *GPIOx, uint16_t pin)  { GPIOx->regs->ODR &= ~pin; }
+void SPI_CS_High(GPIO_HandleTypeDef *GPIOx, uint16_t pin) { GPIOx->regs->ODR |=  pin; }

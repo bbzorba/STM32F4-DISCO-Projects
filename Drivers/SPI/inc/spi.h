@@ -9,15 +9,14 @@
 #define __IO volatile
 
 // Base addresses
-#define PERIPH_ADDR_BASE 0x40000000U
-#define APB1PERIPH_ADDR_BASE    (PERIPH_ADDR_BASE + 0x00000000U)
-#define APB2PERIPH_ADDR_BASE    (PERIPH_ADDR_BASE + 0x00010000U)
-#define AHB1PERIPH_ADDR_BASE    (PERIPH_ADDR_BASE + 0x00020000U)
+#define APB1PERIPH_BASE    (PERIPH_BASE + 0x00000000U)
+#define APB2PERIPH_BASE    (PERIPH_BASE + 0x00010000U)
+#define AHB1PERIPH_BASE    (PERIPH_BASE + 0x00020000U)
 
 // Base addresses of peripherals
-#define SPI_1_BASE     (APB2PERIPH_ADDR_BASE + 0x00003000U)
-#define SPI_2_BASE     (APB1PERIPH_ADDR_BASE + 0x00003800U)
-#define SPI_3_BASE     (APB1PERIPH_ADDR_BASE + 0x00003C00U)
+#define SPI_1_BASE     (APB2PERIPH_BASE + 0x00003000U)
+#define SPI_2_BASE     (APB1PERIPH_BASE + 0x00003800U)
+#define SPI_3_BASE     (APB1PERIPH_BASE + 0x00003C00U)
 
 // RCC register bit definitions
 #define RCC_APB2ENR_SPI_1EN    ((uint32_t)0x00001000)        // Bit 12
@@ -39,25 +38,6 @@
 #define SPI_CR1_CRCEN           ((uint32_t)0x2000)            // Hardware CRC Calculation Enable
 #define SPI_CR1_BIDIOE          ((uint32_t)0x4000)            // Output Enable in Bidirectional Mode
 #define SPI_CR1_BIDIMODE        ((uint32_t)0x8000)            // Bidirectional Data Mode Enable
-
-// SPI peripheral declarations
-#define SPI_1 ((SPI_Manual_TypeDef *)SPI_1_BASE)
-#define SPI_2 ((SPI_Manual_TypeDef *)SPI_2_BASE)
-#define SPI_3 ((SPI_Manual_TypeDef *)SPI_3_BASE)
-
-/* SPI registers structure */
-typedef struct
-{
-    __IO uint32_t CR1;    // Control Register 1
-    __IO uint32_t CR2;    // Control Register 2
-    __IO uint32_t SR;     // Status Register
-    __IO uint32_t DR;     // Data Register
-    __IO uint32_t CRCPR;  // CRC Polynomial Register
-    __IO uint32_t RXCRCR; // RX CRC Register
-    __IO uint32_t TXCRCR; // TX CRC Register
-    __IO uint32_t I2SCFGR;// I2S Configuration Register
-    __IO uint32_t I2SPR;  // I2S Prescaler Register
-} SPI_Manual_TypeDef;
 
 // SPI configuration enums
 typedef enum {
@@ -109,23 +89,42 @@ typedef enum {
     SPI3_PORTC
 } SPI_PinConfigType;
 
+/* SPI registers structure */
 typedef struct
 {
-    SPI_Manual_TypeDef *regs;           // pointer to hardware register block
+    __IO uint32_t CR1;    // Control Register 1
+    __IO uint32_t CR2;    // Control Register 2
+    __IO uint32_t SR;     // Status Register
+    __IO uint32_t DR;     // Data Register
+    __IO uint32_t CRCPR;  // CRC Polynomial Register
+    __IO uint32_t RXCRCR; // RX CRC Register
+    __IO uint32_t TXCRCR; // TX CRC Register
+    __IO uint32_t I2SCFGR;// I2S Configuration Register
+    __IO uint32_t I2SPR;  // I2S Prescaler Register
+} SPI_ManualType;
+
+typedef struct
+{
+    SPI_ManualType *regs;           // pointer to hardware register block
     SPI_PinConfigType pinConfig;        // selected pin configuration
     SPI_BaudRateType baudrate;          // selected baud rate enum
     SPI_ModeType mode;                  // SPI mode (master/slave)
     SPI_DirectionType direction;        // SPI direction
     SPI_DataSizeType datasize;          // SPI data size
-}SPI_TypeDef; // High-level handle ("object")
+}SPI_HandleType; // High-level handle ("object")
+
+// SPI peripheral declarations
+#define SPI_1 ((SPI_ManualType *)SPI_1_BASE)
+#define SPI_2 ((SPI_ManualType *)SPI_2_BASE)
+#define SPI_3 ((SPI_ManualType *)SPI_3_BASE)
 
 // SPI function prototypes (high-level handle based)
-void SPI_Init(SPI_TypeDef *spi, SPI_Manual_TypeDef *regs, SPI_PinConfigType pinConfig, SPI_ModeType mode, SPI_BaudRateType baudrate, SPI_DirectionType direction);
-int  SPI_WriteRead(SPI_TypeDef *spi, const uint8_t *txData, uint8_t *rxData, size_t length);
-void SPI_DeInit(SPI_TypeDef *spi);
-void SPI_CS_Init(GPIO_TypeDef *GPIOx, uint16_t pin);
-void SPI_CS_Low(GPIO_TypeDef *GPIOx, uint16_t pin);
-void SPI_CS_High(GPIO_TypeDef *GPIOx, uint16_t pin);
+void SPI_Init(SPI_HandleType *spi, SPI_ManualType *regs, SPI_PinConfigType pinConfig, SPI_ModeType mode, SPI_BaudRateType baudrate, SPI_DirectionType direction);
+int  SPI_WriteRead(SPI_HandleType *spi, const uint8_t *txData, uint8_t *rxData, size_t length);
+void SPI_DeInit(SPI_HandleType *spi);
+void SPI_CS_Init(GPIO_HandleTypeDef *GPIOx, uint16_t pin);
+void SPI_CS_Low(GPIO_HandleTypeDef *GPIOx, uint16_t pin);
+void SPI_CS_High(GPIO_HandleTypeDef *GPIOx, uint16_t pin);
 
 
 #endif // __SPI_H
