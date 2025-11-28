@@ -97,6 +97,14 @@ void GPIO_TogglePin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin) {
     GPIOx->regs->ODR ^= GPIO_Pin; // Toggle the specified pin
 }
 
+void GPIO_SetPin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin) {
+    GPIOx->regs->ODR |= GPIO_Pin; // Set the pin
+}
+
+void GPIO_ResetPin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin) {
+    GPIOx->regs->ODR &= ~GPIO_Pin; // Reset the pin
+}
+
 void __RCC_GPIO_CLK_ENABLE(GPIO_HandleTypeDef *GPIOx) {
     if (GPIOx->regs == GPIO_A) {
         RCC->AHB1ENR |= GPIOA_EN;

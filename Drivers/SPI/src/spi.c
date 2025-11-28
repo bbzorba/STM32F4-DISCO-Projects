@@ -140,11 +140,17 @@ void SPI_DeInit(SPI_HandleType *spi)
 }
 
 // Chip Select helpers (simple GPIO output)
-void SPI_CS_Init(GPIO_HandleTypeDef *GPIOx, uint16_t pin)
+void SPI_CS_Init(GPIO_HandleTypeDef *GPIOx, GPIO_InitTypeDef *GPIO_InitStruct, GPIO_ManualTypeDef *GPIO_ManualStruct, uint16_t pin)
 {
-    GPIO_Init(GPIOx); // Initialize GPIO pin
+    // Configure GPIO_InitStruct for output pins
+    GPIO_InitStruct->Pin = pin; // CS pin
+    GPIO_InitStruct->Mode = GPIO_MODE_OUTPUT_PP;  // Push-pull output mode
+    GPIO_InitStruct->Pull = GPIO_NOPULL;          // No pull-up/pull-down
+    GPIO_InitStruct->Speed = GPIO_SPEED_MEDIUM;   // Medium speed
+    GPIO_constructor(GPIOx, GPIO_ManualStruct, GPIO_InitStruct);
+
     GPIOx->regs->ODR |= pin; // Set high (not selected)
 }
 
-void SPI_CS_Low(GPIO_HandleTypeDef *GPIOx, uint16_t pin)  { GPIOx->regs->ODR &= ~pin; }
-void SPI_CS_High(GPIO_HandleTypeDef *GPIOx, uint16_t pin) { GPIOx->regs->ODR |=  pin; }
+void SPI_CS_Low(GPIO_HandleTypeDef *GPIOx, uint16_t CS_pin)  { GPIO_ResetPin(GPIOx, CS_pin); }
+void SPI_CS_High(GPIO_HandleTypeDef *GPIOx, uint16_t CS_pin) { GPIO_SetPin(GPIOx, CS_pin); }

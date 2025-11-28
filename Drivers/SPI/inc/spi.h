@@ -122,9 +122,9 @@ typedef struct
 void SPI_Init(SPI_HandleType *spi, SPI_ManualType *regs, SPI_PinConfigType pinConfig, SPI_ModeType mode, SPI_BaudRateType baudrate, SPI_DirectionType direction);
 int  SPI_WriteRead(SPI_HandleType *spi, const uint8_t *txData, uint8_t *rxData, size_t length);
 void SPI_DeInit(SPI_HandleType *spi);
-void SPI_CS_Init(GPIO_HandleTypeDef *GPIOx, uint16_t pin);
-void SPI_CS_Low(GPIO_HandleTypeDef *GPIOx, uint16_t pin);
-void SPI_CS_High(GPIO_HandleTypeDef *GPIOx, uint16_t pin);
+void SPI_CS_Init(GPIO_HandleTypeDef *GPIOx, GPIO_InitTypeDef *GPIO_InitStruct, GPIO_ManualTypeDef *GPIO_ManualStruct, uint16_t pin);
+void SPI_CS_Low(GPIO_HandleTypeDef *GPIOx, uint16_t CS_pin);
+void SPI_CS_High(GPIO_HandleTypeDef *GPIOx, uint16_t CS_pin);
 
 
 #endif // __SPI_H

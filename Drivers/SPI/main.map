@@ -283,76 +283,82 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .isr_vector    0x08000000       0x40 Drivers/SPI/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040      0x5cc
+.text           0x08000040      0x588
  *(.text*)
+ .text.GPIO_SetPin
+                0x08000040        0xc Drivers/GPIO/src/gpio.o
+                0x08000040                GPIO_SetPin
+ .text.GPIO_ResetPin
+                0x0800004c        0xc Drivers/GPIO/src/gpio.o
+                0x0800004c                GPIO_ResetPin
  .text.__RCC_GPIO_CLK_ENABLE
-                0x08000040       0xdc Drivers/GPIO/src/gpio.o
-                0x08000040                __RCC_GPIO_CLK_ENABLE
+                0x08000058       0xdc Drivers/GPIO/src/gpio.o
+                0x08000058                __RCC_GPIO_CLK_ENABLE
  .text.GPIO_Init
-                0x0800011c       0xfc Drivers/GPIO/src/gpio.o
-                0x0800011c                GPIO_Init
+                0x08000134       0xfc Drivers/GPIO/src/gpio.o
+                0x08000134                GPIO_Init
  .text.GPIO_constructor
-                0x08000218        0x8 Drivers/GPIO/src/gpio.o
-                0x08000218                GPIO_constructor
+                0x08000230        0x8 Drivers/GPIO/src/gpio.o
+                0x08000230                GPIO_constructor
  .text.startup.main
-                0x08000220       0xec Drivers/SPI/src/main.o
-                0x08000220                main
+                0x08000238       0x88 Drivers/SPI/src/main.o
+                0x08000238                main
  .text.SPI_Init
-                0x0800030c      0x218 Drivers/SPI/src/spi.o
-                0x0800030c                SPI_Init
+                0x080002c0      0x218 Drivers/SPI/src/spi.o
+                0x080002c0                SPI_Init
  .text.SPI_WriteRead
-                0x08000524       0xa0 Drivers/SPI/src/spi.o
-                0x08000524                SPI_WriteRead
+                0x080004d8       0xa0 Drivers/SPI/src/spi.o
+                0x080004d8                SPI_WriteRead
  .text.SPI_CS_Init
-                0x080005c4       0x14 Drivers/SPI/src/spi.o
-                0x080005c4                SPI_CS_Init
+                0x08000578       0x2c Drivers/SPI/src/spi.o
+                0x08000578                SPI_CS_Init
  .text.SPI_CS_Low
-                0x080005d8        0xc Drivers/SPI/src/spi.o
-                0x080005d8                SPI_CS_Low
+                0x080005a4        0x4 Drivers/SPI/src/spi.o
+                0x080005a4                SPI_CS_Low
  .text.SPI_CS_High
-                0x080005e4        0xc Drivers/SPI/src/spi.o
-                0x080005e4                SPI_CS_High
+                0x080005a8        0x4 Drivers/SPI/src/spi.o
+                0x080005a8                SPI_CS_High
  .text.Default_Handler
-                0x080005f0        0x4 Drivers/SPI/src/startup.o
-                0x080005f0                Default_Handler
+                0x080005ac        0x4 Drivers/SPI/src/startup.o
+                0x080005ac                Default_Handler
  .text.Reset_Handler
-                0x080005f4        0x8 Drivers/SPI/src/startup.o
-                0x080005f4                Reset_Handler
+                0x080005b0        0x8 Drivers/SPI/src/startup.o
+                0x080005b0                Reset_Handler
  *(.rodata*)
- .rodata        0x080005fc        0x8 Drivers/SPI/src/main.o
+ .rodata        0x080005b8        0x8 Drivers/SPI/src/main.o
  *(.glue_7)
- .glue_7        0x08000604        0x0 linker stubs
+ .glue_7        0x080005c0        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08000604        0x0 linker stubs
+ .glue_7t       0x080005c0        0x0 linker stubs
  *(.init)
- .init          0x08000604        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08000604                _init
+ .init          0x080005c0        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x080005c0                _init
  *(.fini)
- .fini          0x08000608        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08000608                _fini
+ .fini          0x080005c4        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x080005c4                _fini
 
-.vfp11_veneer   0x0800060c        0x0
- .vfp11_veneer  0x0800060c        0x0 linker stubs
+.vfp11_veneer   0x080005c8        0x0
+ .vfp11_veneer  0x080005c8        0x0 linker stubs
 
-.v4_bx          0x0800060c        0x0
- .v4_bx         0x0800060c        0x0 linker stubs
+.v4_bx          0x080005c8        0x0
+ .v4_bx         0x080005c8        0x0 linker stubs
 
-.iplt           0x0800060c        0x0
- .iplt          0x0800060c        0x0 Drivers/GPIO/src/gpio.o
+.iplt           0x080005c8        0x0
+ .iplt          0x080005c8        0x0 Drivers/GPIO/src/gpio.o
 
-.rel.dyn        0x0800060c        0x0
- .rel.iplt      0x0800060c        0x0 Drivers/GPIO/src/gpio.o
+.rel.dyn        0x080005c8        0x0
+ .rel.iplt      0x080005c8        0x0 Drivers/GPIO/src/gpio.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x0800060c        0x0
-                0x0800060c                __exidx_start = .
+.ARM.exidx      0x080005c8        0x0
+                0x080005c8                __exidx_start = .
  *(.ARM.exidx*)
-                0x0800060c                __exidx_end = .
-                0x0800060c                __etext = .
+                0x080005c8                __exidx_end = .
+                0x080005c8                __etext = .
 
-.data           0x20000000        0x0 load address 0x0800060c
+.data           0x20000000        0x0 load address 0x080005c8
                 0x20000000                __data_start__ = .
  *(.data*)
                 0x20000000                __data_end__ = .
@@ -360,24 +366,28 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
 .igot.plt       0x20000000        0x0
  .igot.plt      0x20000000        0x0 Drivers/GPIO/src/gpio.o
 
-.bss            0x20000000       0x14
+.bss            0x20000000       0x28
                 0x20000000                __bss_start__ = .
  *(.bss*)
+ .bss.CS_Handle
+                0x20000000        0x8 Drivers/SPI/src/main.o
+                0x20000000                CS_Handle
  .bss.GPIO_InitStruct
-                0x20000000       0x14 Drivers/SPI/src/main.o
-                0x20000000                GPIO_InitStruct
+                0x20000008       0x14 Drivers/SPI/src/main.o
+                0x20000008                GPIO_InitStruct
+ .bss.spi1      0x2000001c        0xc Drivers/SPI/src/main.o
+                0x2000001c                spi1
  *(COMMON)
-                0x20000014                __bss_end__ = .
-                0x20000014                _end = .
-                0x20000014                end = .
-                0x20000014                __end__ = .
+                0x20000028                __bss_end__ = .
+                0x20000028                _end = .
+                0x20000028                end = .
+                0x20000028                __end__ = .
 
-.stack          0x20000014      0x404
-                0x20000018                . = ALIGN (0x8)
- *fill*         0x20000014        0x4 
-                0x20000018                _stack = .
-                0x20000418                . = (. + 0x400)
- *fill*         0x20000018      0x400 
+.stack          0x20000028      0x400
+                0x20000028                . = ALIGN (0x8)
+                0x20000028                _stack = .
+                0x20000428                . = (. + 0x400)
+ *fill*         0x20000028      0x400 
 OUTPUT(Drivers/SPI/main.elf elf32-littlearm)
 LOAD linker stubs
 
@@ -401,57 +411,56 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/SPI/src/spi.o
  .comment       0x00000049       0x4a Drivers/SPI/src/startup.o
 
-.debug_info     0x00000000     0x1623
- .debug_info    0x00000000      0x5cb Drivers/GPIO/src/gpio.o
- .debug_info    0x000005cb      0x722 Drivers/SPI/src/main.o
- .debug_info    0x00000ced      0x841 Drivers/SPI/src/spi.o
- .debug_info    0x0000152e       0xf5 Drivers/SPI/src/startup.o
+.debug_info     0x00000000     0x1598
+ .debug_info    0x00000000      0x64d Drivers/GPIO/src/gpio.o
+ .debug_info    0x0000064d      0x591 Drivers/SPI/src/main.o
+ .debug_info    0x00000bde      0x8c5 Drivers/SPI/src/spi.o
+ .debug_info    0x000014a3       0xf5 Drivers/SPI/src/startup.o
 
-.debug_abbrev   0x00000000      0x63d
- .debug_abbrev  0x00000000      0x19a Drivers/GPIO/src/gpio.o
- .debug_abbrev  0x0000019a      0x204 Drivers/SPI/src/main.o
- .debug_abbrev  0x0000039e      0x1d6 Drivers/SPI/src/spi.o
- .debug_abbrev  0x00000574       0xc9 Drivers/SPI/src/startup.o
+.debug_abbrev   0x00000000      0x5ba
+ .debug_abbrev  0x00000000      0x169 Drivers/GPIO/src/gpio.o
+ .debug_abbrev  0x00000169      0x1a4 Drivers/SPI/src/main.o
+ .debug_abbrev  0x0000030d      0x1e4 Drivers/SPI/src/spi.o
+ .debug_abbrev  0x000004f1       0xc9 Drivers/SPI/src/startup.o
 
-.debug_loc      0x00000000      0x84e
- .debug_loc     0x00000000      0x318 Drivers/GPIO/src/gpio.o
- .debug_loc     0x00000318       0xdd Drivers/SPI/src/main.o
- .debug_loc     0x000003f5      0x459 Drivers/SPI/src/spi.o
+.debug_loc      0x00000000      0x869
+ .debug_loc     0x00000000      0x33d Drivers/GPIO/src/gpio.o
+ .debug_loc     0x0000033d      0x52c Drivers/SPI/src/spi.o
 
-.debug_aranges  0x00000000       0xd8
+.debug_aranges  0x00000000       0xe8
  .debug_aranges
-                0x00000000       0x48 Drivers/GPIO/src/gpio.o
+                0x00000000       0x58 Drivers/GPIO/src/gpio.o
  .debug_aranges
-                0x00000048       0x20 Drivers/SPI/src/main.o
+                0x00000058       0x20 Drivers/SPI/src/main.o
  .debug_aranges
-                0x00000068       0x48 Drivers/SPI/src/spi.o
+                0x00000078       0x48 Drivers/SPI/src/spi.o
  .debug_aranges
-                0x000000b0       0x28 Drivers/SPI/src/startup.o
+                0x000000c0       0x28 Drivers/SPI/src/startup.o
 
-.debug_ranges   0x00000000       0xe0
- .debug_ranges  0x00000000       0x38 Drivers/GPIO/src/gpio.o
- .debug_ranges  0x00000038       0x10 Drivers/SPI/src/main.o
- .debug_ranges  0x00000048       0x80 Drivers/SPI/src/spi.o
- .debug_ranges  0x000000c8       0x18 Drivers/SPI/src/startup.o
+.debug_ranges   0x00000000       0xf0
+ .debug_ranges  0x00000000       0x48 Drivers/GPIO/src/gpio.o
+ .debug_ranges  0x00000048       0x10 Drivers/SPI/src/main.o
+ .debug_ranges  0x00000058       0x80 Drivers/SPI/src/spi.o
+ .debug_ranges  0x000000d8       0x18 Drivers/SPI/src/startup.o
 
-.debug_line     0x00000000      0xe90
- .debug_line    0x00000000      0x42f Drivers/GPIO/src/gpio.o
- .debug_line    0x0000042f      0x247 Drivers/SPI/src/main.o
- .debug_line    0x00000676      0x6a3 Drivers/SPI/src/spi.o
- .debug_line    0x00000d19      0x177 Drivers/SPI/src/startup.o
+.debug_line     0x00000000      0xe6c
+ .debug_line    0x00000000      0x46e Drivers/GPIO/src/gpio.o
+ .debug_line    0x0000046e      0x1d1 Drivers/SPI/src/main.o
+ .debug_line    0x0000063f      0x6b6 Drivers/SPI/src/spi.o
+ .debug_line    0x00000cf5      0x177 Drivers/SPI/src/startup.o
 
-.debug_str      0x00000000      0x6ba
- .debug_str     0x00000000      0x380 Drivers/GPIO/src/gpio.o
-                                0x3dd (size before relaxing)
- .debug_str     0x00000380      0x292 Drivers/SPI/src/main.o
-                                0x4b2 (size before relaxing)
- .debug_str     0x00000612       0x63 Drivers/SPI/src/spi.o
-                                0x5db (size before relaxing)
- .debug_str     0x00000675       0x45 Drivers/SPI/src/startup.o
+.debug_str      0x00000000      0x6e8
+ .debug_str     0x00000000      0x39a Drivers/GPIO/src/gpio.o
+                                0x3f7 (size before relaxing)
+ .debug_str     0x0000039a      0x28d Drivers/SPI/src/main.o
+                                0x49c (size before relaxing)
+ .debug_str     0x00000627       0x7c Drivers/SPI/src/spi.o
+                                0x625 (size before relaxing)
+ .debug_str     0x000006a3       0x45 Drivers/SPI/src/startup.o
                                 0x192 (size before relaxing)
 
-.debug_frame    0x00000000      0x190
- .debug_frame   0x00000000       0x88 Drivers/GPIO/src/gpio.o
- .debug_frame   0x00000088       0x30 Drivers/SPI/src/main.o
- .debug_frame   0x000000b8       0xa0 Drivers/SPI/src/spi.o
- .debug_frame   0x00000158       0x38 Drivers/SPI/src/startup.o
+.debug_frame    0x00000000      0x1ac
+ .debug_frame   0x00000000       0xa8 Drivers/GPIO/src/gpio.o
+ .debug_frame   0x000000a8       0x2c Drivers/SPI/src/main.o
+ .debug_frame   0x000000d4       0xa0 Drivers/SPI/src/spi.o
+ .debug_frame   0x00000174       0x38 Drivers/SPI/src/startup.o
