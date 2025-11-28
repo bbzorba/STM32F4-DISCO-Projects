@@ -122,6 +122,14 @@
 #define AFRH_PIN14_MASK          ((uint32_t)0x0F000000)        // mask to clear AFRH_PIN14 bits (bits 27:24)
 #define AFRH_PIN15_MASK          ((uint32_t)0xF0000000)        // mask to clear AFRH_PIN15 bits (bits 31:28)
 
+//GPIO AFR register Set bit definitions for AF4 (0100b) [I2C1, I2C2, I2C3]
+#define AFRL_PIN6_SET_AF4        ((uint32_t)0x04000000)        // set AF4 for PB6 (I2C1 SCL)
+#define AFRL_PIN7_SET_AF4        ((uint32_t)0x40000000)        // set AF4 for PB7 (I2C1 SDA)
+#define AFRH_PIN8_SET_AF4        ((uint32_t)0x00000004)        // set AF4 for PB8 (I2C1 SCL alt)
+#define AFRH_PIN9_SET_AF4        ((uint32_t)0x00000040)        // set AF4 for PB9 (I2C1 SDA alt)
+#define AFRH_PIN10_SET_AF4       ((uint32_t)0x00000400)        // set AF4 for PB10 (I2C2 SCL)
+#define AFRH_PIN11_SET_AF4       ((uint32_t)0x00004000)        // set AF4 for PB11 (I2C2 SDA)
+
 //GPIO AFR register Set bit definitions for AF5 (0101b) [SPI1, SPI2]
 #define AFRL_PIN0_SET_AF5        ((uint32_t)0x00000005)        // set AF5 for PIN0 (bits 3:0)
 #define AFRL_PIN1_SET_AF5        ((uint32_t)0x00000050)        // set AF5 for PIN1 (bits 7:4)
@@ -193,6 +201,60 @@
 #define AFRH_PIN13_SET_AF8       ((uint32_t)0x00800000)        // set AF8 for PIN13 (bits 23:20)
 #define AFRH_PIN14_SET_AF8       ((uint32_t)0x08000000)        // set AF8 for PIN14 (bits 27:24)
 #define AFRH_PIN15_SET_AF8       ((uint32_t)0x80000000)        // set AF8 for PIN15 (bits 31:28)
+
+// OTYPER register bit definitions
+#define OTYPER_PIN0_OPEN_DRAIN ((uint32_t)0x00000001)        // set open-drain for PIN0
+#define OTYPER_PIN1_OPEN_DRAIN  ((uint32_t)0x00000002)        // set open-drain for PIN1
+#define OTYPER_PIN2_OPEN_DRAIN  ((uint32_t)0x00000004)        // set open-drain for PIN2
+#define OTYPER_PIN3_OPEN_DRAIN  ((uint32_t)0x00000008)        // set open-drain for PIN3
+#define OTYPER_PIN4_OPEN_DRAIN  ((uint32_t)0x00000010)        // set open-drain for PIN4
+#define OTYPER_PIN5_OPEN_DRAIN  ((uint32_t)0x00000020)        // set open-drain for PIN5
+#define OTYPER_PIN6_OPEN_DRAIN  ((uint32_t)0x00000040)        // set open-drain for PIN6
+#define OTYPER_PIN7_OPEN_DRAIN  ((uint32_t)0x00000080)        // set open-drain for PIN7
+#define OTYPER_PIN8_OPEN_DRAIN  ((uint32_t)0x00000100)        // set open-drain for PIN8
+#define OTYPER_PIN9_OPEN_DRAIN  ((uint32_t)0x00000200)        // set open-drain for PIN9
+#define OTYPER_PIN10_OPEN_DRAIN ((uint32_t)0x00000400)        // set open-drain for PIN10
+#define OTYPER_PIN11_OPEN_DRAIN ((uint32_t)0x00000800)        // set open-drain for PIN11
+#define OTYPER_PIN12_OPEN_DRAIN ((uint32_t)0x00001000)        // set open-drain for PIN12
+#define OTYPER_PIN13_OPEN_DRAIN ((uint32_t)0x00002000)        // set open-drain for PIN13
+#define OTYPER_PIN14_OPEN_DRAIN ((uint32_t)0x00004000)        // set open-drain for PIN14
+#define OTYPER_PIN15_OPEN_DRAIN ((uint32_t)0x00008000)        // set open-drain for PIN15
+
+// ODR register bit definitions
+#define ODR_PIN0_HIGH           ((uint32_t)0x00000001)        // set PIN0 high
+#define ODR_PIN1_HIGH           ((uint32_t)0x00000002)        // set PIN1 high
+#define ODR_PIN2_HIGH           ((uint32_t)0x00000004)        // set PIN2 high
+#define ODR_PIN3_HIGH           ((uint32_t)0x00000008)        // set PIN3 high
+#define ODR_PIN4_HIGH           ((uint32_t)0x00000010)        // set PIN4 high
+#define ODR_PIN5_HIGH           ((uint32_t)0x00000020)        // set PIN5 high
+#define ODR_PIN6_HIGH           ((uint32_t)0x00000040)        // set PIN6 high
+#define ODR_PIN7_HIGH           ((uint32_t)0x00000080)        // set PIN7 high
+#define ODR_PIN8_HIGH           ((uint32_t)0x00000100)        // set PIN8 high
+#define ODR_PIN9_HIGH           ((uint32_t)0x00000200)        // set PIN9 high
+#define ODR_PIN10_HIGH          ((uint32_t)0x00000400)        // set PIN10 high
+#define ODR_PIN11_HIGH          ((uint32_t)0x00000800)        // set PIN11 high
+#define ODR_PIN12_HIGH          ((uint32_t)0x00001000)        // set PIN12 high
+#define ODR_PIN13_HIGH          ((uint32_t)0x00002000)        // set PIN13 high
+#define ODR_PIN14_HIGH          ((uint32_t)0x00004000)        // set PIN14 high
+#define ODR_PIN15_HIGH          ((uint32_t)0x00008000)        // set PIN15 high
+
+// IDR register bit definitions
+#define IDR_PIN0_HIGH           ((uint32_t)0x00000001)        // read PIN0 high
+#define IDR_PIN1_HIGH           ((uint32_t)0x00000002)        // read PIN1 high
+#define IDR_PIN2_HIGH           ((uint32_t)0x00000004)        // read PIN2 high
+#define IDR_PIN3_HIGH           ((uint32_t)0x00000008)        // read PIN3 high
+#define IDR_PIN4_HIGH           ((uint32_t)0x00000010)        // read PIN4 high
+#define IDR_PIN5_HIGH           ((uint32_t)0x00000020)        // read PIN5 high
+#define IDR_PIN6_HIGH           ((uint32_t)0x00000040)        // read PIN6 high
+#define IDR_PIN7_HIGH           ((uint32_t)0x00000080)        // read PIN7 high
+#define IDR_PIN8_HIGH           ((uint32_t)0x00000100)        // read PIN8 high
+#define IDR_PIN9_HIGH           ((uint32_t)0x00000200)        // read PIN9 high
+#define IDR_PIN10_HIGH          ((uint32_t)0x00000400)        // read PIN10 high
+#define IDR_PIN11_HIGH          ((uint32_t)0x00000800)        // read PIN11 high
+#define IDR_PIN12_HIGH          ((uint32_t)0x00001000)        // read PIN12 high
+#define IDR_PIN13_HIGH          ((uint32_t)0x00002000)        // read PIN13 high
+#define IDR_PIN14_HIGH          ((uint32_t)0x00004000)        // read PIN14 high
+#define IDR_PIN15_HIGH          ((uint32_t)0x00008000)        // read PIN15 high
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

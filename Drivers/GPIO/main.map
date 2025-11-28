@@ -39,8 +39,6 @@ Discarded input sections
                 0x00000000       0x10 Drivers/GPIO/src/gpio.o
  .text.GPIO_WritePin
                 0x00000000        0xc Drivers/GPIO/src/gpio.o
- .text.GPIO_constructor
-                0x00000000        0x8 Drivers/GPIO/src/gpio.o
  .text          0x00000000        0x0 Drivers/GPIO/src/main.o
  .data          0x00000000        0x0 Drivers/GPIO/src/main.o
  .bss           0x00000000        0x0 Drivers/GPIO/src/main.o
@@ -166,9 +164,12 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .text.GPIO_Init
                 0x08000128       0xfc Drivers/GPIO/src/gpio.o
                 0x08000128                GPIO_Init
+ .text.GPIO_constructor
+                0x08000224        0x8 Drivers/GPIO/src/gpio.o
+                0x08000224                GPIO_constructor
  .text.startup.main
-                0x08000224       0xb0 Drivers/GPIO/src/main.o
-                0x08000224                main
+                0x0800022c       0xa8 Drivers/GPIO/src/main.o
+                0x0800022c                main
  .text          0x080002d4        0xc Drivers/GPIO/src/startup.o
                 0x080002d4                Default_Handler
                 0x080002d8                Reset_Handler
@@ -213,27 +214,24 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
 .igot.plt       0x20000000        0x0
  .igot.plt      0x20000000        0x0 Drivers/GPIO/src/gpio.o
 
-.bss            0x20000000       0x1c
+.bss            0x20000000       0x14
                 0x20000000                __bss_start__ = .
  *(.bss*)
  .bss.GPIO_InitStruct
                 0x20000000       0x14 Drivers/GPIO/src/main.o
                 0x20000000                GPIO_InitStruct
- .bss.GPIO_LEDS
-                0x20000014        0x8 Drivers/GPIO/src/main.o
-                0x20000014                GPIO_LEDS
  *(COMMON)
-                0x2000001c                __bss_end__ = .
-                0x2000001c                _end = .
-                0x2000001c                end = .
-                0x2000001c                __end__ = .
+                0x20000014                __bss_end__ = .
+                0x20000014                _end = .
+                0x20000014                end = .
+                0x20000014                __end__ = .
 
-.stack          0x2000001c      0x404
-                0x20000020                . = ALIGN (0x8)
- *fill*         0x2000001c        0x4 
-                0x20000020                _stack = .
-                0x20000420                . = (. + 0x400)
- *fill*         0x20000020      0x400 
+.stack          0x20000014      0x404
+                0x20000018                . = ALIGN (0x8)
+ *fill*         0x20000014        0x4 
+                0x20000018                _stack = .
+                0x20000418                . = (. + 0x400)
+ *fill*         0x20000018      0x400 
 OUTPUT(Drivers/GPIO/main.elf elf32-littlearm)
 LOAD linker stubs
 
@@ -254,15 +252,15 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/GPIO/src/main.o
  .comment       0x00000049       0x4a Drivers/GPIO/src/startup.o
 
-.debug_info     0x00000000      0xa9f
+.debug_info     0x00000000      0xaae
  .debug_info    0x00000000      0x5cb Drivers/GPIO/src/gpio.o
- .debug_info    0x000005cb      0x3df Drivers/GPIO/src/main.o
- .debug_info    0x000009aa       0xf5 Drivers/GPIO/src/startup.o
+ .debug_info    0x000005cb      0x3ee Drivers/GPIO/src/main.o
+ .debug_info    0x000009b9       0xf5 Drivers/GPIO/src/startup.o
 
-.debug_abbrev   0x00000000      0x401
+.debug_abbrev   0x00000000      0x412
  .debug_abbrev  0x00000000      0x19a Drivers/GPIO/src/gpio.o
- .debug_abbrev  0x0000019a      0x19e Drivers/GPIO/src/main.o
- .debug_abbrev  0x00000338       0xc9 Drivers/GPIO/src/startup.o
+ .debug_abbrev  0x0000019a      0x1af Drivers/GPIO/src/main.o
+ .debug_abbrev  0x00000349       0xc9 Drivers/GPIO/src/startup.o
 
 .debug_loc      0x00000000      0x366
  .debug_loc     0x00000000      0x318 Drivers/GPIO/src/gpio.o
@@ -280,16 +278,16 @@ LOAD linker stubs
  .debug_ranges  0x00000000       0x38 Drivers/GPIO/src/gpio.o
  .debug_ranges  0x00000038       0x98 Drivers/GPIO/src/main.o
 
-.debug_line     0x00000000      0x866
+.debug_line     0x00000000      0x855
  .debug_line    0x00000000      0x42f Drivers/GPIO/src/gpio.o
- .debug_line    0x0000042f      0x2c4 Drivers/GPIO/src/main.o
- .debug_line    0x000006f3      0x173 Drivers/GPIO/src/startup.o
+ .debug_line    0x0000042f      0x2b3 Drivers/GPIO/src/main.o
+ .debug_line    0x000006e2      0x173 Drivers/GPIO/src/startup.o
 
 .debug_str      0x00000000      0x45e
  .debug_str     0x00000000      0x380 Drivers/GPIO/src/gpio.o
                                 0x3dd (size before relaxing)
  .debug_str     0x00000380       0x36 Drivers/GPIO/src/main.o
-                                0x227 (size before relaxing)
+                                0x22e (size before relaxing)
  .debug_str     0x000003b6       0xa8 Drivers/GPIO/src/startup.o
                                 0x16f (size before relaxing)
 

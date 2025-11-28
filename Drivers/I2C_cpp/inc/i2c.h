@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include "../../GPIO/inc/gpio.h"
+#include "../../GPIO_cpp/inc/gpio.h"
 
 // Base addresses
 #define APB1PERIPH_BASE    (PERIPH_BASE + 0x00000000U)
@@ -73,29 +73,27 @@ typedef enum {
     I2C_FAST_MODE
 } I2C_SpeedType;
 
-typedef struct
+class I2C
 {
+private:
     I2C_ManualTypeDef *regs;
     I2C_SpeedType speed;
-}I2C_HandleType;
+public:
+    I2C(I2C_ManualTypeDef *regs, I2C_SpeedType speed);
+    void I2C_Start();
+    void I2C_Restart();
+    int I2C_SendAddress(uint8_t address, int read);
+    void I2C_Stop();
+    void I2C_Write(int data);
+    int I2C_Read();
+    int I2C_ScanAddresses();
+    void I2C_EnableAck();
+    void I2C_DisableAck();
+};
 
 // I2C peripheral declarations
 #define I2C_1                   ((I2C_ManualTypeDef *)I2C1_BASE_ADDR)
 #define I2C_2                   ((I2C_ManualTypeDef *)I2C2_BASE_ADDR)
 #define I2C_3                   ((I2C_ManualTypeDef *)I2C3_BASE_ADDR)
-
-// I2C function prototypes
-void I2C_Init(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs, I2C_SpeedType speed);
-int I2C_Read(I2C_HandleType *hi2c);
-void I2C_Write(I2C_HandleType *hi2c, int data);
-int I2C_ScanAddresses(I2C_HandleType *hi2c);
-
-// Minimal helper APIs for master transactions
-void I2C_Start(I2C_HandleType *hi2c);
-void I2C_Restart(I2C_HandleType *hi2c);
-void I2C_Stop(I2C_HandleType *hi2c);
-int  I2C_SendAddress(I2C_HandleType *hi2c, uint8_t address, int read); // returns 1 if ACK (ADDR set), 0 if NACK (AF)
-void I2C_EnableAck(I2C_HandleType *hi2c);
-void I2C_DisableAck(I2C_HandleType *hi2c);
 
 #endif // __I2C_H

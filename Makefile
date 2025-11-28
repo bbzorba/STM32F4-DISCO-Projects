@@ -9,11 +9,10 @@
 #PROJECT_DIR = Drivers/PWM_cpp
 #PROJECT_DIR = Drivers/SysTick
 #PROJECT_DIR = Drivers/SysTick_cpp
-PROJECT_DIR = Drivers/I2C
+#PROJECT_DIR = Drivers/I2C
+PROJECT_DIR = Drivers/I2C_cpp
 
 #TBD
-#PROJECT_DIR = Drivers/I2C_cpp
-#PROJECT_DIR = Drivers/I2C_cpp
 #PROJECT_DIR = Drivers/SPI
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp

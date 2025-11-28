@@ -1,4 +1,4 @@
-#include "i2c.h"
+#include "../inc/i2c.h"
 
 #define i2c_addr 0x76
 
@@ -9,20 +9,19 @@ void delay(volatile uint32_t count);
 int main(void) {
 
     // Initialize I2C3 in standard mode (100kHz)
-    I2C_HandleType hi2c1;
-    I2C_Init(&hi2c1, I2C_3, I2C_STANDARD_MODE);
+    I2C i2c3(I2C_3, I2C_STANDARD_MODE);
 
     while (1) {
         // Simple visible transaction: START -> address write -> dummy byte -> STOP
-        I2C_Start(&hi2c1);
-        if (!I2C_SendAddress(&hi2c1, i2c_addr, 0)) { // write
+        i2c3.I2C_Start();
+        if (!i2c3.I2C_SendAddress(i2c_addr, 0)) { // write
             // NACK received, stop and retry after a short delay
-            I2C_Stop(&hi2c1);
+            i2c3.I2C_Stop();
             delay(100000);
             continue;
         }
-        I2C_Write(&hi2c1, 0x15);              // dummy data
-        I2C_Stop(&hi2c1);
+        i2c3.I2C_Write(0x15);              // dummy data
+        i2c3.I2C_Stop();
         delay(200000);                 // brief gap between transactions for visibility
     }
 }
