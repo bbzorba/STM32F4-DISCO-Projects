@@ -9,9 +9,10 @@
 #PROJECT_DIR = Drivers/PWM_cpp
 #PROJECT_DIR = Drivers/SysTick
 #PROJECT_DIR = Drivers/SysTick_cpp
+PROJECT_DIR = Drivers/I2C
 
 #TBD
-PROJECT_DIR = Drivers/I2C
+#PROJECT_DIR = Drivers/I2C_cpp
 #PROJECT_DIR = Drivers/I2C_cpp
 #PROJECT_DIR = Drivers/SPI
 #PROJECT_DIR = Projects/LED_Blink
@@ -297,12 +298,6 @@ SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc -IDrivers/UART/inc -IProjects/BME68x_Env_Sensor/inc -IProjects/HC06_Bluetooth/inc
-endif
-
-# Project-specific wiring for I2C: needs GPIO driver
-ifeq ($(PROJECT_DIR),Drivers/I2C)
-SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
-CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc
 endif
 
 # Project-specific wiring for PWM: needs GPIO & UART drivers
