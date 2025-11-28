@@ -364,6 +364,8 @@ public:
      GPIO_PinState GPIO_ReadPin(uint16_t GPIO_Pin);
      void GPIO_WritePin(uint16_t GPIO_Pin, GPIO_PinState PinState);
      void GPIO_TogglePin(uint16_t GPIO_Pin);
+     void GPIO_SetPin(uint16_t GPIO_Pin);
+     void GPIO_ResetPin(uint16_t GPIO_Pin);
      void RCC_GPIO_CLK_ENABLE(void);
 private:
     GPIO_ManualTypeDef *regs;  // Pointer to GPIO port base address

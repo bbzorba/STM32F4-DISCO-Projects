@@ -2,6 +2,7 @@
 #define LED_H
 
 #include <stdint.h>
+#include "../../Drivers/GPIO/inc/gpio.h"
 
 #define LED_PORT GPIO_D
 #define LED_PORT_CLK (1U << 3) // AHB1ENR GPIODEN

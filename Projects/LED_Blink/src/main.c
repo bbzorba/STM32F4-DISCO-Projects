@@ -1,4 +1,3 @@
-#include "stm32f4xx.h"
 #include "../inc/powerLed.h"
 #include "../inc/medicalLED.h"
 

@@ -1,12 +1,12 @@
 #include "../inc/spi.h"
 
-void SPI_Init(SPI_HandleType *spi, SPI_ManualType *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode, SPI_BaudRateType _baudrate, SPI_DirectionType _direction)
+SPI::SPI(SPI_ManualType *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode, SPI_BaudRateType _baudrate, SPI_DirectionType _direction)
 {
-    spi->regs = regs;
-    spi->pinConfig = _pinConfig;
-    spi->mode = _mode;
-    spi->baudrate = _baudrate;
-    spi->direction = _direction;
+    this->regs = regs;
+    this->pinConfig = _pinConfig;
+    this->mode = _mode;
+    this->baudrate = _baudrate;
+    this->direction = _direction;
 
     // Enable SPI clock & configure pins
 
@@ -88,55 +88,55 @@ void SPI_Init(SPI_HandleType *spi, SPI_ManualType *regs, SPI_PinConfigType _pinC
 }
 
 
-int SPI_WriteRead(SPI_HandleType *spi, const uint8_t *txData, uint8_t *rxData, size_t length)
+int SPI::SPI_WriteRead(const uint8_t *txData, uint8_t *rxData, size_t length)
 {
-    if (!spi || !spi->regs || length == 0) return -1;
+    if (!this || !regs || length == 0) return -1;
 
     for (size_t i = 0; i < length; i++) {
         // Wait until TXE (bit1) set
-        while (!(spi->regs->SR & 0x02));
+        while (!(regs->SR & 0x02));
         // In 1-line bidirectional transmit ensure BIDIOE set
-        if ((spi->direction == SPI_DIRECTION_1LINE) && !(spi->regs->CR1 & SPI_CR1_BIDIOE)) {
-            spi->regs->CR1 |= SPI_CR1_BIDIOE;
+        if ((direction == SPI_DIRECTION_1LINE) && !(regs->CR1 & SPI_CR1_BIDIOE)) {
+            regs->CR1 |= SPI_CR1_BIDIOE;
         }
-        spi->regs->DR = txData ? txData[i] : 0xFF;
+        regs->DR = txData ? txData[i] : 0xFF;
 
         // Wait until RXNE (bit0) set (for 2-line or RX-only)
-        while (!(spi->regs->SR & 0x01));
-        uint8_t r = (uint8_t)spi->regs->DR;
+        while (!(regs->SR & 0x01));
+        uint8_t r = (uint8_t)regs->DR;
         if (rxData) rxData[i] = r;
 
         // Clear OVR if set (read SR then DR per RM)
-        if (spi->regs->SR & (1 << 6)) { // OVR bit position 6
-            (void)spi->regs->SR;
-            (void)spi->regs->DR;
+        if (regs->SR & (1 << 6)) { // OVR bit position 6
+            (void)regs->SR;
+            (void)regs->DR;
         }
     }
 
     // Wait for BSY (bit7) to clear to ensure last clock finished
-    while (spi->regs->SR & (1 << 7));
+    while (regs->SR & (1 << 7));
 
     // If 1-line and we were transmitting, optionally switch back to input
-    if (spi->direction == SPI_DIRECTION_1LINE && (spi->regs->CR1 & SPI_CR1_BIDIOE)) {
-        spi->regs->CR1 &= ~SPI_CR1_BIDIOE; // Return to receive if desired
+    if (direction == SPI_DIRECTION_1LINE && (regs->CR1 & SPI_CR1_BIDIOE)) {
+        regs->CR1 &= ~SPI_CR1_BIDIOE; // Return to receive if desired
     }
 
     return 0;
 }
 
-void SPI_DeInit(SPI_HandleType *spi)
+void SPI::SPI_DeInit()
 {
-    if (!spi || !spi->regs) return;
-    spi->regs->CR1 &= ~SPI_CR1_SPE;
+    if (!regs) return;
+    regs->CR1 &= ~SPI_CR1_SPE;
 
-    if (spi->regs == SPI_1) {
+    if (regs == SPI_1) {
         RCC->APB2ENR &= ~RCC_APB2ENR_SPI_1EN;
-    } else if (spi->regs == SPI_2) {
+    } else if (regs == SPI_2) {
         RCC->APB1ENR &= ~RCC_APB1ENR_SPI_2EN;
-    } else if (spi->regs == SPI_3) {
+    } else if (regs == SPI_3) {
         RCC->APB1ENR &= ~RCC_APB1ENR_SPI_3EN;
     }
 }
 
-void SPI_CS_Low(GPIO_HandleTypeDef *GPIOx, uint16_t CS_pin)  { GPIO_ResetPin(GPIOx, CS_pin); }
-void SPI_CS_High(GPIO_HandleTypeDef *GPIOx, uint16_t CS_pin) { GPIO_SetPin(GPIOx, CS_pin); }
+void SPI::SPI_CS_Low(GPIO GPIOx, uint16_t CS_pin)  { GPIOx.GPIO_ResetPin(CS_pin); }
+void SPI::SPI_CS_High(GPIO GPIOx, uint16_t CS_pin) { GPIOx.GPIO_SetPin(CS_pin); }

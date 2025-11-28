@@ -12,12 +12,12 @@
 #PROJECT_DIR = Drivers/I2C
 #PROJECT_DIR = Drivers/I2C_cpp
 #PROJECT_DIR = Drivers/SPI
-
-#TBD
-PROJECT_DIR = Drivers/SPI_cpp
+#PROJECT_DIR = Drivers/SPI_cpp
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
-#PROJECT_DIR = Projects/Servo_Motor
+
+#TBD
+PROJECT_DIR = Projects/Servo_Motor
 #PROJECT_DIR = Projects/Servo_Motor_cpp
 #PROJECT_DIR = Projects/HC06_Bluetooth
 #PROJECT_DIR = Projects/HC06_Bluetooth_cpp
@@ -311,4 +311,10 @@ endif
 ifeq ($(PROJECT_DIR),Drivers/SPI)
 SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc
+endif
+
+# Project-specific wiring for SPI_cpp: needs GPIO_cpp driver
+ifeq ($(PROJECT_DIR),Drivers/SPI_cpp)
+SRC_CPP += $(filter-out $(SRC_CPP),$(GPIO_SRC_CPP))
+CFLAGS  += -IDrivers/GPIO_cpp/inc
 endif
