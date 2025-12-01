@@ -20,10 +20,6 @@
 #define TIM5_BASE (APB1PERIPH_ADDR_BASE + 0x00000C00U)
 #define TIM9_BASE (APB2PERIPH_ADDR_BASE + 0x00004000U)
 
-// Peripheral declarations
-#define TIM_1 ((TIM_TypeDef *)TIM1_BASE)
-#define TIM_9 ((TIM_TypeDef *)TIM9_BASE)
-
 // RCC register bit definitions
 #define RCC_APB2ENR_TIM1EN ((uint32_t)(1U << 0)) // TIM1 clock enable (APB2)
 #define RCC_APB1ENR_TIM2EN ((uint32_t)(1U << 0)) // TIM2 clock enable (APB1)
@@ -66,7 +62,7 @@ typedef struct
     __IO uint32_t TIM_BDTR;  // Break and dead-time register
     __IO uint32_t TIM_DCR;   // DMA control register
     __IO uint32_t TIM_DMAR;  // DMA address for full transfer
-} TIM_TypeDef;
+} TIM_Type;
 
 typedef enum {
     PWM_CHANNEL_1 = 1,
@@ -95,13 +91,16 @@ typedef struct
     PWM_Channel_TypeDef channel;
     dutyCycle_TypeDef dutyCycle;
     PWM_Prescaler_TypeDef prescaler;
-    TIM_TypeDef *TIMx;
+    TIM_Type *TIMx;
     uint32_t arr;
 } PWM_HandleType;
 
+// Peripheral declarations
+#define TIM_1 ((TIM_Type *)TIM1_BASE)
+#define TIM_9 ((TIM_Type *)TIM9_BASE)
 
 // Function prototypes
-void PWM_constructor(PWM_HandleType* const pwmHandle, PWM_Channel_TypeDef channel, dutyCycle_TypeDef dutyCycle, PWM_Prescaler_TypeDef prescaler, uint32_t arr, TIM_TypeDef *TIMx);
+void PWM_constructor(PWM_HandleType* const pwmHandle, PWM_Channel_TypeDef channel, dutyCycle_TypeDef dutyCycle, PWM_Prescaler_TypeDef prescaler, uint32_t arr, TIM_Type *TIMx);
 void Timer_Init(PWM_HandleType* pwmHandle);
 void Configure_PWM(PWM_HandleType* pwmHandle);
 void PWM_SetDutyCycle(PWM_HandleType* pwmHandle);

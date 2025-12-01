@@ -26,35 +26,37 @@ typedef struct {
     servo_Type type;                  // 180 or 360 type
     servoAngle_Type angle;            // current angle (0..180)
     uint8_t is_running;               // 0/1 running flag
-    TIM_TypeDef *TIMx;                // bound timer
     GPIO_ManualTypeDef *GPIO_regs; // GPIO register base
     GPIO_InitTypeDef *GPIOx_Init;   // GPIO initialization structure
     RCC_TypeDef *rcc;                 // RCC pointer
     uint8_t pinNumber;                // GPIO pin index 0..15
     uint8_t afNumber;                 // AF 0..15
-    uint32_t gpioEnableMask;          // AHB1 enable mask e.g., GPIOE_EN
 } Servo;
 
 void servo_constructor(Servo *servoMotor,
                        servo_Type type,
                        servoAngle_Type initial_angle,
-                       TIM_TypeDef *TIMx,
-                       GPIO_ManualTypeDef *GPIO_regs,
-                       GPIO_InitTypeDef *GPIOx_Init,
                        RCC_TypeDef *rcc,
                        uint8_t pinNumber,
                        uint8_t afNumber,
-                       uint32_t gpioEnableMask);
+                       GPIO_ManualTypeDef *GPIO_regs,
+                       GPIO_InitTypeDef *GPIOx_Init,
+                       PWM_HandleType* pwmHandle,
+                       PWM_Channel_TypeDef channel,
+                       dutyCycle_TypeDef dutyCycle,
+                       PWM_Prescaler_TypeDef prescaler,
+                       uint32_t arr,
+                       TIM_Type *TIMx);
 
 // Object-oriented methods
-Servo_StatusType Servo_SetAngle(Servo *servoMotor, servoAngle_Type angle);
+Servo_StatusType Servo_SetAngle(Servo *servoMotor, PWM_HandleType* pwmHandle, servoAngle_Type angle);
 servoAngle_Type Servo_GetAngle(Servo *servoMotor);
-void Servo_Start(Servo *servoMotor);
-void Servo_Stop(Servo *servoMotor);
+void Servo_Start(Servo *servoMotor, PWM_HandleType* pwmHandle);
+void Servo_Stop(Servo *servoMotor, PWM_HandleType* pwmHandle);
 uint32_t servo_angle_to_ticks(Servo *servoMotor, servoAngle_Type angle);
 
 // Generic GPIO/PWM helpers (procedural, kept for compatibility)
 void Servo_GPIO_Init(Servo *servoMotor);
-void Servo_PWM_Init(Servo *servoMotor);
+void Servo_PWM_Init(Servo *servoMotor, PWM_HandleType* pwmHandle);
 
 #endif // SERVO_H

@@ -5,7 +5,7 @@ void PWM_constructor(PWM_HandleType* const pwmHandle,
                      dutyCycle_TypeDef dutyCycle,
                      PWM_Prescaler_TypeDef prescaler,
                      uint32_t arr,
-                     TIM_TypeDef *TIMx) {
+                     TIM_Type *TIMx) {
     pwmHandle->channel = channel;
     pwmHandle->dutyCycle = dutyCycle;
     pwmHandle->prescaler = prescaler;
@@ -19,17 +19,17 @@ void PWM_constructor(PWM_HandleType* const pwmHandle,
 
 void Timer_Init(PWM_HandleType* pwmHandle) {
     // Enable clock for selected TIMx
-    if (pwmHandle->TIMx == (TIM_TypeDef *)TIM1_BASE) {
+    if (pwmHandle->TIMx == (TIM_Type *)TIM1_BASE) {
         RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
-    } else if (pwmHandle->TIMx == (TIM_TypeDef *)TIM9_BASE) {
+    } else if (pwmHandle->TIMx == (TIM_Type *)TIM9_BASE) {
         RCC->APB2ENR |= RCC_APB2ENR_TIM9EN;
-    } else if (pwmHandle->TIMx == (TIM_TypeDef *)TIM2_BASE) {
+    } else if (pwmHandle->TIMx == (TIM_Type *)TIM2_BASE) {
         RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;
-    } else if (pwmHandle->TIMx == (TIM_TypeDef *)TIM3_BASE) {
+    } else if (pwmHandle->TIMx == (TIM_Type *)TIM3_BASE) {
         RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
-    } else if (pwmHandle->TIMx == (TIM_TypeDef *)TIM4_BASE) {
+    } else if (pwmHandle->TIMx == (TIM_Type *)TIM4_BASE) {
         RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
-    } else if (pwmHandle->TIMx == (TIM_TypeDef *)TIM5_BASE) {
+    } else if (pwmHandle->TIMx == (TIM_Type *)TIM5_BASE) {
         RCC->APB1ENR |= RCC_APB1ENR_TIM5EN;
     }
 }
@@ -45,7 +45,7 @@ void Configure_PWM(PWM_HandleType* pwmHandle) {
     pwmHandle->TIMx->TIM_CR1  |= TIM_CR1_ARPE;        // ARPE: auto-reload preload enable
     pwmHandle->TIMx->TIM_EGR  |= TIM_EGR_UG;       // Generate update to latch PSC/ARR/CCR
     // MOE exists only on advanced timers (e.g., TIM1). Guard to avoid touching non-existent BDTR.
-    if (pwmHandle->TIMx == (TIM_TypeDef *)TIM1_BASE) {
+    if (pwmHandle->TIMx == (TIM_Type *)TIM1_BASE) {
         pwmHandle->TIMx->TIM_BDTR |= TIM_BDTR_MOE;     // Main output enable (advanced timer)
     }
     pwmHandle->TIMx->TIM_CR1 |= TIM_CR1_CEN; // Enable the timer
