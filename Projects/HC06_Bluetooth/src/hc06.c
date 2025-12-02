@@ -1,6 +1,6 @@
 #include "../inc/hc06.h"
 
-void HC06_Init(HC06_HandleType *hc06,
+void HC06_constructor(HC06_HandleType *hc06,
                USART_ManualType *usart_regs,
                UART_COMType com_type,
                UART_BaudRateType baud_rate) {

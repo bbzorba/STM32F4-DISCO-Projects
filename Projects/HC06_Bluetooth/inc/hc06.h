@@ -14,10 +14,10 @@ typedef struct
     UART_BaudRateType hc06_baud_rate;
 } HC06_HandleType;
 
-void HC06_Init(HC06_HandleType *hc06,
-               USART_ManualType *usart_regs,
-               UART_COMType com_type,
-               UART_BaudRateType baud_rate);
+void HC06_constructor(HC06_HandleType *hc06,
+                      USART_ManualType *usart_regs,
+                      UART_COMType com_type,
+                      UART_BaudRateType baud_rate);
 
 // Function prototypes
 // Send/receive raw bytes with explicit length
