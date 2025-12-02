@@ -18,38 +18,35 @@ int main(void) {
     servo_gpio_init.Alternate = 3; // AF3 TIM9 CH1
 
     // Initialize Servo handle
-    Servo_HandleType servo_PE5;
-    servo_constructor(&servo_PE5,
-                      SERVO_180_TYPE,
-                      SERVO_DEFAULT_ANGLE,
-                      RCC,          // rcc
-                      5,            // pinNumber
-                      3,            // afNumber
-                      GPIO_E,       // GPIO port
-                      &servo_gpio_init,
-                      PWM_CHANNEL_1,
-                      HALF_DC,
-                      PWM_PRESCALER_1599U,
-                      200,
-                      TIM_9);
-    Servo_SetAngle(&servo_PE5, SERVO_DEFAULT_ANGLE);
-    Servo_Start(&servo_PE5);
+    Servo servo_PE5(SERVO_180_TYPE,
+                    SERVO_DEFAULT_ANGLE,
+                    RCC,          // rcc
+                    5,            // pinNumber
+                    3,            // afNumber
+                    GPIO_E,       // GPIO port
+                    &servo_gpio_init,
+                    PWM_CHANNEL_1,
+                    HALF_DC,
+                    PWM_PRESCALER_1599U,
+                    200,
+                    TIM_9);
+    servo_PE5.Servo_SetAngle(SERVO_DEFAULT_ANGLE);
+    servo_PE5.Servo_Start();
     
     // Initialize HC-06 Bluetooth module
-    HC06_HandleType hc06;
-    HC06_constructor(&hc06, USART_3, RX_AND_TX, __9600);
+    HC06 hc06(USART_3, RX_AND_TX, __9600);
     
     // Optional: announce ready over Bluetooth
     const uint8_t hello[] = "HC-06 ready. Send L/M/R\r\n";
-    HC06_SendData(&hc06, hello, sizeof(hello) - 1);
+    hc06.HC06_SendData(hello, sizeof(hello) - 1);
 
     while (1) {
         // Blocking read for 1 byte
-        HC06_ReceiveData(&hc06, &rx, 1);
+        hc06.HC06_ReceiveData(&rx, 1);
         // Echo for debugging
         const uint8_t crlf[2] = {'\r','\n'};
-        HC06_SendData(&hc06, &rx, 1);
-        HC06_SendData(&hc06, crlf, 2);
+        hc06.HC06_SendData(&rx, 1);
+        hc06.HC06_SendData(crlf, 2);
         move_servo_to_direction(&servo_PE5, rx);
     }
 }

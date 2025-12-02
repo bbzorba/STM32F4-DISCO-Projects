@@ -19,10 +19,10 @@
 #PROJECT_DIR = Projects/Servo_Motor_cpp
 #PROJECT_DIR = Projects/HC06_Bluetooth
 #PROJECT_DIR = Projects/HC06_Bluetooth_cpp
+#PROJECT_DIR = Projects/HC06_Servo_Controller
 
 #TBD
-PROJECT_DIR = Projects/HC06_Servo_Controller
-#PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
+PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
 #PROJECT_DIR = Projects/MLX90614_Temp
 #PROJECT_DIR = Projects/HC06_MLX90614_Temp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
