@@ -20,13 +20,11 @@
 #PROJECT_DIR = Projects/HC06_Bluetooth
 #PROJECT_DIR = Projects/HC06_Bluetooth_cpp
 #PROJECT_DIR = Projects/HC06_Servo_Controller
+#PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
 
 #TBD
-PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
+PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
-#PROJECT_DIR = Projects/HC06_MLX90614_Temp
-#PROJECT_DIR = Projects/BME68x_Env_Sensor
-#PROJECT_DIR = Projects/HC06_BME68x_Env_Sensor
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
