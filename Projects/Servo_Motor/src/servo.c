@@ -8,7 +8,6 @@ void servo_constructor(Servo_HandleType *servoMotor,
                        uint8_t afNumber,
                        GPIO_ManualTypeDef *GPIO_regs,
                        GPIO_InitTypeDef *GPIOx_Init,
-                       PWM_HandleType* pwmHandle,
                        PWM_Channel_TypeDef channel,
                        dutyCycle_TypeDef dutyCycle,
                        PWM_Prescaler_TypeDef prescaler,
@@ -25,8 +24,8 @@ void servo_constructor(Servo_HandleType *servoMotor,
     servoMotor->pinNumber = pinNumber;
     servoMotor->afNumber = afNumber;
 
-    // Initialize PWM handle
-    PWM_constructor(pwmHandle, channel, dutyCycle, prescaler, arr, TIMx);
+    // Initialize embedded PWM handle
+    PWM_constructor(&servoMotor->pwm_handle, channel, dutyCycle, prescaler, arr, TIMx);
 
     // Initialize GPIO for PWM output using proper handle
     if (GPIO_regs && GPIOx_Init) {
@@ -36,24 +35,24 @@ void servo_constructor(Servo_HandleType *servoMotor,
         GPIO_constructor(&gpio_handle, GPIO_regs, GPIOx_Init);
     }
 
-    Servo_PWM_Init(servoMotor, pwmHandle);
+    Servo_PWM_Init(servoMotor);
     
     // Program initial angle into CCR
-    pwmHandle->TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, initial_angle);
+    servoMotor->pwm_handle.TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, initial_angle);
 }
 
-void Servo_PWM_Init(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle) {
+void Servo_PWM_Init(Servo_HandleType *servoMotor) {
     // Enable timer clock and configure PWM for 50Hz (PSC=1599, ARR=200)
     // Set default pulse corresponding to current_angle
-    pwmHandle->TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, servoMotor->angle);
+    servoMotor->pwm_handle.TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, servoMotor->angle);
 }
 
-Servo_StatusType Servo_SetAngle(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle, servoAngle_Type angle) {
+Servo_StatusType Servo_SetAngle(Servo_HandleType *servoMotor, servoAngle_Type angle) {
     if (!servoMotor) return SERVO_ERROR_NOT_INITIALIZED;
     if (angle < SERVO_MIN_ANGLE || angle > SERVO_MAX_ANGLE) return SERVO_ERROR_INVALID_ANGLE;
     servoMotor->angle = angle;
     if (servoMotor->is_running) {
-        pwmHandle->TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, angle);
+        servoMotor->pwm_handle.TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, angle);
     }
     return SERVO_OK;
 }
@@ -63,17 +62,17 @@ servoAngle_Type Servo_GetAngle(Servo_HandleType *servoMotor) {
     return servoMotor->angle;
 }
 
-void Servo_Start(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle) {
+void Servo_Start(Servo_HandleType *servoMotor) {
     if (!servoMotor) return;
     servoMotor->is_running = 1;
-    pwmHandle->TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, servoMotor->angle);
-    pwmHandle->TIMx->TIM_CR1 |= TIM_CR1_CEN;
+    servoMotor->pwm_handle.TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, servoMotor->angle);
+    servoMotor->pwm_handle.TIMx->TIM_CR1 |= TIM_CR1_CEN;
 }
 
-void Servo_Stop(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle) {
+void Servo_Stop(Servo_HandleType *servoMotor) {
     if (!servoMotor) return;
     servoMotor->is_running = 0;
-    pwmHandle->TIMx->TIM_CR1 &= ~TIM_CR1_CEN;
+    servoMotor->pwm_handle.TIMx->TIM_CR1 &= ~TIM_CR1_CEN;
 }
 
 uint32_t servo_angle_to_ticks(Servo_HandleType *servoMotor, servoAngle_Type angle)

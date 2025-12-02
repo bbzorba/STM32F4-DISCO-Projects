@@ -31,6 +31,7 @@ typedef struct {
     RCC_TypeDef *rcc;                 // RCC pointer
     uint8_t pinNumber;                // GPIO pin index 0..15
     uint8_t afNumber;                 // AF 0..15
+    PWM_HandleType pwm_handle;               // embedded PWM handle (composition)
 } Servo_HandleType;
 
 void servo_constructor(Servo_HandleType *servoMotor,
@@ -41,7 +42,6 @@ void servo_constructor(Servo_HandleType *servoMotor,
                        uint8_t afNumber,
                        GPIO_ManualTypeDef *GPIO_regs,
                        GPIO_InitTypeDef *GPIOx_Init,
-                       PWM_HandleType* pwmHandle,
                        PWM_Channel_TypeDef channel,
                        dutyCycle_TypeDef dutyCycle,
                        PWM_Prescaler_TypeDef prescaler,
@@ -49,12 +49,12 @@ void servo_constructor(Servo_HandleType *servoMotor,
                        TIM_Type *TIMx);
 
 // Object-oriented methods
-Servo_StatusType Servo_SetAngle(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle, servoAngle_Type angle);
+Servo_StatusType Servo_SetAngle(Servo_HandleType *servoMotor, servoAngle_Type angle);
 servoAngle_Type Servo_GetAngle(Servo_HandleType *servoMotor);
-void Servo_Start(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle);
-void Servo_Stop(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle);
+void Servo_Start(Servo_HandleType *servoMotor);
+void Servo_Stop(Servo_HandleType *servoMotor);
 uint32_t servo_angle_to_ticks(Servo_HandleType *servoMotor, servoAngle_Type angle);
-// Generic GPIO/PWM helpers (procedural, kept for compatibility)
-void Servo_PWM_Init(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle);
+// Generic GPIO/PWM helper
+void Servo_PWM_Init(Servo_HandleType *servoMotor);
 
 #endif // SERVO_H
