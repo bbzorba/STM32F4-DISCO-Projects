@@ -104,6 +104,9 @@ public:
     void PWM_SetDutyCycle(void);
     uint32_t PWM_GetDutyCycle(void);
     void SetDutyCycle(dutyCycle_TypeDef duty);
+    void SetPulseTicks(uint32_t ticks);
+    void Start();
+    void Stop();
 };
 
 

@@ -82,6 +82,8 @@ Discarded input sections
  .bss           0x00000000        0x0 Drivers/UART/src/uart.o
  .text.BRR_Oversample_by_16
                 0x00000000        0xc Drivers/UART/src/uart.o
+ .text.USART_Init
+                0x00000000      0x5e8 Drivers/UART/src/uart.o
  .text.USART_constructor
                 0x00000000        0xc Drivers/UART/src/uart.o
  .rodata.GetPortName.str1.4
@@ -99,16 +101,18 @@ Discarded input sections
  .text          0x00000000        0x0 Projects/HC06_Bluetooth/src/hc06.o
  .data          0x00000000        0x0 Projects/HC06_Bluetooth/src/hc06.o
  .bss           0x00000000        0x0 Projects/HC06_Bluetooth/src/hc06.o
+ .text.HC06_constructor
+                0x00000000       0x14 Projects/HC06_Bluetooth/src/hc06.o
  .text.HC06_ReceiveByte
                 0x00000000        0x8 Projects/HC06_Bluetooth/src/hc06.o
  .rodata.HC06_GetPortName.str1.4
-                0x00000000       0x37 Projects/HC06_Bluetooth/src/hc06.o
+                0x00000000        0x7 Projects/HC06_Bluetooth/src/hc06.o
  .text.HC06_GetPortName
-                0x00000000       0x78 Projects/HC06_Bluetooth/src/hc06.o
+                0x00000000       0x10 Projects/HC06_Bluetooth/src/hc06.o
  .rodata.hc06_scan_i2c.str1.4
                 0x00000000       0x3b Projects/HC06_Bluetooth/src/hc06.o
  .text.hc06_scan_i2c
-                0x00000000       0xb8 Projects/HC06_Bluetooth/src/hc06.o
+                0x00000000       0xc0 Projects/HC06_Bluetooth/src/hc06.o
  .text          0x00000000        0x0 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
  .data          0x00000000        0x0 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
  .bss           0x00000000        0x0 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
@@ -388,7 +392,7 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .isr_vector    0x08000000       0x40 Projects/HC06_Servo_Controller/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040      0xd20
+.text           0x08000040      0x724
                 0x08000040                . = ALIGN (0x4)
  *(.text*)
  .text.__RCC_GPIO_CLK_ENABLE
@@ -412,84 +416,78 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .text.PWM_constructor
                 0x08000340       0x20 Drivers/PWM/src/pwm.o
                 0x08000340                PWM_constructor
- .text.USART_Init
-                0x08000360      0x5e8 Drivers/UART/src/uart.o
-                0x08000360                USART_Init
  .text.USART_x_Write
-                0x08000948       0x10 Drivers/UART/src/uart.o
-                0x08000948                USART_x_Write
+                0x08000360       0x10 Drivers/UART/src/uart.o
+                0x08000360                USART_x_Write
  .text.USART_x_Read
-                0x08000958       0x10 Drivers/UART/src/uart.o
-                0x08000958                USART_x_Read
- .text.HC06_Init
-                0x08000968       0x14 Projects/HC06_Bluetooth/src/hc06.o
-                0x08000968                HC06_Init
+                0x08000370       0x10 Drivers/UART/src/uart.o
+                0x08000370                USART_x_Read
  .text.HC06_SendData
-                0x0800097c       0x24 Projects/HC06_Bluetooth/src/hc06.o
-                0x0800097c                HC06_SendData
+                0x08000380       0x24 Projects/HC06_Bluetooth/src/hc06.o
+                0x08000380                HC06_SendData
  .text.HC06_ReceiveData
-                0x080009a0       0x24 Projects/HC06_Bluetooth/src/hc06.o
-                0x080009a0                HC06_ReceiveData
+                0x080003a4       0x24 Projects/HC06_Bluetooth/src/hc06.o
+                0x080003a4                HC06_ReceiveData
  .text.move_servo_to_direction
-                0x080009c4       0x48 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
-                0x080009c4                move_servo_to_direction
+                0x080003c8       0x48 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
+                0x080003c8                move_servo_to_direction
  .text.startup.main
-                0x08000a0c       0xd4 Projects/HC06_Servo_Controller/src/main.o
-                0x08000a0c                main
- .text          0x08000ae0       0x54 Projects/HC06_Servo_Controller/src/startup.o
-                0x08000ae0                Default_Handler
-                0x08000ae4                Reset_Handler
- .text          0x08000b34        0x4 Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
-                0x08000b34                SystemInit
+                0x08000410       0xd4 Projects/HC06_Servo_Controller/src/main.o
+                0x08000410                main
+ .text          0x080004e4       0x54 Projects/HC06_Servo_Controller/src/startup.o
+                0x080004e4                Default_Handler
+                0x080004e8                Reset_Handler
+ .text          0x08000538        0x4 Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
+                0x08000538                SystemInit
  .text.servo_constructor
-                0x08000b38      0x100 Projects/Servo_Motor/src/servo.o
-                0x08000b38                servo_constructor
+                0x0800053c      0x100 Projects/Servo_Motor/src/servo.o
+                0x0800053c                servo_constructor
  .text.Servo_SetAngle
-                0x08000c38       0x5c Projects/Servo_Motor/src/servo.o
-                0x08000c38                Servo_SetAngle
+                0x0800063c       0x5c Projects/Servo_Motor/src/servo.o
+                0x0800063c                Servo_SetAngle
  .text.Servo_Start
-                0x08000c94       0x68 Projects/Servo_Motor/src/servo.o
-                0x08000c94                Servo_Start
- .text.memcpy   0x08000cfc       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
-                0x08000cfc                memcpy
- .text.memset   0x08000d18       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
-                0x08000d18                memset
+                0x08000698       0x68 Projects/Servo_Motor/src/servo.o
+                0x08000698                Servo_Start
+ .text.memcpy   0x08000700       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+                0x08000700                memcpy
+ .text.memset   0x0800071c       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
+                0x0800071c                memset
  *(.rodata*)
  .rodata.main.str1.4
-                0x08000d28       0x1a Projects/HC06_Servo_Controller/src/main.o
+                0x0800072c       0x1a Projects/HC06_Servo_Controller/src/main.o
  *(.glue_7)
- .glue_7        0x08000d42        0x0 linker stubs
+ .glue_7        0x08000746        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08000d42        0x0 linker stubs
+ .glue_7t       0x08000746        0x0 linker stubs
  *(.init)
- *fill*         0x08000d42        0x2 
- .init          0x08000d44        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08000d44                _init
- .init          0x08000d48        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ *fill*         0x08000746        0x2 
+ .init          0x08000748        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000748                _init
+ .init          0x0800074c        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.fini)
- .fini          0x08000d50        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08000d50                _fini
- .fini          0x08000d54        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .fini          0x08000754        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000754                _fini
+ .fini          0x08000758        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
  *(.eh_frame)
- .eh_frame      0x08000d5c        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
- .eh_frame      0x08000d5c        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
-                0x08000d60                __etext = .
+ .eh_frame      0x08000760        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .eh_frame      0x08000760        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+                0x08000764                __etext = .
 
-.vfp11_veneer   0x08000d60        0x0
- .vfp11_veneer  0x08000d60        0x0 linker stubs
+.vfp11_veneer   0x08000764        0x0
+ .vfp11_veneer  0x08000764        0x0 linker stubs
 
-.v4_bx          0x08000d60        0x0
- .v4_bx         0x08000d60        0x0 linker stubs
+.v4_bx          0x08000764        0x0
+ .v4_bx         0x08000764        0x0 linker stubs
 
-.iplt           0x08000d60        0x0
- .iplt          0x08000d60        0x0 Drivers/GPIO/src/gpio.o
+.iplt           0x08000764        0x0
+ .iplt          0x08000764        0x0 Drivers/GPIO/src/gpio.o
 
-.rel.dyn        0x08000d60        0x0
- .rel.iplt      0x08000d60        0x0 Drivers/GPIO/src/gpio.o
+.rel.dyn        0x08000764        0x0
+ .rel.iplt      0x08000764        0x0 Drivers/GPIO/src/gpio.o
 
-.data           0x20000000        0x0 load address 0x08000d60
+.data           0x20000000        0x0 load address 0x08000764
                 0x20000000                __data_start__ = .
  *(.data*)
                 0x20000000                __data_end__ = .
@@ -562,35 +560,35 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
  .comment       0x00000049       0x4a Projects/Servo_Motor/src/servo.o
 
-.debug_info     0x00000000     0x3dab
+.debug_info     0x00000000     0x3f10
  .debug_info    0x00000000      0x64d Drivers/GPIO/src/gpio.o
  .debug_info    0x0000064d      0x610 Drivers/PWM/src/pwm.o
  .debug_info    0x00000c5d      0x7b8 Drivers/UART/src/uart.o
- .debug_info    0x00001415      0x774 Projects/HC06_Bluetooth/src/hc06.o
- .debug_info    0x00001b89      0x739 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
- .debug_info    0x000022c2      0xa91 Projects/HC06_Servo_Controller/src/main.o
- .debug_info    0x00002d53      0x196 Projects/HC06_Servo_Controller/src/startup.o
- .debug_info    0x00002ee9       0x7e Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
- .debug_info    0x00002f67      0xe44 Projects/Servo_Motor/src/servo.o
+ .debug_info    0x00001415      0x8d9 Projects/HC06_Bluetooth/src/hc06.o
+ .debug_info    0x00001cee      0x739 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
+ .debug_info    0x00002427      0xa91 Projects/HC06_Servo_Controller/src/main.o
+ .debug_info    0x00002eb8      0x196 Projects/HC06_Servo_Controller/src/startup.o
+ .debug_info    0x0000304e       0x7e Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
+ .debug_info    0x000030cc      0xe44 Projects/Servo_Motor/src/servo.o
 
-.debug_abbrev   0x00000000      0xf6b
+.debug_abbrev   0x00000000      0xf5f
  .debug_abbrev  0x00000000      0x169 Drivers/GPIO/src/gpio.o
  .debug_abbrev  0x00000169      0x1ac Drivers/PWM/src/pwm.o
  .debug_abbrev  0x00000315      0x2e1 Drivers/UART/src/uart.o
- .debug_abbrev  0x000005f6      0x2a9 Projects/HC06_Bluetooth/src/hc06.o
- .debug_abbrev  0x0000089f      0x15e Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
- .debug_abbrev  0x000009fd      0x1a5 Projects/HC06_Servo_Controller/src/main.o
- .debug_abbrev  0x00000ba2      0x115 Projects/HC06_Servo_Controller/src/startup.o
- .debug_abbrev  0x00000cb7       0x44 Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
- .debug_abbrev  0x00000cfb      0x270 Projects/Servo_Motor/src/servo.o
+ .debug_abbrev  0x000005f6      0x29d Projects/HC06_Bluetooth/src/hc06.o
+ .debug_abbrev  0x00000893      0x15e Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
+ .debug_abbrev  0x000009f1      0x1a5 Projects/HC06_Servo_Controller/src/main.o
+ .debug_abbrev  0x00000b96      0x115 Projects/HC06_Servo_Controller/src/startup.o
+ .debug_abbrev  0x00000cab       0x44 Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
+ .debug_abbrev  0x00000cef      0x270 Projects/Servo_Motor/src/servo.o
 
-.debug_loc      0x00000000     0x200d
+.debug_loc      0x00000000     0x1fbb
  .debug_loc     0x00000000      0x33d Drivers/GPIO/src/gpio.o
  .debug_loc     0x0000033d      0x16c Drivers/PWM/src/pwm.o
  .debug_loc     0x000004a9      0x42a Drivers/UART/src/uart.o
- .debug_loc     0x000008d3      0x638 Projects/HC06_Bluetooth/src/hc06.o
- .debug_loc     0x00000f0b       0xe3 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
- .debug_loc     0x00000fee     0x101f Projects/Servo_Motor/src/servo.o
+ .debug_loc     0x000008d3      0x5e6 Projects/HC06_Bluetooth/src/hc06.o
+ .debug_loc     0x00000eb9       0xe3 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
+ .debug_loc     0x00000f9c     0x101f Projects/Servo_Motor/src/servo.o
 
 .debug_aranges  0x00000000      0x210
  .debug_aranges
@@ -621,35 +619,35 @@ LOAD linker stubs
  .debug_ranges  0x000001e8       0x30 Projects/HC06_Servo_Controller/src/main.o
  .debug_ranges  0x00000218      0x278 Projects/Servo_Motor/src/servo.o
 
-.debug_line     0x00000000     0x2551
+.debug_line     0x00000000     0x250d
  .debug_line    0x00000000      0x46e Drivers/GPIO/src/gpio.o
  .debug_line    0x0000046e      0x33f Drivers/PWM/src/pwm.o
  .debug_line    0x000007ad      0xb0a Drivers/UART/src/uart.o
- .debug_line    0x000012b7      0x4f6 Projects/HC06_Bluetooth/src/hc06.o
- .debug_line    0x000017ad      0x217 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
- .debug_line    0x000019c4      0x387 Projects/HC06_Servo_Controller/src/main.o
- .debug_line    0x00001d4b      0x1dd Projects/HC06_Servo_Controller/src/startup.o
- .debug_line    0x00001f28       0x5c Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
- .debug_line    0x00001f84      0x5cd Projects/Servo_Motor/src/servo.o
+ .debug_line    0x000012b7      0x4b2 Projects/HC06_Bluetooth/src/hc06.o
+ .debug_line    0x00001769      0x217 Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
+ .debug_line    0x00001980      0x387 Projects/HC06_Servo_Controller/src/main.o
+ .debug_line    0x00001d07      0x1dd Projects/HC06_Servo_Controller/src/startup.o
+ .debug_line    0x00001ee4       0x5c Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
+ .debug_line    0x00001f40      0x5cd Projects/Servo_Motor/src/servo.o
 
-.debug_str      0x00000000      0xcb3
+.debug_str      0x00000000      0xd49
  .debug_str     0x00000000      0x390 Drivers/GPIO/src/gpio.o
                                 0x3f7 (size before relaxing)
  .debug_str     0x00000390      0x245 Drivers/PWM/src/pwm.o
                                 0x4b5 (size before relaxing)
  .debug_str     0x000005d5      0x168 Drivers/UART/src/uart.o
                                 0x434 (size before relaxing)
- .debug_str     0x0000073d      0x10d Projects/HC06_Bluetooth/src/hc06.o
-                                0x33b (size before relaxing)
- .debug_str     0x0000084a      0x11b Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
+ .debug_str     0x0000073d      0x187 Projects/HC06_Bluetooth/src/hc06.o
+                                0x3c8 (size before relaxing)
+ .debug_str     0x000008c4      0x11b Projects/HC06_Servo_Controller/src/hc06_servo_controller.o
                                 0x5db (size before relaxing)
- .debug_str     0x00000965       0x7e Projects/HC06_Servo_Controller/src/main.o
+ .debug_str     0x000009df       0x9a Projects/HC06_Servo_Controller/src/main.o
                                 0x6f9 (size before relaxing)
- .debug_str     0x000009e3      0x119 Projects/HC06_Servo_Controller/src/startup.o
+ .debug_str     0x00000a79      0x119 Projects/HC06_Servo_Controller/src/startup.o
                                 0x1ee (size before relaxing)
- .debug_str     0x00000afc       0xce Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
+ .debug_str     0x00000b92       0xce Projects/HC06_Servo_Controller/src/system_stm32f4xx.o
                                 0x15d (size before relaxing)
- .debug_str     0x00000bca       0xe9 Projects/Servo_Motor/src/servo.o
+ .debug_str     0x00000c60       0xe9 Projects/Servo_Motor/src/servo.o
                                 0x6e7 (size before relaxing)
 
 .debug_frame    0x00000000      0x464

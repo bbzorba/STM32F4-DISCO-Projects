@@ -27,7 +27,6 @@ PROJECT_DIR = Projects/Servo_Motor_cpp
 #PROJECT_DIR = Projects/HC06_MLX90614_Temp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/HC06_BME68x_Env_Sensor
-#PROJECT_DIR = Projects/HC06_MLX90614_Temp
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc

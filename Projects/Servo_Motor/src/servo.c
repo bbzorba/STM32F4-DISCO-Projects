@@ -1,6 +1,6 @@
 #include "../inc/servo.h"
 
-void servo_constructor(Servo *servoMotor,
+void servo_constructor(Servo_HandleType *servoMotor,
                        servo_Type type,
                        servoAngle_Type initial_angle,
                        RCC_TypeDef *rcc,
@@ -42,13 +42,13 @@ void servo_constructor(Servo *servoMotor,
     pwmHandle->TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, initial_angle);
 }
 
-void Servo_PWM_Init(Servo *servoMotor, PWM_HandleType* pwmHandle) {
+void Servo_PWM_Init(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle) {
     // Enable timer clock and configure PWM for 50Hz (PSC=1599, ARR=200)
     // Set default pulse corresponding to current_angle
     pwmHandle->TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, servoMotor->angle);
 }
 
-Servo_StatusType Servo_SetAngle(Servo *servoMotor, PWM_HandleType* pwmHandle, servoAngle_Type angle) {
+Servo_StatusType Servo_SetAngle(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle, servoAngle_Type angle) {
     if (!servoMotor) return SERVO_ERROR_NOT_INITIALIZED;
     if (angle < SERVO_MIN_ANGLE || angle > SERVO_MAX_ANGLE) return SERVO_ERROR_INVALID_ANGLE;
     servoMotor->angle = angle;
@@ -58,25 +58,25 @@ Servo_StatusType Servo_SetAngle(Servo *servoMotor, PWM_HandleType* pwmHandle, se
     return SERVO_OK;
 }
 
-servoAngle_Type Servo_GetAngle(Servo *servoMotor) {
+servoAngle_Type Servo_GetAngle(Servo_HandleType *servoMotor) {
     if (!servoMotor) return SERVO_DEFAULT_ANGLE;
     return servoMotor->angle;
 }
 
-void Servo_Start(Servo *servoMotor, PWM_HandleType* pwmHandle) {
+void Servo_Start(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle) {
     if (!servoMotor) return;
     servoMotor->is_running = 1;
     pwmHandle->TIMx->TIM_CCR1 = servo_angle_to_ticks(servoMotor, servoMotor->angle);
     pwmHandle->TIMx->TIM_CR1 |= TIM_CR1_CEN;
 }
 
-void Servo_Stop(Servo *servoMotor, PWM_HandleType* pwmHandle) {
+void Servo_Stop(Servo_HandleType *servoMotor, PWM_HandleType* pwmHandle) {
     if (!servoMotor) return;
     servoMotor->is_running = 0;
     pwmHandle->TIMx->TIM_CR1 &= ~TIM_CR1_CEN;
 }
 
-uint32_t servo_angle_to_ticks(Servo *servoMotor, servoAngle_Type angle)
+uint32_t servo_angle_to_ticks(Servo_HandleType *servoMotor, servoAngle_Type angle)
 {
     // 50 Hz period: ARR=200 at 10 kHz -> 1 tick = 0.1 ms
     // 180°: 0..180 -> 1.0..2.0 ms (10..20 ticks)

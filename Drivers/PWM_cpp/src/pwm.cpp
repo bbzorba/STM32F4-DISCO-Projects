@@ -92,3 +92,30 @@ void PWM::SetDutyCycle(dutyCycle_TypeDef duty) {
     this->dutyCycle = duty;
     PWM_SetDutyCycle();
 }
+
+void PWM::SetPulseTicks(uint32_t ticks) {
+    switch (this->channel) {
+    case PWM_CHANNEL_1:
+        this->TIMx->TIM_CCR1 = ticks;
+        break;
+    case PWM_CHANNEL_2:
+        this->TIMx->TIM_CCR2 = ticks;
+        break;
+    case PWM_CHANNEL_3:
+        this->TIMx->TIM_CCR3 = ticks;
+        break;
+    case PWM_CHANNEL_4:
+        this->TIMx->TIM_CCR4 = ticks;
+        break;
+    default:
+        break;
+    }
+}
+
+void PWM::Start() {
+    this->TIMx->TIM_CR1 |= TIM_CR1_CEN;
+}
+
+void PWM::Stop() {
+    this->TIMx->TIM_CR1 &= ~TIM_CR1_CEN;
+}
