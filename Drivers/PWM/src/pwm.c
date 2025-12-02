@@ -14,7 +14,7 @@ void PWM_constructor(PWM_HandleType* const pwmHandle,
 
     Timer_Init(pwmHandle);
     Configure_PWM(pwmHandle); // ARR=1000 for 1kHz base frequency
-    PWM_SetDutyCycle(pwmHandle);
+    PWM_SetDutyCycle(pwmHandle, dutyCycle);
 }
 
 void Timer_Init(PWM_HandleType* pwmHandle) {
@@ -51,20 +51,21 @@ void Configure_PWM(PWM_HandleType* pwmHandle) {
     pwmHandle->TIMx->TIM_CR1 |= TIM_CR1_CEN; // Enable the timer
 }
 
-void PWM_SetDutyCycle(PWM_HandleType* pwmHandle) {
+void PWM_SetDutyCycle(PWM_HandleType* pwmHandle, dutyCycle_TypeDef dutyCycle) {
+    pwmHandle->dutyCycle = dutyCycle;
     // Set PWM duty cycle for specified channel (stub implementation)
     switch(pwmHandle->channel) {
     case PWM_CHANNEL_1: 
-        pwmHandle->TIMx->TIM_CCR1 = pwmHandle->dutyCycle;
+        pwmHandle->TIMx->TIM_CCR1 = dutyCycle;
         break;
     case PWM_CHANNEL_2:
-        pwmHandle->TIMx->TIM_CCR2 = pwmHandle->dutyCycle;
+        pwmHandle->TIMx->TIM_CCR2 = dutyCycle;
         break;
     case PWM_CHANNEL_3:
-        pwmHandle->TIMx->TIM_CCR3 = pwmHandle->dutyCycle;
+        pwmHandle->TIMx->TIM_CCR3 = dutyCycle;
         break;
     case PWM_CHANNEL_4:
-        pwmHandle->TIMx->TIM_CCR4 = pwmHandle->dutyCycle;
+        pwmHandle->TIMx->TIM_CCR4 = dutyCycle;
         break;
     default:
         break;
@@ -87,4 +88,31 @@ uint32_t PWM_GetDutyCycle(PWM_HandleType* pwmHandle) {
     }
 
     return 0;
+}
+
+void PWM_SetPulseTicks(PWM_HandleType* pwmHandle, uint32_t ticks) {
+    switch (pwmHandle->channel) {
+    case PWM_CHANNEL_1:
+        pwmHandle->TIMx->TIM_CCR1 = ticks;
+        break;
+    case PWM_CHANNEL_2:
+        pwmHandle->TIMx->TIM_CCR2 = ticks;
+        break;
+    case PWM_CHANNEL_3:
+        pwmHandle->TIMx->TIM_CCR3 = ticks;
+        break;
+    case PWM_CHANNEL_4:
+        pwmHandle->TIMx->TIM_CCR4 = ticks;
+        break;
+    default:
+        break;
+    }
+}
+
+void PWM_Start(PWM_HandleType* pwmHandle) {
+    pwmHandle->TIMx->TIM_CR1 |= TIM_CR1_CEN;
+}
+
+void PWM_Stop(PWM_HandleType* pwmHandle) {
+    pwmHandle->TIMx->TIM_CR1 &= ~TIM_CR1_CEN;
 }

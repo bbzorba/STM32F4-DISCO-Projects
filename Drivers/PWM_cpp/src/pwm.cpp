@@ -13,7 +13,7 @@ PWM::PWM(PWM_Channel_TypeDef channel,
 
     Timer_Init();
     Configure_PWM(); // ARR=1000 for 1kHz base frequency
-    PWM_SetDutyCycle();
+    PWM_SetDutyCycle(dutyCycle);
 }
 
 void PWM::Timer_Init(void) {
@@ -50,7 +50,8 @@ void PWM::Configure_PWM(void) {
     this->TIMx->TIM_CR1 |= TIM_CR1_CEN; // Enable the timer
 }
 
-void PWM::PWM_SetDutyCycle(void) {
+void PWM::PWM_SetDutyCycle(dutyCycle_TypeDef dutyCycle) {
+    this->dutyCycle = dutyCycle;
     // Set PWM duty cycle for specified channel (stub implementation)
     switch(this->channel) {
     case PWM_CHANNEL_1: 
@@ -86,11 +87,6 @@ uint32_t PWM::PWM_GetDutyCycle(void) {
     }
 
     return 0;
-}
-
-void PWM::SetDutyCycle(dutyCycle_TypeDef duty) {
-    this->dutyCycle = duty;
-    PWM_SetDutyCycle();
 }
 
 void PWM::SetPulseTicks(uint32_t ticks) {

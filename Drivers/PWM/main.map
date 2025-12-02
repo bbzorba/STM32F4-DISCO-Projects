@@ -41,22 +41,26 @@ Discarded input sections
                 0x00000000        0xc Drivers/GPIO/src/gpio.o
  .text.GPIO_TogglePin
                 0x00000000        0xc Drivers/GPIO/src/gpio.o
+ .text.GPIO_SetPin
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
+ .text.GPIO_ResetPin
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
  .text.__RCC_GPIO_CLK_ENABLE
                 0x00000000       0xdc Drivers/GPIO/src/gpio.o
  .text.GPIO_Init
                 0x00000000       0xfc Drivers/GPIO/src/gpio.o
  .text.GPIO_constructor
                 0x00000000        0x8 Drivers/GPIO/src/gpio.o
- .debug_info    0x00000000      0x5cb Drivers/GPIO/src/gpio.o
- .debug_abbrev  0x00000000      0x19a Drivers/GPIO/src/gpio.o
- .debug_loc     0x00000000      0x318 Drivers/GPIO/src/gpio.o
+ .debug_info    0x00000000      0x64d Drivers/GPIO/src/gpio.o
+ .debug_abbrev  0x00000000      0x169 Drivers/GPIO/src/gpio.o
+ .debug_loc     0x00000000      0x33d Drivers/GPIO/src/gpio.o
  .debug_aranges
-                0x00000000       0x48 Drivers/GPIO/src/gpio.o
- .debug_ranges  0x00000000       0x38 Drivers/GPIO/src/gpio.o
- .debug_line    0x00000000      0x42f Drivers/GPIO/src/gpio.o
- .debug_str     0x00000000      0x3dd Drivers/GPIO/src/gpio.o
+                0x00000000       0x58 Drivers/GPIO/src/gpio.o
+ .debug_ranges  0x00000000       0x48 Drivers/GPIO/src/gpio.o
+ .debug_line    0x00000000      0x46e Drivers/GPIO/src/gpio.o
+ .debug_str     0x00000000      0x3f7 Drivers/GPIO/src/gpio.o
  .comment       0x00000000       0x4a Drivers/GPIO/src/gpio.o
- .debug_frame   0x00000000       0x88 Drivers/GPIO/src/gpio.o
+ .debug_frame   0x00000000       0xa8 Drivers/GPIO/src/gpio.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/GPIO/src/gpio.o
  .text          0x00000000        0x0 Drivers/PWM/src/main.o
@@ -195,77 +199,88 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .isr_vector    0x08000000       0x40 Drivers/PWM/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040      0x99c
+.text           0x08000040      0xb1c
  *(.text*)
  .text.startup.main
-                0x08000040       0xe4 Drivers/PWM/src/main.o
+                0x08000040      0x18c Drivers/PWM/src/main.o
                 0x08000040                main
  .text.Timer_Init
-                0x08000124       0x94 Drivers/PWM/src/pwm.o
-                0x08000124                Timer_Init
+                0x080001cc       0x94 Drivers/PWM/src/pwm.o
+                0x080001cc                Timer_Init
  .text.Configure_PWM
-                0x080001b8       0x5c Drivers/PWM/src/pwm.o
-                0x080001b8                Configure_PWM
- .text.PWM_SetDutyCycle
-                0x08000214       0x30 Drivers/PWM/src/pwm.o
-                0x08000214                PWM_SetDutyCycle
+                0x08000260       0x5c Drivers/PWM/src/pwm.o
+                0x08000260                Configure_PWM
  .text.PWM_constructor
-                0x08000244       0x20 Drivers/PWM/src/pwm.o
-                0x08000244                PWM_constructor
- .text          0x08000264        0xc Drivers/PWM/src/startup.o
-                0x08000264                Default_Handler
-                0x08000268                Reset_Handler
+                0x080002bc       0x44 Drivers/PWM/src/pwm.o
+                0x080002bc                PWM_constructor
+ .text.PWM_SetDutyCycle
+                0x08000300       0x2c Drivers/PWM/src/pwm.o
+                0x08000300                PWM_SetDutyCycle
+ .text.PWM_SetPulseTicks
+                0x0800032c       0x28 Drivers/PWM/src/pwm.o
+                0x0800032c                PWM_SetPulseTicks
+ .text.PWM_Start
+                0x08000354        0xc Drivers/PWM/src/pwm.o
+                0x08000354                PWM_Start
+ .text.PWM_Stop
+                0x08000360        0xc Drivers/PWM/src/pwm.o
+                0x08000360                PWM_Stop
+ .text          0x0800036c        0xc Drivers/PWM/src/startup.o
+                0x0800036c                Default_Handler
+                0x08000370                Reset_Handler
  .text.USART_Init
-                0x08000270      0x5e8 Drivers/UART/src/uart.o
-                0x08000270                USART_Init
+                0x08000378      0x5e8 Drivers/UART/src/uart.o
+                0x08000378                USART_Init
  .text.USART_constructor
-                0x08000858        0xc Drivers/UART/src/uart.o
-                0x08000858                USART_constructor
+                0x08000960        0xc Drivers/UART/src/uart.o
+                0x08000960                USART_constructor
  .text.GetPortName
-                0x08000864       0x74 Drivers/UART/src/uart.o
-                0x08000864                GetPortName
+                0x0800096c       0x74 Drivers/UART/src/uart.o
+                0x0800096c                GetPortName
  .text.USART_WriteString
-                0x080008d8       0x34 Drivers/UART/src/uart.o
-                0x080008d8                USART_WriteString
+                0x080009e0       0x34 Drivers/UART/src/uart.o
+                0x080009e0                USART_WriteString
  *(.rodata*)
  .rodata.main.str1.4
-                0x0800090c       0x90 Drivers/PWM/src/main.o
+                0x08000a14      0x107 Drivers/PWM/src/main.o
+                                0x10b (size before relaxing)
+ *fill*         0x08000b1b        0x1 
  .rodata.GetPortName.str1.4
-                0x0800099c       0x37 Drivers/UART/src/uart.o
+                0x08000b1c       0x37 Drivers/UART/src/uart.o
  *(.glue_7)
- .glue_7        0x080009d3        0x0 linker stubs
+ .glue_7        0x08000b53        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x080009d3        0x0 linker stubs
+ .glue_7t       0x08000b53        0x0 linker stubs
  *(.init)
- *fill*         0x080009d3        0x1 
- .init          0x080009d4        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x080009d4                _init
+ *fill*         0x08000b53        0x1 
+ .init          0x08000b54        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000b54                _init
  *(.fini)
- .fini          0x080009d8        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x080009d8                _fini
+ .fini          0x08000b58        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000b58                _fini
 
-.vfp11_veneer   0x080009dc        0x0
- .vfp11_veneer  0x080009dc        0x0 linker stubs
+.vfp11_veneer   0x08000b5c        0x0
+ .vfp11_veneer  0x08000b5c        0x0 linker stubs
 
-.v4_bx          0x080009dc        0x0
- .v4_bx         0x080009dc        0x0 linker stubs
+.v4_bx          0x08000b5c        0x0
+ .v4_bx         0x08000b5c        0x0 linker stubs
 
-.iplt           0x080009dc        0x0
- .iplt          0x080009dc        0x0 Drivers/PWM/src/main.o
+.iplt           0x08000b5c        0x0
+ .iplt          0x08000b5c        0x0 Drivers/PWM/src/main.o
 
-.rel.dyn        0x080009dc        0x0
- .rel.iplt      0x080009dc        0x0 Drivers/PWM/src/main.o
+.rel.dyn        0x08000b5c        0x0
+ .rel.iplt      0x08000b5c        0x0 Drivers/PWM/src/main.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x080009dc        0x0
-                0x080009dc                __exidx_start = .
+.ARM.exidx      0x08000b5c        0x0
+                0x08000b5c                __exidx_start = .
  *(.ARM.exidx*)
-                0x080009dc                __exidx_end = .
-                0x080009dc                __etext = .
+                0x08000b5c                __exidx_end = .
+                0x08000b5c                __etext = .
 
-.data           0x20000000        0x0 load address 0x080009dc
+.data           0x20000000        0x0 load address 0x08000b5c
                 0x20000000                __data_start__ = .
  *(.data*)
                 0x20000000                __data_end__ = .
@@ -310,56 +325,56 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/PWM/src/startup.o
  .comment       0x00000049       0x4a Drivers/UART/src/uart.o
 
-.debug_info     0x00000000     0x14f3
- .debug_info    0x00000000      0x65a Drivers/PWM/src/main.o
- .debug_info    0x0000065a      0x5ec Drivers/PWM/src/pwm.o
- .debug_info    0x00000c46       0xf5 Drivers/PWM/src/startup.o
- .debug_info    0x00000d3b      0x7b8 Drivers/UART/src/uart.o
+.debug_info     0x00000000     0x17f3
+ .debug_info    0x00000000      0x87a Drivers/PWM/src/main.o
+ .debug_info    0x0000087a      0x6cc Drivers/PWM/src/pwm.o
+ .debug_info    0x00000f46       0xf5 Drivers/PWM/src/startup.o
+ .debug_info    0x0000103b      0x7b8 Drivers/UART/src/uart.o
 
-.debug_abbrev   0x00000000      0x6e7
+.debug_abbrev   0x00000000      0x738
  .debug_abbrev  0x00000000      0x1a0 Drivers/PWM/src/main.o
- .debug_abbrev  0x000001a0      0x19d Drivers/PWM/src/pwm.o
- .debug_abbrev  0x0000033d       0xc9 Drivers/PWM/src/startup.o
- .debug_abbrev  0x00000406      0x2e1 Drivers/UART/src/uart.o
+ .debug_abbrev  0x000001a0      0x1ee Drivers/PWM/src/pwm.o
+ .debug_abbrev  0x0000038e       0xc9 Drivers/PWM/src/startup.o
+ .debug_abbrev  0x00000457      0x2e1 Drivers/UART/src/uart.o
 
-.debug_loc      0x00000000      0x5b0
- .debug_loc     0x00000000       0x1a Drivers/PWM/src/main.o
- .debug_loc     0x0000001a      0x16c Drivers/PWM/src/pwm.o
- .debug_loc     0x00000186      0x42a Drivers/UART/src/uart.o
+.debug_loc      0x00000000      0x65c
+ .debug_loc     0x00000000       0x82 Drivers/PWM/src/main.o
+ .debug_loc     0x00000082      0x1b0 Drivers/PWM/src/pwm.o
+ .debug_loc     0x00000232      0x42a Drivers/UART/src/uart.o
 
-.debug_aranges  0x00000000       0xe0
+.debug_aranges  0x00000000       0xf8
  .debug_aranges
                 0x00000000       0x28 Drivers/PWM/src/main.o
  .debug_aranges
-                0x00000028       0x40 Drivers/PWM/src/pwm.o
+                0x00000028       0x58 Drivers/PWM/src/pwm.o
  .debug_aranges
-                0x00000068       0x20 Drivers/PWM/src/startup.o
+                0x00000080       0x20 Drivers/PWM/src/startup.o
  .debug_aranges
-                0x00000088       0x58 Drivers/UART/src/uart.o
+                0x000000a0       0x58 Drivers/UART/src/uart.o
 
-.debug_ranges   0x00000000      0x130
- .debug_ranges  0x00000000       0x68 Drivers/PWM/src/main.o
- .debug_ranges  0x00000068       0x30 Drivers/PWM/src/pwm.o
- .debug_ranges  0x00000098       0x98 Drivers/UART/src/uart.o
+.debug_ranges   0x00000000      0x1f0
+ .debug_ranges  0x00000000       0xe8 Drivers/PWM/src/main.o
+ .debug_ranges  0x000000e8       0x70 Drivers/PWM/src/pwm.o
+ .debug_ranges  0x00000158       0x98 Drivers/UART/src/uart.o
 
-.debug_line     0x00000000     0x125d
- .debug_line    0x00000000      0x2a1 Drivers/PWM/src/main.o
- .debug_line    0x000002a1      0x33f Drivers/PWM/src/pwm.o
- .debug_line    0x000005e0      0x173 Drivers/PWM/src/startup.o
- .debug_line    0x00000753      0xb0a Drivers/UART/src/uart.o
+.debug_line     0x00000000     0x1414
+ .debug_line    0x00000000      0x361 Drivers/PWM/src/main.o
+ .debug_line    0x00000361      0x436 Drivers/PWM/src/pwm.o
+ .debug_line    0x00000797      0x173 Drivers/PWM/src/startup.o
+ .debug_line    0x0000090a      0xb0a Drivers/UART/src/uart.o
 
-.debug_str      0x00000000      0x6fe
- .debug_str     0x00000000      0x3f5 Drivers/PWM/src/main.o
-                                0x437 (size before relaxing)
- .debug_str     0x000003f5      0x15f Drivers/PWM/src/pwm.o
-                                0x4a7 (size before relaxing)
- .debug_str     0x00000554       0xa8 Drivers/PWM/src/startup.o
+.debug_str      0x00000000      0x726
+ .debug_str     0x00000000      0x417 Drivers/PWM/src/main.o
+                                0x459 (size before relaxing)
+ .debug_str     0x00000417      0x165 Drivers/PWM/src/pwm.o
+                                0x4e0 (size before relaxing)
+ .debug_str     0x0000057c       0xa8 Drivers/PWM/src/startup.o
                                 0x16f (size before relaxing)
- .debug_str     0x000005fc      0x102 Drivers/UART/src/uart.o
+ .debug_str     0x00000624      0x102 Drivers/UART/src/uart.o
                                 0x434 (size before relaxing)
 
-.debug_frame    0x00000000      0x1cc
+.debug_frame    0x00000000      0x1fc
  .debug_frame   0x00000000       0x40 Drivers/PWM/src/main.o
- .debug_frame   0x00000040       0x78 Drivers/PWM/src/pwm.o
- .debug_frame   0x000000b8       0x38 Drivers/PWM/src/startup.o
- .debug_frame   0x000000f0       0xdc Drivers/UART/src/uart.o
+ .debug_frame   0x00000040       0xa8 Drivers/PWM/src/pwm.o
+ .debug_frame   0x000000e8       0x38 Drivers/PWM/src/startup.o
+ .debug_frame   0x00000120       0xdc Drivers/UART/src/uart.o

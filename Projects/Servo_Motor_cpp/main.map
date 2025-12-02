@@ -51,30 +51,36 @@ Discarded input sections
                 0x00000000       0x94 Drivers/PWM/src/pwm.o
  .text.Configure_PWM
                 0x00000000       0x5c Drivers/PWM/src/pwm.o
- .text.PWM_SetDutyCycle
-                0x00000000       0x30 Drivers/PWM/src/pwm.o
  .text.PWM_constructor
-                0x00000000       0x20 Drivers/PWM/src/pwm.o
+                0x00000000       0x44 Drivers/PWM/src/pwm.o
+ .text.PWM_SetDutyCycle
+                0x00000000       0x2c Drivers/PWM/src/pwm.o
  .text.PWM_GetDutyCycle
                 0x00000000       0x2c Drivers/PWM/src/pwm.o
- .debug_info    0x00000000      0x610 Drivers/PWM/src/pwm.o
- .debug_abbrev  0x00000000      0x1ac Drivers/PWM/src/pwm.o
- .debug_loc     0x00000000      0x16c Drivers/PWM/src/pwm.o
+ .text.PWM_SetPulseTicks
+                0x00000000       0x28 Drivers/PWM/src/pwm.o
+ .text.PWM_Start
+                0x00000000        0xc Drivers/PWM/src/pwm.o
+ .text.PWM_Stop
+                0x00000000        0xc Drivers/PWM/src/pwm.o
+ .debug_info    0x00000000      0x6cc Drivers/PWM/src/pwm.o
+ .debug_abbrev  0x00000000      0x1ee Drivers/PWM/src/pwm.o
+ .debug_loc     0x00000000      0x1b0 Drivers/PWM/src/pwm.o
  .debug_aranges
-                0x00000000       0x40 Drivers/PWM/src/pwm.o
- .debug_ranges  0x00000000       0x30 Drivers/PWM/src/pwm.o
- .debug_line    0x00000000      0x33f Drivers/PWM/src/pwm.o
- .debug_str     0x00000000      0x4b5 Drivers/PWM/src/pwm.o
+                0x00000000       0x58 Drivers/PWM/src/pwm.o
+ .debug_ranges  0x00000000       0x70 Drivers/PWM/src/pwm.o
+ .debug_line    0x00000000      0x436 Drivers/PWM/src/pwm.o
+ .debug_str     0x00000000      0x4e0 Drivers/PWM/src/pwm.o
  .comment       0x00000000       0x4a Drivers/PWM/src/pwm.o
- .debug_frame   0x00000000       0x78 Drivers/PWM/src/pwm.o
+ .debug_frame   0x00000000       0xa8 Drivers/PWM/src/pwm.o
  .ARM.attributes
                 0x00000000       0x2e Drivers/PWM/src/pwm.o
  .text          0x00000000        0x0 Drivers/PWM_cpp/src/pwm.o
  .data          0x00000000        0x0 Drivers/PWM_cpp/src/pwm.o
  .bss           0x00000000        0x0 Drivers/PWM_cpp/src/pwm.o
- .text._ZN3PWM16PWM_GetDutyCycleEv
+ .text._ZN3PWM16PWM_SetDutyCycleE17dutyCycle_TypeDef
                 0x00000000       0x2c Drivers/PWM_cpp/src/pwm.o
- .text._ZN3PWM12SetDutyCycleE17dutyCycle_TypeDef
+ .text._ZN3PWM16PWM_GetDutyCycleEv
                 0x00000000       0x2c Drivers/PWM_cpp/src/pwm.o
  .text._ZN3PWM4StopEv
                 0x00000000        0xc Drivers/PWM_cpp/src/pwm.o
@@ -242,13 +248,10 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .text._ZN3PWM13Configure_PWMEv
                 0x080002bc       0x5c Drivers/PWM_cpp/src/pwm.o
                 0x080002bc                PWM::Configure_PWM()
- .text._ZN3PWM16PWM_SetDutyCycleEv
-                0x08000318       0x30 Drivers/PWM_cpp/src/pwm.o
-                0x08000318                PWM::PWM_SetDutyCycle()
  .text._ZN3PWMC2E19PWM_Channel_TypeDef17dutyCycle_TypeDef21PWM_Prescaler_TypeDefmP11TIM_TypeDef
-                0x08000348       0x20 Drivers/PWM_cpp/src/pwm.o
-                0x08000348                PWM::PWM(PWM_Channel_TypeDef, dutyCycle_TypeDef, PWM_Prescaler_TypeDef, unsigned long, TIM_TypeDef*)
-                0x08000348                PWM::PWM(PWM_Channel_TypeDef, dutyCycle_TypeDef, PWM_Prescaler_TypeDef, unsigned long, TIM_TypeDef*)
+                0x08000318       0x50 Drivers/PWM_cpp/src/pwm.o
+                0x08000318                PWM::PWM(PWM_Channel_TypeDef, dutyCycle_TypeDef, PWM_Prescaler_TypeDef, unsigned long, TIM_TypeDef*)
+                0x08000318                PWM::PWM(PWM_Channel_TypeDef, dutyCycle_TypeDef, PWM_Prescaler_TypeDef, unsigned long, TIM_TypeDef*)
  .text._ZN3PWM13SetPulseTicksEm
                 0x08000368       0x28 Drivers/PWM_cpp/src/pwm.o
                 0x08000368                PWM::SetPulseTicks(unsigned long)
@@ -373,77 +376,77 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Projects/Servo_Motor_cpp/src/startup.o
  .comment       0x00000049       0x4a Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
 
-.debug_info     0x00000000     0x2fc9
+.debug_info     0x00000000     0x2f9a
  .debug_info    0x00000000      0x76e Drivers/GPIO_cpp/src/gpio.o
- .debug_info    0x0000076e      0x84a Drivers/PWM_cpp/src/pwm.o
- .debug_info    0x00000fb8      0xaf0 Projects/Servo_Motor_cpp/src/main.o
- .debug_info    0x00001aa8     0x130d Projects/Servo_Motor_cpp/src/servo.o
- .debug_info    0x00002db5      0x196 Projects/Servo_Motor_cpp/src/startup.o
- .debug_info    0x00002f4b       0x7e Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
+ .debug_info    0x0000076e      0x81b Drivers/PWM_cpp/src/pwm.o
+ .debug_info    0x00000f89      0xaf0 Projects/Servo_Motor_cpp/src/main.o
+ .debug_info    0x00001a79     0x130d Projects/Servo_Motor_cpp/src/servo.o
+ .debug_info    0x00002d86      0x196 Projects/Servo_Motor_cpp/src/startup.o
+ .debug_info    0x00002f1c       0x7e Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
 
-.debug_abbrev   0x00000000      0xc4e
+.debug_abbrev   0x00000000      0xc50
  .debug_abbrev  0x00000000      0x22d Drivers/GPIO_cpp/src/gpio.o
- .debug_abbrev  0x0000022d      0x285 Drivers/PWM_cpp/src/pwm.o
- .debug_abbrev  0x000004b2      0x29b Projects/Servo_Motor_cpp/src/main.o
- .debug_abbrev  0x0000074d      0x3a8 Projects/Servo_Motor_cpp/src/servo.o
- .debug_abbrev  0x00000af5      0x115 Projects/Servo_Motor_cpp/src/startup.o
- .debug_abbrev  0x00000c0a       0x44 Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
+ .debug_abbrev  0x0000022d      0x287 Drivers/PWM_cpp/src/pwm.o
+ .debug_abbrev  0x000004b4      0x29b Projects/Servo_Motor_cpp/src/main.o
+ .debug_abbrev  0x0000074f      0x3a8 Projects/Servo_Motor_cpp/src/servo.o
+ .debug_abbrev  0x00000af7      0x115 Projects/Servo_Motor_cpp/src/startup.o
+ .debug_abbrev  0x00000c0c       0x44 Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
 
-.debug_loc      0x00000000     0x139a
+.debug_loc      0x00000000     0x14cf
  .debug_loc     0x00000000      0x2fd Drivers/GPIO_cpp/src/gpio.o
- .debug_loc     0x000002fd      0x146 Drivers/PWM_cpp/src/pwm.o
- .debug_loc     0x00000443       0x4a Projects/Servo_Motor_cpp/src/main.o
- .debug_loc     0x0000048d      0xf0d Projects/Servo_Motor_cpp/src/servo.o
+ .debug_loc     0x000002fd      0x27b Drivers/PWM_cpp/src/pwm.o
+ .debug_loc     0x00000578       0x4a Projects/Servo_Motor_cpp/src/main.o
+ .debug_loc     0x000005c2      0xf0d Projects/Servo_Motor_cpp/src/servo.o
 
-.debug_aranges  0x00000000      0x170
+.debug_aranges  0x00000000      0x168
  .debug_aranges
                 0x00000000       0x50 Drivers/GPIO_cpp/src/gpio.o
  .debug_aranges
-                0x00000050       0x60 Drivers/PWM_cpp/src/pwm.o
+                0x00000050       0x58 Drivers/PWM_cpp/src/pwm.o
  .debug_aranges
-                0x000000b0       0x28 Projects/Servo_Motor_cpp/src/main.o
+                0x000000a8       0x28 Projects/Servo_Motor_cpp/src/main.o
  .debug_aranges
-                0x000000d8       0x50 Projects/Servo_Motor_cpp/src/servo.o
+                0x000000d0       0x50 Projects/Servo_Motor_cpp/src/servo.o
  .debug_aranges
-                0x00000128       0x28 Projects/Servo_Motor_cpp/src/startup.o
+                0x00000120       0x28 Projects/Servo_Motor_cpp/src/startup.o
  .debug_aranges
-                0x00000150       0x20 Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
+                0x00000148       0x20 Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
 
-.debug_ranges   0x00000000      0x340
+.debug_ranges   0x00000000      0x360
  .debug_ranges  0x00000000       0x60 Drivers/GPIO_cpp/src/gpio.o
- .debug_ranges  0x00000060       0x70 Drivers/PWM_cpp/src/pwm.o
- .debug_ranges  0x000000d0       0x18 Projects/Servo_Motor_cpp/src/main.o
- .debug_ranges  0x000000e8      0x240 Projects/Servo_Motor_cpp/src/servo.o
- .debug_ranges  0x00000328       0x18 Projects/Servo_Motor_cpp/src/startup.o
+ .debug_ranges  0x00000060       0x90 Drivers/PWM_cpp/src/pwm.o
+ .debug_ranges  0x000000f0       0x18 Projects/Servo_Motor_cpp/src/main.o
+ .debug_ranges  0x00000108      0x240 Projects/Servo_Motor_cpp/src/servo.o
+ .debug_ranges  0x00000348       0x18 Projects/Servo_Motor_cpp/src/startup.o
 
-.debug_line     0x00000000     0x133b
+.debug_line     0x00000000     0x1356
  .debug_line    0x00000000      0x401 Drivers/GPIO_cpp/src/gpio.o
- .debug_line    0x00000401      0x465 Drivers/PWM_cpp/src/pwm.o
- .debug_line    0x00000866      0x2ce Projects/Servo_Motor_cpp/src/main.o
- .debug_line    0x00000b34      0x5c7 Projects/Servo_Motor_cpp/src/servo.o
- .debug_line    0x000010fb      0x1e4 Projects/Servo_Motor_cpp/src/startup.o
- .debug_line    0x000012df       0x5c Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
+ .debug_line    0x00000401      0x480 Drivers/PWM_cpp/src/pwm.o
+ .debug_line    0x00000881      0x2ce Projects/Servo_Motor_cpp/src/main.o
+ .debug_line    0x00000b4f      0x5c7 Projects/Servo_Motor_cpp/src/servo.o
+ .debug_line    0x00001116      0x1e4 Projects/Servo_Motor_cpp/src/startup.o
+ .debug_line    0x000012fa       0x5c Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
 
-.debug_str      0x00000000      0xe86
+.debug_str      0x00000000      0xeaf
  .debug_str     0x00000000      0x490 Drivers/GPIO_cpp/src/gpio.o
                                 0x558 (size before relaxing)
- .debug_str     0x00000490      0x3ab Drivers/PWM_cpp/src/pwm.o
-                                0x6e6 (size before relaxing)
- .debug_str     0x0000083b      0x32d Projects/Servo_Motor_cpp/src/main.o
+ .debug_str     0x00000490      0x38e Drivers/PWM_cpp/src/pwm.o
+                                0x6bc (size before relaxing)
+ .debug_str     0x0000081e      0x373 Projects/Servo_Motor_cpp/src/main.o
                                 0xa58 (size before relaxing)
- .debug_str     0x00000b68      0x111 Projects/Servo_Motor_cpp/src/servo.o
+ .debug_str     0x00000b91      0x111 Projects/Servo_Motor_cpp/src/servo.o
                                 0xca9 (size before relaxing)
- .debug_str     0x00000c79      0x13f Projects/Servo_Motor_cpp/src/startup.o
+ .debug_str     0x00000ca2      0x13f Projects/Servo_Motor_cpp/src/startup.o
                                 0x214 (size before relaxing)
- .debug_str     0x00000db8       0xce Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
+ .debug_str     0x00000de1       0xce Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
                                 0x15d (size before relaxing)
 
-.debug_frame    0x00000000      0x310
+.debug_frame    0x00000000      0x304
  .debug_frame   0x00000000       0x98 Drivers/GPIO_cpp/src/gpio.o
- .debug_frame   0x00000098       0xb4 Drivers/PWM_cpp/src/pwm.o
- .debug_frame   0x0000014c       0x48 Projects/Servo_Motor_cpp/src/main.o
- .debug_frame   0x00000194       0xdc Projects/Servo_Motor_cpp/src/servo.o
- .debug_frame   0x00000270       0x38 Projects/Servo_Motor_cpp/src/startup.o
- .debug_frame   0x000002a8       0x20 Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
- .debug_frame   0x000002c8       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x000002f0       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
+ .debug_frame   0x00000098       0xa8 Drivers/PWM_cpp/src/pwm.o
+ .debug_frame   0x00000140       0x48 Projects/Servo_Motor_cpp/src/main.o
+ .debug_frame   0x00000188       0xdc Projects/Servo_Motor_cpp/src/servo.o
+ .debug_frame   0x00000264       0x38 Projects/Servo_Motor_cpp/src/startup.o
+ .debug_frame   0x0000029c       0x20 Projects/Servo_Motor_cpp/src/system_stm32f4xx.o
+ .debug_frame   0x000002bc       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x000002e4       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)

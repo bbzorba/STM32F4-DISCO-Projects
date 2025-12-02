@@ -103,7 +103,10 @@ typedef struct
 void PWM_constructor(PWM_HandleType* const pwmHandle, PWM_Channel_TypeDef channel, dutyCycle_TypeDef dutyCycle, PWM_Prescaler_TypeDef prescaler, uint32_t arr, TIM_Type *TIMx);
 void Timer_Init(PWM_HandleType* pwmHandle);
 void Configure_PWM(PWM_HandleType* pwmHandle);
-void PWM_SetDutyCycle(PWM_HandleType* pwmHandle);
+void PWM_SetDutyCycle(PWM_HandleType* pwmHandle, dutyCycle_TypeDef dutyCycle);
 uint32_t PWM_GetDutyCycle(PWM_HandleType* pwmHandle);
+void PWM_SetPulseTicks(PWM_HandleType* pwmHandle, uint32_t ticks);
+void PWM_Start(PWM_HandleType* pwmHandle);
+void PWM_Stop(PWM_HandleType* pwmHandle);
 
 #endif // __PWM_H

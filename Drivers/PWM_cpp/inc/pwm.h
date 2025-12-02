@@ -20,10 +20,6 @@
 #define TIM5_BASE (APB1PERIPH_ADDR_BASE + 0x00000C00U)
 #define TIM9_BASE (APB2PERIPH_ADDR_BASE + 0x00004000U)
 
-// Peripheral declarations
-#define TIM_1 ((TIM_TypeDef *)TIM1_BASE)
-#define TIM_9 ((TIM_TypeDef *)TIM9_BASE)
-
 // RCC register bit definitions
 #define RCC_APB2ENR_TIM1EN ((uint32_t)(1U << 0)) // TIM1 clock enable (APB2)
 #define RCC_APB1ENR_TIM2EN ((uint32_t)(1U << 0)) // TIM2 clock enable (APB1)
@@ -90,6 +86,10 @@ typedef enum {
     PWM_PRESCALER_1599U = 1599U  // 16MHz/(1599+1)=10kHz, used for 50Hz servo (ARR=200)
 } PWM_Prescaler_TypeDef;
 
+// Peripheral declarations
+#define TIM_1 ((TIM_TypeDef *)TIM1_BASE)
+#define TIM_9 ((TIM_TypeDef *)TIM9_BASE)
+
 class PWM {
 private:
     PWM_Channel_TypeDef channel;
@@ -101,9 +101,8 @@ public:
     PWM(PWM_Channel_TypeDef channel, dutyCycle_TypeDef dutyCycle, PWM_Prescaler_TypeDef prescaler, uint32_t arr, TIM_TypeDef *TIMx);
     void Timer_Init(void);
     void Configure_PWM(void);
-    void PWM_SetDutyCycle(void);
+    void PWM_SetDutyCycle(dutyCycle_TypeDef dutyCycle);
     uint32_t PWM_GetDutyCycle(void);
-    void SetDutyCycle(dutyCycle_TypeDef duty);
     void SetPulseTicks(uint32_t ticks);
     void Start();
     void Stop();
