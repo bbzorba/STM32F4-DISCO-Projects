@@ -23,8 +23,10 @@
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
 
 #TBD
-PROJECT_DIR = Projects/BME68x_Env_Sensor
+#PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
+#PROJECT_DIR = Projects/TSL2591_Light
+PROJECT_DIR = Projects/microSD_reader
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -314,4 +316,23 @@ endif
 ifeq ($(PROJECT_DIR),Drivers/SPI_cpp)
 SRC_CPP += $(filter-out $(SRC_CPP),$(GPIO_SRC_CPP))
 CFLAGS  += -IDrivers/GPIO_cpp/inc
+endif
+
+# Project-specific wiring for TSL2591_Light: needs I2C & UART drivers
+ifeq ($(PROJECT_DIR),Projects/TSL2591_Light)
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+CLEAR_UNUSED :=
+SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
+CFLAGS += -IDrivers/I2C/inc -IDrivers/UART/inc
+endif
+
+# Project-specific wiring for microSD_reader: needs SPI & UART drivers
+ifeq ($(PROJECT_DIR),Projects/microSD_reader)
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(SPI_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/SPI/inc -IDrivers/UART/inc
+# Ensure SPI object is linked even if discovery filters miss it
+OBJ += Drivers/SPI/src/spi.o
 endif
