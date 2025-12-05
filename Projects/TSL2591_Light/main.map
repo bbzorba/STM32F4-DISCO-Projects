@@ -125,8 +125,6 @@ Discarded input sections
  .text          0x00000000        0x0 Drivers/I2C/src/i2c.o
  .data          0x00000000        0x0 Drivers/I2C/src/i2c.o
  .bss           0x00000000        0x0 Drivers/I2C/src/i2c.o
- .text.I2C_ScanAddresses
-                0x00000000       0x60 Drivers/I2C/src/i2c.o
  .text          0x00000000        0x0 Drivers/UART/src/uart.o
  .data          0x00000000        0x0 Drivers/UART/src/uart.o
  .bss           0x00000000        0x0 Drivers/UART/src/uart.o
@@ -485,7 +483,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp/crtn.o
  .isr_vector    0x08000000       0x40 Projects/TSL2591_Light/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040     0x1a34
+.text           0x08000040     0x1a94
  *(.text*)
  .text.I2C_Init
                 0x08000040      0x15c Drivers/I2C/src/i2c.o
@@ -508,131 +506,133 @@ LOAD /usr/lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp/crtn.o
  .text.I2C_SendAddress
                 0x08000214       0x4c Drivers/I2C/src/i2c.o
                 0x08000214                I2C_SendAddress
+ .text.I2C_ScanAddresses
+                0x08000260       0x60 Drivers/I2C/src/i2c.o
+                0x08000260                I2C_ScanAddresses
  .text.I2C_EnableAck
-                0x08000260        0xc Drivers/I2C/src/i2c.o
-                0x08000260                I2C_EnableAck
+                0x080002c0        0xc Drivers/I2C/src/i2c.o
+                0x080002c0                I2C_EnableAck
  .text.I2C_DisableAck
-                0x0800026c        0xc Drivers/I2C/src/i2c.o
-                0x0800026c                I2C_DisableAck
+                0x080002cc        0xc Drivers/I2C/src/i2c.o
+                0x080002cc                I2C_DisableAck
  .text.USART_Init
-                0x08000278      0x5e8 Drivers/UART/src/uart.o
-                0x08000278                USART_Init
+                0x080002d8      0x5e8 Drivers/UART/src/uart.o
+                0x080002d8                USART_Init
  .text.USART_constructor
-                0x08000860        0xc Drivers/UART/src/uart.o
-                0x08000860                USART_constructor
+                0x080008c0        0xc Drivers/UART/src/uart.o
+                0x080008c0                USART_constructor
  .text.USART_WriteString
-                0x0800086c       0x34 Drivers/UART/src/uart.o
-                0x0800086c                USART_WriteString
+                0x080008cc       0x34 Drivers/UART/src/uart.o
+                0x080008cc                USART_WriteString
  .text.startup.main
-                0x080008a0       0xb0 Projects/TSL2591_Light/src/main.o
-                0x080008a0                main
- .text          0x08000950        0xc Projects/TSL2591_Light/src/startup.o
-                0x08000950                Default_Handler
-                0x08000954                Reset_Handler
- .text          0x0800095c       0x58 Projects/TSL2591_Light/src/stubs.o
-                0x0800095c                _write
-                0x08000960                _read
-                0x08000964                _close
-                0x0800096c                _fstat
-                0x08000978                _isatty
-                0x0800097c                _lseek
-                0x08000980                _exit
-                0x08000984                _kill
-                0x08000994                _getpid
-                0x08000998                _sbrk
+                0x08000900       0xb4 Projects/TSL2591_Light/src/main.o
+                0x08000900                main
+ .text          0x080009b4        0xc Projects/TSL2591_Light/src/startup.o
+                0x080009b4                Default_Handler
+                0x080009b8                Reset_Handler
+ .text          0x080009c0       0x58 Projects/TSL2591_Light/src/stubs.o
+                0x080009c0                _write
+                0x080009c4                _read
+                0x080009c8                _close
+                0x080009d0                _fstat
+                0x080009dc                _isatty
+                0x080009e0                _lseek
+                0x080009e4                _exit
+                0x080009e8                _kill
+                0x080009f8                _getpid
+                0x080009fc                _sbrk
  .text.TSL2591_Init
-                0x080009b4        0x4 Projects/TSL2591_Light/src/tsl2591_light.o
-                0x080009b4                TSL2591_Init
+                0x08000a18        0x4 Projects/TSL2591_Light/src/tsl2591_light.o
+                0x08000a18                TSL2591_Init
  .text.tsl_read_byte
-                0x080009b8       0x5c Projects/TSL2591_Light/src/tsl2591_light.o
-                0x080009b8                tsl_read_byte
+                0x08000a1c       0x5c Projects/TSL2591_Light/src/tsl2591_light.o
+                0x08000a1c                tsl_read_byte
  .text.TSL2591_Begin
-                0x08000a14       0x6c Projects/TSL2591_Light/src/tsl2591_light.o
-                0x08000a14                TSL2591_Begin
+                0x08000a78       0x6c Projects/TSL2591_Light/src/tsl2591_light.o
+                0x08000a78                TSL2591_Begin
  .text.tsl_read_word
-                0x08000a80       0x74 Projects/TSL2591_Light/src/tsl2591_light.o
-                0x08000a80                tsl_read_word
+                0x08000ae4       0x74 Projects/TSL2591_Light/src/tsl2591_light.o
+                0x08000ae4                tsl_read_word
  .text.TSL2591_ReadLightData
-                0x08000af4       0x30 Projects/TSL2591_Light/src/tsl2591_light.o
-                0x08000af4                TSL2591_ReadLightData
- .text          0x08000b24      0x114 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-snprintf.o)
-                0x08000b24                _sniprintf_r
-                0x08000b24                _snprintf_r
-                0x08000ba8                snprintf
-                0x08000ba8                sniprintf
- .text          0x08000c38      0x400 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-svfprintf.o)
-                0x08000c38                __ssputs_r
-                0x08000cf8                __ssprint_r
-                0x08000e00                _svfprintf_r
-                0x08000e00                _svfiprintf_r
- .text          0x08001038      0x148 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
-                0x08001080                _malloc_r
- .text          0x08001180       0xbc /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
-                0x08001180                _free_r
- .text          0x0800123c      0x100 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
-                0x0800123c                memmove
- *fill*         0x0800133c        0x4 
- .text          0x08001340       0xa0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
-                0x08001340                memchr
- .text          0x080013e0      0x134 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy.o)
-                0x080013e0                memcpy
- .text          0x08001514       0x64 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
-                0x08001514                _realloc_r
- .text          0x08001578      0x3a8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
-                0x08001578                _printf_common
-                0x0800169c                _printf_i
- .text          0x08001920        0x8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
-                0x08001920                __malloc_lock
-                0x08001924                __malloc_unlock
- .text          0x08001928       0x24 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
-                0x08001928                _sbrk_r
- .text          0x0800194c       0x10 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
-                0x0800194c                _malloc_usable_size_r
+                0x08000b58       0x30 Projects/TSL2591_Light/src/tsl2591_light.o
+                0x08000b58                TSL2591_ReadLightData
+ .text          0x08000b88      0x114 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-snprintf.o)
+                0x08000b88                _sniprintf_r
+                0x08000b88                _snprintf_r
+                0x08000c0c                snprintf
+                0x08000c0c                sniprintf
+ .text          0x08000c9c      0x400 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-svfprintf.o)
+                0x08000c9c                __ssputs_r
+                0x08000d5c                __ssprint_r
+                0x08000e64                _svfprintf_r
+                0x08000e64                _svfiprintf_r
+ .text          0x0800109c      0x148 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
+                0x080010e4                _malloc_r
+ .text          0x080011e4       0xbc /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
+                0x080011e4                _free_r
+ .text          0x080012a0      0x100 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
+                0x080012a0                memmove
+ .text          0x080013a0       0xa0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
+                0x080013a0                memchr
+ .text          0x08001440      0x134 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy.o)
+                0x08001440                memcpy
+ .text          0x08001574       0x64 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
+                0x08001574                _realloc_r
+ .text          0x080015d8      0x3a8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+                0x080015d8                _printf_common
+                0x080016fc                _printf_i
+ .text          0x08001980        0x8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
+                0x08001980                __malloc_lock
+                0x08001984                __malloc_unlock
+ .text          0x08001988       0x24 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
+                0x08001988                _sbrk_r
+ .text          0x080019ac       0x10 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
+                0x080019ac                _malloc_usable_size_r
  *(.rodata*)
  .rodata.main.str1.4
-                0x0800195c      0x10d Projects/TSL2591_Light/src/main.o
+                0x080019bc      0x10d Projects/TSL2591_Light/src/main.o
                                  0xd3 (size before relaxing)
  .rodata.str1.4
-                0x08001a69       0x13 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-svfprintf.o)
+                0x08001ac9       0x13 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-svfprintf.o)
  .rodata.str1.4
-                0x08001a69       0x25 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+                0x08001ac9       0x25 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
  *(.glue_7)
- .glue_7        0x08001a69        0x0 linker stubs
+ .glue_7        0x08001ac9        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08001a69        0x0 linker stubs
+ .glue_7t       0x08001ac9        0x0 linker stubs
  *(.init)
- *fill*         0x08001a69        0x3 
- .init          0x08001a6c        0x4 /usr/lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp/crti.o
-                0x08001a6c                _init
+ *fill*         0x08001ac9        0x3 
+ .init          0x08001acc        0x4 /usr/lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp/crti.o
+                0x08001acc                _init
  *(.fini)
- .fini          0x08001a70        0x4 /usr/lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp/crti.o
-                0x08001a70                _fini
+ .fini          0x08001ad0        0x4 /usr/lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp/crti.o
+                0x08001ad0                _fini
 
-.vfp11_veneer   0x08001a74        0x0
- .vfp11_veneer  0x08001a74        0x0 linker stubs
+.vfp11_veneer   0x08001ad4        0x0
+ .vfp11_veneer  0x08001ad4        0x0 linker stubs
 
-.v4_bx          0x08001a74        0x0
- .v4_bx         0x08001a74        0x0 linker stubs
+.v4_bx          0x08001ad4        0x0
+ .v4_bx         0x08001ad4        0x0 linker stubs
 
-.iplt           0x08001a74        0x0
- .iplt          0x08001a74        0x0 Drivers/UART/src/uart.o
+.iplt           0x08001ad4        0x0
+ .iplt          0x08001ad4        0x0 Drivers/I2C/src/i2c.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x08001a74        0x8
-                0x08001a74                        __exidx_start = .
+.ARM.exidx      0x08001ad4        0x8
+                0x08001ad4                        __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x08001a74        0x8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
- .ARM.exidx     0x08001a7c        0x0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy.o)
+ .ARM.exidx     0x08001ad4        0x8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
+ .ARM.exidx     0x08001adc        0x0 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy.o)
                                   0x8 (size before relaxing)
-                0x08001a7c                        __exidx_end = .
-                0x08001a7c                        __etext = .
+                0x08001adc                        __exidx_end = .
+                0x08001adc                        __etext = .
 
-.rel.dyn        0x08001a7c        0x0
- .rel.iplt      0x08001a7c        0x0 Drivers/UART/src/uart.o
+.rel.dyn        0x08001adc        0x0
+ .rel.iplt      0x08001adc        0x0 Drivers/I2C/src/i2c.o
 
-.data           0x20000000       0x50 load address 0x08001a7c
+.data           0x20000000       0x50 load address 0x08001adc
                 0x20000000                        __data_start__ = .
  *(.data*)
  .data          0x20000000       0x50 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
@@ -640,10 +640,10 @@ LOAD /usr/lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp/crtn.o
                 0x20000004                _impure_data
                 0x20000050                        __data_end__ = .
 
-.igot.plt       0x20000050        0x0 load address 0x08001acc
- .igot.plt      0x20000050        0x0 Drivers/UART/src/uart.o
+.igot.plt       0x20000050        0x0 load address 0x08001b2c
+ .igot.plt      0x20000050        0x0 Drivers/I2C/src/i2c.o
 
-.bss            0x20000050      0x14c load address 0x08001acc
+.bss            0x20000050      0x14c load address 0x08001b2c
                 0x20000050                        __bss_start__ = .
  *(.bss*)
  .bss           0x20000050        0x4 Projects/TSL2591_Light/src/stubs.o
@@ -661,7 +661,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp/crtn.o
                 0x2000019c                        end = .
                 0x2000019c                        __end__ = .
 
-.stack          0x2000019c      0x404 load address 0x08001c18
+.stack          0x2000019c      0x404 load address 0x08001c78
                 0x200001a0                        . = ALIGN (0x8)
  *fill*         0x2000019c        0x4 
                 0x200001a0                        _stack = .
@@ -739,51 +739,51 @@ LOAD linker stubs
  .comment       0x0000006f       0x27 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
  .comment       0x0000006f       0x27 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
 
-.debug_info     0x00000000     0xa22c
+.debug_info     0x00000000     0xa259
  .debug_info    0x00000000      0x78d Drivers/I2C/src/i2c.o
  .debug_info    0x0000078d      0x7b8 Drivers/UART/src/uart.o
- .debug_info    0x00000f45      0x58d Projects/TSL2591_Light/src/main.o
- .debug_info    0x000014d2       0xf5 Projects/TSL2591_Light/src/startup.o
- .debug_info    0x000015c7      0x4fa Projects/TSL2591_Light/src/stubs.o
- .debug_info    0x00001ac1      0xf0d Projects/TSL2591_Light/src/tsl2591_light.o
- .debug_info    0x000029ce      0x89f /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
- .debug_info    0x0000326d      0x8ff /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-snprintf.o)
- .debug_info    0x00003b6c      0x70b /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
- .debug_info    0x00004277     0x1092 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-svfprintf.o)
- .debug_info    0x00005309      0xe8c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
- .debug_info    0x00006195      0x9b6 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
- .debug_info    0x00006b4b      0x87f /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
- .debug_info    0x000073ca      0x148 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
- .debug_info    0x00007512       0x25 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
- .debug_info    0x00007537       0x33 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy.o)
- .debug_info    0x0000756a      0x8cd /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
- .debug_info    0x00007e37      0xdd7 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .debug_info    0x00008c0e      0x71c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
- .debug_info    0x0000932a      0x778 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
- .debug_info    0x00009aa2      0x78a /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
+ .debug_info    0x00000f45      0x5ba Projects/TSL2591_Light/src/main.o
+ .debug_info    0x000014ff       0xf5 Projects/TSL2591_Light/src/startup.o
+ .debug_info    0x000015f4      0x4fa Projects/TSL2591_Light/src/stubs.o
+ .debug_info    0x00001aee      0xf0d Projects/TSL2591_Light/src/tsl2591_light.o
+ .debug_info    0x000029fb      0x89f /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
+ .debug_info    0x0000329a      0x8ff /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-snprintf.o)
+ .debug_info    0x00003b99      0x70b /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
+ .debug_info    0x000042a4     0x1092 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-svfprintf.o)
+ .debug_info    0x00005336      0xe8c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+ .debug_info    0x000061c2      0x9b6 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
+ .debug_info    0x00006b78      0x87f /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
+ .debug_info    0x000073f7      0x148 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
+ .debug_info    0x0000753f       0x25 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
+ .debug_info    0x00007564       0x33 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy.o)
+ .debug_info    0x00007597      0x8cd /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
+ .debug_info    0x00007e64      0xdd7 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .debug_info    0x00008c3b      0x71c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
+ .debug_info    0x00009357      0x778 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
+ .debug_info    0x00009acf      0x78a /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
 
-.debug_abbrev   0x00000000     0x280b
+.debug_abbrev   0x00000000     0x280a
  .debug_abbrev  0x00000000      0x299 Drivers/I2C/src/i2c.o
  .debug_abbrev  0x00000299      0x2e1 Drivers/UART/src/uart.o
- .debug_abbrev  0x0000057a      0x1f7 Projects/TSL2591_Light/src/main.o
- .debug_abbrev  0x00000771       0xc9 Projects/TSL2591_Light/src/startup.o
- .debug_abbrev  0x0000083a      0x176 Projects/TSL2591_Light/src/stubs.o
- .debug_abbrev  0x000009b0      0x28d Projects/TSL2591_Light/src/tsl2591_light.o
- .debug_abbrev  0x00000c3d      0x1ee /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
- .debug_abbrev  0x00000e2b      0x23c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-snprintf.o)
- .debug_abbrev  0x00001067      0x149 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
- .debug_abbrev  0x000011b0      0x32f /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-svfprintf.o)
- .debug_abbrev  0x000014df      0x408 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
- .debug_abbrev  0x000018e7      0x24a /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
- .debug_abbrev  0x00001b31      0x249 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
- .debug_abbrev  0x00001d7a       0xc3 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
- .debug_abbrev  0x00001e3d       0x14 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
- .debug_abbrev  0x00001e51       0x28 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy.o)
- .debug_abbrev  0x00001e79      0x20c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
- .debug_abbrev  0x00002085      0x284 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .debug_abbrev  0x00002309      0x192 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
- .debug_abbrev  0x0000249b      0x1da /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
- .debug_abbrev  0x00002675      0x196 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
+ .debug_abbrev  0x0000057a      0x1f6 Projects/TSL2591_Light/src/main.o
+ .debug_abbrev  0x00000770       0xc9 Projects/TSL2591_Light/src/startup.o
+ .debug_abbrev  0x00000839      0x176 Projects/TSL2591_Light/src/stubs.o
+ .debug_abbrev  0x000009af      0x28d Projects/TSL2591_Light/src/tsl2591_light.o
+ .debug_abbrev  0x00000c3c      0x1ee /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
+ .debug_abbrev  0x00000e2a      0x23c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-snprintf.o)
+ .debug_abbrev  0x00001066      0x149 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
+ .debug_abbrev  0x000011af      0x32f /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-svfprintf.o)
+ .debug_abbrev  0x000014de      0x408 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+ .debug_abbrev  0x000018e6      0x24a /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
+ .debug_abbrev  0x00001b30      0x249 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
+ .debug_abbrev  0x00001d79       0xc3 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
+ .debug_abbrev  0x00001e3c       0x14 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
+ .debug_abbrev  0x00001e50       0x28 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy.o)
+ .debug_abbrev  0x00001e78      0x20c /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
+ .debug_abbrev  0x00002084      0x284 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .debug_abbrev  0x00002308      0x192 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
+ .debug_abbrev  0x0000249a      0x1da /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
+ .debug_abbrev  0x00002674      0x196 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
 
 .debug_loc      0x00000000      0x7e5
  .debug_loc     0x00000000      0x265 Drivers/I2C/src/i2c.o
@@ -838,34 +838,34 @@ LOAD linker stubs
  .debug_ranges  0x00000000       0xd8 Drivers/I2C/src/i2c.o
  .debug_ranges  0x000000d8       0x98 Drivers/UART/src/uart.o
 
-.debug_line     0x00000000     0x4767
+.debug_line     0x00000000     0x4768
  .debug_line    0x00000000      0x62d Drivers/I2C/src/i2c.o
  .debug_line    0x0000062d      0xb0a Drivers/UART/src/uart.o
- .debug_line    0x00001137      0x24a Projects/TSL2591_Light/src/main.o
- .debug_line    0x00001381      0x173 Projects/TSL2591_Light/src/startup.o
- .debug_line    0x000014f4      0x299 Projects/TSL2591_Light/src/stubs.o
- .debug_line    0x0000178d      0x3ec Projects/TSL2591_Light/src/tsl2591_light.o
- .debug_line    0x00001b79      0x27b /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
- .debug_line    0x00001df4      0x354 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-snprintf.o)
- .debug_line    0x00002148       0xe7 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
- .debug_line    0x0000222f      0x854 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-svfprintf.o)
- .debug_line    0x00002a83      0x4fc /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
- .debug_line    0x00002f7f      0x446 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
- .debug_line    0x000033c5      0x2c3 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
- .debug_line    0x00003688      0x1f1 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
- .debug_line    0x00003879       0x84 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
- .debug_line    0x000038fd       0xb9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy.o)
- .debug_line    0x000039b6      0x1f8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
- .debug_line    0x00003bae      0x75d /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .debug_line    0x0000430b      0x153 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
- .debug_line    0x0000445e      0x193 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
- .debug_line    0x000045f1      0x176 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
+ .debug_line    0x00001137      0x24b Projects/TSL2591_Light/src/main.o
+ .debug_line    0x00001382      0x173 Projects/TSL2591_Light/src/startup.o
+ .debug_line    0x000014f5      0x299 Projects/TSL2591_Light/src/stubs.o
+ .debug_line    0x0000178e      0x3ec Projects/TSL2591_Light/src/tsl2591_light.o
+ .debug_line    0x00001b7a      0x27b /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reent.o)
+ .debug_line    0x00001df5      0x354 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-snprintf.o)
+ .debug_line    0x00002149       0xe7 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-impure.o)
+ .debug_line    0x00002230      0x854 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-svfprintf.o)
+ .debug_line    0x00002a84      0x4fc /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-findfp.o)
+ .debug_line    0x00002f80      0x446 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mallocr.o)
+ .debug_line    0x000033c6      0x2c3 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-freer.o)
+ .debug_line    0x00003689      0x1f1 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memmove.o)
+ .debug_line    0x0000387a       0x84 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memchr.o)
+ .debug_line    0x000038fe       0xb9 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-memcpy.o)
+ .debug_line    0x000039b7      0x1f8 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-reallocr.o)
+ .debug_line    0x00003baf      0x75d /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .debug_line    0x0000430c      0x153 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-mlock.o)
+ .debug_line    0x0000445f      0x193 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-sbrkr.o)
+ .debug_line    0x000045f2      0x176 /usr/lib/gcc/arm-none-eabi/13.2.1/../../../arm-none-eabi/lib/thumb/v7e-m/nofp/libg_nano.a(libc_a-msizer.o)
 
 .debug_str      0x00000000     0x15d9
  .debug_str     0x00000000     0x15d9 Drivers/I2C/src/i2c.o
                                 0x3e4 (size before relaxing)
  .debug_str     0x000015d9      0x434 Drivers/UART/src/uart.o
- .debug_str     0x000015d9      0x309 Projects/TSL2591_Light/src/main.o
+ .debug_str     0x000015d9      0x31b Projects/TSL2591_Light/src/main.o
  .debug_str     0x000015d9      0x16f Projects/TSL2591_Light/src/startup.o
  .debug_str     0x000015d9      0x2f3 Projects/TSL2591_Light/src/stubs.o
  .debug_str     0x000015d9      0x334 Projects/TSL2591_Light/src/tsl2591_light.o

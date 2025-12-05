@@ -14,6 +14,8 @@ int main(void) {
     TSL2591_Init(&tsl2591, I2C_1, I2C_STANDARD_MODE);
 
     USART_WriteString(&usart, "Light Sensor Measurement Mode.\r\n");
+
+    I2C_ScanAddresses(&tsl2591); // Scan for I2C devices
     
     // Initialize and check TSL2591 sensor
     if (!TSL2591_Begin(&tsl2591)) {
