@@ -25,8 +25,8 @@
 #TBD
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
-#PROJECT_DIR = Projects/TSL2591_Light
-PROJECT_DIR = Projects/microSD_reader
+PROJECT_DIR = Projects/TSL2591_Light
+#PROJECT_DIR = Projects/microSD_reader
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc

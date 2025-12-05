@@ -43,6 +43,8 @@ STM32_Project/
 
 3. **Install arm-none-eabi-gcc Toolchain**
    - Download from [Arm Developer](https://developer.arm.com/downloads/-/gnu-rm)
+   - Download via the terminal (if using linux PC) using this command:
+         sudo apt install gcc-arm-none-eabi 
    - Add toolchain binaries to your system PATH
 
 4. **Install OpenOCD**
