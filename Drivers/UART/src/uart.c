@@ -7,7 +7,7 @@
     Verified with HC06 Bluetooth module and STM32F4 Discovery board.
 */
 
-#include "uart.h"
+#include "../inc/uart.h"
 
 /* 
  USART pins for STM32F4xx series:

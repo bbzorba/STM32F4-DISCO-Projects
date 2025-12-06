@@ -23,9 +23,9 @@
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
 
 #TBD
-#PROJECT_DIR = Projects/BME68x_Env_Sensor
+PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
-PROJECT_DIR = Projects/TSL2591_Light
+#PROJECT_DIR = Projects/TSL2591_Light
 #PROJECT_DIR = Projects/microSD_reader
 
 CXX=arm-none-eabi-g++
@@ -282,11 +282,12 @@ SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc -IDrivers/UART/inc -IProjects/MLX90614_Temp/inc -IProjects/HC06_Bluetooth/inc
 endif
 
-# Project-specific wiring for BME68x: needs GPIO, I2C
+# Project-specific wiring for BME68x: needs GPIO, I2C, UART drivers
 ifeq ($(PROJECT_DIR),Projects/BME68x_Env_Sensor)
 SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
-CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc -IProjects/BME68x_Env_Sensor/inc
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc -IDrivers/UART/inc -IProjects/BME68x_Env_Sensor/inc
 endif
 
 # Project-specific wiring for HC06_BME68x_Env_Sensor: needs BME68x, HC06, GPIO, I2C
