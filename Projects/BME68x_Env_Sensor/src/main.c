@@ -14,7 +14,7 @@ int main(void) {
 
     // Initialize I2C2 in standard mode (100kHz)
     I2C_HandleType bme68x;
-    I2C_Init(&bme68x, I2C_2, I2C_STANDARD_MODE);
+    I2C_Init(&bme68x, I2C_1, I2C_STANDARD_MODE);
     
     // Power-up delay for sensor
     delay(500000);
