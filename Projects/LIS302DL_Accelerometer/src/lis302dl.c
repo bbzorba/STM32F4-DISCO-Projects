@@ -31,7 +31,7 @@ int LIS302DL_ReadReg(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint16_t pin, 
 {
 	if (!spi || !val) return 0;
 	spi_apply_mode(spi);
-	uint8_t tx[2] = { (uint8_t)(reg | LIS302DL_SPI_READ), 0x00 };
+	uint8_t tx[2] = { (uint8_t)(reg | LIS302DL_SPI_READ), 0xFF };
 	uint8_t rx[2] = { 0 };
 	LIS302DL_Select(cs, pin);
 	int rc = SPI_WriteRead(spi, tx, rx, 2);
@@ -45,8 +45,8 @@ int LIS302DL_WriteReg(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint16_t pin,
 {
 	if (!spi) return 0;
 	spi_apply_mode(spi);
-	uint8_t tx[2] = { (uint8_t)(reg & ~(LIS302DL_SPI_READ | LIS302DL_SPI_AUTO_INC)), val };
-	uint8_t rx[2] = { 0 };
+	uint8_t tx[2] = { reg & ~(LIS302DL_SPI_READ | LIS302DL_SPI_AUTO_INC), val };
+	uint8_t rx[2];
 	LIS302DL_Select(cs, pin);
 	int rc = SPI_WriteRead(spi, tx, rx, 2);
 	LIS302DL_Deselect(cs, pin);
@@ -77,26 +77,27 @@ int LIS302DL_ReadWhoAmI_Mode(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint16
 
 int LIS302DL_Init(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint16_t pin)
 {
-	if (!LIS302DL_WriteReg(spi, cs, pin, LIS302DL_REG_CTRL1, 0x47)) return 0;
-	uint8_t chk = 0;
-	if (!LIS302DL_ReadReg(spi, cs, pin, LIS302DL_REG_CTRL1, &chk)) return 0;
-	return (chk == 0x47);
+	// CTRL1: Power on, enable all axes, 100Hz data rate (0x47)
+	if (!LIS302DL_WriteReg(spi, cs, pin, LIS302DL_REG_CTRL1, 0x47)) {
+		return 0;
+	}
+	// Read back to verify the write actually landed
+	uint8_t ctrl1 = 0;
+	if (!LIS302DL_ReadReg(spi, cs, pin, LIS302DL_REG_CTRL1, &ctrl1)) {
+		return 0;
+	}
+	return (ctrl1 == 0x47);
 }
 
 int LIS302DL_ReadXYZ(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint16_t pin, int8_t *x, int8_t *y, int8_t *z)
 {
-	if (!spi || !x || !y || !z) return 0;
+	if (!spi) return 0;
 	spi_apply_mode(spi);
-	// Burst read: OUT_X (0x29) with read+auto-inc to read X,Y,Z in one transfer
-	uint8_t tx[4] = { (uint8_t)(LIS302DL_REG_OUT_X | LIS302DL_SPI_READ | LIS302DL_SPI_AUTO_INC), 0x00, 0x00, 0x00 };
-	uint8_t rx[4] = { 0 };
-	LIS302DL_Select(cs, pin);
-	int rc = SPI_WriteRead(spi, tx, rx, 4);
-	LIS302DL_Deselect(cs, pin);
-	if (rc != 0) return 0;
-	*x = (int8_t)rx[1];
-	*y = (int8_t)rx[2];
-	*z = (int8_t)rx[3];
+	// Read OUT_X, OUT_Y, OUT_Z (1-byte each, already 8-bit signed)
+	uint8_t val;
+	if (x) { if (!LIS302DL_ReadReg(spi, cs, pin, LIS302DL_REG_OUT_X, &val)) return 0; *x = (int8_t)val; }
+	if (y) { if (!LIS302DL_ReadReg(spi, cs, pin, LIS302DL_REG_OUT_Y, &val)) return 0; *y = (int8_t)val; }
+	if (z) { if (!LIS302DL_ReadReg(spi, cs, pin, LIS302DL_REG_OUT_Z, &val)) return 0; *z = (int8_t)val; }
 	return 1;
 }
 
