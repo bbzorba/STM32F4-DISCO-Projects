@@ -23,6 +23,15 @@ void (* const vector_table[])(void) = {
 };
 
 void Reset_Handler(void) {
+    // Early force CS (PE3) low before any peripheral init to prefer SPI mode
+    // Enable GPIOE clock
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN;
+    // Configure PE3 as general purpose output, low speed is fine
+    GPIOE->MODER &= ~(3U << (3U * 2U));
+    GPIOE->MODER |=  (1U << (3U * 2U));
+    // Drive low on ODR (active-low CS)
+    GPIOE->ODR &= ~(1U << 3U);
+
     main();
     while (1);
 }

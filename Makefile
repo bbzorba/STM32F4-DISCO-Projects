@@ -23,7 +23,7 @@
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
 
 #TBD
-PROJECT_DIR = Projects/LSM303DLHC_Accelerometer
+PROJECT_DIR = Projects/LIS302DL_Accelerometer
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
 #PROJECT_DIR = Projects/TSL2591_Light
@@ -107,6 +107,9 @@ GPIO_SRC_CPP := Drivers/GPIO_cpp/src/gpio.cpp
 
 I2C_SRC_C := Drivers/I2C/src/i2c.c
 I2C_SRC_CPP := Drivers/I2C_cpp/src/i2c.cpp
+
+SPI_SRC_C := Drivers/SPI/src/spi.c
+SPI_SRC_CPP := Drivers/SPI_cpp/src/spi.cpp
 
 UART_SRC_C := Drivers/UART/src/uart.c
 UART_SRC_CPP := Drivers/UART_cpp/src/uart.cpp
@@ -224,7 +227,7 @@ flash_openocd: build
 .PHONY: monitor
 monitor:
 ifeq ($(OS),Windows_NT)
-	powershell -NoProfile -ExecutionPolicy Bypass -File "tools/monitor.ps1" $(if $(PORT),-ComPort $(PORT),) -Baud $(BAUD)
+	- powershell -NoProfile -ExecutionPolicy Bypass -File "tools/monitor.ps1" $(if $(PORT),-ComPort $(PORT),) -Baud $(BAUD)
 else
 	@echo "This monitor target is Windows-specific (PowerShell)."
 endif
@@ -329,20 +332,10 @@ SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/I2C/inc -IDrivers/UART/inc
 endif
 
-# Project-specific wiring for microSD_reader: needs SPI & UART drivers
-ifeq ($(PROJECT_DIR),Projects/microSD_reader)
+# Project-specific wiring for LIS302DL_Accelerometer: needs SPI & UART drivers
+ifeq ($(PROJECT_DIR),Projects/LIS302DL_Accelerometer)
 SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(SPI_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc -IDrivers/SPI/inc -IDrivers/UART/inc
-# Ensure SPI object is linked even if discovery filters miss it
-OBJ += Drivers/SPI/src/spi.o
-endif
-
-# Project-specific wiring for LSM303DLHC_Accelerometer: needs I2C & UART drivers
-ifeq ($(PROJECT_DIR),Projects/LSM303DLHC_Accelerometer)
-SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
-SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
-SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
-CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc -IDrivers/UART/inc
 endif
