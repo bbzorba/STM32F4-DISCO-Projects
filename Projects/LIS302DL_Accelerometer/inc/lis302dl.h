@@ -40,4 +40,12 @@ int  LIS302DL_ReadWhoAmI_Mode(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint1
 // Tries mode 3 first, then falls back to mode 0 during WHO_AM_I.
 // No public API required; exposed here only if future tuning is needed.
 
+// Calibration and mode helpers
+void LIS302DL_SetSpiMode(uint8_t mode);
+uint8_t LIS302DL_GetSpiMode(void);
+int  LIS302DL_SelectBestSpiMode(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint16_t pin);
+void LIS302DL_SetSensitivityMgPerLsb(uint8_t mg_per_lsb);
+int  LIS302DL_Calibrate(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint16_t pin, uint16_t samples);
+void LIS302DL_GetCalibration(int16_t *ox, int16_t *oy, int16_t *oz, uint8_t *mg_per_lsb);
+
 #endif // LIS302DL_H

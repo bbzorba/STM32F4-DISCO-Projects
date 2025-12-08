@@ -7,6 +7,10 @@ void LIS302DL_Select(GPIO_HandleTypeDef *cs, uint16_t pin)   { SPI_CS_Low(cs, pi
 void LIS302DL_Deselect(GPIO_HandleTypeDef *cs, uint16_t pin) { (void)cs; (void)pin; /* keep asserted */ }
 
 static uint8_t s_spi_mode = 3; // 0..3, default 3
+static int16_t s_off_x = 0;
+static int16_t s_off_y = 0;
+static int16_t s_off_z = 0;
+static uint8_t s_mg_per_lsb = 18; // typical for LIS302DL at +/-2g
 
 static void spi_apply_mode(SPI_HandleType *spi)
 {
@@ -94,4 +98,69 @@ int LIS302DL_ReadXYZ(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint16_t pin, 
 }
 
 // Removed LIS3DSH support per user request
+
+void LIS302DL_SetSpiMode(uint8_t mode)
+{
+	if (mode <= 3) s_spi_mode = mode;
+}
+
+uint8_t LIS302DL_GetSpiMode(void)
+{
+	return s_spi_mode;
+}
+
+int LIS302DL_SelectBestSpiMode(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint16_t pin)
+{
+	uint8_t who = 0;
+	const uint8_t modes[4] = {3,0,2,1};
+	for (unsigned i = 0; i < 4; ++i) {
+		s_spi_mode = modes[i];
+		if (LIS302DL_ReadReg(spi, cs, pin, LIS302DL_REG_WHO_AM_I, &who)) {
+			if (who == LIS302DL_WHOAMI_EXPECTED) return 1;
+		}
+	}
+	// Heuristic: pick mode that yields changing OUT_X values over a few reads
+	uint8_t best_mode = 3;
+	uint8_t best_score = 0;
+	for (unsigned i = 0; i < 4; ++i) {
+		s_spi_mode = modes[i];
+		uint8_t prev = 0, v = 0, score = 0;
+		for (int k = 0; k < 8; ++k) {
+			if (!LIS302DL_ReadReg(spi, cs, pin, LIS302DL_REG_OUT_X, &v)) break;
+			if (k > 0 && v != prev) ++score;
+			prev = v;
+		}
+		if (score > best_score) { best_score = score; best_mode = modes[i]; }
+	}
+	s_spi_mode = best_mode;
+	return 0;
+}
+
+void LIS302DL_SetSensitivityMgPerLsb(uint8_t mg_per_lsb)
+{
+	s_mg_per_lsb = mg_per_lsb ? mg_per_lsb : 18;
+}
+
+int LIS302DL_Calibrate(SPI_HandleType *spi, GPIO_HandleTypeDef *cs, uint16_t pin, uint16_t samples)
+{
+	int32_t sx = 0, sy = 0, sz = 0;
+	if (samples == 0) return 0;
+	for (uint16_t i = 0; i < samples; ++i) {
+		int8_t x, y, z;
+		if (!LIS302DL_ReadXYZ(spi, cs, pin, &x, &y, &z)) return 0;
+		sx += x; sy += y; sz += z;
+	}
+	s_off_x = (int16_t)(sx / (int32_t)samples);
+	s_off_y = (int16_t)(sy / (int32_t)samples);
+	s_off_z = (int16_t)(sz / (int32_t)samples);
+	return 1;
+}
+
+void LIS302DL_GetCalibration(int16_t *ox, int16_t *oy, int16_t *oz, uint8_t *mg_per_lsb)
+{
+	if (ox) *ox = s_off_x;
+	if (oy) *oy = s_off_y;
+	if (oz) *oz = s_off_z;
+	if (mg_per_lsb) *mg_per_lsb = s_mg_per_lsb;
+}
 
