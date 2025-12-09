@@ -14,43 +14,37 @@ void SPI1_SetMode(uint8_t mode) {
 }
 
 void LIS_GPIO_Init(){
-	// Enable GPIOA clock
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+	// Configure PA5/PA6/PA7 for SPI1 (AF5), pull-down, medium speed
+	GPIO_InitTypeDef gpioa_init;
+	gpioa_init.Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7;
+	gpioa_init.Mode = GPIO_MODE_AF_PP;
+	gpioa_init.Pull = GPIO_PULLDOWN;
+	gpioa_init.Speed = GPIO_SPEED_MEDIUM;
+	gpioa_init.Alternate = 5u; // AF5 for SPI1
+	GPIO_HandleTypeDef GPIOA_handle;
+	GPIO_constructor(&GPIOA_handle, GPIO_A, &gpioa_init);
 
-	// Configuring PA5, PA6, PA7 in alternate function mode (10b)
-	GPIO_A->MODER &= ~((3u<<(5*2)) | (3u<<(6*2)) | (3u<<(7*2)));
-	GPIO_A->MODER |=  ((2u<<(5*2)) | (2u<<(6*2)) | (2u<<(7*2)));
-
-	// Select AF5 for SPI on PA5, PA6, PA7
-	GPIO_A->AFR[0] &= ~((0xFu<<(4*5)) | (0xFu<<(4*6)) | (0xFu<<(4*7)));
-	GPIO_A->AFR[0] |=  ((5u<<(4*5)) | (5u<<(4*6)) | (5u<<(4*7)));
-
-	// Enable GPIOE clock
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN;
-
-	// Since PE3 is CS, configure in Output Mode (01b)
-	GPIO_E->MODER &= ~(3u<<(3*2));
-	GPIO_E->MODER |=  (1u<<(3*2));
-
-	// Push-pull, no pull, very high speed for CS
-	GPIO_E->OTYPER &= ~(1u<<3);
-	GPIO_E->PUPDR &= ~(3u<<(3*2));
-	GPIO_E->OSPEEDR |= (3u<<(3*2));
-
+	// Configure PE3 as CS: output push-pull, very high speed, no pull
+	GPIO_InitTypeDef gpioe_init;
+	gpioe_init.Pin = GPIO_PIN_3;
+	gpioe_init.Mode = GPIO_MODE_OUTPUT_PP;
+	gpioe_init.Pull = GPIO_NOPULL;
+	gpioe_init.Speed = GPIO_SPEED_VERY_HIGH;
+	gpioe_init.Alternate = 0u;
+	GPIO_HandleTypeDef GPIOE_handle;
+	GPIO_constructor(&GPIOE_handle, GPIO_E, &gpioe_init);
 	// Deassert CS initially
-	gpio_set_bit(GPIO_E, 3u);
+	GPIO_WritePin(&GPIOE_handle, GPIO_PIN_3, GPIO_PIN_SET);
 
-	// Medium speed on PA5/6/7
-	GPIO_A->OSPEEDR |= ((1u<<(5*2)) | (1u<<(6*2)) | (1u<<(7*2)));
-
-	// Pull-down on PA5/6/7 (10b)
-	GPIO_A->PUPDR &= ~((3u<<(5*2)) | (3u<<(6*2)) | (3u<<(7*2)));
-	GPIO_A->PUPDR |=  ((2u<<(5*2)) | (2u<<(6*2)) | (2u<<(7*2)));
-
-	// Enable clock for GPIOD and Configure PD12 in output mode
-	RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
-	GPIO_D->MODER &= ~((3u<<(12*2)) | (3u<<(13*2)) | (3u<<(14*2)) | (3u<<(15*2)));
-	GPIO_D->MODER |=  ((1u<<(12*2)) | (1u<<(13*2)) | (1u<<(14*2)) | (1u<<(15*2)));
+	// Configure PD12-PD15 as outputs for LEDs
+	GPIO_InitTypeDef gpiod_init;
+	gpiod_init.Pin = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
+	gpiod_init.Mode = GPIO_MODE_OUTPUT_PP;
+	gpiod_init.Pull = GPIO_NOPULL;
+	gpiod_init.Speed = GPIO_SPEED_LOW;
+	gpiod_init.Alternate = 0u;
+	GPIO_HandleTypeDef GPIOD_handle;
+	GPIO_constructor(&GPIOD_handle, GPIO_D, &gpiod_init);
 }
 
 uint16_t SPI_Transmit(uint8_t data){
