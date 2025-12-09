@@ -1,8 +1,5 @@
 #include "../inc/lis302dl.h"
 
-uint16_t x,y,z;
-uint16_t rxd,rxdf;
-
 // Use project GPIO struct (single 32-bit BSRR)
 static inline void gpio_set_bit(GPIO_ManualTypeDef *regs, uint32_t pin) { regs->BSRR = (1u << pin); }
 static inline void gpio_reset_bit(GPIO_ManualTypeDef *regs, uint32_t pin) { regs->BSRR = (1u << (pin + 16u)); }
@@ -102,20 +99,20 @@ uint16_t SPI_Transmit(uint8_t data){
 
 	while(!(SPI_1->SR & SPI_SR_RXNE)){}
 	// If reception is intended, read the value from the data register
-	rxd = SPI_1->DR;
+	uint16_t rxd = SPI_1->DR;
 
 	return rxd;
 }
 
-uint16_t SPI_Receive(uint8_t addr){
+uint16_t SPI_Receive(uint8_t reg_addr){
 	// Assert CS low
 	gpio_reset_bit(GPIO_E, 3u);
 	// Small delay to satisfy tCSS (a few cycles)
 	for(volatile int i=0;i<200;i++) { __asm volatile ("nop"); }
 	// Read transaction: set READ bit; some devices tolerate setting auto-increment bit too
-	addr |= 0x80; // read
-	SPI_Transmit(addr);
-	rxdf = SPI_Transmit(0x00);
+	reg_addr |= 0x80; // read
+	SPI_Transmit(reg_addr);
+	uint16_t rxdf = SPI_Transmit(0x00);
 	// Deassert CS
 	gpio_set_bit(GPIO_E, 3u);
 	return rxdf;
@@ -142,9 +139,9 @@ void LIS_Init(){
 	TIM4_ms_Delay(5);
 }
 
-int16_t LIS_Read(int reg_value){
+int16_t LIS_Read(int reg_addr){
 	// Reading the data for x-axis
-	uint16_t raw_value = SPI_Receive(reg_value);
+	uint16_t raw_value = SPI_Receive(reg_addr);
 	if ((raw_value & 0x80) == 0x80){
 		raw_value = ~raw_value;
 		raw_value += 1;
