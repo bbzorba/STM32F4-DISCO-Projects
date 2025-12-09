@@ -6,8 +6,38 @@
 #ifndef LIS302DL_H
 #define LIS302DL_H
 
+#include <stdio.h>
 #include <stdint.h>
 
+//Register Definitions for LIS302DL
+#define LIS302DL_ADDR     (0x3B)
+#define WHO_AM_I          (0x0F)
+#define CTRL_REG1         (0x20)
+#define CTRL_REG2         (0x21)
+#define CTRL_REG3         (0x22)
+#define HP_FILTER_RESET   (0x23)
+#define STATUS_REG        (0x27)
+#define OUT_X             (0x29)
+#define OUT_Y             (0x2B)
+#define OUT_Z             (0x2D)
 
+// Calibration constants
+#define X_OFFSET 18
+#define THRESH_LOW -120
+#define THRESH_HIGH 120
+
+//User-defined Function Declarations
+void LIS_GPIO_Init(GPIO_HandleTypeDef *CS_Handle);
+void LIS_SPI1_Init(void);
+uint16_t SPI_Transmit(uint8_t data);
+uint16_t SPI_Receive(GPIO_HandleTypeDef *CS_Handle, uint8_t addr);
+void LIS_Init(GPIO_HandleTypeDef *CS_Handle);
+void LIS_Write(GPIO_HandleTypeDef *CS_Handle, uint8_t addr, uint8_t data);
+void LIS_Read(GPIO_HandleTypeDef *CS_Handle);
+int16_t Convert_To_Val(uint16_t val);
+void TIM4_ms_Delay(uint16_t delay);
+
+void SPI1_SetMode(uint8_t mode);
+uint8_t LIS_WhoAmI(GPIO_HandleTypeDef *CS_Handle);
 
 #endif // LIS302DL_H

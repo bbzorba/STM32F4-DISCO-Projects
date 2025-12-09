@@ -39,6 +39,14 @@ Discarded input sections
                 0x00000000       0x10 Drivers/GPIO/src/gpio.o
  .text.GPIO_WritePin
                 0x00000000        0xc Drivers/GPIO/src/gpio.o
+ .text.GPIO_SetPin
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
+ .text.GPIO_ResetPin
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
+ .text.GPIO_SetBit
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
+ .text.GPIO_ResetBit
+                0x00000000       0x10 Drivers/GPIO/src/gpio.o
  .text          0x00000000        0x0 Drivers/GPIO/src/main.o
  .data          0x00000000        0x0 Drivers/GPIO/src/main.o
  .bss           0x00000000        0x0 Drivers/GPIO/src/main.o
@@ -252,46 +260,46 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/GPIO/src/main.o
  .comment       0x00000049       0x4a Drivers/GPIO/src/startup.o
 
-.debug_info     0x00000000      0xaae
- .debug_info    0x00000000      0x5cb Drivers/GPIO/src/gpio.o
- .debug_info    0x000005cb      0x3ee Drivers/GPIO/src/main.o
- .debug_info    0x000009b9       0xf5 Drivers/GPIO/src/startup.o
+.debug_info     0x00000000      0xb9c
+ .debug_info    0x00000000      0x6b9 Drivers/GPIO/src/gpio.o
+ .debug_info    0x000006b9      0x3ee Drivers/GPIO/src/main.o
+ .debug_info    0x00000aa7       0xf5 Drivers/GPIO/src/startup.o
 
-.debug_abbrev   0x00000000      0x412
- .debug_abbrev  0x00000000      0x19a Drivers/GPIO/src/gpio.o
- .debug_abbrev  0x0000019a      0x1af Drivers/GPIO/src/main.o
- .debug_abbrev  0x00000349       0xc9 Drivers/GPIO/src/startup.o
+.debug_abbrev   0x00000000      0x406
+ .debug_abbrev  0x00000000      0x18e Drivers/GPIO/src/gpio.o
+ .debug_abbrev  0x0000018e      0x1af Drivers/GPIO/src/main.o
+ .debug_abbrev  0x0000033d       0xc9 Drivers/GPIO/src/startup.o
 
-.debug_loc      0x00000000      0x366
- .debug_loc     0x00000000      0x318 Drivers/GPIO/src/gpio.o
- .debug_loc     0x00000318       0x4e Drivers/GPIO/src/main.o
+.debug_loc      0x00000000      0x3af
+ .debug_loc     0x00000000      0x361 Drivers/GPIO/src/gpio.o
+ .debug_loc     0x00000361       0x4e Drivers/GPIO/src/main.o
 
-.debug_aranges  0x00000000       0x90
+.debug_aranges  0x00000000       0xb0
  .debug_aranges
-                0x00000000       0x48 Drivers/GPIO/src/gpio.o
+                0x00000000       0x68 Drivers/GPIO/src/gpio.o
  .debug_aranges
-                0x00000048       0x28 Drivers/GPIO/src/main.o
+                0x00000068       0x28 Drivers/GPIO/src/main.o
  .debug_aranges
-                0x00000070       0x20 Drivers/GPIO/src/startup.o
+                0x00000090       0x20 Drivers/GPIO/src/startup.o
 
-.debug_ranges   0x00000000       0xd0
- .debug_ranges  0x00000000       0x38 Drivers/GPIO/src/gpio.o
- .debug_ranges  0x00000038       0x98 Drivers/GPIO/src/main.o
+.debug_ranges   0x00000000       0xf0
+ .debug_ranges  0x00000000       0x58 Drivers/GPIO/src/gpio.o
+ .debug_ranges  0x00000058       0x98 Drivers/GPIO/src/main.o
 
-.debug_line     0x00000000      0x855
- .debug_line    0x00000000      0x42f Drivers/GPIO/src/gpio.o
- .debug_line    0x0000042f      0x2b3 Drivers/GPIO/src/main.o
- .debug_line    0x000006e2      0x173 Drivers/GPIO/src/startup.o
+.debug_line     0x00000000      0x8dc
+ .debug_line    0x00000000      0x4b6 Drivers/GPIO/src/gpio.o
+ .debug_line    0x000004b6      0x2b3 Drivers/GPIO/src/main.o
+ .debug_line    0x00000769      0x173 Drivers/GPIO/src/startup.o
 
-.debug_str      0x00000000      0x45e
- .debug_str     0x00000000      0x380 Drivers/GPIO/src/gpio.o
-                                0x3dd (size before relaxing)
- .debug_str     0x00000380       0x36 Drivers/GPIO/src/main.o
+.debug_str      0x00000000      0x492
+ .debug_str     0x00000000      0x3b4 Drivers/GPIO/src/gpio.o
+                                0x411 (size before relaxing)
+ .debug_str     0x000003b4       0x36 Drivers/GPIO/src/main.o
                                 0x22e (size before relaxing)
- .debug_str     0x000003b6       0xa8 Drivers/GPIO/src/startup.o
+ .debug_str     0x000003ea       0xa8 Drivers/GPIO/src/startup.o
                                 0x16f (size before relaxing)
 
-.debug_frame    0x00000000      0x100
- .debug_frame   0x00000000       0x88 Drivers/GPIO/src/gpio.o
- .debug_frame   0x00000088       0x40 Drivers/GPIO/src/main.o
- .debug_frame   0x000000c8       0x38 Drivers/GPIO/src/startup.o
+.debug_frame    0x00000000      0x140
+ .debug_frame   0x00000000       0xc8 Drivers/GPIO/src/gpio.o
+ .debug_frame   0x000000c8       0x40 Drivers/GPIO/src/main.o
+ .debug_frame   0x00000108       0x38 Drivers/GPIO/src/startup.o
