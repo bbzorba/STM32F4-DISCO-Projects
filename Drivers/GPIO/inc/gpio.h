@@ -346,8 +346,8 @@ typedef struct {
     __IO uint32_t IDR;      // GPIO port input data register
     __IO uint32_t ODR;      // GPIO port output data register
     __IO uint32_t BSRR;     // GPIO port bit set/reset register
-    __IO uint32_t LCKR;     // GPIO port configuration lock register
-    __IO uint32_t AFR[2];   // GPIO alternate function registers
+     __IO uint32_t LCKR;     // GPIO port configuration lock register
+     __IO uint32_t AFR[2];   // GPIO alternate function registers (AFR[0]: AFRL, AFR[1]: AFRH)
 } GPIO_ManualTypeDef;
 
 /* GPIO handle structure */

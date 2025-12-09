@@ -97,6 +97,10 @@ typedef struct
 
 // Peripheral declarations
 #define TIM_1 ((TIM_Type *)TIM1_BASE)
+#define TIM_2 ((TIM_Type *)TIM2_BASE)
+#define TIM_3 ((TIM_Type *)TIM3_BASE)
+#define TIM_4 ((TIM_Type *)TIM4_BASE)
+#define TIM_5 ((TIM_Type *)TIM5_BASE)
 #define TIM_9 ((TIM_Type *)TIM9_BASE)
 
 // Function prototypes

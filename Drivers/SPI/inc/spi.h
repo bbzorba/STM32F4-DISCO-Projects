@@ -38,6 +38,20 @@
 #define SPI_CR1_CRCEN           ((uint32_t)0x2000)            // Hardware CRC Calculation Enable
 #define SPI_CR1_BIDIOE          ((uint32_t)0x4000)            // Output Enable in Bidirectional Mode
 #define SPI_CR1_BIDIMODE        ((uint32_t)0x8000)            // Bidirectional Data Mode Enable
+#define SPI_CR1_BR_0           ((uint32_t)0x0008)             // Baud Rate bit 0
+#define SPI_CR1_BR_1           ((uint32_t)0x0010)             // Baud Rate bit 1
+#define SPI_CR1_BR_2           ((uint32_t)0x0020)             // Baud Rate bit 2
+
+// SPI SR register bit definitions
+#define SPI_SR_RXNE             ((uint32_t)0x0001)            // Receive buffer Not Empty
+#define SPI_SR_TXE              ((uint32_t)0x0002)            // Transmit buffer Empty
+#define SPI_SR_CHSIDE           ((uint32_t)0x0004)            // Channel Side
+#define SPI_SR_UDR              ((uint32_t)0x0008)            // Underrun flag
+#define SPI_SR_CRCERR           ((uint32_t)0x0010)            // CRC Error flag
+#define SPI_SR_MODF             ((uint32_t)0x0020)            // Mode fault
+#define SPI_SR_OVR              ((uint32_t)0x0040)            // Overrun flag
+#define SPI_SR_BSY              ((uint32_t)0x0080)            // Busy flag
+#define SPI_SR_FRE              ((uint32_t)0x0100)            // TI frame format error flag
 
 // SPI configuration enums
 typedef enum {
