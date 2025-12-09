@@ -119,6 +119,7 @@ public:
     void SPI_DeInit(void);
     void SPI_CS_Low(GPIO GPIOx, uint16_t CS_pin);
     void SPI_CS_High(GPIO GPIOx, uint16_t CS_pin);
+    void SPI_SetMode(uint8_t mode);
 }; // High-level handle ("object")
 
 // SPI peripheral declarations

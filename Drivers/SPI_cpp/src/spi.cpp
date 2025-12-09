@@ -138,5 +138,12 @@ void SPI::SPI_DeInit()
     }
 }
 
+void SPI::SPI_SetMode(uint8_t mode) {
+	// mode: 0..3
+	this->regs->CR1 &= ~(SPI_CR1_CPOL | SPI_CR1_CPHA);
+	if (mode & 0x02) this->regs->CR1 |= SPI_CR1_CPOL;
+	if (mode & 0x01) this->regs->CR1 |= SPI_CR1_CPHA;
+}
+
 void SPI::SPI_CS_Low(GPIO GPIOx, uint16_t CS_pin)  { GPIOx.GPIO_ResetPin(CS_pin); }
 void SPI::SPI_CS_High(GPIO GPIOx, uint16_t CS_pin) { GPIOx.GPIO_SetPin(CS_pin); }

@@ -11,26 +11,29 @@ int16_t x_final, y_final, z_final;
 
 int main(void){
 
-	LIS_GPIO_Init();
-	// Initialize SPI using project SPI driver, then apply LIS-specific tweaks
-	SPI_HandleType spi;
-	SPI_Init(&spi, SPI_1, SPI1_PORTA, SPI_MODE_MASTER, SPI_BAUDRATE_DIV256, SPI_DIRECTION_2LINES);
+    GPIO_HandleTypeDef* spi_pin_handle = LIS_SPI_Pins_Init();
+    GPIO_HandleTypeDef* cs_pin_handle = LIS_CS_Pin_Init();
+    GPIO_HandleTypeDef* leds_handle = LEDS_Init();
+
+	// Initialize SPI device using SPI driver
+	SPI_HandleType lis302;
+	SPI_Init(&lis302, SPI_1, SPI1_PORTA, SPI_MODE_MASTER, SPI_BAUDRATE_DIV256, SPI_DIRECTION_2LINES);
 	// Ensure 8-bit, MSB-first, mode 3 (CPOL=1, CPHA=1), and disable CRC
-	SPI_1->CR1 &= ~SPI_CR1_LSBFIRST;
-	SPI_1->CR1 |= (SPI_CR1_CPOL | SPI_CR1_CPHA);
-	SPI_1->CR1 &= ~SPI_CR1_CRCEN;
+	lis302.regs->CR1 &= ~SPI_CR1_LSBFIRST;
+	lis302.regs->CR1 |= (SPI_CR1_CPOL | SPI_CR1_CPHA);
+	lis302.regs->CR1 &= ~SPI_CR1_CRCEN;
 	LIS_Init();
 
 	// Probe WHO_AM_I and try mode fallback if not 0x3B
 	uint8_t who = LIS_WhoAmI();
 	if (who != 0x3B) {
 		// try mode 0
-		SPI1_SetMode(0);
+		SPI_SetMode(&lis302, 0);
 		TIM4_ms_Delay(1);
 		who = LIS_WhoAmI();
 		if (who != 0x3B) {
 			// restore mode 3 as default
-			SPI1_SetMode(3);
+			SPI_SetMode(&lis302, 3);
 		}
 	}
 
@@ -50,24 +53,24 @@ int main(void){
 		// Switch on LEDs based on the acceleration value obtained
 		if ((x_final != 0) && (y_final != 0)){
 			if (x_final > THRESH_HIGH){
-				GPIO_D->ODR |= (1u<<14);
-				GPIO_D->ODR &= ~((1u<<12) | (1u<<13) | (1u<<15));
+				GPIO_SetPin(leds_handle, GPIO_PIN_14);
+				GPIO_ResetPin(leds_handle, GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_15);
 			}
 			else if (x_final < THRESH_LOW){
-				GPIO_D->ODR |= (1u<<12);
-				GPIO_D->ODR &= ~((1u<<14) | (1u<<13) | (1u<<15));
+				GPIO_SetPin(leds_handle, GPIO_PIN_12);
+				GPIO_ResetPin(leds_handle, GPIO_PIN_14 | GPIO_PIN_13 | GPIO_PIN_15);
 			}
 			if (y_final > THRESH_HIGH){
-				GPIO_D->ODR |= (1u<<13);
-				GPIO_D->ODR &= ~((1u<<12) | (1u<<14) | (1u<<15));
+				GPIO_SetPin(leds_handle, GPIO_PIN_13);
+				GPIO_ResetPin(leds_handle, GPIO_PIN_12 | GPIO_PIN_14 | GPIO_PIN_15);
 			}
 			else if (y_final < THRESH_LOW ){
-				GPIO_D->ODR |= (1u<<15);
-				GPIO_D->ODR &= ~((1u<<12) | (1u<<13) | (1u<<14));
+				GPIO_SetPin(leds_handle, GPIO_PIN_15);
+				GPIO_ResetPin(leds_handle, GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14);
 			}
 		}
 		else
-			GPIO_D->ODR &= ~((1u<<12) | (1u<<13) | (1u<<14) | (1u<<15));
+            GPIO_ResetPin(leds_handle, GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15);
 
 		// Also stream over UART2
 		{

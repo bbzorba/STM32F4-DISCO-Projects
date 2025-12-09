@@ -26,7 +26,9 @@
 #define THRESH_HIGH 120
 
 // Public API
-void LIS_GPIO_Init(void);
+GPIO_HandleTypeDef* LIS_SPI_Pins_Init();
+GPIO_HandleTypeDef* LIS_CS_Pin_Init();
+GPIO_HandleTypeDef* LEDS_Init();
 uint16_t SPI_Transmit(uint8_t data);
 uint16_t SPI_Receive(uint8_t addr);
 void LIS_Init(void);
@@ -34,6 +36,5 @@ void LIS_Write(uint8_t addr, uint8_t data);
 int16_t LIS_Read(int reg_addr);
 void TIM4_ms_Delay(uint16_t delay);
 uint8_t LIS_WhoAmI(void);
-void SPI1_SetMode(uint8_t mode);
 
 #endif // LIS302DL_H

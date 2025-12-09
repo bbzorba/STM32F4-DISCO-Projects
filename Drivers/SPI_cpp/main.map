@@ -59,6 +59,8 @@ Discarded input sections
  .bss           0x00000000        0x0 Drivers/SPI_cpp/src/spi.o
  .text._ZN3SPI10SPI_DeInitEv
                 0x00000000       0x58 Drivers/SPI_cpp/src/spi.o
+ .text._ZN3SPI11SPI_SetModeEh
+                0x00000000       0x24 Drivers/SPI_cpp/src/spi.o
  .text          0x00000000        0x0 Drivers/SPI_cpp/src/startup.o
  .data          0x00000000        0x0 Drivers/SPI_cpp/src/startup.o
  .bss           0x00000000        0x0 Drivers/SPI_cpp/src/startup.o
@@ -405,11 +407,11 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Drivers/SPI_cpp/src/spi.o
  .comment       0x00000049       0x4a Drivers/SPI_cpp/src/startup.o
 
-.debug_info     0x00000000     0x1abd
+.debug_info     0x00000000     0x1aed
  .debug_info    0x00000000      0x76e Drivers/GPIO_cpp/src/gpio.o
  .debug_info    0x0000076e      0x7ba Drivers/SPI_cpp/src/main.o
- .debug_info    0x00000f28      0xaa0 Drivers/SPI_cpp/src/spi.o
- .debug_info    0x000019c8       0xf5 Drivers/SPI_cpp/src/startup.o
+ .debug_info    0x00000f28      0xad0 Drivers/SPI_cpp/src/spi.o
+ .debug_info    0x000019f8       0xf5 Drivers/SPI_cpp/src/startup.o
 
 .debug_abbrev   0x00000000      0x87b
  .debug_abbrev  0x00000000      0x22d Drivers/GPIO_cpp/src/gpio.o
@@ -417,44 +419,44 @@ LOAD linker stubs
  .debug_abbrev  0x000004b8      0x2fa Drivers/SPI_cpp/src/spi.o
  .debug_abbrev  0x000007b2       0xc9 Drivers/SPI_cpp/src/startup.o
 
-.debug_loc      0x00000000      0x65f
+.debug_loc      0x00000000      0x684
  .debug_loc     0x00000000      0x2fd Drivers/GPIO_cpp/src/gpio.o
- .debug_loc     0x000002fd      0x362 Drivers/SPI_cpp/src/spi.o
+ .debug_loc     0x000002fd      0x387 Drivers/SPI_cpp/src/spi.o
 
-.debug_aranges  0x00000000       0xd8
+.debug_aranges  0x00000000       0xe0
  .debug_aranges
                 0x00000000       0x50 Drivers/GPIO_cpp/src/gpio.o
  .debug_aranges
                 0x00000050       0x20 Drivers/SPI_cpp/src/main.o
  .debug_aranges
-                0x00000070       0x40 Drivers/SPI_cpp/src/spi.o
+                0x00000070       0x48 Drivers/SPI_cpp/src/spi.o
  .debug_aranges
-                0x000000b0       0x28 Drivers/SPI_cpp/src/startup.o
+                0x000000b8       0x28 Drivers/SPI_cpp/src/startup.o
 
-.debug_ranges   0x00000000      0x130
+.debug_ranges   0x00000000      0x138
  .debug_ranges  0x00000000       0x60 Drivers/GPIO_cpp/src/gpio.o
  .debug_ranges  0x00000060       0x10 Drivers/SPI_cpp/src/main.o
- .debug_ranges  0x00000070       0xa8 Drivers/SPI_cpp/src/spi.o
- .debug_ranges  0x00000118       0x18 Drivers/SPI_cpp/src/startup.o
+ .debug_ranges  0x00000070       0xb0 Drivers/SPI_cpp/src/spi.o
+ .debug_ranges  0x00000120       0x18 Drivers/SPI_cpp/src/startup.o
 
-.debug_line     0x00000000      0xe1f
+.debug_line     0x00000000      0xe6a
  .debug_line    0x00000000      0x401 Drivers/GPIO_cpp/src/gpio.o
  .debug_line    0x00000401      0x295 Drivers/SPI_cpp/src/main.o
- .debug_line    0x00000696      0x612 Drivers/SPI_cpp/src/spi.o
- .debug_line    0x00000ca8      0x177 Drivers/SPI_cpp/src/startup.o
+ .debug_line    0x00000696      0x65d Drivers/SPI_cpp/src/spi.o
+ .debug_line    0x00000cf3      0x177 Drivers/SPI_cpp/src/startup.o
 
-.debug_str      0x00000000      0x9dc
- .debug_str     0x00000000      0x49a Drivers/GPIO_cpp/src/gpio.o
+.debug_str      0x00000000      0x9fa
+ .debug_str     0x00000000      0x495 Drivers/GPIO_cpp/src/gpio.o
                                 0x558 (size before relaxing)
- .debug_str     0x0000049a      0x3b1 Drivers/SPI_cpp/src/main.o
+ .debug_str     0x00000495      0x3b1 Drivers/SPI_cpp/src/main.o
                                 0x7f9 (size before relaxing)
- .debug_str     0x0000084b       0xc6 Drivers/SPI_cpp/src/spi.o
-                                0x986 (size before relaxing)
- .debug_str     0x00000911       0xcb Drivers/SPI_cpp/src/startup.o
+ .debug_str     0x00000846       0xe9 Drivers/SPI_cpp/src/spi.o
+                                0x95e (size before relaxing)
+ .debug_str     0x0000092f       0xcb Drivers/SPI_cpp/src/startup.o
                                 0x192 (size before relaxing)
 
-.debug_frame    0x00000000      0x194
+.debug_frame    0x00000000      0x1a4
  .debug_frame   0x00000000       0x98 Drivers/GPIO_cpp/src/gpio.o
  .debug_frame   0x00000098       0x2c Drivers/SPI_cpp/src/main.o
- .debug_frame   0x000000c4       0x98 Drivers/SPI_cpp/src/spi.o
- .debug_frame   0x0000015c       0x38 Drivers/SPI_cpp/src/startup.o
+ .debug_frame   0x000000c4       0xa8 Drivers/SPI_cpp/src/spi.o
+ .debug_frame   0x0000016c       0x38 Drivers/SPI_cpp/src/startup.o
