@@ -10,8 +10,15 @@
 int16_t x_final, y_final, z_final;
 
 int main(void){
+
 	LIS_GPIO_Init();
-	LIS_SPI1_Init();
+	// Initialize SPI using project SPI driver, then apply LIS-specific tweaks
+	SPI_HandleType spi;
+	SPI_Init(&spi, SPI_1, SPI1_PORTA, SPI_MODE_MASTER, SPI_BAUDRATE_DIV256, SPI_DIRECTION_2LINES);
+	// Ensure 8-bit, MSB-first, mode 3 (CPOL=1, CPHA=1), and disable CRC
+	SPI_1->CR1 &= ~SPI_CR1_LSBFIRST;
+	SPI_1->CR1 |= (SPI_CR1_CPOL | SPI_CR1_CPHA);
+	SPI_1->CR1 &= ~SPI_CR1_CRCEN;
 	LIS_Init();
 
 	// Probe WHO_AM_I and try mode fallback if not 0x3B

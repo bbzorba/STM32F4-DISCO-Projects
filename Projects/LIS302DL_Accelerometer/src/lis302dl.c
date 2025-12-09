@@ -53,44 +53,6 @@ void LIS_GPIO_Init(){
 	GPIO_D->MODER |=  ((1u<<(12*2)) | (1u<<(13*2)) | (1u<<(14*2)) | (1u<<(15*2)));
 }
 
-void LIS_SPI1_Init(){
-	// Enable SPI clock
-	RCC->APB2ENR |= RCC_APB2ENR_SPI_1EN;
-
-	// Select the Master Configuration
-	SPI_1->CR1 |= SPI_CR1_MSTR;
-
-	SPI_1->CR1 &= ~SPI_CR1_BIDIMODE;
-
-	SPI_1->CR1 &= ~SPI_CR1_RXONLY;
-
-	// Set the Data Frame Format (DFF) to '0' or 8-bit.
-	SPI_1->CR1 &= ~SPI_CR1_DFF;
-
-	// SSI and SSM bits in the SP1->CR1 register need to be set
-	// to '1'
-	SPI_1->CR1 |= (SPI_CR1_SSI | SPI_CR1_SSM);
-
-	// Setting Baud Rate: f_PCLK/256 (slow and safe)
-	SPI_1->CR1 &= ~SPI_CR1_BR;
-	SPI_1->CR1 |= (SPI_CR1_BR_0 | SPI_CR1_BR_1 | SPI_CR1_BR_2);
-
-	// Set the transmission to MSB First Mode
-	SPI_1->CR1 &= ~SPI_CR1_LSBFIRST;
-
-	// Configure CPOL and CPHA to 1 and 1 (SPI mode 3) required by LIS302DL
-	SPI_1->CR1 |= (SPI_CR1_CPOL | SPI_CR1_CPHA);
-
-	// Disable CRC (not used)
-	SPI_1->CR1 &= ~SPI_CR1_CRCEN;
-
-	// Enable SPI
-	SPI_1->CR1 |= SPI_CR1_SPE;
-
-	// Selecting Motorola Format
-	SPI_1->CR2 = 0x0000;
-}
-
 uint16_t SPI_Transmit(uint8_t data){
 	//  Wait until the TX buffer is empty, i.e. data is transmitted
 	while(!((SPI_1->SR) & SPI_SR_TXE)){}

@@ -27,13 +27,11 @@
 
 // Public API
 void LIS_GPIO_Init(void);
-void LIS_SPI1_Init(void);
 uint16_t SPI_Transmit(uint8_t data);
 uint16_t SPI_Receive(uint8_t addr);
 void LIS_Init(void);
 void LIS_Write(uint8_t addr, uint8_t data);
-int16_t LIS_Read(int reg_value);
-int16_t Convert_To_Val(uint16_t val);
+int16_t LIS_Read(int reg_addr);
 void TIM4_ms_Delay(uint16_t delay);
 uint8_t LIS_WhoAmI(void);
 void SPI1_SetMode(uint8_t mode);
