@@ -196,6 +196,7 @@ TARGET=$(PROJECT_DIR)/main
 
 all: build
 build: $(OBJ)
+	-$(RM) $(PROJECT_DIR)\src\*.o 2>nul || exit 0
 	$(LINKER) $(CFLAGS) $(OBJ) -Wl,-Map=$(TARGET).map -o $(TARGET).elf $(LDFLAGS) $(EXTRA_LDFLAGS)
 	$(OBJCOPY) -O ihex $(TARGET).elf $(TARGET).hex
 	$(OBJCOPY) -O binary $(TARGET).elf $(TARGET).bin

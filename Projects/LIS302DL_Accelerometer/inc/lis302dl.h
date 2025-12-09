@@ -6,10 +6,9 @@
 #ifndef LIS302DL_H
 #define LIS302DL_H
 
-#include <stdio.h>
 #include <stdint.h>
 
-//Register Definitions for LIS302DL
+// LIS302DL register addresses
 #define LIS302DL_ADDR     (0x3B)
 #define WHO_AM_I          (0x0F)
 #define CTRL_REG1         (0x20)
@@ -26,18 +25,15 @@
 #define THRESH_LOW -120
 #define THRESH_HIGH 120
 
-//User-defined Function Declarations
-void LIS_GPIO_Init(GPIO_HandleTypeDef *CS_Handle);
+// Public API
+void LIS_GPIO_Init(void);
 void LIS_SPI1_Init(void);
 uint16_t SPI_Transmit(uint8_t data);
-uint16_t SPI_Receive(GPIO_HandleTypeDef *CS_Handle, uint8_t addr);
-void LIS_Init(GPIO_HandleTypeDef *CS_Handle);
-void LIS_Write(GPIO_HandleTypeDef *CS_Handle, uint8_t addr, uint8_t data);
-void LIS_Read(GPIO_HandleTypeDef *CS_Handle);
+uint16_t SPI_Receive(uint8_t addr);
+void LIS_Init(void);
+void LIS_Write(uint8_t addr, uint8_t data);
+void LIS_Read(void);
 int16_t Convert_To_Val(uint16_t val);
 void TIM4_ms_Delay(uint16_t delay);
-
-void SPI1_SetMode(uint8_t mode);
-uint8_t LIS_WhoAmI(GPIO_HandleTypeDef *CS_Handle);
 
 #endif // LIS302DL_H

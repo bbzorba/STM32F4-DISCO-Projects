@@ -387,8 +387,8 @@ void GPIO_Init(GPIO_HandleTypeDef *GPIOx);
 void GPIO_TogglePin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin);
 void GPIO_SetPin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin);
 void GPIO_ResetPin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin);
-void GPIO_SetBit(GPIO_HandleTypeDef *GPIOx, uint32_t pin);
-void GPIO_ResetBit(GPIO_HandleTypeDef *GPIOx, uint32_t pin);
+void GPIO_SetBit(GPIO_ManualTypeDef *regs, uint32_t pin);
+void GPIO_ResetBit(GPIO_ManualTypeDef *regs, uint32_t pin);
 void GPIO_WritePin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin, GPIO_PinState PinState);
 GPIO_PinState GPIO_ReadPin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin);
 void __RCC_GPIO_CLK_ENABLE(GPIO_HandleTypeDef *GPIOx); // RCC peripheral clock enable function

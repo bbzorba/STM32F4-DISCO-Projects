@@ -105,12 +105,12 @@ void GPIO_ResetPin(GPIO_HandleTypeDef *GPIOx, uint16_t GPIO_Pin) {
     GPIOx->regs->ODR &= ~GPIO_Pin; // Reset the pin
 }
 
-void GPIO_SetBit(GPIO_HandleTypeDef *GPIOx, uint32_t pin) { 
-    GPIOx->regs->BSRR = (1u << pin); 
+void GPIO_SetBit(GPIO_ManualTypeDef *regs, uint32_t pin) { 
+    regs->BSRR = (1u << pin); 
 }
 
-void GPIO_ResetBit(GPIO_HandleTypeDef *GPIOx, uint32_t pin) { 
-    GPIOx->regs->BSRR = (1u << (pin + 16u)); 
+void GPIO_ResetBit(GPIO_ManualTypeDef *regs, uint32_t pin) { 
+    regs->BSRR = (1u << (pin + 16u)); 
 }
 
 void __RCC_GPIO_CLK_ENABLE(GPIO_HandleTypeDef *GPIOx) {
