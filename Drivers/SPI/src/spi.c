@@ -1,12 +1,13 @@
 #include "../inc/spi.h"
 
-void SPI_Init(SPI_HandleType *spi, SPI_ManualType *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode, SPI_BaudRateType _baudrate, SPI_DirectionType _direction)
+void SPI_Init(SPI_HandleType *spi, SPI_ManualType *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode, SPI_BaudRateType _baudrate, SPI_DirectionType _direction, SPI_ClockConfigType _clockConfig)
 {
     spi->regs = regs;
     spi->pinConfig = _pinConfig;
     spi->mode = _mode;
     spi->baudrate = _baudrate;
     spi->direction = _direction;
+    spi->clockConfig = _clockConfig;
 
     // Enable SPI clock & configure pins
 
@@ -81,6 +82,29 @@ void SPI_Init(SPI_HandleType *spi, SPI_ManualType *regs, SPI_PinConfigType _pinC
     cr1 |= ((uint32_t)_baudrate << 3) & SPI_CR1_BR;
     cr1 |= (_direction == SPI_DIRECTION_2LINES) ? 0 : SPI_CR1_BIDIMODE;
     cr1 |= SPI_CR1_SSM | SPI_CR1_SSI; // Software slave management
+    cr1 &= ~SPI_CR1_LSBFIRST; // MSB first
+	cr1 &= ~SPI_CR1_CRCEN; // Disable CRC
+    
+    // Configure clock polarity and phase
+    switch (_clockConfig) {
+        case SPI_CLOCK_POL_LOW_PHASE_1EDGE:
+            // CPOL = 0, CPHA = 0
+            break;
+        case SPI_CLOCK_POL_LOW_PHASE_2EDGE:
+            // CPOL = 0, CPHA = 1
+            cr1 |= SPI_CR1_CPHA;
+            break;
+        case SPI_CLOCK_POL_HIGH_PHASE_1EDGE:
+            // CPOL = 1, CPHA = 0
+            cr1 |= SPI_CR1_CPOL;
+            break;
+        case SPI_CLOCK_POL_HIGH_PHASE_2EDGE:
+            // CPOL = 1, CPHA = 1
+            cr1 |= SPI_CR1_CPOL | SPI_CR1_CPHA;
+            break;
+        default:
+            break;
+    }
     regs->CR1 = cr1;
 
     // Enable SPI

@@ -19,7 +19,7 @@ int main(void)
     SPI_CS_High(&CS_Handle, GPIO_InitStruct.Pin); // Set high (not selected)
 
     // Initialize SPI1 on PB3/PB4/PB5 as master, baud rate div16, full duplex
-    SPI_Init(&spi1, SPI_1, SPI1_PORTB, SPI_MODE_MASTER, SPI_BAUDRATE_DIV16, SPI_DIRECTION_2LINES);
+    SPI_Init(&spi1, SPI_1, SPI1_PORTB, SPI_MODE_MASTER, SPI_BAUDRATE_DIV16, SPI_DIRECTION_2LINES, SPI_CLOCK_POL_LOW_PHASE_1EDGE);
 
     // Simple loopback test if no device: send pattern and read back
     uint8_t loop_tx[8] = {0x55,0xAA,0x12,0x34,0xBE,0xEF,0x00,0xFF};

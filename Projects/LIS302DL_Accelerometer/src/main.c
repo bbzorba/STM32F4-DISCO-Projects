@@ -17,32 +17,20 @@ int main(void){
 
 	// Initialize SPI device using SPI driver
 	SPI_HandleType lis302;
-	SPI_Init(&lis302, SPI_1, SPI1_PORTA, SPI_MODE_MASTER, SPI_BAUDRATE_DIV256, SPI_DIRECTION_2LINES);
-	// Ensure 8-bit, MSB-first, mode 3 (CPOL=1, CPHA=1), and disable CRC
-	lis302.regs->CR1 &= ~SPI_CR1_LSBFIRST;
-	lis302.regs->CR1 |= (SPI_CR1_CPOL | SPI_CR1_CPHA);
-	lis302.regs->CR1 &= ~SPI_CR1_CRCEN;
+	SPI_Init(&lis302, SPI_1, SPI1_PORTA, SPI_MODE_MASTER, SPI_BAUDRATE_DIV256, SPI_DIRECTION_2LINES, SPI_CLOCK_POL_HIGH_PHASE_2EDGE);
+    
+    // Initialize the LIS302DL accelerometer
 	LIS_Init();
 
 	// Probe WHO_AM_I and try mode fallback if not 0x3B
-	uint8_t who = LIS_WhoAmI();
-	if (who != 0x3B) {
-		// try mode 0
-		SPI_SetMode(&lis302, 0);
-		TIM4_ms_Delay(1);
-		who = LIS_WhoAmI();
-		if (who != 0x3B) {
-			// restore mode 3 as default
-			SPI_SetMode(&lis302, 3);
-		}
-	}
+	mode_fallback(&lis302, 0x3B);
 
 	// Init USART2 (TX only) to stream accelerometer values
 	USART_HandleType usart;
 	USART_constructor(&usart, USART_2, TX_ONLY, __115200);
 	USART_WriteString(&usart, "LIS302DL SPI stream on USART2 @115200\r\n");
 	// Ensure CS high when idle
-	GPIO_E->BSRR = (1u << 3u);
+	set_cs_pin(GPIO_E, 3u);
 	while(1){
 
 		// Use the Convert_To_Val function to convert raw data into actual data

@@ -85,14 +85,11 @@ typedef enum {
 } SPI_DataSizeType;
 
 typedef enum {
-    SPI_CLOCK_POLARITY_LOW = 0,
-    SPI_CLOCK_POLARITY_HIGH
-}SPI_ClockPolarityType;
-
-typedef enum {
-    SPI_CLOCK_PHASE_1EDGE = 0,
-    SPI_CLOCK_PHASE_2EDGE
-}SPI_ClockPhaseType;
+    SPI_CLOCK_POL_LOW_PHASE_1EDGE = 0,   // Mode 0
+    SPI_CLOCK_POL_LOW_PHASE_2EDGE,       // Mode 1
+    SPI_CLOCK_POL_HIGH_PHASE_1EDGE,      // Mode 2
+    SPI_CLOCK_POL_HIGH_PHASE_2EDGE       // Mode 3
+} SPI_ClockConfigType;
 
 typedef enum {
     SPI1_PORTA = 0,
@@ -125,6 +122,7 @@ typedef struct
     SPI_ModeType mode;                  // SPI mode (master/slave)
     SPI_DirectionType direction;        // SPI direction
     SPI_DataSizeType datasize;          // SPI data size
+    SPI_ClockConfigType clockConfig;    // SPI clock configuration
 }SPI_HandleType; // High-level handle ("object")
 
 // SPI peripheral declarations
@@ -133,7 +131,7 @@ typedef struct
 #define SPI_3 ((SPI_ManualType *)SPI_3_BASE)
 
 // SPI function prototypes (high-level handle based)
-void SPI_Init(SPI_HandleType *spi, SPI_ManualType *regs, SPI_PinConfigType pinConfig, SPI_ModeType mode, SPI_BaudRateType baudrate, SPI_DirectionType direction);
+void SPI_Init(SPI_HandleType *spi, SPI_ManualType *regs, SPI_PinConfigType pinConfig, SPI_ModeType mode, SPI_BaudRateType baudrate, SPI_DirectionType direction, SPI_ClockConfigType clockConfig);
 int  SPI_WriteRead(SPI_HandleType *spi, const uint8_t *txData, uint8_t *rxData, size_t length);
 void SPI_DeInit(SPI_HandleType *spi);
 void SPI_SetMode(SPI_HandleType *spi, uint8_t mode);

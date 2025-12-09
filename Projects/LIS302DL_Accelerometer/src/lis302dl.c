@@ -53,6 +53,13 @@ GPIO_HandleTypeDef* LEDS_Init(){
 	return &s_leds_handle;
 }
 
+void LIS_Init(){
+	// Powering on the accelerometer and Enabling the x,y and z axis for acceleration capture
+	LIS_Write(CTRL_REG1, 0x47);
+	// Short settle
+	TIM4_ms_Delay(5);
+}
+
 uint16_t SPI_Transmit(uint8_t data){
 	//  Wait until the TX buffer is empty, i.e. data is transmitted
 	while(!((SPI_1->SR) & SPI_SR_TXE)){}
@@ -78,13 +85,6 @@ uint16_t SPI_Receive(uint8_t reg_addr){
 	// Deassert CS
 	set_cs_pin(GPIO_E, 3u);
 	return rxdf;
-}
-
-void LIS_Init(){
-	// Powering on the accelerometer and Enabling the x,y and z axis for acceleration capture
-	LIS_Write(CTRL_REG1, 0x47);
-	// Short settle
-	TIM4_ms_Delay(5);
 }
 
 void LIS_Write(uint8_t addr,uint8_t data){
@@ -122,4 +122,20 @@ void TIM4_ms_Delay(uint16_t delay){
 	}
 }
 
-uint8_t LIS_WhoAmI(void) { return SPI_ReadReg(WHO_AM_I); }
+uint8_t LIS_WhoAmI(void) { 
+	return SPI_ReadReg(WHO_AM_I); 
+}
+
+void mode_fallback(SPI_HandleType* spi, uint8_t expected){
+	uint8_t who = LIS_WhoAmI();
+	if (who != expected) {
+		// try mode 0
+		SPI_SetMode(spi, 0);
+		TIM4_ms_Delay(1);
+		who = LIS_WhoAmI();
+		if (who != expected) {
+			// restore mode 3 as default
+			SPI_SetMode(spi, 3);
+		}
+	}
+}
