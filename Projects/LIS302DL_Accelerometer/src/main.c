@@ -6,19 +6,6 @@
 // Use project drivers via unified header
 #include "../inc/lis302dl.h"
 
-// Definitions moved to lis302dl.h
-
-//User-defined Function Declarations
-void LIS_GPIO_Init(void);
-void LIS_SPI1_Init(void);
-uint16_t SPI_Transmit(uint8_t data);
-uint16_t SPI_Receive(uint8_t addr);
-void LIS_Init(void);
-void LIS_Write(uint8_t addr, uint8_t data);
-void LIS_Read(void);
-int16_t Convert_To_Val(uint16_t val);
-void TIM4_ms_Delay(uint16_t delay);
-
 //User-defined variables
 uint16_t x,y,z;
 int16_t x_final, y_final, z_final;

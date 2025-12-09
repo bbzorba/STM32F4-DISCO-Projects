@@ -592,17 +592,17 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Projects/LIS302DL_Accelerometer/src/startup.o
  .comment       0x00000049       0x4a Projects/LIS302DL_Accelerometer/src/stubs.o
 
-.debug_info     0x00000000     0x2151
+.debug_info     0x00000000     0x2150
  .debug_info    0x00000000      0x7b8 Drivers/UART/src/uart.o
- .debug_info    0x000007b8     0x1104 Projects/LIS302DL_Accelerometer/src/main.o
- .debug_info    0x000018bc      0x39b Projects/LIS302DL_Accelerometer/src/startup.o
- .debug_info    0x00001c57      0x4fa Projects/LIS302DL_Accelerometer/src/stubs.o
+ .debug_info    0x000007b8     0x1103 Projects/LIS302DL_Accelerometer/src/main.o
+ .debug_info    0x000018bb      0x39b Projects/LIS302DL_Accelerometer/src/startup.o
+ .debug_info    0x00001c56      0x4fa Projects/LIS302DL_Accelerometer/src/stubs.o
 
-.debug_abbrev   0x00000000      0x922
+.debug_abbrev   0x00000000      0x90c
  .debug_abbrev  0x00000000      0x2e1 Drivers/UART/src/uart.o
- .debug_abbrev  0x000002e1      0x3bb Projects/LIS302DL_Accelerometer/src/main.o
- .debug_abbrev  0x0000069c      0x110 Projects/LIS302DL_Accelerometer/src/startup.o
- .debug_abbrev  0x000007ac      0x176 Projects/LIS302DL_Accelerometer/src/stubs.o
+ .debug_abbrev  0x000002e1      0x3a5 Projects/LIS302DL_Accelerometer/src/main.o
+ .debug_abbrev  0x00000686      0x110 Projects/LIS302DL_Accelerometer/src/startup.o
+ .debug_abbrev  0x00000796      0x176 Projects/LIS302DL_Accelerometer/src/stubs.o
 
 .debug_loc      0x00000000      0xd38
  .debug_loc     0x00000000      0x42a Drivers/UART/src/uart.o
@@ -624,11 +624,11 @@ LOAD linker stubs
  .debug_ranges  0x00000098      0x460 Projects/LIS302DL_Accelerometer/src/main.o
  .debug_ranges  0x000004f8       0x18 Projects/LIS302DL_Accelerometer/src/startup.o
 
-.debug_line     0x00000000     0x1d7d
+.debug_line     0x00000000     0x1d7c
  .debug_line    0x00000000      0xb0a Drivers/UART/src/uart.o
- .debug_line    0x00000b0a      0xdf3 Projects/LIS302DL_Accelerometer/src/main.o
- .debug_line    0x000018fd      0x1e7 Projects/LIS302DL_Accelerometer/src/startup.o
- .debug_line    0x00001ae4      0x299 Projects/LIS302DL_Accelerometer/src/stubs.o
+ .debug_line    0x00000b0a      0xdf2 Projects/LIS302DL_Accelerometer/src/main.o
+ .debug_line    0x000018fc      0x1e7 Projects/LIS302DL_Accelerometer/src/startup.o
+ .debug_line    0x00001ae3      0x299 Projects/LIS302DL_Accelerometer/src/stubs.o
 
 .debug_str      0x00000000      0x7ad
  .debug_str     0x00000000      0x3dd Drivers/UART/src/uart.o
