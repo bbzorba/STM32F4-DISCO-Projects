@@ -71,14 +71,11 @@ typedef enum {
 } SPI_DataSizeType;
 
 typedef enum {
-    SPI_CLOCK_POLARITY_LOW = 0,
-    SPI_CLOCK_POLARITY_HIGH
-}SPI_ClockPolarityType;
-
-typedef enum {
-    SPI_CLOCK_PHASE_1EDGE = 0,
-    SPI_CLOCK_PHASE_2EDGE
-}SPI_ClockPhaseType;
+    SPI_CLOCK_POL_LOW_PHASE_1EDGE = 0,   // Mode 0
+    SPI_CLOCK_POL_LOW_PHASE_2EDGE,       // Mode 1
+    SPI_CLOCK_POL_HIGH_PHASE_1EDGE,      // Mode 2
+    SPI_CLOCK_POL_HIGH_PHASE_2EDGE       // Mode 3
+} SPI_ClockConfigType;
 
 typedef enum {
     SPI1_PORTA = 0,
@@ -112,14 +109,25 @@ private:
     SPI_ModeType mode;                  // SPI mode (master/slave)
     SPI_DirectionType direction;        // SPI direction
     SPI_DataSizeType datasize;          // SPI data size
+    SPI_ClockConfigType clockConfig;  // SPI clock polarity/phase
 
 public:
-    SPI(SPI_ManualType *regs, SPI_PinConfigType pinConfig, SPI_ModeType mode, SPI_BaudRateType baudrate, SPI_DirectionType direction);
+    SPI(SPI_ManualType *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode, SPI_BaudRateType _baudrate, SPI_DirectionType _direction, SPI_ClockConfigType _clockConfig);
     int  SPI_WriteRead(const uint8_t *txData, uint8_t *rxData, size_t length);
     void SPI_DeInit(void);
     void SPI_CS_Low(GPIO GPIOx, uint16_t CS_pin);
     void SPI_CS_High(GPIO GPIOx, uint16_t CS_pin);
     void SPI_SetMode(uint8_t mode);
+    // Generic single-register read: send (reg | readFlag) then read 1 byte
+    uint8_t SPI_ReadReg(GPIO cs,
+                        uint16_t cs_pin_mask,
+                        uint8_t reg,
+                        uint8_t readFlag);
+
+    void SPI_WriteReg(GPIO cs,
+                        uint16_t cs_pin_mask,
+                        uint8_t reg,
+                        uint8_t data);
 }; // High-level handle ("object")
 
 // SPI peripheral declarations

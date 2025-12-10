@@ -1,12 +1,13 @@
 #include "../inc/spi.h"
 
-SPI::SPI(SPI_ManualType *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode, SPI_BaudRateType _baudrate, SPI_DirectionType _direction)
+SPI::SPI(SPI_ManualType *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode, SPI_BaudRateType _baudrate, SPI_DirectionType _direction, SPI_ClockConfigType _clockConfig)
 {
     this->regs = regs;
     this->pinConfig = _pinConfig;
     this->mode = _mode;
     this->baudrate = _baudrate;
     this->direction = _direction;
+    this->clockConfig = _clockConfig;
 
     // Enable SPI clock & configure pins
 
@@ -81,6 +82,29 @@ SPI::SPI(SPI_ManualType *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode,
     cr1 |= ((uint32_t)_baudrate << 3) & SPI_CR1_BR;
     cr1 |= (_direction == SPI_DIRECTION_2LINES) ? 0 : SPI_CR1_BIDIMODE;
     cr1 |= SPI_CR1_SSM | SPI_CR1_SSI; // Software slave management
+    cr1 &= ~SPI_CR1_LSBFIRST; // MSB first
+	cr1 &= ~SPI_CR1_CRCEN; // Disable CRC
+    
+    // Configure clock polarity and phase
+    switch (_clockConfig) {
+        case SPI_CLOCK_POL_LOW_PHASE_1EDGE:
+            // CPOL = 0, CPHA = 0
+            break;
+        case SPI_CLOCK_POL_LOW_PHASE_2EDGE:
+            // CPOL = 0, CPHA = 1
+            cr1 |= SPI_CR1_CPHA;
+            break;
+        case SPI_CLOCK_POL_HIGH_PHASE_1EDGE:
+            // CPOL = 1, CPHA = 0
+            cr1 |= SPI_CR1_CPOL;
+            break;
+        case SPI_CLOCK_POL_HIGH_PHASE_2EDGE:
+            // CPOL = 1, CPHA = 1
+            cr1 |= SPI_CR1_CPOL | SPI_CR1_CPHA;
+            break;
+        default:
+            break;
+    }
     regs->CR1 = cr1;
 
     // Enable SPI
@@ -90,8 +114,6 @@ SPI::SPI(SPI_ManualType *regs, SPI_PinConfigType _pinConfig, SPI_ModeType _mode,
 
 int SPI::SPI_WriteRead(const uint8_t *txData, uint8_t *rxData, size_t length)
 {
-    if (!this || !regs || length == 0) return -1;
-
     for (size_t i = 0; i < length; i++) {
         // Wait until TXE (bit1) set
         while (!(regs->SR & 0x02));
@@ -147,3 +169,41 @@ void SPI::SPI_SetMode(uint8_t mode) {
 
 void SPI::SPI_CS_Low(GPIO GPIOx, uint16_t CS_pin)  { GPIOx.GPIO_ResetPin(CS_pin); }
 void SPI::SPI_CS_High(GPIO GPIOx, uint16_t CS_pin) { GPIOx.GPIO_SetPin(CS_pin); }
+
+uint8_t SPI::SPI_ReadReg(GPIO cs,
+                    uint16_t cs_pin_mask,
+                    uint8_t reg,
+                    uint8_t readFlag)
+{
+    // Assert CS
+    cs.GPIO_ResetPin(cs_pin_mask);
+    for (volatile int i = 0; i < 200; ++i) { __asm volatile ("nop"); }
+
+    uint8_t cmd = (uint8_t)(reg | readFlag);
+    (void)this->SPI_WriteRead(&cmd, NULL, 1);
+
+    uint8_t dummy = 0x00;
+    uint8_t rx = 0;
+    (void)this->SPI_WriteRead(&dummy, &rx, 1);
+    // Deassert CS
+    cs.GPIO_SetPin(cs_pin_mask);
+    return rx;
+}
+
+void SPI::SPI_WriteReg(GPIO cs,
+                     uint16_t cs_pin_mask,
+                     uint8_t reg,
+                     uint8_t data)
+{
+    // Assert CS
+    cs.GPIO_ResetPin(cs_pin_mask);
+    for (volatile int i = 0; i < 200; ++i) { __asm volatile ("nop"); }
+
+    uint8_t cmd = reg & 0x7Fu; // Ensure write flag cleared
+    (void)this->SPI_WriteRead(&cmd, NULL, 1);
+
+    (void)this->SPI_WriteRead(&data, NULL, 1);
+
+    // Deassert CS
+    cs.GPIO_SetPin(cs_pin_mask);
+}
