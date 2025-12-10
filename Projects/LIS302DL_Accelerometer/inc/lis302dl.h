@@ -37,7 +37,5 @@ int16_t LIS_Read(int reg_addr);
 void TIM4_ms_Delay(uint16_t delay);
 uint8_t LIS_WhoAmI(void);
 void mode_fallback(SPI_HandleType* spi, uint8_t expected);
-void set_cs_pin(GPIO_ManualTypeDef *regs, uint32_t pin);
-void reset_cs_pin(GPIO_ManualTypeDef *regs, uint32_t pin);
 
 #endif // LIS302DL_H

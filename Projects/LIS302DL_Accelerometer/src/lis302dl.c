@@ -1,13 +1,5 @@
 #include "../inc/lis302dl.h"
 
-// Use project GPIO struct (single 32-bit BSRR)
-void set_cs_pin(GPIO_ManualTypeDef *regs, uint32_t pin) {
-	 regs->BSRR = (1u << pin); 
-}
-void reset_cs_pin(GPIO_ManualTypeDef *regs, uint32_t pin) { 
-	regs->BSRR = (1u << (pin + 16u)); 
-}
-
 static uint8_t SPI_ReadReg(uint8_t reg) { return (uint8_t)SPI_Receive(reg); }
 
 // Persistent handles and init structs to avoid returning stack pointers
@@ -75,7 +67,7 @@ uint16_t SPI_Transmit(uint8_t data){
 
 uint16_t SPI_Receive(uint8_t reg_addr){
 	// Assert CS low
-	reset_cs_pin(GPIO_E, 3u);
+	GPIO_ResetBit(GPIO_E, 3u);
 	// Small delay to satisfy tCSS (a few cycles)
 	for(volatile int i=0;i<200;i++) { __asm volatile ("nop"); }
 	// Read transaction: set READ bit; some devices tolerate setting auto-increment bit too
@@ -83,13 +75,13 @@ uint16_t SPI_Receive(uint8_t reg_addr){
 	SPI_Transmit(reg_addr);
 	uint16_t rxdf = SPI_Transmit(0x00);
 	// Deassert CS
-	set_cs_pin(GPIO_E, 3u);
+	GPIO_SetBit(GPIO_E, 3u);
 	return rxdf;
 }
 
 void LIS_Write(uint8_t addr,uint8_t data){
 	// Selecting the LIS accelerometer
-	reset_cs_pin(GPIO_E, 3u); // CS low
+	GPIO_ResetBit(GPIO_E, 3u); // CS low
 
 	// Send the Register Address
 	SPI_Transmit(addr);
@@ -98,7 +90,7 @@ void LIS_Write(uint8_t addr,uint8_t data){
 	SPI_Transmit(data);
 
 	// De-select the accelerometer
-	set_cs_pin(GPIO_E, 3u); // CS high
+	GPIO_SetBit(GPIO_E, 3u); // CS high
 }
 
 int16_t LIS_Read(int reg_addr){

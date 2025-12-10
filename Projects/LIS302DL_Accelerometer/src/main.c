@@ -30,7 +30,7 @@ int main(void){
 	USART_constructor(&usart, USART_2, TX_ONLY, __115200);
 	USART_WriteString(&usart, "LIS302DL SPI stream on USART2 @115200\r\n");
 	// Ensure CS high when idle
-	set_cs_pin(GPIO_E, 3u);
+	GPIO_SetBit(GPIO_E, 3u);
 	while(1){
 
 		// Use the Convert_To_Val function to convert raw data into actual data

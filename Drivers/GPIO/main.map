@@ -44,9 +44,9 @@ Discarded input sections
  .text.GPIO_ResetPin
                 0x00000000        0xc Drivers/GPIO/src/gpio.o
  .text.GPIO_SetBit
-                0x00000000        0xc Drivers/GPIO/src/gpio.o
+                0x00000000        0x8 Drivers/GPIO/src/gpio.o
  .text.GPIO_ResetBit
-                0x00000000       0x10 Drivers/GPIO/src/gpio.o
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
  .text          0x00000000        0x0 Drivers/GPIO/src/main.o
  .data          0x00000000        0x0 Drivers/GPIO/src/main.o
  .bss           0x00000000        0x0 Drivers/GPIO/src/main.o
@@ -286,10 +286,10 @@ LOAD linker stubs
  .debug_ranges  0x00000000       0x58 Drivers/GPIO/src/gpio.o
  .debug_ranges  0x00000058       0x98 Drivers/GPIO/src/main.o
 
-.debug_line     0x00000000      0x8dc
- .debug_line    0x00000000      0x4b6 Drivers/GPIO/src/gpio.o
- .debug_line    0x000004b6      0x2b3 Drivers/GPIO/src/main.o
- .debug_line    0x00000769      0x173 Drivers/GPIO/src/startup.o
+.debug_line     0x00000000      0x8d6
+ .debug_line    0x00000000      0x4b0 Drivers/GPIO/src/gpio.o
+ .debug_line    0x000004b0      0x2b3 Drivers/GPIO/src/main.o
+ .debug_line    0x00000763      0x173 Drivers/GPIO/src/startup.o
 
 .debug_str      0x00000000      0x492
  .debug_str     0x00000000      0x3b4 Drivers/GPIO/src/gpio.o
