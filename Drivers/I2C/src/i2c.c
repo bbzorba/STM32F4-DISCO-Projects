@@ -10,13 +10,11 @@ void I2C_Init(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs, I2C_SpeedType speed
     if (regs == I2C_1) {
         RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
         RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
-        // Configure PB6 (SCL) and PB9 (SDA) as AF4 for I2C1
-        GPIO_B->MODER   &= ~(MODER_PIN6_MASK | MODER_PIN9_MASK);            // Clear mode bits
-        GPIO_B->MODER   |=  (MODER_PIN6_SET  | MODER_PIN9_SET);               // Alternate function
-        GPIO_B->AFR[0]  &= ~(AFRL_PIN6_MASK);              // Clear AFRH for PB6 and PB9
-        GPIO_B->AFR[1]  &= ~(AFRH_PIN9_MASK);
-        GPIO_B->AFR[0]  |=  (AFRL_PIN6_SET_AF4);         // Set AF4 for PB6 and PB9
-        GPIO_B->AFR[1]  |=  (AFRH_PIN9_SET_AF4);
+        // Configure PB6 (SCL) and PB7 (SDA) as AF4 for I2C1
+        GPIO_B->MODER   &= ~(MODER_PIN6_MASK | MODER_PIN7_MASK);            // Clear mode bits
+        GPIO_B->MODER   |=  (MODER_PIN6_SET  | MODER_PIN7_SET);               // Alternate function
+        GPIO_B->AFR[0]  &= ~(AFRL_PIN6_MASK | AFRL_PIN7_MASK);              // Clear AFRL for PB6 and PB7
+        GPIO_B->AFR[0]  |=  (AFRL_PIN6_SET_AF4 | AFRL_PIN7_SET_AF4);         // Set AF4 for PB6 and PB7
     }
     
     else if (regs == I2C_2) {
@@ -27,7 +25,7 @@ void I2C_Init(I2C_HandleType *hi2c, I2C_ManualTypeDef *regs, I2C_SpeedType speed
         GPIO_B->MODER   |= (MODER_PIN10_SET | MODER_PIN11_SET);             // Alternate function
         GPIO_B->AFR[1]  &= ~(AFRH_PIN10_MASK | AFRH_PIN11_MASK);            // Clear AFRH for PB10 and PB11
         GPIO_B->AFR[1]  |= (AFRH_PIN10_SET_AF4 | AFRH_PIN11_SET_AF4);       // Set AF4 for PB10 and PB11
-    } 
+    }
     else if (regs == I2C_3) {
         RCC->APB1ENR |= RCC_APB1ENR_I2C3EN;
         RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;

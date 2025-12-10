@@ -1,0 +1,38 @@
+#include "../../Drivers/SPI_cpp/inc/spi.h"
+#include "../../Drivers/UART_cpp/inc/uart.h"
+#include "../../Drivers/GPIO_cpp/inc/gpio.h"
+#include "../../Drivers/PWM_cpp/inc/pwm.h"
+
+#ifndef LIS302DL_H
+#define LIS302DL_H
+
+#include <stdint.h>
+
+// LIS302DL register addresses
+#define LIS302DL_ADDR     (0x3B)
+#define WHO_AM_I          (0x0F)
+#define CTRL_REG1         (0x20)
+#define CTRL_REG2         (0x21)
+#define CTRL_REG3         (0x22)
+#define HP_FILTER_RESET   (0x23)
+#define STATUS_REG        (0x27)
+#define OUT_X             (0x29)
+#define OUT_Y             (0x2B)
+#define OUT_Z             (0x2D)
+
+// Calibration constants
+#define X_OFFSET 18
+#define THRESH_LOW -120
+#define THRESH_HIGH 120
+
+// Public API
+GPIO LEDS_Init();
+GPIO LIS_CS_Pin_Init();
+GPIO LIS_SPI_Pins_Init();
+void LIS_Init(SPI spi, GPIO csPin);
+void LIS_Write(SPI spi, GPIO csPin, uint8_t addr, uint8_t data);
+int16_t LIS_Read(SPI spi, GPIO csPin, int reg_addr);
+uint8_t LIS_WhoAmI(SPI spi, GPIO csPin);
+void mode_fallback(SPI spi, GPIO csPin, uint8_t expected);
+void TIM4_ms_Delay(uint16_t delay);
+#endif // LIS302DL_H

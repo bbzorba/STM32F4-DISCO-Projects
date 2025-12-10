@@ -12,7 +12,7 @@
 #PROJECT_DIR = Drivers/I2C
 #PROJECT_DIR = Drivers/I2C_cpp
 #PROJECT_DIR = Drivers/SPI
-PROJECT_DIR = Drivers/SPI_cpp
+#PROJECT_DIR = Drivers/SPI_cpp
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
 #PROJECT_DIR = Projects/Servo_Motor
@@ -24,11 +24,10 @@ PROJECT_DIR = Drivers/SPI_cpp
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer
 
 #TBD
-#PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
+PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
 #PROJECT_DIR = Projects/TSL2591_Light
-#PROJECT_DIR = Projects/microSD_reader
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -334,10 +333,18 @@ SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/I2C/inc -IDrivers/UART/inc
 endif
 
-# Project-specific wiring for LIS302DL_Accelerometer: needs SPI & UART drivers
+# Project-specific wiring for LIS302DL_Accelerometer: needs GPIO, SPI & UART drivers
 ifeq ($(PROJECT_DIR),Projects/LIS302DL_Accelerometer)
 SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(SPI_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc -IDrivers/SPI/inc -IDrivers/UART/inc
+endif
+
+# Project-specific wiring for LIS302DL_Accelerometer_cpp: needs GPIO_cpp, SPI_cpp & UART_cpp drivers
+ifeq ($(PROJECT_DIR),Projects/LIS302DL_Accelerometer_cpp)
+SRC_CPP += $(filter-out $(SRC_CPP),$(GPIO_SRC_CPP))
+SRC_CPP += $(filter-out $(SRC_CPP),$(SPI_SRC_CPP))
+SRC_CPP += $(filter-out $(SRC_CPP),$(UART_SRC_CPP))
+CFLAGS  += -IDrivers/GPIO_cpp/inc -IDrivers/SPI_cpp/inc -IDrivers/UART_cpp/inc
 endif

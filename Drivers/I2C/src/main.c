@@ -8,9 +8,9 @@ void delay(volatile uint32_t count);
 //main function
 int main(void) {
 
-    // Initialize I2C3 in standard mode (100kHz)
+    // Initialize I2C1 in standard mode (100kHz)
     I2C_HandleType hi2c1;
-    I2C_Init(&hi2c1, I2C_3, I2C_STANDARD_MODE);
+    I2C_Init(&hi2c1, I2C_1, I2C_STANDARD_MODE);
 
     while (1) {
         // Simple visible transaction: START -> address write -> dummy byte -> STOP

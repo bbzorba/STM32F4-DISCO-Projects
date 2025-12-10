@@ -95,6 +95,14 @@ void GPIO::GPIO_ResetPin(uint16_t GPIO_Pin) {
     this->regs->ODR &= ~GPIO_Pin; // Reset the pin
 }
 
+// Use project GPIO struct (single 32-bit BSRR)
+void GPIO::GPIO_SetBit(uint32_t pin) {
+	 this->regs->BSRR = (1u << pin); 
+}
+void GPIO::GPIO_ResetBit(uint32_t pin) { 
+	this->regs->BSRR = (1u << (pin + 16u)); 
+}
+
 void GPIO::RCC_GPIO_CLK_ENABLE(void) {
     if (this->regs == GPIO_A) {
         RCC->AHB1ENR |= GPIOA_EN;

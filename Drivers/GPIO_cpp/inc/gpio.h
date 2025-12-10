@@ -356,8 +356,6 @@ typedef enum {
     GPIO_PIN_SET
 } GPIO_PinState;
 
-/* GPIO handle structure (C++ only) */
-#ifdef __cplusplus
 class GPIO {
 public:
      GPIO(GPIO_ManualTypeDef *regs, GPIO_InitTypeDef *GPIO_Init);
@@ -366,12 +364,13 @@ public:
      void GPIO_TogglePin(uint16_t GPIO_Pin);
      void GPIO_SetPin(uint16_t GPIO_Pin);
      void GPIO_ResetPin(uint16_t GPIO_Pin);
+     void GPIO_SetBit(uint32_t pin);
+     void GPIO_ResetBit(uint32_t pin);
      void RCC_GPIO_CLK_ENABLE(void);
 private:
     GPIO_ManualTypeDef *regs;  // Pointer to GPIO port base address
      GPIO_InitTypeDef *init;     // GPIO initialization structure
 };
-#endif
 
 // Peripheral declarations
 #define RCC ((RCC_TypeDef *)RCC_BASE)
