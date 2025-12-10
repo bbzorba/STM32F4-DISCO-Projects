@@ -25,14 +25,28 @@
 #define THRESH_LOW -120
 #define THRESH_HIGH 120
 
-// Public API
+// Pin helpers kept as free functions
 GPIO LEDS_Init();
 GPIO LIS_CS_Pin_Init();
 GPIO LIS_SPI_Pins_Init();
-void LIS_Init(SPI spi, GPIO csPin);
-void LIS_Write(SPI spi, GPIO csPin, uint8_t addr, uint8_t data);
-int16_t LIS_Read(SPI spi, GPIO csPin, int reg_addr);
-uint8_t LIS_WhoAmI(SPI spi, GPIO csPin);
-void mode_fallback(SPI spi, GPIO csPin, uint8_t expected);
+
+// C++ LIS302DL object mirroring the C handle-based design
+class LIS302DL {
+public:
+	// Binds to existing SPI and CS objects (owned elsewhere)
+	LIS302DL(SPI* spi, GPIO* cs) : spi(spi), cs(cs) {}
+
+	void Init();
+	void Write(uint8_t addr, uint8_t data);
+	int16_t Read(int reg_addr);
+	uint8_t WhoAmI();
+	void ModeFallback(uint8_t expected);
+
+private:
+	SPI* spi;
+	GPIO* cs;
+	static const uint16_t CS_MASK = GPIO_PIN_3; // PE3
+};
+
 void TIM4_ms_Delay(uint16_t delay);
 #endif // LIS302DL_H

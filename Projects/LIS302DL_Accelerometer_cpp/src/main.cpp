@@ -10,18 +10,19 @@ int16_t x_final, y_final, z_final;
 
 int main(void){
 
-    GPIO spiPins = LIS_SPI_Pins_Init();
-    GPIO csPin = LIS_CS_Pin_Init();
-    GPIO leds = LEDS_Init();
+	GPIO spiPins = LIS_SPI_Pins_Init();
+	GPIO csPin = LIS_CS_Pin_Init();
+	GPIO leds = LEDS_Init();
 
 	// Initialize SPI device using SPI driver
-	SPI lis302(SPI_1, SPI1_PORTA, SPI_MODE_MASTER, SPI_BAUDRATE_DIV256, SPI_DIRECTION_2LINES, SPI_CLOCK_POL_HIGH_PHASE_2EDGE);
+	SPI spiDev(SPI_1, SPI1_PORTA, SPI_MODE_MASTER, SPI_BAUDRATE_DIV256, SPI_DIRECTION_2LINES, SPI_CLOCK_POL_HIGH_PHASE_2EDGE);
     
-    // Initialize the LIS302DL accelerometer
-	LIS_Init(lis302, csPin);
+    // Bind LIS302DL object to SPI and CS
+    LIS302DL lis(&spiDev, &csPin);
+    lis.Init();
 
 	// Probe WHO_AM_I and try mode fallback if not 0x3B
-	mode_fallback(lis302, csPin, 0x3B);
+	lis.ModeFallback(0x3B);
 
 	// Init USART2 (TX only) to stream accelerometer values
 	USART usart(USART_2, TX_ONLY, __115200);
@@ -31,9 +32,9 @@ int main(void){
 	while(1){
 
 		// Use the Convert_To_Val function to convert raw data into actual data
-		x_final = LIS_Read(lis302, csPin, OUT_X) + X_OFFSET;
-		y_final = LIS_Read(lis302, csPin, OUT_Y);
-		z_final = LIS_Read(lis302, csPin, OUT_Z);
+		x_final = lis.Read(OUT_X) + X_OFFSET;
+		y_final = lis.Read(OUT_Y);
+		z_final = lis.Read(OUT_Z);
 
 		// Switch on LEDs based on the acceleration value obtained
 		if ((x_final != 0) && (y_final != 0)){
