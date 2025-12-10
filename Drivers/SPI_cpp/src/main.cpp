@@ -7,12 +7,12 @@ GPIO_InitTypeDef GPIO_InitStruct;
 
 int main(void)
 {   
-    // Configure GPIO_InitStruct for CS pin (PD7)
-    GPIO_InitStruct.Pin = GPIO_PIN_7; // CS pin
+    // Configure GPIO_InitStruct for CS pin (PA4)
+    GPIO_InitStruct.Pin = GPIO_PIN_4; // CS pin
     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;  // Push-pull output mode
     GPIO_InitStruct.Pull = GPIO_NOPULL;          // No pull-up/pull-down
     GPIO_InitStruct.Speed = GPIO_SPEED_MEDIUM;   // Medium speed
-    GPIO GPIO_CS(GPIO_D, &GPIO_InitStruct);
+    GPIO GPIO_CS(GPIO_A, &GPIO_InitStruct);
 
     // Initialize SPI1 on PA5/PA6/PA7 as master, baud rate div16, full duplex
     SPI spi1(SPI_1, SPI1_PORTA, SPI_MODE_MASTER, SPI_BAUDRATE_DIV16, SPI_DIRECTION_2LINES, SPI_CLOCK_POL_LOW_PHASE_1EDGE);
