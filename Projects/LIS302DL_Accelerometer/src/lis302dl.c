@@ -8,6 +8,15 @@ static GPIO_InitTypeDef  s_cs_init;
 static GPIO_HandleTypeDef s_leds_handle;
 static GPIO_InitTypeDef  s_leds_init;
 
+void LIS302DL_constructor(LIS302DL_HandleType* lis302dl,
+					  SPI_HandleType* spi,
+					  GPIO_HandleTypeDef *csPin) {
+	// Bind provided handles; initialize device separately
+	lis302dl->spi = spi;
+	lis302dl->csPin = csPin;
+	LIS_Init(lis302dl);
+}
+
 GPIO_HandleTypeDef* LIS_SPI_Pins_Init(){
 	// Configure PA5/PA6/PA7 for SPI1 (AF5), pull-down, medium speed
 	s_spi_pins_init.Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7;
@@ -43,27 +52,27 @@ GPIO_HandleTypeDef* LEDS_Init(){
 	return &s_leds_handle;
 }
 
-void LIS_Init(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin){
+void LIS_Init(LIS302DL_HandleType* lis302){
 	// Powering on the accelerometer and Enabling the x,y and z axis for acceleration capture
-	LIS_Write(spi, csPin, CTRL_REG1, 0x47);
+	LIS_Write(lis302, CTRL_REG1, 0x47);
 	// Short settle
 	TIM4_ms_Delay(5);
 }
 
-void LIS_Write(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t addr,uint8_t data){
+void LIS_Write(LIS302DL_HandleType* lis302, uint8_t addr,uint8_t data){
 	// Selecting the LIS accelerometer
-	GPIO_ResetBit(csPin, 3u); // CS low
+	GPIO_ResetBit(lis302->csPin, 3u); // CS low
 	for(volatile int i=0;i<200;i++) { __asm volatile ("nop"); }
 	// Send the Register Address then the data using driver
-	SPI_WriteRead(spi, &addr, NULL, 1);
-	SPI_WriteRead(spi, &data, NULL, 1);
+	SPI_WriteRead(lis302->spi, &addr, NULL, 1);
+	SPI_WriteRead(lis302->spi, &data, NULL, 1);
 	// De-select the accelerometer
-	GPIO_SetBit(csPin, 3u); // CS high
+	GPIO_SetBit(lis302->csPin, 3u); // CS high
 }
 
-int16_t LIS_Read(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, int reg_addr){
+int16_t LIS_Read(LIS302DL_HandleType* lis302, int reg_addr){
 	// Reading the data for x-axis
-	uint16_t raw_value = SPI_ReadReg(spi, csPin, csPin->init->Pin, (uint8_t)reg_addr, 0x80u);
+	uint16_t raw_value = SPI_ReadReg(lis302->spi, lis302->csPin, lis302->csPin->init->Pin, (uint8_t)reg_addr, 0x80u);
 	if ((raw_value & 0x80) == 0x80){
 		raw_value = ~raw_value;
 		raw_value += 1;
@@ -75,21 +84,21 @@ int16_t LIS_Read(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, int reg_addr){
 		return (( raw_value * 2300 ) / 127);
 }
 
-uint8_t LIS_WhoAmI(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin) {
+uint8_t LIS_WhoAmI(LIS302DL_HandleType* lis302dl) {
 	// LIS302DL uses bit7 as read flag (0x80)
-	return SPI_ReadReg(spi, csPin, csPin->init->Pin, WHO_AM_I, 0x80u);
+	return SPI_ReadReg(lis302dl->spi, lis302dl->csPin, lis302dl->csPin->init->Pin, WHO_AM_I, 0x80u);
 }
 
-void mode_fallback(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t expected){
-	uint8_t who = LIS_WhoAmI(spi, csPin);
+void mode_fallback(LIS302DL_HandleType* lis302, uint8_t expected){
+	uint8_t who = LIS_WhoAmI(lis302);
 	if (who != expected) {
 		// try mode 0
-		SPI_SetMode(spi, 0);
+		SPI_SetMode(lis302->spi, 0);
 		TIM4_ms_Delay(1);
-		who = LIS_WhoAmI(spi, csPin);
+		who = LIS_WhoAmI(lis302);
 		if (who != expected) {
 			// restore mode 3 as default
-			SPI_SetMode(spi, 3);
+			SPI_SetMode(lis302->spi, 3);
 		}
 	}
 }

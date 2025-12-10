@@ -25,14 +25,24 @@
 #define THRESH_LOW -120
 #define THRESH_HIGH 120
 
-// Public API
+typedef struct {
+    SPI_HandleType* spi;                  // Pointer to SPI handle
+    GPIO_HandleTypeDef *csPin;           // Pointer to CS pin handle
+} LIS302DL_HandleType;
+
+// Constructor
+void LIS302DL_constructor(LIS302DL_HandleType* lis302dl,
+					  SPI_HandleType* spi,
+					  GPIO_HandleTypeDef *csPin);
 GPIO_HandleTypeDef* LIS_SPI_Pins_Init();
 GPIO_HandleTypeDef* LIS_CS_Pin_Init();
 GPIO_HandleTypeDef* LEDS_Init();
-void LIS_Init(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin);
-void LIS_Write(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t addr, uint8_t data);
-int16_t LIS_Read(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, int reg_addr);
-uint8_t LIS_WhoAmI(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin);
-void mode_fallback(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t expected);
+
+// Public API
+void LIS_Init(LIS302DL_HandleType* lis302);
+void LIS_Write(LIS302DL_HandleType* lis302, uint8_t addr, uint8_t data);
+int16_t LIS_Read(LIS302DL_HandleType* lis302, int reg_addr);
+uint8_t LIS_WhoAmI(LIS302DL_HandleType* lis302);
+void mode_fallback(LIS302DL_HandleType* lis302, uint8_t expected);
 void TIM4_ms_Delay(uint16_t delay);
 #endif // LIS302DL_H
