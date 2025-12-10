@@ -20,7 +20,7 @@ int main(void){
 	SPI_Init(&lis302, SPI_1, SPI1_PORTA, SPI_MODE_MASTER, SPI_BAUDRATE_DIV256, SPI_DIRECTION_2LINES, SPI_CLOCK_POL_HIGH_PHASE_2EDGE);
     
     // Initialize the LIS302DL accelerometer
-	LIS_Init(cs_pin_handle);
+	LIS_Init(&lis302, cs_pin_handle);
 
 	// Probe WHO_AM_I and try mode fallback if not 0x3B
 	mode_fallback(&lis302, cs_pin_handle, 0x3B);
@@ -30,13 +30,13 @@ int main(void){
 	USART_constructor(&usart, USART_2, TX_ONLY, __115200);
 	USART_WriteString(&usart, "LIS302DL SPI stream on USART2 @115200\r\n");
 	// Ensure CS high when idle
-	GPIO_SetBit(GPIO_E, 3u);
+	GPIO_SetBit(cs_pin_handle, 3u);
 	while(1){
 
 		// Use the Convert_To_Val function to convert raw data into actual data
-		x_final = LIS_Read(cs_pin_handle, OUT_X) + X_OFFSET;
-		y_final = LIS_Read(cs_pin_handle, OUT_Y);
-		z_final = LIS_Read(cs_pin_handle, OUT_Z);
+		x_final = LIS_Read(&lis302, cs_pin_handle, OUT_X) + X_OFFSET;
+		y_final = LIS_Read(&lis302, cs_pin_handle, OUT_Y);
+		z_final = LIS_Read(&lis302, cs_pin_handle, OUT_Z);
 
 		// Switch on LEDs based on the acceleration value obtained
 		if ((x_final != 0) && (y_final != 0)){

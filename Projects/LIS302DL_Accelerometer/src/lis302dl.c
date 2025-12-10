@@ -1,6 +1,6 @@
 #include "../inc/lis302dl.h"
 
-static uint8_t SPI_ReadReg(GPIO_HandleTypeDef *csPin, uint8_t reg) { return (uint8_t)SPI_Receive(csPin, reg); }
+static uint8_t SPI_ReadReg( SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t reg) { return (uint8_t)SPI_Receive(spi, csPin, reg); }
 
 // Persistent handles and init structs to avoid returning stack pointers
 static GPIO_HandleTypeDef s_spi_pins_handle;
@@ -45,57 +45,57 @@ GPIO_HandleTypeDef* LEDS_Init(){
 	return &s_leds_handle;
 }
 
-void LIS_Init(GPIO_HandleTypeDef *csPin){
+void LIS_Init(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin){
 	// Powering on the accelerometer and Enabling the x,y and z axis for acceleration capture
-	LIS_Write(csPin, CTRL_REG1, 0x47);
+	LIS_Write(spi, csPin, CTRL_REG1, 0x47);
 	// Short settle
 	TIM4_ms_Delay(5);
 }
 
-uint16_t SPI_Transmit(uint8_t data){
+uint16_t SPI_Transmit(SPI_HandleType* spi, uint8_t data){
 	//  Wait until the TX buffer is empty, i.e. data is transmitted
-	while(!((SPI_1->SR) & SPI_SR_TXE)){}
+	while(!((spi->regs->SR) & SPI_SR_TXE)){}
 	// Load the data into the data register
-	SPI_1->DR = data;
+	spi->regs->DR = data;
 
-	while(!(SPI_1->SR & SPI_SR_RXNE)){}
+	while(!(spi->regs->SR & SPI_SR_RXNE)){}
 	// If reception is intended, read the value from the data register
-	uint16_t rxd = SPI_1->DR;
+	uint16_t rxd = spi->regs->DR;
 
 	return rxd;
 }
 
-uint16_t SPI_Receive(GPIO_HandleTypeDef *csPin, uint8_t reg_addr){
+uint16_t SPI_Receive(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t reg_addr){
 	// Assert CS low
 	GPIO_ResetBit(csPin, 3u);
 	// Small delay to satisfy tCSS (a few cycles)
 	for(volatile int i=0;i<200;i++) { __asm volatile ("nop"); }
 	// Read transaction: set READ bit; some devices tolerate setting auto-increment bit too
 	reg_addr |= 0x80; // read
-	SPI_Transmit(reg_addr);
-	uint16_t rxdf = SPI_Transmit(0x00);
+	SPI_Transmit(spi, reg_addr);
+	uint16_t rxdf = SPI_Transmit(spi, 0x00);
 	// Deassert CS
 	GPIO_SetBit(csPin, 3u);
 	return rxdf;
 }
 
-void LIS_Write(GPIO_HandleTypeDef *csPin, uint8_t addr,uint8_t data){
+void LIS_Write(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t addr,uint8_t data){
 	// Selecting the LIS accelerometer
 	GPIO_ResetBit(csPin, 3u); // CS low
 
 	// Send the Register Address
-	SPI_Transmit(addr);
+	SPI_Transmit(spi, addr);
 
 	// Send the data to be written
-	SPI_Transmit(data);
+	SPI_Transmit(spi, data);
 
 	// De-select the accelerometer
 	GPIO_SetBit(csPin, 3u); // CS high
 }
 
-int16_t LIS_Read(GPIO_HandleTypeDef *csPin, int reg_addr){
+int16_t LIS_Read(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, int reg_addr){
 	// Reading the data for x-axis
-	uint16_t raw_value = SPI_Receive(csPin, reg_addr);
+	uint16_t raw_value = SPI_Receive(spi, csPin, reg_addr);
 	if ((raw_value & 0x80) == 0x80){
 		raw_value = ~raw_value;
 		raw_value += 1;
@@ -114,17 +114,17 @@ void TIM4_ms_Delay(uint16_t delay){
 	}
 }
 
-uint8_t LIS_WhoAmI(GPIO_HandleTypeDef *csPin) { 
-	return SPI_ReadReg(csPin, WHO_AM_I); 
+uint8_t LIS_WhoAmI(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin) { 
+	return SPI_ReadReg(spi, csPin, WHO_AM_I); 
 }
 
 void mode_fallback(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t expected){
-	uint8_t who = LIS_WhoAmI(csPin);
+	uint8_t who = LIS_WhoAmI(spi, csPin);
 	if (who != expected) {
 		// try mode 0
 		SPI_SetMode(spi, 0);
 		TIM4_ms_Delay(1);
-		who = LIS_WhoAmI(csPin);
+		who = LIS_WhoAmI(spi, csPin);
 		if (who != expected) {
 			// restore mode 3 as default
 			SPI_SetMode(spi, 3);

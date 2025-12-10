@@ -29,12 +29,12 @@
 GPIO_HandleTypeDef* LIS_SPI_Pins_Init();
 GPIO_HandleTypeDef* LIS_CS_Pin_Init();
 GPIO_HandleTypeDef* LEDS_Init();
-uint16_t SPI_Transmit(uint8_t data);
-uint16_t SPI_Receive(GPIO_HandleTypeDef *csPin, uint8_t addr);
-void LIS_Init(GPIO_HandleTypeDef *csPin);
-void LIS_Write(GPIO_HandleTypeDef *csPin, uint8_t addr, uint8_t data);
-int16_t LIS_Read(GPIO_HandleTypeDef *csPin, int reg_addr);
-void TIM4_ms_Delay(uint16_t delay);
-uint8_t LIS_WhoAmI(GPIO_HandleTypeDef *csPin);
+uint16_t SPI_Transmit(SPI_HandleType* spi, uint8_t data);
+uint16_t SPI_Receive(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t addr);
+void LIS_Init(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin);
+void LIS_Write(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t addr, uint8_t data);
+int16_t LIS_Read(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, int reg_addr);
+uint8_t LIS_WhoAmI(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin);
 void mode_fallback(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t expected);
+void TIM4_ms_Delay(uint16_t delay);
 #endif // LIS302DL_H
