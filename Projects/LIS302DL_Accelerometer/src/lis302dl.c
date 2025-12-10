@@ -1,7 +1,5 @@
 #include "../inc/lis302dl.h"
 
-static uint8_t SPI_ReadReg( SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t reg) { return (uint8_t)SPI_Receive(spi, csPin, reg); }
-
 // Persistent handles and init structs to avoid returning stack pointers
 static GPIO_HandleTypeDef s_spi_pins_handle;
 static GPIO_InitTypeDef  s_spi_pins_init;
@@ -52,50 +50,20 @@ void LIS_Init(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin){
 	TIM4_ms_Delay(5);
 }
 
-uint16_t SPI_Transmit(SPI_HandleType* spi, uint8_t data){
-	//  Wait until the TX buffer is empty, i.e. data is transmitted
-	while(!((spi->regs->SR) & SPI_SR_TXE)){}
-	// Load the data into the data register
-	spi->regs->DR = data;
-
-	while(!(spi->regs->SR & SPI_SR_RXNE)){}
-	// If reception is intended, read the value from the data register
-	uint16_t rxd = spi->regs->DR;
-
-	return rxd;
-}
-
-uint16_t SPI_Receive(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t reg_addr){
-	// Assert CS low
-	GPIO_ResetBit(csPin, 3u);
-	// Small delay to satisfy tCSS (a few cycles)
-	for(volatile int i=0;i<200;i++) { __asm volatile ("nop"); }
-	// Read transaction: set READ bit; some devices tolerate setting auto-increment bit too
-	reg_addr |= 0x80; // read
-	SPI_Transmit(spi, reg_addr);
-	uint16_t rxdf = SPI_Transmit(spi, 0x00);
-	// Deassert CS
-	GPIO_SetBit(csPin, 3u);
-	return rxdf;
-}
-
 void LIS_Write(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t addr,uint8_t data){
 	// Selecting the LIS accelerometer
 	GPIO_ResetBit(csPin, 3u); // CS low
-
-	// Send the Register Address
-	SPI_Transmit(spi, addr);
-
-	// Send the data to be written
-	SPI_Transmit(spi, data);
-
+	for(volatile int i=0;i<200;i++) { __asm volatile ("nop"); }
+	// Send the Register Address then the data using driver
+	SPI_WriteRead(spi, &addr, NULL, 1);
+	SPI_WriteRead(spi, &data, NULL, 1);
 	// De-select the accelerometer
 	GPIO_SetBit(csPin, 3u); // CS high
 }
 
 int16_t LIS_Read(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, int reg_addr){
 	// Reading the data for x-axis
-	uint16_t raw_value = SPI_Receive(spi, csPin, reg_addr);
+	uint16_t raw_value = SPI_ReadReg(spi, csPin, csPin->init->Pin, (uint8_t)reg_addr, 0x80u);
 	if ((raw_value & 0x80) == 0x80){
 		raw_value = ~raw_value;
 		raw_value += 1;
@@ -107,15 +75,9 @@ int16_t LIS_Read(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, int reg_addr){
 		return (( raw_value * 2300 ) / 127);
 }
 
-void TIM4_ms_Delay(uint16_t delay){
-	// Simple busy-wait ~1ms per iteration at ~16 MHz
-	for(uint16_t ms=0; ms<delay; ++ms){
-		for(volatile uint32_t i=0; i<16000; ++i){ __asm volatile ("nop"); }
-	}
-}
-
-uint8_t LIS_WhoAmI(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin) { 
-	return SPI_ReadReg(spi, csPin, WHO_AM_I); 
+uint8_t LIS_WhoAmI(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin) {
+	// LIS302DL uses bit7 as read flag (0x80)
+	return SPI_ReadReg(spi, csPin, csPin->init->Pin, WHO_AM_I, 0x80u);
 }
 
 void mode_fallback(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t expected){
@@ -129,5 +91,12 @@ void mode_fallback(SPI_HandleType* spi, GPIO_HandleTypeDef *csPin, uint8_t expec
 			// restore mode 3 as default
 			SPI_SetMode(spi, 3);
 		}
+	}
+}
+
+void TIM4_ms_Delay(uint16_t delay){
+	// Simple busy-wait ~1ms per iteration at ~16 MHz
+	for(uint16_t ms=0; ms<delay; ++ms){
+		for(volatile uint32_t i=0; i<16000; ++i){ __asm volatile ("nop"); }
 	}
 }

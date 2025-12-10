@@ -139,4 +139,17 @@ void SPI_CS_Init(GPIO_HandleTypeDef *GPIOx, GPIO_InitTypeDef *GPIO_InitStruct, G
 void SPI_CS_Low(GPIO_HandleTypeDef *GPIOx, uint16_t CS_pin);
 void SPI_CS_High(GPIO_HandleTypeDef *GPIOx, uint16_t CS_pin);
 
+// Generic single-register read: send (reg | readFlag) then read 1 byte
+uint8_t SPI_ReadReg(SPI_HandleType *spi,
+                    GPIO_HandleTypeDef *cs,
+                    uint16_t cs_pin_mask,
+                    uint8_t reg,
+                    uint8_t readFlag);
+
+void SPI_WriteReg(SPI_HandleType *spi,
+                     GPIO_HandleTypeDef *cs,
+                     uint16_t cs_pin_mask,
+                     uint8_t reg,
+                     uint8_t data);
+
 #endif // __SPI_H

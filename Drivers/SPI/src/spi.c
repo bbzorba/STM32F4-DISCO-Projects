@@ -171,3 +171,46 @@ void SPI_SetMode(SPI_HandleType *spi, uint8_t mode) {
 
 void SPI_CS_Low(GPIO_HandleTypeDef *GPIOx, uint16_t CS_pin)  { GPIO_ResetPin(GPIOx, CS_pin); }
 void SPI_CS_High(GPIO_HandleTypeDef *GPIOx, uint16_t CS_pin) { GPIO_SetPin(GPIOx, CS_pin); }
+
+uint8_t SPI_ReadReg(SPI_HandleType *spi,
+                    GPIO_HandleTypeDef *cs,
+                    uint16_t cs_pin_mask,
+                    uint8_t reg,
+                    uint8_t readFlag)
+{
+    if (!spi || !spi->regs || !cs) return 0;
+    // Assert CS
+    GPIO_ResetPin(cs, cs_pin_mask);
+    for (volatile int i = 0; i < 200; ++i) { __asm volatile ("nop"); }
+
+    uint8_t cmd = (uint8_t)(reg | readFlag);
+    (void)SPI_WriteRead(spi, &cmd, NULL, 1);
+
+    uint8_t dummy = 0x00;
+    uint8_t rx = 0;
+    (void)SPI_WriteRead(spi, &dummy, &rx, 1);
+
+    // Deassert CS
+    GPIO_SetPin(cs, cs_pin_mask);
+    return rx;
+}
+
+void SPI_WriteReg(SPI_HandleType *spi,
+                     GPIO_HandleTypeDef *cs,
+                     uint16_t cs_pin_mask,
+                     uint8_t reg,
+                     uint8_t data)
+{
+    if (!spi || !spi->regs || !cs) return;
+    // Assert CS
+    GPIO_ResetPin(cs, cs_pin_mask);
+    for (volatile int i = 0; i < 200; ++i) { __asm volatile ("nop"); }
+
+    uint8_t cmd = reg & 0x7Fu; // Ensure write flag cleared
+    (void)SPI_WriteRead(spi, &cmd, NULL, 1);
+
+    (void)SPI_WriteRead(spi, &data, NULL, 1);
+
+    // Deassert CS
+    GPIO_SetPin(cs, cs_pin_mask);
+}

@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 #include <stdio.h>
-// Use project drivers via unified header
 #include "../inc/lis302dl.h"
 
 //User-defined variables
