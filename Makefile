@@ -11,7 +11,7 @@
 #PROJECT_DIR = Drivers/SysTick_cpp
 #PROJECT_DIR = Drivers/I2C
 #PROJECT_DIR = Drivers/I2C_cpp
-#PROJECT_DIR = Drivers/SPI
+PROJECT_DIR = Drivers/SPI
 #PROJECT_DIR = Drivers/SPI_cpp
 #PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
@@ -21,9 +21,10 @@
 #PROJECT_DIR = Projects/HC06_Bluetooth_cpp
 #PROJECT_DIR = Projects/HC06_Servo_Controller
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
+#PROJECT_DIR = Projects/LIS302DL_Accelerometer
 
 #TBD
-PROJECT_DIR = Projects/LIS302DL_Accelerometer
+#PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
 #PROJECT_DIR = Projects/TSL2591_Light
