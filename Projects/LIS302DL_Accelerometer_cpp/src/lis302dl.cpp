@@ -9,7 +9,7 @@ GPIO LIS_SPI_Pins_Init() {
     s_spi_pins_init.Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7;
     s_spi_pins_init.Mode = GPIO_MODE_AF_PP;
     s_spi_pins_init.Pull = GPIO_PULLDOWN;
-    s_spi_pins_init.Speed = GPIO_SPEED_MEDIUM;
+    s_spi_pins_init.Speed = GPIO_SPEED_VERY_HIGH; // ensure clean SPI edges
     s_spi_pins_init.Alternate = 5u;
     return GPIO(GPIO_A, &s_spi_pins_init); // construct and return by value (NRVO/move)
 }
@@ -21,7 +21,10 @@ GPIO LIS_CS_Pin_Init(){
 	s_cs_init.Pull = GPIO_NOPULL;
 	s_cs_init.Speed = GPIO_SPEED_VERY_HIGH;
 	s_cs_init.Alternate = 0u;
-	return GPIO(GPIO_E, &s_cs_init);
+    GPIO cs(GPIO_E, &s_cs_init);
+    // Deassert CS initially (high)
+    cs.GPIO_WritePin(GPIO_PIN_3, GPIO_PIN_SET);
+    return cs;
 }
 
 GPIO LEDS_Init(){

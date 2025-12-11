@@ -22,7 +22,7 @@ GPIO_HandleTypeDef* LIS_SPI_Pins_Init(){
 	s_spi_pins_init.Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7;
 	s_spi_pins_init.Mode = GPIO_MODE_AF_PP;
 	s_spi_pins_init.Pull = GPIO_PULLDOWN;
-	s_spi_pins_init.Speed = GPIO_SPEED_MEDIUM;
+	s_spi_pins_init.Speed = GPIO_SPEED_VERY_HIGH; // ensure clean SPI edges
 	s_spi_pins_init.Alternate = 5u; // AF5 for SPI1
 	GPIO_constructor(&s_spi_pins_handle, GPIO_A, &s_spi_pins_init);
 	return &s_spi_pins_handle;
