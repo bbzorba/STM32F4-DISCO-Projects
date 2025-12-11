@@ -21,13 +21,15 @@
 #PROJECT_DIR = Projects/HC06_Bluetooth_cpp
 #PROJECT_DIR = Projects/HC06_Servo_Controller
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
-PROJECT_DIR = Projects/LIS302DL_Accelerometer
+#PROJECT_DIR = Projects/LIS302DL_Accelerometer
+#PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
 
 #TBD
-#PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
+PROJECT_DIR = Drivers/LCD_Screen
+#PROJECT_DIR = Projects/TSL2591_Light
+#PROJECT_DIR = Projects/TSL2591_Light_example
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
-#PROJECT_DIR = Projects/TSL2591_Light
 
 CXX=arm-none-eabi-g++
 CC=arm-none-eabi-gcc
@@ -97,10 +99,15 @@ SRC := $(SRC_C) $(SRC_CPP)
 HAL_SRC := \
 	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal.c \
 	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc.c \
+	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_rcc_ex.c \
 	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_gpio.c \
 	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_cortex.c \
-	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_pcd.c \
-	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_ll_usb.c
+	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_i2c.c \
+	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_tim.c \
+	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_tim_ex.c \
+	Drivers/STM32F4xx_HAL_Driver/stm32f4xx_hal_dma.c \
+	Drivers/STM32F4xx_HAL_Driver/cmsis_nvic.c \
+	Drivers/STM32F4xx_HAL_Driver/hal_tick.c
 
 GPIO_SRC_C := Drivers/GPIO/src/gpio.c
 GPIO_SRC_CPP := Drivers/GPIO_cpp/src/gpio.cpp
@@ -347,4 +354,18 @@ SRC_CPP += $(filter-out $(SRC_CPP),$(GPIO_SRC_CPP))
 SRC_CPP += $(filter-out $(SRC_CPP),$(SPI_SRC_CPP))
 SRC_CPP += $(filter-out $(SRC_CPP),$(UART_SRC_CPP))
 CFLAGS  += -IDrivers/GPIO_cpp/inc -IDrivers/SPI_cpp/inc -IDrivers/UART_cpp/inc
+endif
+
+# Project-specific wiring for TSL2591_Light_example: use custom I2C + UART drivers (no HAL)
+ifeq ($(PROJECT_DIR),Projects/TSL2591_Light_example)
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/I2C/inc -IDrivers/UART/inc
+endif
+
+# Project-specific wiring for LCD Screen: needs GPIO driver
+ifeq ($(PROJECT_DIR),Drivers/LCD_Screen)
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc
 endif

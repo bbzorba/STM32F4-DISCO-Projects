@@ -292,6 +292,32 @@ char USART_x_Read(USART_HandleType *handle)
     return (char)(handle->regs->DR & 0xFF);
 }
 
+
+void writeString(USART_ManualType *regs, const char *str) {
+    USART_x_Write(regs, '\n');
+    USART_x_Write(regs, 'r'); // Carriage return before newline
+    USART_x_Write(regs, 'x');
+    USART_x_Write(regs, ':');
+    USART_x_Write(regs, ' ');
+    USART_x_Write(regs, '\n');
+    while (*str) {
+        USART_x_Write(regs, *str++);
+    }
+}
+
+void readString(USART_ManualType *regs, char *buffer, size_t maxLength) {
+    size_t index = 0;
+    char c;
+    while (index < (maxLength - 1)) { // Leave space for null terminator
+        c = USART_x_Read(regs);
+        if (c == '\n' || c == '\r') { // Stop on newline or carriage return
+            break;
+        }
+        buffer[index++] = c;
+    }
+    buffer[index] = '\0'; // Null-terminate the string
+}
+
 const char* GetPortName(USART_HandleType *handle) {
     if (!handle->regs) return "USART?";
     if (handle->regs == USART_1) return "USART1";

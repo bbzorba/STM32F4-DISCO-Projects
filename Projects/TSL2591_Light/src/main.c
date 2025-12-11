@@ -11,7 +11,7 @@ int main(void) {
     USART_constructor(&usart, USART_2, TX_ONLY, __115200);
 
     I2C_HandleType tsl2591;
-    TSL2591_Init(&tsl2591, I2C_1, I2C_STANDARD_MODE);
+    TSL2591_Init(&tsl2591, I2C_2, I2C_STANDARD_MODE);
 
     USART_WriteString(&usart, "Light Sensor Measurement Mode.\r\n");
 

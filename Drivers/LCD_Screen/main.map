@@ -1,0 +1,331 @@
+Archive member included to satisfy reference by file (symbol)
+
+c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
+                              c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o (exit)
+c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-impure.o)
+                              c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o) (_global_impure_ptr)
+c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
+                              c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o (__libc_init_array)
+c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(_exit.o)
+                              c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o) (_exit)
+
+Discarded input sections
+
+ .text          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+ .data          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+ .bss           0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+ .text          0x00000000       0x40 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .data          0x00000000        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .bss           0x00000000       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .rodata        0x00000000       0x24 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .init_array    0x00000000        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .fini_array    0x00000000        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .eh_frame      0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .ARM.attributes
+                0x00000000       0x2e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .text          0x00000000       0x7c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+ .data          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+ .bss           0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+ .ARM.extab     0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+ .ARM.exidx     0x00000000       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+ .ARM.attributes
+                0x00000000       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+ .text          0x00000000        0x0 Drivers/GPIO/src/gpio.o
+ .data          0x00000000        0x0 Drivers/GPIO/src/gpio.o
+ .bss           0x00000000        0x0 Drivers/GPIO/src/gpio.o
+ .text.GPIO_ReadPin
+                0x00000000       0x10 Drivers/GPIO/src/gpio.o
+ .text.GPIO_TogglePin
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
+ .text.GPIO_SetPin
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
+ .text.GPIO_ResetPin
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
+ .text.GPIO_SetBit
+                0x00000000        0xc Drivers/GPIO/src/gpio.o
+ .text.GPIO_ResetBit
+                0x00000000       0x10 Drivers/GPIO/src/gpio.o
+ .text          0x00000000        0x0 Drivers/LCD_Screen/src/lcd.o
+ .data          0x00000000        0x0 Drivers/LCD_Screen/src/lcd.o
+ .bss           0x00000000        0x0 Drivers/LCD_Screen/src/lcd.o
+ .text.LCD_PrintChar
+                0x00000000       0x28 Drivers/LCD_Screen/src/lcd.o
+ .text.LCD_PrintInt
+                0x00000000       0xcc Drivers/LCD_Screen/src/lcd.o
+ .text          0x00000000        0x0 Drivers/LCD_Screen/src/main.o
+ .data          0x00000000        0x0 Drivers/LCD_Screen/src/main.o
+ .bss           0x00000000        0x0 Drivers/LCD_Screen/src/main.o
+ .text          0x00000000       0x14 Drivers/LCD_Screen/src/memset.o
+ .data          0x00000000        0x0 Drivers/LCD_Screen/src/memset.o
+ .bss           0x00000000        0x0 Drivers/LCD_Screen/src/memset.o
+ .debug_info    0x00000000       0xe4 Drivers/LCD_Screen/src/memset.o
+ .debug_abbrev  0x00000000       0xa0 Drivers/LCD_Screen/src/memset.o
+ .debug_loc     0x00000000       0x99 Drivers/LCD_Screen/src/memset.o
+ .debug_aranges
+                0x00000000       0x20 Drivers/LCD_Screen/src/memset.o
+ .debug_ranges  0x00000000       0x10 Drivers/LCD_Screen/src/memset.o
+ .debug_line    0x00000000       0xdf Drivers/LCD_Screen/src/memset.o
+ .debug_str     0x00000000      0x169 Drivers/LCD_Screen/src/memset.o
+ .comment       0x00000000       0x4a Drivers/LCD_Screen/src/memset.o
+ .debug_frame   0x00000000       0x20 Drivers/LCD_Screen/src/memset.o
+ .ARM.attributes
+                0x00000000       0x2e Drivers/LCD_Screen/src/memset.o
+ .data          0x00000000        0x0 Drivers/LCD_Screen/src/startup.o
+ .bss           0x00000000        0x0 Drivers/LCD_Screen/src/startup.o
+ .text          0x00000000        0x0 Drivers/LCD_Screen/src/system_stm32f4xx.o
+ .data          0x00000000        0x0 Drivers/LCD_Screen/src/system_stm32f4xx.o
+ .bss           0x00000000        0x0 Drivers/LCD_Screen/src/system_stm32f4xx.o
+ .debug_line    0x00000000        0x0 Drivers/LCD_Screen/src/system_stm32f4xx.o
+ .debug_str     0x00000000       0xd5 Drivers/LCD_Screen/src/system_stm32f4xx.o
+ .comment       0x00000000       0x4a Drivers/LCD_Screen/src/system_stm32f4xx.o
+ .ARM.attributes
+                0x00000000       0x2e Drivers/LCD_Screen/src/system_stm32f4xx.o
+ .text          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
+ .data          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
+ .text.exit     0x00000000       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
+ .debug_frame   0x00000000       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
+ .ARM.attributes
+                0x00000000       0x2e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-exit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-impure.o)
+ .data          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-impure.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-impure.o)
+ .data._impure_ptr
+                0x00000000        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-impure.o)
+ .data.impure_data
+                0x00000000       0x60 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-impure.o)
+ .rodata._global_impure_ptr
+                0x00000000        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-impure.o)
+ .ARM.attributes
+                0x00000000       0x2e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-impure.o)
+ .text          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
+ .data          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
+ .text.__libc_init_array
+                0x00000000       0x48 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
+ .debug_frame   0x00000000       0x2c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
+ .ARM.attributes
+                0x00000000       0x2e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
+ .text          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(_exit.o)
+ .data          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(_exit.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(_exit.o)
+ .text._exit    0x00000000        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(_exit.o)
+ .debug_frame   0x00000000       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(_exit.o)
+ .ARM.attributes
+                0x00000000       0x2e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(_exit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+ .data          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+ .bss           0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+ .rodata        0x00000000       0x24 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+ .eh_frame      0x00000000        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+ .ARM.attributes
+                0x00000000       0x2e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+ .text          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .data          0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .bss           0x00000000        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .init          0x00000000        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .fini          0x00000000        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .ARM.attributes
+                0x00000000       0x1e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00100000         xr
+RAM              0x20000000         0x00020000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp/crt0.o
+LOAD Drivers/GPIO/src/gpio.o
+LOAD Drivers/LCD_Screen/src/lcd.o
+LOAD Drivers/LCD_Screen/src/main.o
+LOAD Drivers/LCD_Screen/src/memset.o
+LOAD Drivers/LCD_Screen/src/startup.o
+LOAD Drivers/LCD_Screen/src/system_stm32f4xx.o
+START GROUP
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp\libgcc.a
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libc_nano.a
+END GROUP
+START GROUP
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp\libgcc.a
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libc_nano.a
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a
+END GROUP
+START GROUP
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp\libgcc.a
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libc_nano.a
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a
+END GROUP
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+
+.isr_vector     0x08000000       0x40
+ *(.isr_vector)
+ .isr_vector    0x08000000       0x40 Drivers/LCD_Screen/src/startup.o
+                0x08000000                vector_table
+
+.text           0x08000040      0x815
+ *(.text*)
+ .text.GPIO_WritePin
+                0x08000040        0xc Drivers/GPIO/src/gpio.o
+                0x08000040                GPIO_WritePin
+ .text.__RCC_GPIO_CLK_ENABLE
+                0x0800004c       0xdc Drivers/GPIO/src/gpio.o
+                0x0800004c                __RCC_GPIO_CLK_ENABLE
+ .text.GPIO_Init
+                0x08000128       0xfc Drivers/GPIO/src/gpio.o
+                0x08000128                GPIO_Init
+ .text.GPIO_constructor
+                0x08000224        0x8 Drivers/GPIO/src/gpio.o
+                0x08000224                GPIO_constructor
+ .text.LCD_WriteNibble
+                0x0800022c       0xd8 Drivers/LCD_Screen/src/lcd.o
+ .text.LCD_Init
+                0x08000304      0x2a8 Drivers/LCD_Screen/src/lcd.o
+                0x08000304                LCD_Init
+ .text.LCD_SetCursor
+                0x080005ac       0x44 Drivers/LCD_Screen/src/lcd.o
+                0x080005ac                LCD_SetCursor
+ .text.LCD_PrintString
+                0x080005f0       0x34 Drivers/LCD_Screen/src/lcd.o
+                0x080005f0                LCD_PrintString
+ .text.LCD_Clear
+                0x08000624       0x28 Drivers/LCD_Screen/src/lcd.o
+                0x08000624                LCD_Clear
+ .text.delay    0x0800064c       0x1c Drivers/LCD_Screen/src/lcd.o
+                0x0800064c                delay
+ .text.Init     0x08000668      0x100 Drivers/LCD_Screen/src/main.o
+                0x08000668                Init
+ .text.startup.main
+                0x08000768       0x64 Drivers/LCD_Screen/src/main.o
+                0x08000768                main
+ .text          0x080007cc        0xc Drivers/LCD_Screen/src/startup.o
+                0x080007cc                Default_Handler
+                0x080007d0                Reset_Handler
+ *(.rodata*)
+ .rodata.ddramAddr
+                0x080007d8       0x50 Drivers/LCD_Screen/src/lcd.o
+                0x080007d8                ddramAddr
+ .rodata.main.str1.4
+                0x08000828       0x2d Drivers/LCD_Screen/src/main.o
+ *(.glue_7)
+ .glue_7        0x08000855        0x0 linker stubs
+ *(.glue_7t)
+ .glue_7t       0x08000855        0x0 linker stubs
+
+.vfp11_veneer   0x08000858        0x0
+ .vfp11_veneer  0x08000858        0x0 linker stubs
+
+.v4_bx          0x08000858        0x0
+ .v4_bx         0x08000858        0x0 linker stubs
+
+.init           0x08000858        0x4
+ .init          0x08000858        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08000858                _init
+
+.fini           0x0800085c        0x4
+ .fini          0x0800085c        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x0800085c                _fini
+
+.iplt           0x08000860        0x0
+ .iplt          0x08000860        0x0 Drivers/GPIO/src/gpio.o
+
+.rel.dyn        0x08000860        0x0
+ .rel.iplt      0x08000860        0x0 Drivers/GPIO/src/gpio.o
+
+.data
+ *(.data*)
+
+.igot.plt       0x20000000        0x0
+ .igot.plt      0x20000000        0x0 Drivers/GPIO/src/gpio.o
+
+.bss            0x20000000       0x30
+ *(.bss*)
+ .bss.lcd       0x20000000       0x30 Drivers/LCD_Screen/src/main.o
+ *(COMMON)
+
+.stack          0x20000030      0x400
+                0x20000030                . = ALIGN (0x8)
+                0x20000030                _stack = .
+                0x20000430                . = (. + 0x400)
+ *fill*         0x20000030      0x400 
+OUTPUT(Drivers/LCD_Screen/main.elf elf32-littlearm)
+LOAD linker stubs
+
+.ARM.attributes
+                0x00000000       0x2a
+ .ARM.attributes
+                0x00000000       0x1e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+ .ARM.attributes
+                0x0000001e       0x2e Drivers/GPIO/src/gpio.o
+ .ARM.attributes
+                0x0000004c       0x2e Drivers/LCD_Screen/src/lcd.o
+ .ARM.attributes
+                0x0000007a       0x2e Drivers/LCD_Screen/src/main.o
+ .ARM.attributes
+                0x000000a8       0x2e Drivers/LCD_Screen/src/startup.o
+
+.comment        0x00000000       0x49
+ .comment       0x00000000       0x49 Drivers/GPIO/src/gpio.o
+                                 0x4a (size before relaxing)
+ .comment       0x00000049       0x4a Drivers/LCD_Screen/src/lcd.o
+ .comment       0x00000049       0x4a Drivers/LCD_Screen/src/main.o
+ .comment       0x00000049       0x4a Drivers/LCD_Screen/src/startup.o
+
+.debug_info     0x00000000     0x1fae
+ .debug_info    0x00000000      0x6b9 Drivers/GPIO/src/gpio.o
+ .debug_info    0x000006b9     0x1226 Drivers/LCD_Screen/src/lcd.o
+ .debug_info    0x000018df      0x5e6 Drivers/LCD_Screen/src/main.o
+ .debug_info    0x00001ec5       0xe9 Drivers/LCD_Screen/src/startup.o
+
+.debug_abbrev   0x00000000      0x727
+ .debug_abbrev  0x00000000      0x18e Drivers/GPIO/src/gpio.o
+ .debug_abbrev  0x0000018e      0x353 Drivers/LCD_Screen/src/lcd.o
+ .debug_abbrev  0x000004e1      0x17d Drivers/LCD_Screen/src/main.o
+ .debug_abbrev  0x0000065e       0xc9 Drivers/LCD_Screen/src/startup.o
+
+.debug_loc      0x00000000      0xd50
+ .debug_loc     0x00000000      0x361 Drivers/GPIO/src/gpio.o
+ .debug_loc     0x00000361      0x9ef Drivers/LCD_Screen/src/lcd.o
+
+.debug_aranges  0x00000000      0x108
+ .debug_aranges
+                0x00000000       0x68 Drivers/GPIO/src/gpio.o
+ .debug_aranges
+                0x00000068       0x58 Drivers/LCD_Screen/src/lcd.o
+ .debug_aranges
+                0x000000c0       0x28 Drivers/LCD_Screen/src/main.o
+ .debug_aranges
+                0x000000e8       0x20 Drivers/LCD_Screen/src/startup.o
+
+.debug_ranges   0x00000000      0x278
+ .debug_ranges  0x00000000       0x58 Drivers/GPIO/src/gpio.o
+ .debug_ranges  0x00000058      0x208 Drivers/LCD_Screen/src/lcd.o
+ .debug_ranges  0x00000260       0x18 Drivers/LCD_Screen/src/main.o
+
+.debug_line     0x00000000     0x1197
+ .debug_line    0x00000000      0x4b6 Drivers/GPIO/src/gpio.o
+ .debug_line    0x000004b6      0x949 Drivers/LCD_Screen/src/lcd.o
+ .debug_line    0x00000dff      0x27f Drivers/LCD_Screen/src/main.o
+ .debug_line    0x0000107e      0x119 Drivers/LCD_Screen/src/startup.o
+
+.debug_str      0x00000000      0x76f
+ .debug_str     0x00000000      0x3af Drivers/GPIO/src/gpio.o
+                                0x411 (size before relaxing)
+ .debug_str     0x000003af      0x270 Drivers/LCD_Screen/src/lcd.o
+                                0x491 (size before relaxing)
+ .debug_str     0x0000061f       0x59 Drivers/LCD_Screen/src/main.o
+                                0x2ba (size before relaxing)
+ .debug_str     0x00000678       0xf7 Drivers/LCD_Screen/src/startup.o
+                                0x189 (size before relaxing)
+
+.debug_frame    0x00000000      0x274
+ .debug_frame   0x00000000       0xc8 Drivers/GPIO/src/gpio.o
+ .debug_frame   0x000000c8      0x124 Drivers/LCD_Screen/src/lcd.o
+ .debug_frame   0x000001ec       0x50 Drivers/LCD_Screen/src/main.o
+ .debug_frame   0x0000023c       0x38 Drivers/LCD_Screen/src/startup.o
