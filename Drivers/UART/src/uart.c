@@ -272,6 +272,7 @@ void USART_Init(USART_HandleType *handle)
             break;
     }
     
+    handle->regs->CR1 |= USART_CR1_RXNEIE; // Enable RXNE interrupt
     handle->regs->CR1 |= USART_CR1_EN;    // Enable USART at the end of initialization
 }
 
