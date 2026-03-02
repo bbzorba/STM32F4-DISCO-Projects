@@ -5,6 +5,42 @@
 #include <stdio.h>
 #include "../../GPIO/inc/gpio.h"
 
+// Ensure CMSIS core helpers are available. Some translation units in this
+// tree include the full device header (stm32f4xx.h) which defines the
+// `IRQn_Type` and `__NVIC_PRIO_BITS` configuration. If that device header
+// isn't present in this translation unit, provide a minimal set so the
+// CMSIS core header can be included safely.
+#ifndef __NVIC_PRIO_BITS
+#define __NVIC_PRIO_BITS 4
+#endif
+
+/* If the device header (`stm32f4xx.h`) is not included, it won't define
+     `__STM32F4xx_H`. In that case provide a minimal IRQn_Type covering the
+     USART/UART IRQs used by this driver. */
+#ifndef __STM32F4xx_H
+typedef enum IRQn
+{
+    NonMaskableInt_IRQn         = -14,
+    MemoryManagement_IRQn       = -12,
+    BusFault_IRQn               = -11,
+    UsageFault_IRQn             = -10,
+    SVCall_IRQn                 = -5,
+    DebugMonitor_IRQn           = -4,
+    PendSV_IRQn                 = -2,
+    SysTick_IRQn                = -1,
+
+    /* STM32F4 specific (subset) */
+    USART1_IRQn                 = 37,
+    USART2_IRQn                 = 38,
+    USART3_IRQn                 = 39,
+    UART4_IRQn                  = 52,
+    UART5_IRQn                  = 53,
+    USART6_IRQn                 = 71
+} IRQn_Type;
+#endif
+
+#include "core_cm4.h"
+
 #define __IO volatile
 
 /* USART pins for STM32F4xx series:
@@ -60,6 +96,7 @@
 #define USART_CR1_TX_EN 0x0008                              // Enable Transmitter
 #define USART_CR1_RX_EN 0x0004                              // Enable Receiver
 #define USART_CR1_EN 0x2000                                 // Enable USART
+#define USART_CR1_RXNEIE  0x0020                            // Bit 5: RXNE interrupt enable
 
 //USART SR & DR register bit definitions
 #define USART_SR_RX_NOT_EMP 0x0020                          // USART Status Register - Receiver not Empty
@@ -89,10 +126,13 @@ typedef enum {
     __9600,
 } UART_BaudRateType;
 
+typedef void (*USART_Callback_t)(char c);
+
 typedef struct {
     UART_COMType comType;                 // configuration (RX/TX)
     UART_BaudRateType baudRate;           // selected baud enum
     USART_ManualType *regs;               // pointer to hardware register block
+    USART_Callback_t callback;            // callback function for RX interrupt
 } USART_HandleType;                       // High-level handle ("object")
 
 // USART peripheral declarations
@@ -109,6 +149,11 @@ char USART_x_Read(USART_HandleType *handle);
 uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud);
 const char* GetPortName(USART_HandleType *handle);
 
+// Interrupt API
+typedef void (*USART_Callback_t)(char c);
+void USART_EnableRXInterrupt(USART_HandleType *handle, USART_Callback_t callback);
+void USART_DisableRXInterrupt(USART_HandleType *handle);
+void USART_IRQHandler(USART_HandleType *handle);
 // High-level (object-style) API
 void USART_constructor(USART_HandleType *handle, USART_ManualType *regs, UART_COMType _comtype, UART_BaudRateType _baudrate);
 void USART_Init(USART_HandleType *handle);
