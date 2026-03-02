@@ -1,29 +1,51 @@
 #include "../inc/uart.h"
 
-char buffer[64];
+static char buffer[64];
+
+// Global handle so the RX callback (called from IRQ context) can reach it
+static USART_HandleType usart;
+
+// RX interrupt callback — must be at file scope (not nested inside main).
+static void uart_rx_cb(char c) {
+    if (c == '\r' || c == '\n') {
+        // Enter pressed: move to next line (CR+LF)
+        USART_WriteChar(&usart, '\r');
+        USART_WriteChar(&usart, '\n');
+    } else {
+        USART_WriteChar(&usart, c);
+    }
+}
 
 // Function prototypes
 void delay(volatile uint32_t count);
 
 int main(void) {
-    USART_HandleType usart;
     // Initialize USART2 for RX and TX at 115200
     USART_constructor(&usart, USART_2, RX_AND_TX, __115200);
 
-    // POLLING: simple write using polling API
-    USART_WriteString(&usart, "Polling test: Hello from polling UART!\r\n");
+    // -------- Phase 1: Polling TX test --------
+    USART_WriteString(&usart, "=== Polling TX test ===\r\n");
+    USART_WriteString(&usart, "If you can read this, TX works!\r\n");
 
-    // Now switch to interrupt-driven RX: define a callback that echoes received chars
-    void uart_rx_cb(char c) {
-        // echo received character back (safe to call from IRQ)
-        USART_WriteChar(&usart, c);
-    }
+    // -------- Phase 2: Polling RX test --------
+    USART_WriteString(&usart, "\r\n=== Polling RX test ===\r\n");
+    USART_WriteString(&usart, "Type something and press Enter:\r\n");
+
+    USART_ReadString(&usart, buffer, sizeof(buffer));
+
+    USART_WriteString(&usart, "You typed: ");
+    USART_WriteString(&usart, buffer);
+    USART_WriteString(&usart, "\r\n");
+    USART_WriteString(&usart, "Polling RX works!\r\n");
+
+    // -------- Phase 3: Interrupt-based RX echo --------
+    USART_WriteString(&usart, "\r\n=== Interrupt RX echo test ===\r\n");
+    USART_WriteString(&usart, "Type characters to see them echoed (interrupt-driven).\r\n");
 
     USART_EnableRXInterrupt(&usart, uart_rx_cb);
-    USART_WriteString(&usart, "Interrupt echo enabled. Type characters to see them echoed.\r\n");
 
     while (1) {
-        // main loop can do other work; RX will echo via interrupt callback
+        // main loop can do other work; RX is handled by interrupt callback
         delay(1000000);
     }
 }

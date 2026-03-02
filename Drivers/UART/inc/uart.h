@@ -5,18 +5,11 @@
 #include <stdio.h>
 #include "../../GPIO/inc/gpio.h"
 
-// Ensure CMSIS core helpers are available. Some translation units in this
-// tree include the full device header (stm32f4xx.h) which defines the
-// `IRQn_Type` and `__NVIC_PRIO_BITS` configuration. If that device header
-// isn't present in this translation unit, provide a minimal set so the
-// CMSIS core header can be included safely.
-#ifndef __NVIC_PRIO_BITS
+#define __IO volatile
 #define __NVIC_PRIO_BITS 4
-#endif
 
-/* If the device header (`stm32f4xx.h`) is not included, it won't define
-     `__STM32F4xx_H`. In that case provide a minimal IRQn_Type covering the
-     USART/UART IRQs used by this driver. */
+/* a minimal IRQn_Type covering the USART/UART IRQs
+    since the stm32f4xx.h is not included. */
 #ifndef __STM32F4xx_H
 typedef enum IRQn
 {
@@ -40,16 +33,6 @@ typedef enum IRQn
 #endif
 
 #include "core_cm4.h"
-
-#define __IO volatile
-
-/* USART pins for STM32F4xx series:
- USART1 -> PB6 (TX), PB7 (RX)
- USART2 -> PA2 (TX), PA3 (RX) or PD5 (TX), PD6 (RX)
- USART3 -> PB10 (TX), PB11 (RX) or PD8 (TX), PD9 (RX)
- UART4 -> PA0 (TX), PA1 (RX) or PC10 (TX), PC11 (RX)
- UART5 -> PC12 (TX), PD2 (RX)
- USART6 -> PC6 (TX), PC7 (RX) */
 
 // Base addresses
 #define PERIPH_ADDR_BASE 0x40000000U
@@ -150,7 +133,6 @@ uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud);
 const char* GetPortName(USART_HandleType *handle);
 
 // Interrupt API
-typedef void (*USART_Callback_t)(char c);
 void USART_EnableRXInterrupt(USART_HandleType *handle, USART_Callback_t callback);
 void USART_DisableRXInterrupt(USART_HandleType *handle);
 void USART_IRQHandler(USART_HandleType *handle);

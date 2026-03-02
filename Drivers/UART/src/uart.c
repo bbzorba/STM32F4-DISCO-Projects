@@ -5,18 +5,17 @@
     This driver provides an interface for initializing and using the UART peripherals
     on the STM32F4xx microcontrollers.
     Verified with HC06 Bluetooth module and STM32F4 Discovery board.
+
+    USART pins for STM32F4xx series:
+    USART1 -> PB6 (TX), PB7 (RX)
+    USART2 -> PA2 (TX), PA3 (RX) or PD5 (TX), PD6 (RX)
+    USART3 -> PB10 (TX), PB11 (RX) or PD8 (TX), PD9 (RX) or PC10 (TX), PC11(RX)
+    UART4 -> PA0 (TX), PA1 (RX) or PC10 (TX), PC11 (RX)
+    UART5 -> PC12 (TX), PD2 (RX)
+    USART6 -> PC6 (TX), PC7 (RX)
 */
 
 #include "../inc/uart.h"
-
-/* 
- USART pins for STM32F4xx series:
- USART1 -> PB6 (TX), PB7 (RX)
- USART2 -> PA2 (TX), PA3 (RX) or PD5 (TX), PD6 (RX)
- USART3 -> PB10 (TX), PB11 (RX) or PD8 (TX), PD9 (RX) or PC10 (TX), PC11(RX)
- UART4 -> PA0 (TX), PA1 (RX) or PC10 (TX), PC11 (RX)
- UART5 -> PC12 (TX), PD2 (RX)
- USART6 -> PC6 (TX), PC7 (RX)*/
 
 // Compute BRR for oversampling by 16
 uint16_t BRR_Oversample_by_16(uint32_t fck_hz, uint32_t baud) {
@@ -305,7 +304,7 @@ void USART_Init(USART_HandleType *handle)
     else if (handle->regs == USART_6) s_usart6_handle = handle;
 }
 
-/////////////////////POLLING API (for both RX and TX)////////////////////
+//////////////////////////////POLLING API (for both RX and TX)//////////////////////////////
 void USART_x_Write(USART_HandleType *handle, int ch)
 {
     //1. wait until Transmitter Empty flag is set in the SR register
@@ -321,11 +320,11 @@ char USART_x_Read(USART_HandleType *handle)
     //2. read data from DR register
     return (char)(handle->regs->DR & 0xFF);
 }
-/////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
-/////////////////////INTERRUPT API (RX only)/////////////////////////////
+////////////////////////////////INTERRUPT API (RX only)/////////////////////////////////////
 // Call this to start using interrupts
 void USART_EnableRXInterrupt(USART_HandleType *handle, USART_Callback_t callback) {
     handle->callback = callback;
@@ -339,7 +338,15 @@ void USART_DisableRXInterrupt(USART_HandleType *handle) {
 }
 
 void USART_IRQHandler(USART_HandleType *handle) {
-    if ((handle->regs->SR & USART_SR_RX_NOT_EMP) && handle->callback) {
+    uint32_t sr = handle->regs->SR;
+
+    // Clear ORE/NE/FE/PE error flags by reading SR then DR.
+    // If we don't do this, an error flag keeps the IRQ pending forever.
+    if (sr & (0x0008U | 0x0004U | 0x0002U | 0x0001U)) {  // ORE|NE|FE|PE
+        (void)handle->regs->DR;  // dummy read clears error flags
+    }
+
+    if ((sr & USART_SR_RX_NOT_EMP) && handle->callback) {
         char c = (char)(handle->regs->DR & 0xFF); // Read the received character
         handle->callback(c); // Call the user-defined callback with the received character
     }
@@ -352,12 +359,12 @@ void USART3_IRQHandler(void) { if (s_usart3_handle) USART_IRQHandler(s_usart3_ha
 void UART4_IRQHandler(void)  { if (s_uart4_handle)  USART_IRQHandler(s_uart4_handle); }
 void UART5_IRQHandler(void)  { if (s_uart5_handle)  USART_IRQHandler(s_uart5_handle); }
 void USART6_IRQHandler(void) { if (s_usart6_handle) USART_IRQHandler(s_usart6_handle); }
-/////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
-/////////////////////Object style wrappers//////////////////////////////
+////////////////////////////////Object style wrappers///////////////////////////////////////
 void writeString(USART_HandleType *handle, const char *str) {
     // send CRLF then string
     USART_x_Write(handle, '\r');
@@ -413,9 +420,15 @@ void USART_ReadString(USART_HandleType *handle, char *buffer, size_t maxLength) 
     size_t i = 0; char c;
     while (i < maxLength - 1) {
         c = USART_ReadChar(handle);
-        if (c == '\n' || c == '\r') break;
+        if (c == '\n' || c == '\r') {
+            // Echo CR+LF so cursor moves to next line
+            USART_WriteChar(handle, '\r');
+            USART_WriteChar(handle, '\n');
+            break;
+        }
+        USART_WriteChar(handle, c);  // echo typed character
         buffer[i++] = c;
     }
     buffer[i] = '\0';
 }
-/////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
