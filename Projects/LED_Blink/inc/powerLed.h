@@ -49,7 +49,7 @@ led_elec_type PowerLED_getDiameter(powerLED_Type * const pled);
 led_elec_type PowerLED_getCurrent(powerLED_Type * const pled);
 led_elec_type PowerLED_getVoltage(powerLED_Type * const pled);
 
-uint32_t PowerLED_computeEfficiency(USART_HandleType *usart, const LED_Type * const pled);
-void PowerLED_runDiagnostics(USART_HandleType *usart, const LED_Type * const pled);
+uint32_t PowerLED_computeEfficiency(USART_HandleType *usart, powerLED_Type const * const pled);
+void PowerLED_runDiagnostics(USART_HandleType *usart, powerLED_Type const * const pled);
 
 #endif

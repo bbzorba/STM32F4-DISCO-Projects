@@ -38,18 +38,18 @@ int main(void) {
 
         delay(8000000);
 
-        PowerLED_computeEfficiency(&usart, &yellowLED.super);
-        PowerLED_runDiagnostics(&usart, &yellowLED.super);
+        PowerLED_computeEfficiency(&usart, &yellowLED);
+        PowerLED_runDiagnostics(&usart, &yellowLED);
 
         delay(8000000);
 
-        PowerLED_computeEfficiency(&usart, &blueLED.super);
-        PowerLED_runDiagnostics(&usart, &blueLED.super);
+        PowerLED_computeEfficiency(&usart, &blueLED);
+        PowerLED_runDiagnostics(&usart, &blueLED);
 
         delay(8000000);
 
-        MedicalLED_computeEfficiency(&usart, &redLED.super);
-        MedicalLED_runDiagnostics(&usart, &redLED.super);
+        MedicalLED_computeEfficiency(&usart, &redLED);
+        MedicalLED_runDiagnostics(&usart, &redLED);
 
         delay(8000000);
     }

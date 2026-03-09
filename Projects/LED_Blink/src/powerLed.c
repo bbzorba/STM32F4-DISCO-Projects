@@ -11,8 +11,8 @@ void powerLED_constructor(powerLED_Type * const pled,
                           LEDVoltage_Type _voltage){
                             
                             static struct led_vtable const vtable = {
-                                PowerLED_runDiagnostics,
-                                PowerLED_computeEfficiency
+                                (void (*)(USART_HandleType *, LED_Type const * const))PowerLED_runDiagnostics,
+                                (uint32_t (*)(USART_HandleType *, LED_Type const * const))PowerLED_computeEfficiency
                             };
                             LED_constructor(&pled->super,_color,_state);
                             pled->super.vptr = &vtable; // Override vtable to PowerLED's
@@ -49,8 +49,7 @@ led_elec_type PowerLED_getVoltage(powerLED_Type * const pled){
     return pled->voltage;
 }
 
-uint32_t PowerLED_computeEfficiency(USART_HandleType *usart, const LED_Type* const led_base) {
-    const powerLED_Type *pled = (const powerLED_Type *)led_base;
+uint32_t PowerLED_computeEfficiency(USART_HandleType *usart, const powerLED_Type* const pled) {
     const int8_t input = 120;
     const int8_t output = 86;
     int8_t eff = ((input/output)*100) - (pled->current)/2;
@@ -64,9 +63,9 @@ uint32_t PowerLED_computeEfficiency(USART_HandleType *usart, const LED_Type* con
     return (uint32_t)eff;
 }
 
-void PowerLED_runDiagnostics(USART_HandleType * usart, const LED_Type* const led_base) {
-    const powerLED_Type *pled = (const powerLED_Type *)led_base;
-    for (int i = 0; i < (int)pled->current; i++) {
+void PowerLED_runDiagnostics(USART_HandleType * usart, const powerLED_Type* const pled) {
+    for (int i = 0; i < (int)pled->current; i++)
+    {
         char buf[64];
         int n = snprintf(buf, sizeof(buf), "Power LED Diagnostics Stage %d: \r\n", i);
         if (n > 0) {

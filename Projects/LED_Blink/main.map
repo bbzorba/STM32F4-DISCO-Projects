@@ -619,33 +619,33 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Projects/LED_Blink/src/startup.o
  .comment       0x00000049       0x4a Projects/LED_Blink/src/system_stm32f4xx.o
 
-.debug_info     0x00000000     0x37f2
+.debug_info     0x00000000     0x37a7
  .debug_info    0x00000000      0x4fa Drivers/UART/src/stubs.o
  .debug_info    0x000004fa     0x11c6 Drivers/UART/src/uart.o
  .debug_info    0x000016c0      0x8b9 Projects/LED_Blink/src/led.o
  .debug_info    0x00001f79      0x82c Projects/LED_Blink/src/main.o
- .debug_info    0x000027a5      0x64e Projects/LED_Blink/src/medicalLED.o
- .debug_info    0x00002df3      0x7eb Projects/LED_Blink/src/powerLed.o
- .debug_info    0x000035de      0x196 Projects/LED_Blink/src/startup.o
- .debug_info    0x00003774       0x7e Projects/LED_Blink/src/system_stm32f4xx.o
+ .debug_info    0x000027a5      0x626 Projects/LED_Blink/src/medicalLED.o
+ .debug_info    0x00002dcb      0x7c8 Projects/LED_Blink/src/powerLed.o
+ .debug_info    0x00003593      0x196 Projects/LED_Blink/src/startup.o
+ .debug_info    0x00003729       0x7e Projects/LED_Blink/src/system_stm32f4xx.o
 
-.debug_abbrev   0x00000000      0xf9a
+.debug_abbrev   0x00000000      0xf72
  .debug_abbrev  0x00000000      0x176 Drivers/UART/src/stubs.o
  .debug_abbrev  0x00000176      0x412 Drivers/UART/src/uart.o
  .debug_abbrev  0x00000588      0x2e5 Projects/LED_Blink/src/led.o
  .debug_abbrev  0x0000086d      0x1af Projects/LED_Blink/src/main.o
- .debug_abbrev  0x00000a1c      0x227 Projects/LED_Blink/src/medicalLED.o
- .debug_abbrev  0x00000c43      0x1fe Projects/LED_Blink/src/powerLed.o
- .debug_abbrev  0x00000e41      0x115 Projects/LED_Blink/src/startup.o
- .debug_abbrev  0x00000f56       0x44 Projects/LED_Blink/src/system_stm32f4xx.o
+ .debug_abbrev  0x00000a1c      0x213 Projects/LED_Blink/src/medicalLED.o
+ .debug_abbrev  0x00000c2f      0x1ea Projects/LED_Blink/src/powerLed.o
+ .debug_abbrev  0x00000e19      0x115 Projects/LED_Blink/src/startup.o
+ .debug_abbrev  0x00000f2e       0x44 Projects/LED_Blink/src/system_stm32f4xx.o
 
-.debug_loc      0x00000000     0x11ff
+.debug_loc      0x00000000     0x1161
  .debug_loc     0x00000000      0x156 Drivers/UART/src/stubs.o
  .debug_loc     0x00000156      0x8bc Drivers/UART/src/uart.o
  .debug_loc     0x00000a12      0x2c9 Projects/LED_Blink/src/led.o
  .debug_loc     0x00000cdb       0x4e Projects/LED_Blink/src/main.o
- .debug_loc     0x00000d29      0x1fd Projects/LED_Blink/src/medicalLED.o
- .debug_loc     0x00000f26      0x2d9 Projects/LED_Blink/src/powerLed.o
+ .debug_loc     0x00000d29      0x1b3 Projects/LED_Blink/src/medicalLED.o
+ .debug_loc     0x00000edc      0x285 Projects/LED_Blink/src/powerLed.o
 
 .debug_aranges  0x00000000      0x280
  .debug_aranges
@@ -675,17 +675,17 @@ LOAD linker stubs
  .debug_ranges  0x000003c8       0x18 Projects/LED_Blink/src/startup.o
  .debug_ranges  0x000003e0       0x10 Projects/LED_Blink/src/system_stm32f4xx.o
 
-.debug_line     0x00000000     0x261f
+.debug_line     0x00000000     0x2617
  .debug_line    0x00000000      0x301 Drivers/UART/src/stubs.o
  .debug_line    0x00000301     0x120d Drivers/UART/src/uart.o
  .debug_line    0x0000150e      0x5ac Projects/LED_Blink/src/led.o
  .debug_line    0x00001aba      0x2ce Projects/LED_Blink/src/main.o
- .debug_line    0x00001d88      0x2e9 Projects/LED_Blink/src/medicalLED.o
- .debug_line    0x00002071      0x370 Projects/LED_Blink/src/powerLed.o
- .debug_line    0x000023e1      0x1e2 Projects/LED_Blink/src/startup.o
- .debug_line    0x000025c3       0x5c Projects/LED_Blink/src/system_stm32f4xx.o
+ .debug_line    0x00001d88      0x2e3 Projects/LED_Blink/src/medicalLED.o
+ .debug_line    0x0000206b      0x36e Projects/LED_Blink/src/powerLed.o
+ .debug_line    0x000023d9      0x1e2 Projects/LED_Blink/src/startup.o
+ .debug_line    0x000025bb       0x5c Projects/LED_Blink/src/system_stm32f4xx.o
 
-.debug_str      0x00000000      0xd6e
+.debug_str      0x00000000      0xd65
  .debug_str     0x00000000      0x298 Drivers/UART/src/stubs.o
                                 0x31d (size before relaxing)
  .debug_str     0x00000298      0x591 Drivers/UART/src/uart.o
@@ -694,13 +694,13 @@ LOAD linker stubs
                                 0x4b0 (size before relaxing)
  .debug_str     0x00000938      0x212 Projects/LED_Blink/src/main.o
                                 0x521 (size before relaxing)
- .debug_str     0x00000b4a       0x86 Projects/LED_Blink/src/medicalLED.o
-                                0x400 (size before relaxing)
- .debug_str     0x00000bd0       0xbd Projects/LED_Blink/src/powerLed.o
-                                0x4ff (size before relaxing)
- .debug_str     0x00000c8d       0xb7 Projects/LED_Blink/src/startup.o
+ .debug_str     0x00000b4a       0x7d Projects/LED_Blink/src/medicalLED.o
+                                0x3f7 (size before relaxing)
+ .debug_str     0x00000bc7       0xbd Projects/LED_Blink/src/powerLed.o
+                                0x4f6 (size before relaxing)
+ .debug_str     0x00000c84       0xb7 Projects/LED_Blink/src/startup.o
                                 0x212 (size before relaxing)
- .debug_str     0x00000d44       0x2a Projects/LED_Blink/src/system_stm32f4xx.o
+ .debug_str     0x00000d3b       0x2a Projects/LED_Blink/src/system_stm32f4xx.o
                                 0x169 (size before relaxing)
 
 .debug_frame    0x00000000      0x964

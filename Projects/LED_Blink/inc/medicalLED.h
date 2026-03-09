@@ -23,7 +23,7 @@ void MedicalLED_constructor(MedicalLED_Type* const mled,
 LEDWavelength_Type MedicalLED_getWavelength(const MedicalLED_Type* const mled);
 void MedicalLED_setWavelength(MedicalLED_Type* const mled, LEDWavelength_Type _wavelength);
 
-uint32_t MedicalLED_computeEfficiency(USART_HandleType * usart, const LED_Type* const mled);
-void MedicalLED_runDiagnostics(USART_HandleType * usart, const LED_Type* const mled);
+uint32_t MedicalLED_computeEfficiency(USART_HandleType * usart, const MedicalLED_Type* const mled);
+void MedicalLED_runDiagnostics(USART_HandleType * usart, const MedicalLED_Type* const mled);
 
 #endif // MEDICAL_LED_H
