@@ -4,6 +4,8 @@
 // Function prototypes
 void delay(volatile uint32_t count);
 
+USART_HandleType usart;
+
 LED_Type greenLED;
 MedicalLED_Type redLED;
 
@@ -15,21 +17,14 @@ led_elec_type blue_led_power;
 
 //main function
 int main(void) {
-    //USART2_Init();
+    USART_constructor(&usart, USART_2, RX_AND_TX, __115200);
+    USART_WriteString(&usart, "\r\n Power LED & Medical LED Efficiency Computing & Diagnostics Application\r\n");
 
     LED_constructor(&greenLED, GREEN, LED_OFF);
     // Use a valid LEDColor_Type (e.g., RED) instead of casting wavelength enum
     MedicalLED_constructor(&redLED, INFRARED, RED, LED_OFF);
     powerLED_constructor(&yellowLED, YELLOW, LED_OFF, DIAM_5MM,CURRENT_NORMAL, VOL_NORMAL);
     powerLED_constructor(&blueLED, BLUE, LED_OFF, DIAM_7MM,CURRENT_HIGH, VOL_NORMAL);
-
-    LED_Type const *sys_leds[] = {
-        &greenLED,
-        &redLED.super,   // base part of medical LED
-        &yellowLED.super, // powerLED shares layout starting with base
-        &blueLED.super,
-        0
-    };
 
     yellow_led_power = PowerLED_computePower(&yellowLED);
     blue_led_power = PowerLED_computePower(&blueLED);
@@ -41,15 +36,22 @@ int main(void) {
         LED_setState((LED_Type*)&yellowLED, LED_TOGGLE);
         LED_setState((LED_Type*)&blueLED, LED_TOGGLE);
 
-        PowerLED_computeEfficiency(&yellowLED);
-        PowerLED_runDiagnostics(&yellowLED);
-        PowerLED_computeEfficiency(&blueLED);
-        PowerLED_runDiagnostics(&blueLED);
+        delay(8000000);
 
-        MedicalLED_computeEfficiency(&redLED);
-        MedicalLED_runDiagnostics(&redLED);
+        PowerLED_computeEfficiency(&usart, &yellowLED.super);
+        PowerLED_runDiagnostics(&usart, &yellowLED.super);
 
-        delay(800000); // ~50ms at 16 MHz
+        delay(8000000);
+
+        PowerLED_computeEfficiency(&usart, &blueLED.super);
+        PowerLED_runDiagnostics(&usart, &blueLED.super);
+
+        delay(8000000);
+
+        MedicalLED_computeEfficiency(&usart, &redLED.super);
+        MedicalLED_runDiagnostics(&usart, &redLED.super);
+
+        delay(8000000);
     }
 }
 

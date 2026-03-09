@@ -1,8 +1,10 @@
 #ifndef LED_H
 #define LED_H
 
+#include <stdio.h>
 #include <stdint.h>
 #include "../../Drivers/GPIO/inc/gpio.h"
+#include "../../Drivers/UART/inc/uart.h"
 
 #define LED_PORT GPIO_D
 #define LED_PORT_CLK (1U << 3) // AHB1ENR GPIODEN
@@ -45,30 +47,30 @@ typedef struct {
 //LED virtual table
 struct led_vtable
 {
-    void (*run_diagnostics)(LED_Type const * const led);
-    uint32_t (*compute_efficiency)(LED_Type const * const led);
+    void (*run_diagnostics)(USART_HandleType * usart, LED_Type const * const led);
+    uint32_t (*compute_efficiency)(USART_HandleType * usart, LED_Type const * const led);
 };
 
 
 void LED_constructor(LED_Type * const led, LEDColor_Type _color, LEDState_Type _state);
 void LED_setState(LED_Type * const led, LEDState_Type _state);
-LEDState_Type LED_getState(const LED_Type * const led);
+LEDState_Type LED_getState(USART_HandleType *usart, const LED_Type * const led);
 
 
-//method 1
-static inline void LED_run_diagnostics(LED_Type const * const led) {
-        (led->vptr->run_diagnostics)(led);
+//method 1 (pass the USART handle to diagnostics/efficiency funcs)
+static inline void LED_run_diagnostics(USART_HandleType * usart, LED_Type const * const led) {
+    (led->vptr->run_diagnostics)(usart, led);
 }
 
-static inline uint32_t LED_compute_efficiency(LED_Type const * const led) {
-        return (led->vptr->compute_efficiency)(led);
+static inline uint32_t LED_compute_efficiency(USART_HandleType * usart, LED_Type const * const led) {
+    return (led->vptr->compute_efficiency)(usart, led);
 }
 
 //method 2
-#define LED_RUN_DIAGNOSTICS(led) (*(led)->vptr->run_diagnostics(led))
-#define LED_COMPUTE_EFFICIENCY(led) (*(led)->vptr->compute_efficiency(led))
+#define LED_RUN_DIAGNOSTICS(usart, led) (*(led)->vptr->run_diagnostics(usart, led))
+#define LED_COMPUTE_EFFICIENCY(usart, led) (*(led)->vptr->compute_efficiency(usart, led))
 
-void runSystemsDiagnostics(LED_Type const *led_modules[]);
-void computeLEDsEfficiency(LED_Type const *led_modules[]);
+void runSystemsDiagnostics(USART_HandleType * usart, LED_Type const *led_modules[]);
+void computeLEDsEfficiency(USART_HandleType * usart, LED_Type const *led_modules[]);
 
 #endif // LED_H

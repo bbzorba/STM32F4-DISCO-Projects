@@ -1,7 +1,7 @@
 # Minimal Makefile for STM32F4 Discovery (STM32F407VG)
 
 #DONE
-PROJECT_DIR = Drivers/UART
+#PROJECT_DIR = Drivers/UART
 #PROJECT_DIR = Drivers/UART_cpp
 #PROJECT_DIR = Drivers/GPIO
 #PROJECT_DIR = Drivers/GPIO_cpp
@@ -13,7 +13,7 @@ PROJECT_DIR = Drivers/UART
 #PROJECT_DIR = Drivers/I2C_cpp
 #PROJECT_DIR = Drivers/SPI
 #PROJECT_DIR = Drivers/SPI_cpp
-#PROJECT_DIR = Projects/LED_Blink
+PROJECT_DIR = Projects/LED_Blink
 #PROJECT_DIR = Projects/LED_Blink_cpp
 #PROJECT_DIR = Projects/Servo_Motor
 #PROJECT_DIR = Projects/Servo_Motor_cpp
@@ -24,7 +24,7 @@ PROJECT_DIR = Drivers/UART
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer
 
 #TBD
-#PROJECT_DIR = Projects/LIS302DL_Accelerometer_interrupt
+#PROJECT_DIR = Projects/Button_LED_Blink_mutex
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
@@ -65,6 +65,11 @@ BAUD ?= 115200
 LDFLAGS=-T$(PROJECT_DIR)/linker.ld --specs=nano.specs --specs=nosys.specs -Wl,--gc-sections
 
 # Optional external driver selection -------------------------------------------------
+# Include UART driver automatically for the LED_Blink project so
+# project code can use the shared UART API without adding local stubs.
+ifeq ($(strip $(PROJECT_DIR)),Projects/LED_Blink)
+DRIVERS := UART
+endif
 # By default (when DRIVERS is empty) we build ONLY the selected PROJECT sources.
 # To pull in driver code under Drivers/<Name>, invoke:
 #   make DRIVERS="UART I2C"   (names are directory basenames)
@@ -362,8 +367,8 @@ SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc -IDrivers/SPI/inc -IDrivers/UART/inc
 endif
 
-# Project-specific wiring for LIS302DL_Accelerometer_interrupt: needs GPIO, SPI & UART drivers
-ifeq ($(PROJECT_DIR),Projects/LIS302DL_Accelerometer_interrupt)
+# Project-specific wiring for Button_LED_Blink_mutex: needs GPIO, SPI & UART drivers
+ifeq ($(PROJECT_DIR),Projects/Button_LED_Blink_mutex)
 SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(SPI_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))

@@ -1,7 +1,8 @@
 #include "../inc/led.h"
+#include <stdio.h>
 
-static void run_diagnostics(LED_Type const * const led);
-static uint32_t compute_efficiency(LED_Type const * const led);
+static void run_diagnostics(USART_HandleType * usart, LED_Type const * const led);
+static uint32_t compute_efficiency(USART_HandleType * usart, LED_Type const * const led);
 
 void LED_constructor(LED_Type* const led, LEDColor_Type _color, LEDState_Type _state){
 
@@ -115,31 +116,35 @@ void LED_setState(LED_Type* const led, LEDState_Type _state){
     }
 }
 
-LEDState_Type LED_getState(const LED_Type* const led){
-
-    printf("%d LED state is currently: %d\n\r", led->color, led->state);
-
+LEDState_Type LED_getState(USART_HandleType *usart, const LED_Type* const led){
+    char buf[64];
+    // Format state and color into a single string and send via provided USART
+    int n = snprintf(buf, sizeof(buf), "LED state is currently: %d\r\nLED color is: %d\r\n",
+                     (int)led->state, (int)led->color);
+    if (n > 0) {
+        USART_WriteString(usart, buf);
+    }
     return led->state;
 }
 
-static void run_diagnostics(LED_Type const * const led) {
-   (void)led; // Suppress unused parameter warning
+static void run_diagnostics(USART_HandleType * usart, LED_Type const * const led) {
+   (void)usart; (void)led; // Suppress unused parameter warnings
 }
 
-static uint32_t compute_efficiency(LED_Type const * const led) {
-    (void)led; // Suppress unused parameter warning
+static uint32_t compute_efficiency(USART_HandleType * usart, LED_Type const * const led) {
+    (void)usart; (void)led; // Suppress unused parameter warnings
     return 0U; // Dummy value
 }
 
 //Polymorphic functions implementations (child classes will also run these functions)
-void runSystemsDiagnostics(LED_Type const *led_modules[]) {
+void runSystemsDiagnostics(USART_HandleType * usart, LED_Type const *led_modules[]) {
     for (int i = 0; led_modules[i] != (LED_Type *)0; i++) {
-        LED_run_diagnostics(led_modules[i]);
+        LED_run_diagnostics(usart, led_modules[i]);
     }
 }
 
-void computeLEDsEfficiency(LED_Type const *led_modules[]) {
+void computeLEDsEfficiency(USART_HandleType * usart, LED_Type const *led_modules[]) {
     for (int i = 0; led_modules[i] != (LED_Type *)0; i++) {
-        LED_compute_efficiency(led_modules[i]);
+        LED_compute_efficiency(usart, led_modules[i]);
     }
 }
