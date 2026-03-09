@@ -119,20 +119,23 @@ void LED::setState(LEDState_Type _state){
 
 }
 
-LEDState_Type LED::getState(void) const {
-
+LEDState_Type LED::getState(USART *usart) const {
+    char buf[128];
+    // Grouped, easily readable output
+    int n = snprintf(buf, sizeof(buf), "\r\n--- LED Status ---\r\nState: %s\r\nColor: %s\r\n\r\n",
+                     (this->state == LED_ON) ? "ON" : (this->state == LED_OFF) ? "OFF" : "TOGGLE",
+                     LEDColorToString(this->color));
+    if (n > 0) usart->USART_WriteString(buf);
 
     return this->state;
 }
 
-// Default virtual implementations
-void LED::runDiagnostics() {
-    // Base LED diagnostics placeholder
+// Default virtual implementations (accept USART pointer)
+void LED::runDiagnostics(USART *usart) {
+    (void)usart; // placeholder
 }
 
-uint32_t LED::computeEfficiency() const {
-    // Dummy metric for base
+uint32_t LED::computeEfficiency(USART *usart) const {
+    (void)usart; // placeholder
     return 0U;
 }
-
-

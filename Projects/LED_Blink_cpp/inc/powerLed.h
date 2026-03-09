@@ -43,13 +43,13 @@ public:
     void powerLED_setCurrent(LEDCurrent_Type _current);
     void powerLED_setVoltage(LEDVoltage_Type _voltage);
     led_elec_type powerLED_computePower(void);
-    led_elec_type powerLED_getDiameter(void);
-    led_elec_type powerLED_getCurrent(void);
-    led_elec_type powerLED_getVoltage(void);
+    led_elec_type powerLED_getDiameter(USART *usart);
+    led_elec_type powerLED_getCurrent(USART *usart);
+    led_elec_type powerLED_getVoltage(USART *usart);
 
     // Polymorphic overrides
-    void runDiagnostics() override;
-    uint32_t computeEfficiency() const override;
+    void runDiagnostics(USART *usart) override;
+    uint32_t computeEfficiency(USART *usart) const override;
 };
 
 #endif

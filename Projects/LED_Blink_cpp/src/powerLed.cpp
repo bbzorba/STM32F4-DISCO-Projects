@@ -28,20 +28,35 @@ led_elec_type powerLED::powerLED_computePower(void){
     return (this->current * this->voltage); // Power in W
 }
 
-led_elec_type powerLED::powerLED_getDiameter(void){
+led_elec_type powerLED::powerLED_getDiameter(USART *usart){
+    char buf[64];
+    int n = snprintf(buf, sizeof(buf), "Power LED diameter: %u mm\r\n", (unsigned)this->diameter);
+    if (n > 0) {
+        usart->USART_WriteString(buf);
+    }
     return this->diameter;
 }
 
-led_elec_type powerLED::powerLED_getCurrent(void){
+led_elec_type powerLED::powerLED_getCurrent(USART *usart){
+    char buf[64];
+    int n = snprintf(buf, sizeof(buf), "Power LED current: %u mA\r\n", (unsigned)this->current);
+    if (n > 0) {
+        usart->USART_WriteString(buf);
+    }
     return this->current;
 }
 
-led_elec_type powerLED::powerLED_getVoltage(void){
+led_elec_type powerLED::powerLED_getVoltage(USART *usart){
+    char buf[64];
+    int n = snprintf(buf, sizeof(buf), "Power LED voltage: %u V\r\n", (unsigned)this->voltage);
+    if (n > 0) {
+        usart->USART_WriteString(buf);
+    }
     return this->voltage;
 }
 
 // Override virtuals from LED (single implementation)
-uint32_t powerLED::computeEfficiency() const {
+uint32_t powerLED::computeEfficiency(USART *usart) const {
     const uint32_t input = 120U;
     const uint32_t output = 86U;
     uint32_t eff = ((input * 100U) / output);
@@ -49,14 +64,23 @@ uint32_t powerLED::computeEfficiency() const {
         // Slightly adjust by current class (arbitrary demo logic)
         eff -= (static_cast<uint32_t>(current) / 2U);
     }
-    printf("Power LED Efficiency: %lu%%\n\r", (unsigned long)eff);
+    char buf[128];
+    int n = snprintf(buf, sizeof(buf), "\r\n-- Power LED Efficiency (%s) --\r\nEfficiency: %lu%%\r\n\r\n",
+                     LEDColorToString(getColor()), (unsigned long)eff);
+    if (n > 0) usart->USART_WriteString(buf);
     return eff;
 }
 
-void powerLED::runDiagnostics() {
-    printf("powerLED diag start (color=%d)\n\r", getColor());
+void powerLED::runDiagnostics(USART *usart) {
+    char buf[128];
+    int n = snprintf(buf, sizeof(buf), "-- Power LED Diagnostics (%s) --\r\n",
+                     LEDColorToString(getColor()));
+    if (n > 0) usart->USART_WriteString(buf);
+    // Print diagnostic steps showing instantaneous power in mW (current[mA]*voltage[V])
     for (uint32_t i = 0; i < static_cast<uint32_t>(current); i += 10U) {
-        printf("Diag step %lu power=%u\n\r", (unsigned long)i, (unsigned)powerLED_computePower());
+        int n = snprintf(buf, sizeof(buf), "Step %lu: power = %u mW\r\n", (unsigned long)i, (unsigned)powerLED_computePower());
+        if (n > 0) usart->USART_WriteString(buf);
     }
-    printf("powerLED diag end\n\r");
+    int n_end = snprintf(buf, sizeof(buf), "-- End Diagnostics (%s) --\r\n\r\n", LEDColorToString(getColor()));
+    if (n_end > 0) usart->USART_WriteString(buf);
 }

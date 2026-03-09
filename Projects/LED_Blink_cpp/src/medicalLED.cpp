@@ -5,7 +5,25 @@ medicalLED::medicalLED(LEDWavelength_Type wavelength,
                        LEDState_Type state)
     : LED(color, state), wavelength(wavelength) {}
 
-uint32_t medicalLED::computeEfficiency() const {
+void medicalLED::setWavelength(USART *usart, LEDWavelength_Type w) { 
+    char buf[64];
+    int n = snprintf(buf, sizeof(buf), "Setting Medical LED wavelength to: %d nm\r\n", (int)w);
+    if (n > 0) {
+        usart->USART_WriteString(buf);
+    }
+    wavelength = w; 
+}
+
+LEDWavelength_Type medicalLED::getWavelength(USART *usart) const {
+    char buf[64];
+    int n = snprintf(buf, sizeof(buf), "Medical LED wavelength is currently: %d nm\r\n", (int)wavelength);
+    if (n > 0) {
+        usart->USART_WriteString(buf);
+    }
+    return wavelength;
+}
+
+uint32_t medicalLED::computeEfficiency(USART *usart) const {
     // Simple reused logic based on wavelength bands
     const uint32_t input = 120U;
     const uint32_t output = 86U;
@@ -14,12 +32,22 @@ uint32_t medicalLED::computeEfficiency() const {
     uint32_t K = (wavelength == INFRARED) ? kInfra : kNear;
     uint32_t eff = ((input * 100U) / output);
     if (eff > K) eff -= K; else eff = 0;
-    printf("Medical LED Efficiency: %lu%%\n\r", (unsigned long)eff);
+    char buf[64];
+    int n = snprintf(buf, sizeof(buf), "Medical LED Efficiency: %lu%%\r\n", (unsigned long)eff);
+    if (n > 0) {
+        usart->USART_WriteString(buf);
+    }
     return eff;
 }
 
-void medicalLED::runDiagnostics() {
+void medicalLED::runDiagnostics(USART *usart) {
+    char buf[128];
+    int n = snprintf(buf, sizeof(buf), "-- Medical LED Diagnostics (%s) --\r\n", LEDColorToString(getColor()));
+    if (n > 0) usart->USART_WriteString(buf);
     for (int i = 0; i < 10; ++i) {
-        printf("Medical LED Diagnostics Stage %d wavelength=%u nm\n\r", i, (unsigned)wavelength);
+        int n = snprintf(buf, sizeof(buf), "Stage %d\r\n", i);
+        if (n > 0) usart->USART_WriteString(buf);
     }
+    n = snprintf(buf, sizeof(buf), "-- End Diagnostics (%s) --\r\n\r\n", LEDColorToString(getColor()));
+    if (n > 0) usart->USART_WriteString(buf);
 }

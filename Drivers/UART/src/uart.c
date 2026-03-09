@@ -340,15 +340,20 @@ void USART_DisableRXInterrupt(USART_HandleType *handle) {
 void USART_IRQHandler(USART_HandleType *handle) {
     uint32_t sr = handle->regs->SR;
 
-    // Clear ORE/NE/FE/PE error flags by reading SR then DR.
-    // If we don't do this, an error flag keeps the IRQ pending forever.
+    // Error path: ORE/NE/FE/PE — read DR to clear all flags and discard the byte.
+    // Must return after this so we don't try to read DR a second time below.
     if (sr & (0x0008U | 0x0004U | 0x0002U | 0x0001U)) {  // ORE|NE|FE|PE
-        (void)handle->regs->DR;  // dummy read clears error flags
+        (void)handle->regs->DR;  // clears error flags and RXNE
+        return;
     }
 
-    if ((sr & USART_SR_RX_NOT_EMP) && handle->callback) {
-        char c = (char)(handle->regs->DR & 0xFF); // Read the received character
-        handle->callback(c); // Call the user-defined callback with the received character
+    // RXNE: always read DR to clear the interrupt flag, even without a callback.
+    // Not reading DR here would leave RXNE set and cause an infinite IRQ re-entry.
+    if (sr & USART_SR_RX_NOT_EMP) {
+        char c = (char)(handle->regs->DR & 0xFF); // clears RXNE
+        if (handle->callback) {
+            handle->callback(c);
+        }
     }
 }
 

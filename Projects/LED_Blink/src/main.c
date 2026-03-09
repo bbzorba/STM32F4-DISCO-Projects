@@ -29,12 +29,41 @@ int main(void) {
     yellow_led_power = PowerLED_computePower(&yellowLED);
     blue_led_power = PowerLED_computePower(&blueLED);
 
+    // Print initial readable status for all LEDs and measurements
+    LED_getState(&usart, &redLED.super);
+    LED_getState(&usart, &greenLED);
+    LED_getState(&usart, (LED_Type*)&yellowLED);
+    LED_getState(&usart, (LED_Type*)&blueLED);
+
+    char buf[128];
+    int n = snprintf(buf, sizeof(buf), "Medical LED wavelength is currently: %d nm\r\n"
+                     "Power LED voltage: %u V\r\n"
+                     "Power LED current: %u mA\r\n\r\n",
+                     MedicalLED_getWavelength(&redLED),
+                     PowerLED_getVoltage(&yellowLED),
+                     PowerLED_getCurrent(&yellowLED));
+    if (n > 0) {
+        USART_WriteString(&usart, buf);
+    }
+
     while (1) {
-        LED_setState(&redLED.super, LED_TOGGLE); // operate on base
+
+        delay(8000000);
+
+        LED_setState(&redLED.super, LED_TOGGLE);
         LED_setState(&greenLED, LED_TOGGLE);
-        // Cast powerLED_Type* to LED_Type* to match LED_setState signature and silence warnings
         LED_setState((LED_Type*)&yellowLED, LED_TOGGLE);
         LED_setState((LED_Type*)&blueLED, LED_TOGGLE);
+
+        delay(8000000);
+
+        LED_getState(&usart, &redLED.super);
+        delay(800000);
+        LED_getState(&usart, &greenLED);
+        delay(800000);
+        LED_getState(&usart, (LED_Type*)&yellowLED);
+        delay(800000);
+        LED_getState(&usart, (LED_Type*)&blueLED);
 
         delay(8000000);
 
@@ -51,7 +80,6 @@ int main(void) {
         MedicalLED_computeEfficiency(&usart, &redLED);
         MedicalLED_runDiagnostics(&usart, &redLED);
 
-        delay(8000000);
     }
 }
 

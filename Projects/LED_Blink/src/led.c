@@ -4,6 +4,16 @@
 static void run_diagnostics(USART_HandleType * usart, LED_Type const * const led);
 static uint32_t compute_efficiency(USART_HandleType * usart, LED_Type const * const led);
 
+static const char* LEDColorToString(LEDColor_Type color) {
+    switch (color) {
+        case GREEN: return "GREEN";
+        case YELLOW: return "YELLOW";
+        case RED: return "RED";
+        case BLUE: return "BLUE";
+        default: return "UNKNOWN";
+    }
+}
+
 void LED_constructor(LED_Type* const led, LEDColor_Type _color, LEDState_Type _state){
 
     // Initialize virtual table pointer
@@ -117,13 +127,23 @@ void LED_setState(LED_Type* const led, LEDState_Type _state){
 }
 
 LEDState_Type LED_getState(USART_HandleType *usart, const LED_Type* const led){
-    char buf[64];
-    // Format state and color into a single string and send via provided USART
-    int n = snprintf(buf, sizeof(buf), "LED state is currently: %d\r\nLED color is: %d\r\n",
-                     (int)led->state, (int)led->color);
-    if (n > 0) {
-        USART_WriteString(usart, buf);
+    // Read actual pin state from ODR so we show ON/OFF even when stored state is TOGGLE
+    uint32_t pin_on;
+    switch (led->color) {
+        case GREEN:  pin_on = LED_PORT->ODR & LED_PIN_GREEN;  break;
+        case YELLOW: pin_on = LED_PORT->ODR & LED_PIN_YELLOW; break;
+        case RED:    pin_on = LED_PORT->ODR & LED_PIN_RED;    break;
+        case BLUE:   pin_on = LED_PORT->ODR & LED_PIN_BLUE;   break;
+        default:     pin_on = 0;                              break;
     }
+
+    // Use direct writes — avoids snprintf %s entirely
+    USART_WriteString(usart, "--- LED Status ---\r\nState: ");
+    USART_WriteString(usart, pin_on ? "ON" : "OFF");
+    USART_WriteString(usart, "\r\nColor: ");
+    USART_WriteString(usart, LEDColorToString(led->color));
+    USART_WriteString(usart, "\r\n\r\n");
+
     return led->state;
 }
 

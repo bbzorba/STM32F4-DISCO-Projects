@@ -13,8 +13,8 @@
 #PROJECT_DIR = Drivers/I2C_cpp
 #PROJECT_DIR = Drivers/SPI
 #PROJECT_DIR = Drivers/SPI_cpp
-PROJECT_DIR = Projects/LED_Blink
-#PROJECT_DIR = Projects/LED_Blink_cpp
+#PROJECT_DIR = Projects/LED_Blink
+PROJECT_DIR = Projects/LED_Blink_cpp
 #PROJECT_DIR = Projects/Servo_Motor
 #PROJECT_DIR = Projects/Servo_Motor_cpp
 #PROJECT_DIR = Projects/HC06_Bluetooth
@@ -69,6 +69,9 @@ LDFLAGS=-T$(PROJECT_DIR)/linker.ld --specs=nano.specs --specs=nosys.specs -Wl,--
 # project code can use the shared UART API without adding local stubs.
 ifeq ($(strip $(PROJECT_DIR)),Projects/LED_Blink)
 DRIVERS := UART
+endif
+ifeq ($(strip $(PROJECT_DIR)),Projects/LED_Blink_cpp)
+DRIVERS := UART_cpp GPIO_cpp
 endif
 # By default (when DRIVERS is empty) we build ONLY the selected PROJECT sources.
 # To pull in driver code under Drivers/<Name>, invoke:

@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "led.h"
-#include "../../Drivers/UART/inc/uart.h"
+#include "../../Drivers/UART_cpp/inc/uart.h"
 
 typedef enum {
     INFRARED = 910, // nm
@@ -18,12 +18,12 @@ public:
                LEDColor_Type _color, 
                LEDState_Type _state);
 
-    void setWavelength(LEDWavelength_Type w) { wavelength = w; }
-    LEDWavelength_Type getWavelength() const { return wavelength; }
+    void setWavelength(USART *usart, LEDWavelength_Type w);
+    LEDWavelength_Type getWavelength(USART *usart) const;
 
     // Polymorphic overrides
-    uint32_t computeEfficiency() const override;
-    void runDiagnostics() override;
+    uint32_t computeEfficiency(USART *usart) const override;
+    void runDiagnostics(USART *usart) override;
 };
 
 #endif // MEDICAL_LED_H

@@ -5,6 +5,8 @@
 // Function prototypes
 void delay(volatile uint32_t count);
 
+USART usart(USART_2, RX_AND_TX, __115200);
+
 LED redLED(RED, LED_OFF);
 medicalLED greenLED(INFRARED, GREEN, LED_OFF);
 powerLED yellowLED(YELLOW, LED_OFF, DIAM_5MM, CURRENT_NORMAL, VOL_NORMAL);
@@ -17,19 +19,37 @@ led_elec_type blueLED_current;
 
 //main function
 int main(void) {
-    //USART2_Init();
 
-    redLED_state = redLED.getState();
-    greenLED_wavelength = greenLED.getWavelength();
-    yellowLED_voltage = yellowLED.powerLED_getVoltage();
-    blueLED_current = blueLED->powerLED_getCurrent();
+    redLED_state = redLED.getState(&usart);
+    greenLED_wavelength = greenLED.getWavelength(&usart);
+    yellowLED_voltage = yellowLED.powerLED_getVoltage(&usart);
+    blueLED_current = blueLED->powerLED_getCurrent(&usart);
 
     while (1) {
         redLED.setState(LED_TOGGLE);
         greenLED.setState(LED_TOGGLE);
         yellowLED.setState(LED_TOGGLE);
         blueLED->setState(LED_TOGGLE);
-        delay(800000); // ~50ms at 16 MHz
+
+        delay(8000000);
+
+        // Power LED (yellow) efficiency & diagnostics
+        yellowLED.computeEfficiency(&usart);
+        yellowLED.runDiagnostics(&usart);
+
+        delay(8000000);
+
+        // Power LED (blue) efficiency & diagnostics
+        blueLED->computeEfficiency(&usart);
+        blueLED->runDiagnostics(&usart);
+
+        delay(8000000);
+
+        // Medical LED efficiency & diagnostics
+        greenLED.computeEfficiency(&usart);
+        greenLED.runDiagnostics(&usart);
+
+        delay(8000000);
     }
 
     //delete blueLED;
