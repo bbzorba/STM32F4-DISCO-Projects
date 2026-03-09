@@ -11,44 +11,40 @@ LED::LED(LEDColor_Type _color, LEDState_Type _state)
 
     switch (_color)
     {
-    case RED:
-        LED_PORT->MODER &= ~(3U << (12*2));
+    case RED:    // PD14
+        LED_PORT->MODER &= ~(3U << (14*2));
         LED_PORT->MODER |= LED_RED_MODE_BIT;
         if (_state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_RED; // Set PD12
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_RED; // Ensure PD12 is off
+            LED_PORT->ODR |= LED_PIN_RED;
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_RED;
         }
         break;
-    case GREEN:
-        LED_PORT->MODER &= ~(3U << (13*2));
+    case GREEN:  // PD12
+        LED_PORT->MODER &= ~(3U << (12*2));
         LED_PORT->MODER |= LED_GREEN_MODE_BIT;
         if (_state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_GREEN; // Set PD13
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_GREEN; // Ensure PD13 is off
+            LED_PORT->ODR |= LED_PIN_GREEN;
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_GREEN;
         }
         break;
-    case YELLOW:
-        LED_PORT->MODER &= ~(3U << (14*2));
+    case YELLOW: // PD13
+        LED_PORT->MODER &= ~(3U << (13*2));
         LED_PORT->MODER |= LED_YELLOW_MODE_BIT;
         if (_state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_YELLOW; // Set PD14
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_YELLOW; // Ensure PD14 is off
+            LED_PORT->ODR |= LED_PIN_YELLOW;
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_YELLOW;
         }
         break;
-    case BLUE:
+    case BLUE:   // PD15
         LED_PORT->MODER &= ~(3U << (15*2));
         LED_PORT->MODER |= LED_BLUE_MODE_BIT;
         if (_state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_BLUE; // Set PD15
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_BLUE; // Ensure PD15 is off
+            LED_PORT->ODR |= LED_PIN_BLUE;
+        } else {
+            LED_PORT->ODR &= ~LED_PIN_BLUE;
         }
         break;
     default:
@@ -61,72 +57,54 @@ void LED::setState(LEDState_Type _state){
 
     switch (this->color)
     {
-    case RED:
-        LED_PORT->MODER &= ~(3U << (12*2));
-        LED_PORT->MODER |= LED_RED_MODE_BIT;
-        if (this->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_RED; // Set PD12
-        }
-        else if (this->state == LED_TOGGLE) {
-            LED_PORT->ODR ^= LED_PIN_RED;
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_RED; // Ensure PD12 is off
-        }
-        break;
-    case GREEN:
-        LED_PORT->MODER &= ~(3U << (13*2));
-        LED_PORT->MODER |= LED_GREEN_MODE_BIT;
-        if (this->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_GREEN; // Set PD13
-        }
-        else if (this->state == LED_TOGGLE) {
-            LED_PORT->ODR ^= LED_PIN_GREEN;
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_GREEN; // Ensure PD13 is off
-        }
-        break;
-    case YELLOW:
+    case RED:    // PD14
         LED_PORT->MODER &= ~(3U << (14*2));
-        LED_PORT->MODER |= LED_YELLOW_MODE_BIT;
-        if (this->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_YELLOW; // Set PD14
-        }
-        else if (this->state == LED_TOGGLE) {
-            LED_PORT->ODR ^= LED_PIN_YELLOW;
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_YELLOW; // Ensure PD14 is off
-        }
+        LED_PORT->MODER |= LED_RED_MODE_BIT;
+        if (this->state == LED_ON)     { LED_PORT->ODR |=  LED_PIN_RED; }
+        else if (this->state == LED_TOGGLE) { LED_PORT->ODR ^=  LED_PIN_RED; }
+        else                           { LED_PORT->ODR &= ~LED_PIN_RED; }
         break;
-    case BLUE:
+    case GREEN:  // PD12
+        LED_PORT->MODER &= ~(3U << (12*2));
+        LED_PORT->MODER |= LED_GREEN_MODE_BIT;
+        if (this->state == LED_ON)     { LED_PORT->ODR |=  LED_PIN_GREEN; }
+        else if (this->state == LED_TOGGLE) { LED_PORT->ODR ^=  LED_PIN_GREEN; }
+        else                           { LED_PORT->ODR &= ~LED_PIN_GREEN; }
+        break;
+    case YELLOW: // PD13
+        LED_PORT->MODER &= ~(3U << (13*2));
+        LED_PORT->MODER |= LED_YELLOW_MODE_BIT;
+        if (this->state == LED_ON)     { LED_PORT->ODR |=  LED_PIN_YELLOW; }
+        else if (this->state == LED_TOGGLE) { LED_PORT->ODR ^=  LED_PIN_YELLOW; }
+        else                           { LED_PORT->ODR &= ~LED_PIN_YELLOW; }
+        break;
+    case BLUE:   // PD15
         LED_PORT->MODER &= ~(3U << (15*2));
         LED_PORT->MODER |= LED_BLUE_MODE_BIT;
-        if (this->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_BLUE; // Set PD15
-        }
-        else if (this->state == LED_TOGGLE) {
-            LED_PORT->ODR ^= LED_PIN_BLUE;
-        }
-        else {
-            LED_PORT->ODR &= ~LED_PIN_BLUE; // Ensure PD15 is off
-        }
+        if (this->state == LED_ON)     { LED_PORT->ODR |=  LED_PIN_BLUE; }
+        else if (this->state == LED_TOGGLE) { LED_PORT->ODR ^=  LED_PIN_BLUE; }
+        else                           { LED_PORT->ODR &= ~LED_PIN_BLUE; }
         break;
     default:
         break;
     }
-
 }
 
 LEDState_Type LED::getState(USART *usart) const {
-    char buf[128];
-    // Grouped, easily readable output
-    int n = snprintf(buf, sizeof(buf), "\r\n--- LED Status ---\r\nState: %s\r\nColor: %s\r\n\r\n",
-                     (this->state == LED_ON) ? "ON" : (this->state == LED_OFF) ? "OFF" : "TOGGLE",
-                     LEDColorToString(this->color));
-    if (n > 0) usart->USART_WriteString(buf);
-
+    // Read actual pin state from ODR so ON/OFF is accurate even when stored state is TOGGLE
+    uint32_t pin_on;
+    switch (this->color) {
+        case GREEN:  pin_on = LED_PORT->ODR & LED_PIN_GREEN;  break;
+        case YELLOW: pin_on = LED_PORT->ODR & LED_PIN_YELLOW; break;
+        case RED:    pin_on = LED_PORT->ODR & LED_PIN_RED;    break;
+        case BLUE:   pin_on = LED_PORT->ODR & LED_PIN_BLUE;   break;
+        default:     pin_on = 0;                              break;
+    }
+    usart->USART_WriteString("--- LED Status ---\r\nState: ");
+    usart->USART_WriteString(pin_on ? "ON" : "OFF");
+    usart->USART_WriteString("\r\nColor: ");
+    usart->USART_WriteString(LEDColorToString(this->color));
+    usart->USART_WriteString("\r\n\r\n");
     return this->state;
 }
 

@@ -41,13 +41,16 @@ uint32_t medicalLED::computeEfficiency(USART *usart) const {
 }
 
 void medicalLED::runDiagnostics(USART *usart) {
-    char buf[128];
-    int n = snprintf(buf, sizeof(buf), "-- Medical LED Diagnostics (%s) --\r\n", LEDColorToString(getColor()));
-    if (n > 0) usart->USART_WriteString(buf);
+    const char *color_name = LEDColorToString(getColor());
+    usart->USART_WriteString("-- Medical LED Diagnostics (");
+    usart->USART_WriteString(color_name);
+    usart->USART_WriteString(") --\r\n");
+    char buf[24];
     for (int i = 0; i < 10; ++i) {
         int n = snprintf(buf, sizeof(buf), "Stage %d\r\n", i);
         if (n > 0) usart->USART_WriteString(buf);
     }
-    n = snprintf(buf, sizeof(buf), "-- End Diagnostics (%s) --\r\n\r\n", LEDColorToString(getColor()));
-    if (n > 0) usart->USART_WriteString(buf);
+    usart->USART_WriteString("-- End Diagnostics (");
+    usart->USART_WriteString(color_name);
+    usart->USART_WriteString(") --\r\n\r\n");
 }

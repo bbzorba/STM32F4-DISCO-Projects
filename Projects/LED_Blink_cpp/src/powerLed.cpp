@@ -61,26 +61,30 @@ uint32_t powerLED::computeEfficiency(USART *usart) const {
     const uint32_t output = 86U;
     uint32_t eff = ((input * 100U) / output);
     if (current != 0) {
-        // Slightly adjust by current class (arbitrary demo logic)
         eff -= (static_cast<uint32_t>(current) / 2U);
     }
-    char buf[128];
-    int n = snprintf(buf, sizeof(buf), "\r\n-- Power LED Efficiency (%s) --\r\nEfficiency: %lu%%\r\n\r\n",
-                     LEDColorToString(getColor()), (unsigned long)eff);
+    char buf[32];
+    const char *color_name = LEDColorToString(getColor());
+    usart->USART_WriteString("-- Power LED Efficiency (");
+    usart->USART_WriteString(color_name);
+    usart->USART_WriteString(") --\r\n");
+    int n = snprintf(buf, sizeof(buf), "Efficiency: %lu%%\r\n\r\n", (unsigned long)eff);
     if (n > 0) usart->USART_WriteString(buf);
     return eff;
 }
 
 void powerLED::runDiagnostics(USART *usart) {
-    char buf[128];
-    int n = snprintf(buf, sizeof(buf), "-- Power LED Diagnostics (%s) --\r\n",
-                     LEDColorToString(getColor()));
-    if (n > 0) usart->USART_WriteString(buf);
-    // Print diagnostic steps showing instantaneous power in mW (current[mA]*voltage[V])
+    const char *color_name = LEDColorToString(getColor());
+    usart->USART_WriteString("-- Power LED Diagnostics (");
+    usart->USART_WriteString(color_name);
+    usart->USART_WriteString(") --\r\n");
+    char buf[48];
     for (uint32_t i = 0; i < static_cast<uint32_t>(current); i += 10U) {
-        int n = snprintf(buf, sizeof(buf), "Step %lu: power = %u mW\r\n", (unsigned long)i, (unsigned)powerLED_computePower());
+        int n = snprintf(buf, sizeof(buf), "Step %lu: power = %u mW\r\n",
+                         (unsigned long)i, (unsigned)powerLED_computePower());
         if (n > 0) usart->USART_WriteString(buf);
     }
-    int n_end = snprintf(buf, sizeof(buf), "-- End Diagnostics (%s) --\r\n\r\n", LEDColorToString(getColor()));
-    if (n_end > 0) usart->USART_WriteString(buf);
+    usart->USART_WriteString("-- End Diagnostics (");
+    usart->USART_WriteString(color_name);
+    usart->USART_WriteString(") --\r\n\r\n");
 }

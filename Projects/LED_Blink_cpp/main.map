@@ -35,7 +35,7 @@ c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-
 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signalr.o)
                               c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signal.o) (_kill_r)
 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
-                              Projects/LED_Blink_cpp/src/led.o (snprintf)
+                              Projects/LED_Blink_cpp/src/medicalLED.o (snprintf)
 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
                               c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o) (__malloc_lock)
 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
@@ -350,7 +350,7 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .isr_vector    0x08000000       0x40 Projects/LED_Blink_cpp/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040     0x1a48
+.text           0x08000040     0x1b2c
                 0x08000040                . = ALIGN (0x4)
  *(.text*)
  .text          0x08000040       0x40 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
@@ -393,256 +393,260 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
                 0x08000788       0xd8 Projects/LED_Blink_cpp/src/led.o
                 0x08000788                LED::setState(LEDState_Type)
  .text._ZNK3LED8getStateEP5USART
-                0x08000860       0x60 Projects/LED_Blink_cpp/src/led.o
+                0x08000860       0xa8 Projects/LED_Blink_cpp/src/led.o
                 0x08000860                LED::getState(USART*) const
  .text.startup.main
-                0x080008c0       0xf4 Projects/LED_Blink_cpp/src/main.o
-                0x080008c0                main
+                0x08000908      0x144 Projects/LED_Blink_cpp/src/main.o
+                0x08000908                main
  .text.startup._GLOBAL__sub_I_usart
-                0x080009b4       0x74 Projects/LED_Blink_cpp/src/main.o
+                0x08000a4c       0x74 Projects/LED_Blink_cpp/src/main.o
  .text._ZN10medicalLEDD2Ev
-                0x08000a28        0x4 Projects/LED_Blink_cpp/src/medicalLED.o
-                0x08000a28                medicalLED::~medicalLED()
-                0x08000a28                medicalLED::~medicalLED()
+                0x08000ac0        0x4 Projects/LED_Blink_cpp/src/medicalLED.o
+                0x08000ac0                medicalLED::~medicalLED()
+                0x08000ac0                medicalLED::~medicalLED()
  .text._ZNK10medicalLED17computeEfficiencyEP5USART
-                0x08000a2c       0x34 Projects/LED_Blink_cpp/src/medicalLED.o
-                0x08000a2c                medicalLED::computeEfficiency(USART*) const
+                0x08000ac4       0x34 Projects/LED_Blink_cpp/src/medicalLED.o
+                0x08000ac4                medicalLED::computeEfficiency(USART*) const
  .text._ZN10medicalLED14runDiagnosticsEP5USART
-                0x08000a60       0x88 Projects/LED_Blink_cpp/src/medicalLED.o
-                0x08000a60                medicalLED::runDiagnostics(USART*)
+                0x08000af8       0x84 Projects/LED_Blink_cpp/src/medicalLED.o
+                0x08000af8                medicalLED::runDiagnostics(USART*)
  .text._ZN10medicalLEDD0Ev
-                0x08000ae8       0x10 Projects/LED_Blink_cpp/src/medicalLED.o
-                0x08000ae8                medicalLED::~medicalLED()
+                0x08000b7c       0x10 Projects/LED_Blink_cpp/src/medicalLED.o
+                0x08000b7c                medicalLED::~medicalLED()
  .text._ZN10medicalLEDC2E18LEDWavelength_Type13LEDColor_Type13LEDState_Type
-                0x08000af8       0x20 Projects/LED_Blink_cpp/src/medicalLED.o
-                0x08000af8                medicalLED::medicalLED(LEDWavelength_Type, LEDColor_Type, LEDState_Type)
-                0x08000af8                medicalLED::medicalLED(LEDWavelength_Type, LEDColor_Type, LEDState_Type)
+                0x08000b8c       0x20 Projects/LED_Blink_cpp/src/medicalLED.o
+                0x08000b8c                medicalLED::medicalLED(LEDWavelength_Type, LEDColor_Type, LEDState_Type)
+                0x08000b8c                medicalLED::medicalLED(LEDWavelength_Type, LEDColor_Type, LEDState_Type)
  .text._ZNK10medicalLED13getWavelengthEP5USART
-                0x08000b18       0x28 Projects/LED_Blink_cpp/src/medicalLED.o
-                0x08000b18                medicalLED::getWavelength(USART*) const
+                0x08000bac       0x28 Projects/LED_Blink_cpp/src/medicalLED.o
+                0x08000bac                medicalLED::getWavelength(USART*) const
  .text._ZN8powerLEDD2Ev
-                0x08000b40        0x4 Projects/LED_Blink_cpp/src/powerLed.o
-                0x08000b40                powerLED::~powerLED()
-                0x08000b40                powerLED::~powerLED()
+                0x08000bd4        0x4 Projects/LED_Blink_cpp/src/powerLed.o
+                0x08000bd4                powerLED::~powerLED()
+                0x08000bd4                powerLED::~powerLED()
  .text._ZNK8powerLED17computeEfficiencyEP5USART
-                0x08000b44       0x4c Projects/LED_Blink_cpp/src/powerLed.o
-                0x08000b44                powerLED::computeEfficiency(USART*) const
+                0x08000bd8       0x68 Projects/LED_Blink_cpp/src/powerLed.o
+                0x08000bd8                powerLED::computeEfficiency(USART*) const
  .text._ZN8powerLED14runDiagnosticsEP5USART
-                0x08000b90       0x9c Projects/LED_Blink_cpp/src/powerLed.o
-                0x08000b90                powerLED::runDiagnostics(USART*)
+                0x08000c40       0x9c Projects/LED_Blink_cpp/src/powerLed.o
+                0x08000c40                powerLED::runDiagnostics(USART*)
  .text._ZN8powerLEDD0Ev
-                0x08000c2c       0x10 Projects/LED_Blink_cpp/src/powerLed.o
-                0x08000c2c                powerLED::~powerLED()
+                0x08000cdc       0x10 Projects/LED_Blink_cpp/src/powerLed.o
+                0x08000cdc                powerLED::~powerLED()
  .text._ZN8powerLEDC2E13LEDColor_Type13LEDState_Type16LEDDiameter_Type15LEDCurrent_Type15LEDVoltage_Type
-                0x08000c3c       0x24 Projects/LED_Blink_cpp/src/powerLed.o
-                0x08000c3c                powerLED::powerLED(LEDColor_Type, LEDState_Type, LEDDiameter_Type, LEDCurrent_Type, LEDVoltage_Type)
-                0x08000c3c                powerLED::powerLED(LEDColor_Type, LEDState_Type, LEDDiameter_Type, LEDCurrent_Type, LEDVoltage_Type)
+                0x08000cec       0x24 Projects/LED_Blink_cpp/src/powerLed.o
+                0x08000cec                powerLED::powerLED(LEDColor_Type, LEDState_Type, LEDDiameter_Type, LEDCurrent_Type, LEDVoltage_Type)
+                0x08000cec                powerLED::powerLED(LEDColor_Type, LEDState_Type, LEDDiameter_Type, LEDCurrent_Type, LEDVoltage_Type)
  .text._ZN8powerLED19powerLED_getCurrentEP5USART
-                0x08000c60       0x28 Projects/LED_Blink_cpp/src/powerLed.o
-                0x08000c60                powerLED::powerLED_getCurrent(USART*)
+                0x08000d10       0x28 Projects/LED_Blink_cpp/src/powerLed.o
+                0x08000d10                powerLED::powerLED_getCurrent(USART*)
  .text._ZN8powerLED19powerLED_getVoltageEP5USART
-                0x08000c88       0x28 Projects/LED_Blink_cpp/src/powerLed.o
-                0x08000c88                powerLED::powerLED_getVoltage(USART*)
+                0x08000d38       0x28 Projects/LED_Blink_cpp/src/powerLed.o
+                0x08000d38                powerLED::powerLED_getVoltage(USART*)
  .text.Default_Handler
-                0x08000cb0        0x4 Projects/LED_Blink_cpp/src/startup.o
-                0x08000cb0                Default_Handler
+                0x08000d60        0x4 Projects/LED_Blink_cpp/src/startup.o
+                0x08000d60                Default_Handler
  .text.Reset_Handler
-                0x08000cb4       0x54 Projects/LED_Blink_cpp/src/startup.o
-                0x08000cb4                Reset_Handler
- .text          0x08000d08        0x4 Projects/LED_Blink_cpp/src/system_stm32f4xx.o
-                0x08000d08                SystemInit
- .text._ZdlPvj  0x08000d0c        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(del_ops.o)
-                0x08000d0c                operator delete(void*, unsigned int)
- .text._Znwj    0x08000d10       0x22 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(new_op.o)
-                0x08000d10                operator new(unsigned int)
- .text._ZdlPv   0x08000d32        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(del_op.o)
-                0x08000d32                operator delete(void*)
- *fill*         0x08000d36        0x2 
+                0x08000d64       0x54 Projects/LED_Blink_cpp/src/startup.o
+                0x08000d64                Reset_Handler
+ .text          0x08000db8        0x4 Projects/LED_Blink_cpp/src/system_stm32f4xx.o
+                0x08000db8                SystemInit
+ .text._ZdlPvj  0x08000dbc        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(del_ops.o)
+                0x08000dbc                operator delete(void*, unsigned int)
+ .text._Znwj    0x08000dc0       0x22 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(new_op.o)
+                0x08000dc0                operator new(unsigned int)
+ .text._ZdlPv   0x08000de2        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(del_op.o)
+                0x08000de2                operator delete(void*)
+ *fill*         0x08000de6        0x2 
  .text._ZSt15get_new_handlerv
-                0x08000d38       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(new_handler.o)
-                0x08000d38                std::get_new_handler()
- .text.abort    0x08000d48        0xe c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-abort.o)
-                0x08000d48                abort
- *fill*         0x08000d56        0x2 
+                0x08000de8       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(new_handler.o)
+                0x08000de8                std::get_new_handler()
+ .text.abort    0x08000df8        0xe c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-abort.o)
+                0x08000df8                abort
+ *fill*         0x08000e06        0x2 
  .text.__libc_init_array
-                0x08000d58       0x48 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
-                0x08000d58                __libc_init_array
- .text.malloc   0x08000da0       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-malloc.o)
-                0x08000da0                malloc
- .text.free     0x08000db0       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-malloc.o)
-                0x08000db0                free
- .text.memcpy   0x08000dc0       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
-                0x08000dc0                memcpy
- .text.memset   0x08000ddc       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
-                0x08000ddc                memset
- .text._free_r  0x08000dec       0x94 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o)
-                0x08000dec                _free_r
+                0x08000e08       0x48 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
+                0x08000e08                __libc_init_array
+ .text.malloc   0x08000e50       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-malloc.o)
+                0x08000e50                malloc
+ .text.free     0x08000e60       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-malloc.o)
+                0x08000e60                free
+ .text.memcpy   0x08000e70       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+                0x08000e70                memcpy
+ .text.memset   0x08000e8c       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
+                0x08000e8c                memset
+ .text._free_r  0x08000e9c       0x94 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o)
+                0x08000e9c                _free_r
  .text.sbrk_aligned
-                0x08000e80       0x40 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
+                0x08000f30       0x40 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
  .text._malloc_r
-                0x08000ec0       0xe8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
-                0x08000ec0                _malloc_r
- .text._sbrk_r  0x08000fa8       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-sbrkr.o)
-                0x08000fa8                _sbrk_r
+                0x08000f70       0xe8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
+                0x08000f70                _malloc_r
+ .text._sbrk_r  0x08001058       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-sbrkr.o)
+                0x08001058                _sbrk_r
  .text._raise_r
-                0x08000fc8       0x50 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signal.o)
-                0x08000fc8                _raise_r
- .text.raise    0x08001018       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signal.o)
-                0x08001018                raise
- .text._kill_r  0x08001028       0x24 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signalr.o)
-                0x08001028                _kill_r
+                0x08001078       0x50 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signal.o)
+                0x08001078                _raise_r
+ .text.raise    0x080010c8       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signal.o)
+                0x080010c8                raise
+ .text._kill_r  0x080010d8       0x24 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signalr.o)
+                0x080010d8                _kill_r
  .text._getpid_r
-                0x0800104c        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signalr.o)
-                0x0800104c                _getpid_r
+                0x080010fc        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signalr.o)
+                0x080010fc                _getpid_r
  .text.snprintf
-                0x08001050       0x68 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
-                0x08001050                sniprintf
-                0x08001050                snprintf
+                0x08001100       0x68 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
+                0x08001100                sniprintf
+                0x08001100                snprintf
  .text.__malloc_lock
-                0x080010b8        0xc c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
-                0x080010b8                __malloc_lock
+                0x08001168        0xc c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
+                0x08001168                __malloc_lock
  .text.__malloc_unlock
-                0x080010c4        0xc c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
-                0x080010c4                __malloc_unlock
+                0x08001174        0xc c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
+                0x08001174                __malloc_unlock
  .text.__ssputs_r
-                0x080010d0       0xb6 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
-                0x080010d0                __ssputs_r
- *fill*         0x08001186        0x2 
+                0x08001180       0xb6 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
+                0x08001180                __ssputs_r
+ *fill*         0x08001236        0x2 
  .text._svfprintf_r
-                0x08001188      0x200 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
-                0x08001188                _svfiprintf_r
-                0x08001188                _svfprintf_r
+                0x08001238      0x200 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
+                0x08001238                _svfiprintf_r
+                0x08001238                _svfprintf_r
  .text._printf_common
-                0x08001388       0xda c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
-                0x08001388                _printf_common
- *fill*         0x08001462        0x2 
+                0x08001438       0xda c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x08001438                _printf_common
+ *fill*         0x08001512        0x2 
  .text._printf_i
-                0x08001464      0x24c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
-                0x08001464                _printf_i
+                0x08001514      0x24c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x08001514                _printf_i
  .text.__retarget_lock_acquire_recursive
-                0x080016b0        0x2 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
-                0x080016b0                __retarget_lock_acquire_recursive
+                0x08001760        0x2 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
+                0x08001760                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x080016b2        0x2 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
-                0x080016b2                __retarget_lock_release_recursive
- *fill*         0x080016b4        0xc 
- .text          0x080016c0       0xa0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memchr.o)
-                0x080016c0                memchr
- .text.memmove  0x08001760       0x34 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memmove.o)
-                0x08001760                memmove
+                0x08001762        0x2 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
+                0x08001762                __retarget_lock_release_recursive
+ *fill*         0x08001764        0xc 
+ .text          0x08001770       0xa0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memchr.o)
+                0x08001770                memchr
+ .text.memmove  0x08001810       0x34 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memmove.o)
+                0x08001810                memmove
  .text._realloc_r
-                0x08001794       0x5e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-reallocr.o)
-                0x08001794                _realloc_r
+                0x08001844       0x5e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-reallocr.o)
+                0x08001844                _realloc_r
  .text._malloc_usable_size_r
-                0x080017f2       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-msizer.o)
-                0x080017f2                _malloc_usable_size_r
+                0x080018a2       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-msizer.o)
+                0x080018a2                _malloc_usable_size_r
  *(.rodata*)
- *fill*         0x08001802        0x2 
+ *fill*         0x080018b2        0x2 
  .rodata._ZNK3LED8getStateEP5USART.str1.4
-                0x08001804       0x47 Projects/LED_Blink_cpp/src/led.o
- *fill*         0x0800184b        0x1 
+                0x080018b4       0x36 Projects/LED_Blink_cpp/src/led.o
+                                 0x3d (size before relaxing)
+ *fill*         0x080018ea        0x2 
  .rodata.str1.4
-                0x0800184c       0x19 Projects/LED_Blink_cpp/src/led.o
- *fill*         0x08001865        0x3 
- .rodata.CSWTCH.3
-                0x08001868       0x10 Projects/LED_Blink_cpp/src/led.o
- .rodata._ZTV3LED
-                0x08001878       0x18 Projects/LED_Blink_cpp/src/led.o
-                0x08001878                vtable for LED
- .rodata._ZNK10medicalLED17computeEfficiencyEP5USART.str1.4
-                0x08001890       0x20 Projects/LED_Blink_cpp/src/medicalLED.o
- .rodata._ZN10medicalLED14runDiagnosticsEP5USART.str1.4
-                0x080018b0       0x53 Projects/LED_Blink_cpp/src/medicalLED.o
-                                 0x5b (size before relaxing)
- *fill*         0x08001903        0x1 
- .rodata._ZNK10medicalLED13getWavelengthEP5USART.str1.4
-                0x08001904       0x2d Projects/LED_Blink_cpp/src/medicalLED.o
- .rodata.str1.4
-                0x08001931       0x19 Projects/LED_Blink_cpp/src/medicalLED.o
- *fill*         0x08001931        0x3 
+                0x080018ec       0x19 Projects/LED_Blink_cpp/src/led.o
+ *fill*         0x08001905        0x3 
  .rodata.CSWTCH.2
-                0x08001934       0x10 Projects/LED_Blink_cpp/src/medicalLED.o
- .rodata._ZTV10medicalLED
-                0x08001944       0x18 Projects/LED_Blink_cpp/src/medicalLED.o
-                0x08001944                vtable for medicalLED
- .rodata._ZNK8powerLED17computeEfficiencyEP5USART.str1.4
-                0x0800195c       0x39 Projects/LED_Blink_cpp/src/powerLed.o
-                                 0x41 (size before relaxing)
- *fill*         0x08001995        0x3 
- .rodata._ZN8powerLED14runDiagnosticsEP5USART.str1.4
-                0x08001998       0x3e Projects/LED_Blink_cpp/src/powerLed.o
-                                 0x5f (size before relaxing)
- *fill*         0x080019d6        0x2 
- .rodata._ZN8powerLED19powerLED_getCurrentEP5USART.str1.4
-                0x080019d8       0x1b Projects/LED_Blink_cpp/src/powerLed.o
- *fill*         0x080019f3        0x1 
- .rodata._ZN8powerLED19powerLED_getVoltageEP5USART.str1.4
-                0x080019f4       0x1a Projects/LED_Blink_cpp/src/powerLed.o
+                0x08001908       0x10 Projects/LED_Blink_cpp/src/led.o
+ .rodata._ZTV3LED
+                0x08001918       0x18 Projects/LED_Blink_cpp/src/led.o
+                0x08001918                vtable for LED
+ .rodata.main.str1.4
+                0x08001930       0x4e Projects/LED_Blink_cpp/src/main.o
+ *fill*         0x0800197e        0x2 
+ .rodata._ZNK10medicalLED17computeEfficiencyEP5USART.str1.4
+                0x08001980       0x20 Projects/LED_Blink_cpp/src/medicalLED.o
+ .rodata._ZN10medicalLED14runDiagnosticsEP5USART.str1.4
+                0x080019a0       0x55 Projects/LED_Blink_cpp/src/medicalLED.o
+                                 0x5d (size before relaxing)
+ *fill*         0x080019f5        0x3 
+ .rodata._ZNK10medicalLED13getWavelengthEP5USART.str1.4
+                0x080019f8       0x2d Projects/LED_Blink_cpp/src/medicalLED.o
  .rodata.str1.4
-                0x08001a0e       0x19 Projects/LED_Blink_cpp/src/powerLed.o
- *fill*         0x08001a0e        0x2 
+                0x08001a25       0x19 Projects/LED_Blink_cpp/src/medicalLED.o
+ *fill*         0x08001a25        0x3 
+ .rodata.CSWTCH.2
+                0x08001a28       0x10 Projects/LED_Blink_cpp/src/medicalLED.o
+ .rodata._ZTV10medicalLED
+                0x08001a38       0x18 Projects/LED_Blink_cpp/src/medicalLED.o
+                0x08001a38                vtable for medicalLED
+ .rodata._ZNK8powerLED17computeEfficiencyEP5USART.str1.4
+                0x08001a50       0x32 Projects/LED_Blink_cpp/src/powerLed.o
+                                 0x42 (size before relaxing)
+ *fill*         0x08001a82        0x2 
+ .rodata._ZN8powerLED14runDiagnosticsEP5USART.str1.4
+                0x08001a84       0x36 Projects/LED_Blink_cpp/src/powerLed.o
+                                 0x59 (size before relaxing)
+ *fill*         0x08001aba        0x2 
+ .rodata._ZN8powerLED19powerLED_getCurrentEP5USART.str1.4
+                0x08001abc       0x1b Projects/LED_Blink_cpp/src/powerLed.o
+ *fill*         0x08001ad7        0x1 
+ .rodata._ZN8powerLED19powerLED_getVoltageEP5USART.str1.4
+                0x08001ad8       0x1a Projects/LED_Blink_cpp/src/powerLed.o
+ .rodata.str1.4
+                0x08001af2       0x19 Projects/LED_Blink_cpp/src/powerLed.o
+ *fill*         0x08001af2        0x2 
  .rodata.CSWTCH.1
-                0x08001a10       0x10 Projects/LED_Blink_cpp/src/powerLed.o
+                0x08001af4       0x10 Projects/LED_Blink_cpp/src/powerLed.o
  .rodata._ZTV8powerLED
-                0x08001a20       0x18 Projects/LED_Blink_cpp/src/powerLed.o
-                0x08001a20                vtable for powerLED
+                0x08001b04       0x18 Projects/LED_Blink_cpp/src/powerLed.o
+                0x08001b04                vtable for powerLED
  .rodata._svfprintf_r.str1.1
-                0x08001a38       0x11 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
+                0x08001b1c       0x11 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x08001a49       0x22 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x08001b2d       0x22 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
  *(.glue_7)
- .glue_7        0x08001a6b        0x0 linker stubs
+ .glue_7        0x08001b4f        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08001a6b        0x0 linker stubs
+ .glue_7t       0x08001b4f        0x0 linker stubs
  *(.init)
- *fill*         0x08001a6b        0x1 
- .init          0x08001a6c        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08001a6c                _init
- .init          0x08001a70        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ *fill*         0x08001b4f        0x1 
+ .init          0x08001b50        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08001b50                _init
+ .init          0x08001b54        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.fini)
- .fini          0x08001a78        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x08001a78                _fini
- .fini          0x08001a7c        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
+ .fini          0x08001b5c        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08001b5c                _fini
+ .fini          0x08001b60        0x8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtn.o
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
  *(.eh_frame)
- .eh_frame      0x08001a84        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
- .eh_frame      0x08001a84        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
+ .eh_frame      0x08001b68        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .eh_frame      0x08001b68        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtend.o
 
-.vfp11_veneer   0x08001a88        0x0
- .vfp11_veneer  0x08001a88        0x0 linker stubs
+.vfp11_veneer   0x08001b6c        0x0
+ .vfp11_veneer  0x08001b6c        0x0 linker stubs
 
-.v4_bx          0x08001a88        0x0
- .v4_bx         0x08001a88        0x0 linker stubs
+.v4_bx          0x08001b6c        0x0
+ .v4_bx         0x08001b6c        0x0 linker stubs
 
-.iplt           0x08001a88        0x0
- .iplt          0x08001a88        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+.iplt           0x08001b6c        0x0
+ .iplt          0x08001b6c        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
 
-.rel.dyn        0x08001a88        0x0
- .rel.iplt      0x08001a88        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+.rel.dyn        0x08001b6c        0x0
+ .rel.iplt      0x08001b6c        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
 
-.preinit_array  0x08001a88        0x0
-                0x08001a88                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x08001b6c        0x0
+                0x08001b6c                PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x08001a88                PROVIDE (__preinit_array_end = .)
+                0x08001b6c                PROVIDE (__preinit_array_end = .)
 
-.init_array     0x08001a88        0x8
-                0x08001a88                PROVIDE (__init_array_start = .)
+.init_array     0x08001b6c        0x8
+                0x08001b6c                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x08001a88        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
- .init_array    0x08001a8c        0x4 Projects/LED_Blink_cpp/src/main.o
-                0x08001a90                PROVIDE (__init_array_end = .)
+ .init_array    0x08001b6c        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .init_array    0x08001b70        0x4 Projects/LED_Blink_cpp/src/main.o
+                0x08001b74                PROVIDE (__init_array_end = .)
 
-.fini_array     0x08001a90        0x4
+.fini_array     0x08001b74        0x4
                 [!provide]                PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x08001a90        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
+ .fini_array    0x08001b74        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
                 [!provide]                PROVIDE (__fini_array_end = .)
-                0x08001a94                __etext = .
+                0x08001b78                __etext = .
 
-.data           0x20000000       0x64 load address 0x08001a94
+.data           0x20000000       0x64 load address 0x08001b78
                 0x20000000                __data_start__ = .
  *(.data*)
  .data._impure_ptr
@@ -652,66 +656,50 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
                 0x20000004       0x60 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-impure.o)
                 0x20000064                __data_end__ = .
 
-.igot.plt       0x20000064        0x0 load address 0x08001af8
+.igot.plt       0x20000064        0x0 load address 0x08001bdc
  .igot.plt      0x20000064        0x0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
 
-.bss            0x20000064       0x6c load address 0x08001af8
+.bss            0x20000064       0x5c load address 0x08001bdc
                 0x20000064                __bss_start__ = .
  *(.bss*)
  .bss           0x20000064       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crtbegin.o
  .bss           0x20000080        0x4 Drivers/UART_cpp/src/stubs.o
  .bss.blueLED   0x20000084        0x4 Projects/LED_Blink_cpp/src/main.o
                 0x20000084                blueLED
- .bss.blueLED_current
-                0x20000088        0x1 Projects/LED_Blink_cpp/src/main.o
-                0x20000088                blueLED_current
- *fill*         0x20000089        0x3 
- .bss.greenLED  0x2000008c        0x8 Projects/LED_Blink_cpp/src/main.o
-                0x2000008c                greenLED
- .bss.greenLED_wavelength
-                0x20000094        0x2 Projects/LED_Blink_cpp/src/main.o
-                0x20000094                greenLED_wavelength
- *fill*         0x20000096        0x2 
- .bss.redLED    0x20000098        0x8 Projects/LED_Blink_cpp/src/main.o
-                0x20000098                redLED
- .bss.redLED_state
-                0x200000a0        0x1 Projects/LED_Blink_cpp/src/main.o
-                0x200000a0                redLED_state
- *fill*         0x200000a1        0x3 
- .bss.usart     0x200000a4        0x8 Projects/LED_Blink_cpp/src/main.o
-                0x200000a4                usart
+ .bss.greenLED  0x20000088        0x8 Projects/LED_Blink_cpp/src/main.o
+                0x20000088                greenLED
+ .bss.redLED    0x20000090        0x8 Projects/LED_Blink_cpp/src/main.o
+                0x20000090                redLED
+ .bss.usart     0x20000098        0x8 Projects/LED_Blink_cpp/src/main.o
+                0x20000098                usart
  .bss.yellowLED
-                0x200000ac        0xc Projects/LED_Blink_cpp/src/main.o
-                0x200000ac                yellowLED
- .bss.yellowLED_voltage
-                0x200000b8        0x1 Projects/LED_Blink_cpp/src/main.o
-                0x200000b8                yellowLED_voltage
- *fill*         0x200000b9        0x3 
+                0x200000a0        0xc Projects/LED_Blink_cpp/src/main.o
+                0x200000a0                yellowLED
  .bss._ZN12_GLOBAL__N_113__new_handlerE
-                0x200000bc        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(new_handler.o)
+                0x200000ac        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(new_handler.o)
  .bss.__malloc_free_list
-                0x200000c0        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
-                0x200000c0                __malloc_free_list
+                0x200000b0        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
+                0x200000b0                __malloc_free_list
  .bss.__malloc_sbrk_start
-                0x200000c4        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
-                0x200000c4                __malloc_sbrk_start
- .bss.errno     0x200000c8        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-reent.o)
-                0x200000c8                errno
+                0x200000b4        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
+                0x200000b4                __malloc_sbrk_start
+ .bss.errno     0x200000b8        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-reent.o)
+                0x200000b8                errno
  .bss.__lock___malloc_recursive_mutex
-                0x200000cc        0x1 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
-                0x200000cc                __lock___malloc_recursive_mutex
+                0x200000bc        0x1 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
+                0x200000bc                __lock___malloc_recursive_mutex
  *(COMMON)
-                0x200000d0                . = ALIGN (0x4)
- *fill*         0x200000cd        0x3 
-                0x200000d0                __bss_end__ = .
-                0x200000d0                end = .
-                0x200000d0                _end = .
+                0x200000c0                . = ALIGN (0x4)
+ *fill*         0x200000bd        0x3 
+                0x200000c0                __bss_end__ = .
+                0x200000c0                end = .
+                0x200000c0                _end = .
 
-.stack          0x200000d0      0x400 load address 0x08001b64
-                0x200000d0                . = ALIGN (0x8)
-                0x200000d0                _stack = .
-                0x200004d0                . = (. + 0x400)
- *fill*         0x200000d0      0x400 
+.stack          0x200000c0      0x400 load address 0x08001c38
+                0x200000c0                . = ALIGN (0x8)
+                0x200000c0                _stack = .
+                0x200004c0                . = (. + 0x400)
+ *fill*         0x200000c0      0x400 
 OUTPUT(Projects/LED_Blink_cpp/main.elf elf32-littlearm)
 LOAD linker stubs
 
@@ -803,33 +791,33 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Projects/LED_Blink_cpp/src/startup.o
  .comment       0x00000049       0x4a Projects/LED_Blink_cpp/src/system_stm32f4xx.o
 
-.debug_info     0x00000000     0x3d00
+.debug_info     0x00000000     0x3e5d
  .debug_info    0x00000000      0x4fa Drivers/UART_cpp/src/stubs.o
  .debug_info    0x000004fa      0x66f Drivers/UART_cpp/src/uart.o
- .debug_info    0x00000b69      0xa6d Projects/LED_Blink_cpp/src/led.o
- .debug_info    0x000015d6      0xa92 Projects/LED_Blink_cpp/src/main.o
- .debug_info    0x00002068      0xb92 Projects/LED_Blink_cpp/src/medicalLED.o
- .debug_info    0x00002bfa      0xedd Projects/LED_Blink_cpp/src/powerLed.o
- .debug_info    0x00003ad7      0x1ab Projects/LED_Blink_cpp/src/startup.o
- .debug_info    0x00003c82       0x7e Projects/LED_Blink_cpp/src/system_stm32f4xx.o
+ .debug_info    0x00000b69      0xa9f Projects/LED_Blink_cpp/src/led.o
+ .debug_info    0x00001608      0xb8f Projects/LED_Blink_cpp/src/main.o
+ .debug_info    0x00002197      0xb7e Projects/LED_Blink_cpp/src/medicalLED.o
+ .debug_info    0x00002d15      0xf1f Projects/LED_Blink_cpp/src/powerLed.o
+ .debug_info    0x00003c34      0x1ab Projects/LED_Blink_cpp/src/startup.o
+ .debug_info    0x00003ddf       0x7e Projects/LED_Blink_cpp/src/system_stm32f4xx.o
 
-.debug_abbrev   0x00000000     0x1482
+.debug_abbrev   0x00000000     0x1472
  .debug_abbrev  0x00000000      0x176 Drivers/UART_cpp/src/stubs.o
  .debug_abbrev  0x00000176      0x2e4 Drivers/UART_cpp/src/uart.o
- .debug_abbrev  0x0000045a      0x3c3 Projects/LED_Blink_cpp/src/led.o
- .debug_abbrev  0x0000081d      0x2f8 Projects/LED_Blink_cpp/src/main.o
- .debug_abbrev  0x00000b15      0x3fd Projects/LED_Blink_cpp/src/medicalLED.o
- .debug_abbrev  0x00000f12      0x417 Projects/LED_Blink_cpp/src/powerLed.o
- .debug_abbrev  0x00001329      0x115 Projects/LED_Blink_cpp/src/startup.o
- .debug_abbrev  0x0000143e       0x44 Projects/LED_Blink_cpp/src/system_stm32f4xx.o
+ .debug_abbrev  0x0000045a      0x39f Projects/LED_Blink_cpp/src/led.o
+ .debug_abbrev  0x000007f9      0x2f8 Projects/LED_Blink_cpp/src/main.o
+ .debug_abbrev  0x00000af1      0x411 Projects/LED_Blink_cpp/src/medicalLED.o
+ .debug_abbrev  0x00000f02      0x417 Projects/LED_Blink_cpp/src/powerLed.o
+ .debug_abbrev  0x00001319      0x115 Projects/LED_Blink_cpp/src/startup.o
+ .debug_abbrev  0x0000142e       0x44 Projects/LED_Blink_cpp/src/system_stm32f4xx.o
 
-.debug_loc      0x00000000      0xeda
+.debug_loc      0x00000000      0xf4b
  .debug_loc     0x00000000      0x156 Drivers/UART_cpp/src/stubs.o
  .debug_loc     0x00000156      0x34e Drivers/UART_cpp/src/uart.o
- .debug_loc     0x000004a4      0x1cc Projects/LED_Blink_cpp/src/led.o
- .debug_loc     0x00000670       0xaa Projects/LED_Blink_cpp/src/main.o
- .debug_loc     0x0000071a      0x350 Projects/LED_Blink_cpp/src/medicalLED.o
- .debug_loc     0x00000a6a      0x470 Projects/LED_Blink_cpp/src/powerLed.o
+ .debug_loc     0x000004a4      0x21b Projects/LED_Blink_cpp/src/led.o
+ .debug_loc     0x000006bf      0x112 Projects/LED_Blink_cpp/src/main.o
+ .debug_loc     0x000007d1      0x32f Projects/LED_Blink_cpp/src/medicalLED.o
+ .debug_loc     0x00000b00      0x44b Projects/LED_Blink_cpp/src/powerLed.o
 
 .debug_aranges  0x00000000      0x200
  .debug_aranges
@@ -849,71 +837,71 @@ LOAD linker stubs
  .debug_aranges
                 0x000001e0       0x20 Projects/LED_Blink_cpp/src/system_stm32f4xx.o
 
-.debug_line     0x00000000     0x2148
+.debug_line     0x00000000     0x21d1
  .debug_line    0x00000000      0x299 Drivers/UART_cpp/src/stubs.o
  .debug_line    0x00000299      0x94a Drivers/UART_cpp/src/uart.o
- .debug_line    0x00000be3      0x583 Projects/LED_Blink_cpp/src/led.o
- .debug_line    0x00001166      0x3e0 Projects/LED_Blink_cpp/src/main.o
- .debug_line    0x00001546      0x465 Projects/LED_Blink_cpp/src/medicalLED.o
- .debug_line    0x000019ab      0x55a Projects/LED_Blink_cpp/src/powerLed.o
- .debug_line    0x00001f05      0x1e7 Projects/LED_Blink_cpp/src/startup.o
- .debug_line    0x000020ec       0x5c Projects/LED_Blink_cpp/src/system_stm32f4xx.o
+ .debug_line    0x00000be3      0x5d4 Projects/LED_Blink_cpp/src/led.o
+ .debug_line    0x000011b7      0x466 Projects/LED_Blink_cpp/src/main.o
+ .debug_line    0x0000161d      0x43d Projects/LED_Blink_cpp/src/medicalLED.o
+ .debug_line    0x00001a5a      0x534 Projects/LED_Blink_cpp/src/powerLed.o
+ .debug_line    0x00001f8e      0x1e7 Projects/LED_Blink_cpp/src/startup.o
+ .debug_line    0x00002175       0x5c Projects/LED_Blink_cpp/src/system_stm32f4xx.o
 
-.debug_str      0x00000000     0x1349
+.debug_str      0x00000000     0x1336
  .debug_str     0x00000000      0x26e Drivers/UART_cpp/src/stubs.o
                                 0x2f3 (size before relaxing)
  .debug_str     0x0000026e      0x3a3 Drivers/UART_cpp/src/uart.o
                                 0x4a6 (size before relaxing)
- .debug_str     0x00000611      0x3c4 Projects/LED_Blink_cpp/src/led.o
-                                0x7f7 (size before relaxing)
- .debug_str     0x000009d5      0x395 Projects/LED_Blink_cpp/src/main.o
-                                0x923 (size before relaxing)
- .debug_str     0x00000d6a      0x144 Projects/LED_Blink_cpp/src/medicalLED.o
-                                0x752 (size before relaxing)
- .debug_str     0x00000eae      0x27a Projects/LED_Blink_cpp/src/powerLed.o
-                                0x9a4 (size before relaxing)
- .debug_str     0x00001128      0x153 Projects/LED_Blink_cpp/src/startup.o
+ .debug_str     0x00000611      0x3c9 Projects/LED_Blink_cpp/src/led.o
+                                0x7f5 (size before relaxing)
+ .debug_str     0x000009da      0x33a Projects/LED_Blink_cpp/src/main.o
+                                0x8c0 (size before relaxing)
+ .debug_str     0x00000d14      0x163 Projects/LED_Blink_cpp/src/medicalLED.o
+                                0x75d (size before relaxing)
+ .debug_str     0x00000e77      0x29e Projects/LED_Blink_cpp/src/powerLed.o
+                                0x9a9 (size before relaxing)
+ .debug_str     0x00001115      0x153 Projects/LED_Blink_cpp/src/startup.o
                                 0x228 (size before relaxing)
- .debug_str     0x0000127b       0xce Projects/LED_Blink_cpp/src/system_stm32f4xx.o
+ .debug_str     0x00001268       0xce Projects/LED_Blink_cpp/src/system_stm32f4xx.o
                                 0x15d (size before relaxing)
 
-.debug_frame    0x00000000      0xb60
+.debug_frame    0x00000000      0xb5c
  .debug_frame   0x00000000       0xb0 Drivers/UART_cpp/src/stubs.o
  .debug_frame   0x000000b0       0xd0 Drivers/UART_cpp/src/uart.o
- .debug_frame   0x00000180       0xc0 Projects/LED_Blink_cpp/src/led.o
- .debug_frame   0x00000240       0x60 Projects/LED_Blink_cpp/src/main.o
- .debug_frame   0x000002a0       0xdc Projects/LED_Blink_cpp/src/medicalLED.o
- .debug_frame   0x0000037c      0x144 Projects/LED_Blink_cpp/src/powerLed.o
- .debug_frame   0x000004c0       0x38 Projects/LED_Blink_cpp/src/startup.o
- .debug_frame   0x000004f8       0x20 Projects/LED_Blink_cpp/src/system_stm32f4xx.o
- .debug_frame   0x00000518       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(del_ops.o)
- .debug_frame   0x00000538       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(new_op.o)
- .debug_frame   0x00000560       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(del_op.o)
- .debug_frame   0x00000580       0x30 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(new_handler.o)
- .debug_frame   0x000005b0       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-abort.o)
- .debug_frame   0x000005d8       0x2c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
- .debug_frame   0x00000604       0x30 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-malloc.o)
- .debug_frame   0x00000634       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x0000065c       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
- .debug_frame   0x0000067c       0x38 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x000006b4       0x4c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x00000700       0x5c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-reent.o)
- .debug_frame   0x0000075c       0x2c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x00000788       0xcc c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signal.o)
- .debug_frame   0x00000854       0x3c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signalr.o)
- .debug_frame   0x00000890       0x7c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
- .debug_frame   0x0000090c       0x30 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
- .debug_frame   0x0000093c       0x90 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
- .debug_frame   0x000009cc       0x60 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
- .debug_frame   0x00000a2c       0xb0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
- .debug_frame   0x00000adc       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memmove.o)
- .debug_frame   0x00000b04       0x3c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-reallocr.o)
- .debug_frame   0x00000b40       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-msizer.o)
+ .debug_frame   0x00000180       0xb8 Projects/LED_Blink_cpp/src/led.o
+ .debug_frame   0x00000238       0x60 Projects/LED_Blink_cpp/src/main.o
+ .debug_frame   0x00000298       0xdc Projects/LED_Blink_cpp/src/medicalLED.o
+ .debug_frame   0x00000374      0x148 Projects/LED_Blink_cpp/src/powerLed.o
+ .debug_frame   0x000004bc       0x38 Projects/LED_Blink_cpp/src/startup.o
+ .debug_frame   0x000004f4       0x20 Projects/LED_Blink_cpp/src/system_stm32f4xx.o
+ .debug_frame   0x00000514       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(del_ops.o)
+ .debug_frame   0x00000534       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(new_op.o)
+ .debug_frame   0x0000055c       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(del_op.o)
+ .debug_frame   0x0000057c       0x30 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libstdc++_nano.a(new_handler.o)
+ .debug_frame   0x000005ac       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-abort.o)
+ .debug_frame   0x000005d4       0x2c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-init.o)
+ .debug_frame   0x00000600       0x30 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-malloc.o)
+ .debug_frame   0x00000630       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x00000658       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
+ .debug_frame   0x00000678       0x38 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x000006b0       0x4c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x000006fc       0x5c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-reent.o)
+ .debug_frame   0x00000758       0x2c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x00000784       0xcc c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signal.o)
+ .debug_frame   0x00000850       0x3c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-signalr.o)
+ .debug_frame   0x0000088c       0x7c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
+ .debug_frame   0x00000908       0x30 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
+ .debug_frame   0x00000938       0x90 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
+ .debug_frame   0x000009c8       0x60 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
+ .debug_frame   0x00000a28       0xb0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
+ .debug_frame   0x00000ad8       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memmove.o)
+ .debug_frame   0x00000b00       0x3c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-reallocr.o)
+ .debug_frame   0x00000b3c       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-msizer.o)
 
-.debug_ranges   0x00000000      0x2d8
+.debug_ranges   0x00000000      0x2a8
  .debug_ranges  0x00000000       0xc8 Drivers/UART_cpp/src/uart.o
  .debug_ranges  0x000000c8       0x40 Projects/LED_Blink_cpp/src/led.o
  .debug_ranges  0x00000108       0x40 Projects/LED_Blink_cpp/src/main.o
- .debug_ranges  0x00000148       0xb0 Projects/LED_Blink_cpp/src/medicalLED.o
- .debug_ranges  0x000001f8       0xc8 Projects/LED_Blink_cpp/src/powerLed.o
- .debug_ranges  0x000002c0       0x18 Projects/LED_Blink_cpp/src/startup.o
+ .debug_ranges  0x00000148       0x90 Projects/LED_Blink_cpp/src/medicalLED.o
+ .debug_ranges  0x000001d8       0xb8 Projects/LED_Blink_cpp/src/powerLed.o
+ .debug_ranges  0x00000290       0x18 Projects/LED_Blink_cpp/src/startup.o
