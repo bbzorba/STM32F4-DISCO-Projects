@@ -30,7 +30,7 @@ static void mutex_release(void) {
 }
 
 /* Simple busy-wait delay (~500 ms at 16 MHz HSI default).               */
-static void local_delay(volatile uint32_t count) {
+static void delay(volatile uint32_t count) {
     while (count--) __asm__("nop");
 }
 
@@ -108,7 +108,7 @@ void blink_LEDS_sync(USART_HandleType *usart, LED_Type * const leds[]) {
         for (int i = 0; leds[i] != NULL; ++i)
             LED_setState(leds[i], LED_TOGGLE);
         USART_WriteString(usart, (LED_PORT->ODR & LED_PIN_GREEN) ? "All LEDs ON\r\n" : "All LEDs OFF\r\n");
-        local_delay(4000000); /* ~500 ms at 16 MHz */
+        delay(2000000);
 
         /* Mid-cycle async probe: async finds the mutex busy here and prints
          * "deferring". After sync releases, the main-loop call succeeds.  */
@@ -150,9 +150,9 @@ void blink_LEDS_async(USART_HandleType *usart, LED_Type * const leds[]) {
 
         for (int i = 0; leds[i] != NULL; ++i) {
             LED_setState(leds[i], LED_ON);
-            local_delay(800000);  /* ~100 ms ON */
+            delay(200000);  /* ~100 ms ON */
             LED_setState(leds[i], LED_OFF);
-            local_delay(400000);  /* ~50 ms gap before next LED */
+            delay(100000);  /* ~50 ms gap before next LED */
         }
     }
     /* Clear request flag BEFORE releasing the mutex. */

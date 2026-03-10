@@ -1,8 +1,5 @@
 #include "../inc/button_led.h"
 
-// Function prototypes
-void delay(volatile uint32_t count);
-
 USART_HandleType usart;
 
 LED_Type greenLED;
@@ -31,11 +28,5 @@ int main(void) {
          * "mutex busy".  It succeeds here, after the mutex is released.  */
         blink_LEDS_sync(&usart, all_leds);
         blink_LEDS_async(&usart, all_leds);
-    }
-}
-
-void delay(volatile uint32_t count) {
-    while(count--) {
-        __asm__("nop");
     }
 }
