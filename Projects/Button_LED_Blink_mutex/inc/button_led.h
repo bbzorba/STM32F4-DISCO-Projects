@@ -4,12 +4,13 @@
 /* All base types (LED_Type, LEDColor_Type, LEDState_Type, pin macros, etc.)
  * come from the LED_Blink library header -- no redefinitions needed here.  */
 #include "../../Projects/LED_Blink/inc/led.h"
+#include "../inc/mutex.h"
+#include <stdio.h>
 
 /* -----------------------------------------------------------------------
  * Minimal SYSCFG / EXTI register definitions (not in gpio.h / uart.h).
  * Base addresses from STM32F4 reference manual.
  * ----------------------------------------------------------------------- */
-#define APB2PERIPH_BASE         (0x40010000U)
 #define SYSCFG_BASE             (APB2PERIPH_BASE + 0x3800U)
 #define EXTI_BASE               (APB2PERIPH_BASE + 0x3C00U)
 #define RCC_APB2ENR_SYSCFGEN    (1U << 14)

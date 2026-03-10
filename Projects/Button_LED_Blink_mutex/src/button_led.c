@@ -1,35 +1,6 @@
 #include "../inc/button_led.h"
-#include <stdio.h>
 
-/* -----------------------------------------------------------------------
- * Mutex and async-request flag shared between main and EXTI0 ISR.
- * ----------------------------------------------------------------------- */
-static volatile uint8_t g_mutex          = 0;  /* 0 = free, 1 = held       */
-static volatile uint8_t g_async_requested = 0;  /* set by EXTI0 ISR         */
-
-/* Non-blocking try: returns 1 if acquired, 0 if busy.
- * Uses a critical section so the read-modify-write is atomic.            */
-static int mutex_try_acquire(void) {
-    int acquired;
-    __disable_irq();
-    acquired = (g_mutex == 0);
-    if (acquired) g_mutex = 1;
-    __enable_irq();
-    return acquired;
-}
-
-/* Blocking acquire: spins until the mutex is free.                       */
-static void mutex_acquire(void) {
-    while (!mutex_try_acquire()) {}
-}
-
-static void mutex_release(void) {
-    __disable_irq();
-    g_mutex = 0;
-    __enable_irq();
-}
-
-/* Simple busy-wait delay (~500 ms at 16 MHz HSI default).               */
+/* Simple busy-wait delay. */
 static void delay(volatile uint32_t count) {
     while (count--) __asm__("nop");
 }
