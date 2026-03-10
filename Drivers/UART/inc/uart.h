@@ -23,6 +23,7 @@ typedef enum IRQn
     SysTick_IRQn                = -1,
 
     /* STM32F4 specific (subset) */
+    EXTI0_IRQn                  = 6,
     USART1_IRQn                 = 37,
     USART2_IRQn                 = 38,
     USART3_IRQn                 = 39,

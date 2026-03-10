@@ -14,7 +14,7 @@
 #PROJECT_DIR = Drivers/SPI
 #PROJECT_DIR = Drivers/SPI_cpp
 #PROJECT_DIR = Projects/LED_Blink
-PROJECT_DIR = Projects/LED_Blink_cpp
+#PROJECT_DIR = Projects/LED_Blink_cpp
 #PROJECT_DIR = Projects/Servo_Motor
 #PROJECT_DIR = Projects/Servo_Motor_cpp
 #PROJECT_DIR = Projects/HC06_Bluetooth
@@ -24,7 +24,7 @@ PROJECT_DIR = Projects/LED_Blink_cpp
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer
 
 #TBD
-#PROJECT_DIR = Projects/Button_LED_Blink_mutex
+PROJECT_DIR = Projects/Button_LED_Blink_mutex
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
@@ -134,6 +134,9 @@ Servo_MOTOR_SRC_CPP := Projects/Servo_Motor_cpp/src/servo.cpp
 
 MLX90614_SRC_C := Projects/MLX90614_Temp/src/mlx90614_temp.c
 MLX90614_SRC_CPP := Projects/MLX90614_Temp_cpp/src/mlx90614_temp.cpp
+
+LED_SRC_C := Projects/LED_Blink/src/led.c
+LED_SRC_CPP := Projects/LED_Blink_cpp/src/led.cpp
 
 # BME68x environmental sensor sources
 BME68X_SRC_C := Projects/BME68x_Env_Sensor/src/bme68x_env_sensor.c
@@ -370,12 +373,13 @@ SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc -IDrivers/SPI/inc -IDrivers/UART/inc
 endif
 
-# Project-specific wiring for Button_LED_Blink_mutex: needs GPIO, SPI & UART drivers
+# Project-specific wiring for Button_LED_Blink_mutex: needs LED_Blink, GPIO, SPI & UART drivers
 ifeq ($(PROJECT_DIR),Projects/Button_LED_Blink_mutex)
 SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(SPI_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
-CFLAGS += -IDrivers/GPIO/inc -IDrivers/SPI/inc -IDrivers/UART/inc
+SRC_C += $(filter-out $(SRC_C),$(LED_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/SPI/inc -IDrivers/UART/inc -IProjects/LED_Blink/inc
 endif
 
 # Project-specific wiring for LIS302DL_Accelerometer_cpp: needs GPIO_cpp, SPI_cpp & UART_cpp drivers

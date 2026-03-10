@@ -75,54 +75,36 @@ void LED_constructor(LED_Type* const led, LEDColor_Type _color, LEDState_Type _s
 void LED_setState(LED_Type* const led, LEDState_Type _state){
     led->state = _state;
 
-    switch (led->color)
-    {
-    case GREEN: // PD12
+    switch (led->color) {
+    case GREEN:
         LED_PORT->MODER &= ~(3U << (12*2));
         LED_PORT->MODER |= LED_GREEN_MODE_BIT;
-        if (led->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_GREEN;
-        } else if (led->state == LED_TOGGLE) {
-            LED_PORT->ODR ^= LED_PIN_GREEN;
-        } else {
-            LED_PORT->ODR &= ~LED_PIN_GREEN;
-        }
+        if (led->state == LED_ON)     { LED_PORT->ODR |=  LED_PIN_GREEN; }
+        else if (led->state == LED_TOGGLE) { LED_PORT->ODR ^=  LED_PIN_GREEN; }
+        else                          { LED_PORT->ODR &= ~LED_PIN_GREEN; }
         break;
-    case YELLOW: // PD13 (Orange)
+    case YELLOW:
         LED_PORT->MODER &= ~(3U << (13*2));
         LED_PORT->MODER |= LED_YELLOW_MODE_BIT;
-        if (led->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_YELLOW;
-        } else if (led->state == LED_TOGGLE) {
-            LED_PORT->ODR ^= LED_PIN_YELLOW;
-        } else {
-            LED_PORT->ODR &= ~LED_PIN_YELLOW;
-        }
+        if (led->state == LED_ON)     { LED_PORT->ODR |=  LED_PIN_YELLOW; }
+        else if (led->state == LED_TOGGLE) { LED_PORT->ODR ^=  LED_PIN_YELLOW; }
+        else                          { LED_PORT->ODR &= ~LED_PIN_YELLOW; }
         break;
-    case RED: // PD14
+    case RED:
         LED_PORT->MODER &= ~(3U << (14*2));
         LED_PORT->MODER |= LED_RED_MODE_BIT;
-        if (led->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_RED;
-        } else if (led->state == LED_TOGGLE) {
-            LED_PORT->ODR ^= LED_PIN_RED;
-        } else {
-            LED_PORT->ODR &= ~LED_PIN_RED;
-        }
+        if (led->state == LED_ON)     { LED_PORT->ODR |=  LED_PIN_RED; }
+        else if (led->state == LED_TOGGLE) { LED_PORT->ODR ^=  LED_PIN_RED; }
+        else                          { LED_PORT->ODR &= ~LED_PIN_RED; }
         break;
-    case BLUE: // PD15
+    case BLUE:
         LED_PORT->MODER &= ~(3U << (15*2));
         LED_PORT->MODER |= LED_BLUE_MODE_BIT;
-        if (led->state == LED_ON) {
-            LED_PORT->ODR |= LED_PIN_BLUE;
-        } else if (led->state == LED_TOGGLE) {
-            LED_PORT->ODR ^= LED_PIN_BLUE;
-        } else {
-            LED_PORT->ODR &= ~LED_PIN_BLUE;
-        }
+        if (led->state == LED_ON)     { LED_PORT->ODR |=  LED_PIN_BLUE; }
+        else if (led->state == LED_TOGGLE) { LED_PORT->ODR ^=  LED_PIN_BLUE; }
+        else                          { LED_PORT->ODR &= ~LED_PIN_BLUE; }
         break;
-    default:
-        break;
+    default: break;
     }
 }
 
