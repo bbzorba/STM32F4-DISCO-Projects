@@ -256,6 +256,24 @@
 #define IDR_PIN13_HIGH          ((uint32_t)0x00002000)        // read PIN13 high
 #define IDR_PIN14_HIGH          ((uint32_t)0x00004000)        // read PIN14 high
 #define IDR_PIN15_HIGH          ((uint32_t)0x00008000)        // read PIN15 high
+
+// GPIO PUPDR register Mask bit definitions
+#define PUPDR_PIN0_MASK         ((uint32_t)0x00000003)        // mask to clear PUPDR_PIN0 bits (bits 1:0)
+#define PUPDR_PIN1_MASK         ((uint32_t)0x0000000C)        // mask to clear PUPDR_PIN1 bits (bits 3:2)
+#define PUPDR_PIN2_MASK         ((uint32_t)0x00000030)        // mask to clear PUPDR_PIN2 bits (bits 5:4)
+#define PUPDR_PIN3_MASK         ((uint32_t)0x000000C0)        // mask to clear PUPDR_PIN3 bits (bits 7:6)
+#define PUPDR_PIN4_MASK         ((uint32_t)0x00000300)        // mask to clear PUPDR_PIN4 bits (bits 9:8)
+#define PUPDR_PIN5_MASK         ((uint32_t)0x00000C00)        // mask to clear PUPDR_PIN5 bits (bits 11:10)
+#define PUPDR_PIN6_MASK         ((uint32_t)0x00003000)        // mask to clear PUPDR_PIN6 bits (bits 13:12)
+#define PUPDR_PIN7_MASK         ((uint32_t)0x0000C000)        // mask to clear PUPDR_PIN7 bits (bits 15:14)
+#define PUPDR_PIN8_MASK         ((uint32_t)0x00030000)        // mask to clear PUPDR_PIN8 bits (bits 17:16)
+#define PUPDR_PIN9_MASK         ((uint32_t)0x000C0000)        // mask to clear PUPDR_PIN9 bits (bits 19:18)
+#define PUPDR_PIN10_MASK        ((uint32_t)0x00300000)        // mask to clear PUPDR_PIN10 bits (bits 21:20)
+#define PUPDR_PIN11_MASK        ((uint32_t)0x00C00000)        // mask to clear PUPDR_PIN11 bits (bits 23:22)
+#define PUPDR_PIN12_MASK        ((uint32_t)0x03000000)        // mask to clear PUPDR_PIN12 bits (bits 25:24)
+#define PUPDR_PIN13_MASK        ((uint32_t)0x0C000000)        // mask to clear PUPDR_PIN13 bits (bits 27:26)
+#define PUPDR_PIN14_MASK        ((uint32_t)0x30000000)        // mask to clear PUPDR_PIN14 bits (bits 29:28)
+#define PUPDR_PIN15_MASK        ((uint32_t)0xC0000000)        // mask to clear PUPDR_PIN15 bits (bits 31:30)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

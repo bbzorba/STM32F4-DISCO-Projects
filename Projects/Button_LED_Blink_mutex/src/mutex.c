@@ -1,5 +1,5 @@
 #include "../inc/mutex.h"
-#include "../inc/button_led.h"  /* provides __disable_irq / __enable_irq via CMSIS chain */
+#include "../inc/button_led.h"  /* provides __disable_irq() & __enable_irq() via CMSIS chain */
 
 volatile uint8_t g_mutex          = 0;  /* 0 = free, 1 = held */
 volatile uint8_t g_async_requested = 0;  /* set by EXTI0 ISR  */

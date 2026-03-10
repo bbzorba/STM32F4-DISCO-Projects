@@ -24,6 +24,12 @@ typedef enum IRQn
 
     /* STM32F4 specific (subset) */
     EXTI0_IRQn                  = 6,
+    EXTI1_IRQn                  = 7,
+    EXTI2_IRQn                  = 8,
+    EXTI3_IRQn                  = 9,
+    EXTI4_IRQn                  = 10,
+    EXTI9_5_IRQn                = 23,
+    EXTI15_10_IRQn              = 40,
     USART1_IRQn                 = 37,
     USART2_IRQn                 = 38,
     USART3_IRQn                 = 39,

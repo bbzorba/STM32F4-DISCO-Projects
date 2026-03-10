@@ -32,17 +32,34 @@ typedef struct {
     volatile uint32_t PR;
 } EXTI_TypeDef;
 
+/* Button object: wraps a GPIO handle plus the EXTI configuration
+ * computed at construction time so Button_Init is fully generic.   */
+typedef struct {
+    GPIO_HandleTypeDef gpio;       /* GPIO pin handle (regs + init ptr)  */
+    GPIO_InitTypeDef   gpio_init;  /* Init struct storage; gpio.init → &this */
+    uint8_t            exti_line;  /* 0-15, derived from pin mask          */
+    uint8_t            port_code;  /* 0=A, 1=B, 2=C, 3=D …, from port addr */
+    uint8_t            nvic_priority;
+} Button_TypeDef;
+
 #define SYSCFG  ((SYSCFG_TypeDef *)SYSCFG_BASE)
 #define EXTI    ((EXTI_TypeDef  *)EXTI_BASE)
 
-/* Wraps LED_constructor (from LED_Blink lib) and initialises USER button on first call. */
-void Button_LED_constructor(LED_Type * const led, LEDColor_Type _color, LEDState_Type _state);
+/* Initialises the GPIO pin and EXTI interrupt for the given port/pin.
+ * pin_mask: one of GPIO_PIN_0 … GPIO_PIN_15
+ * port    : GPIO_A … GPIO_I
+ * nvic_priority: 0 (highest) … 15 (lowest) */
+void Button_constructor(Button_TypeDef *button,
+                        GPIO_ManualTypeDef *port, uint32_t pin_mask,
+                        uint32_t mode, uint32_t pull, uint32_t speed,
+                        uint8_t nvic_priority);
+
+/* Configures EXTI and NVIC from the fields already set by Button_constructor.
+ * Generic: works for any line 0-15 on any GPIO port.               */
+void Button_Init(Button_TypeDef *button);
 
 /* Public blink API -- pass a NULL-terminated array of LED pointers. */
 void blink_LEDS_sync(USART_HandleType *usart, LED_Type * const leds[]);
 void blink_LEDS_async(USART_HandleType *usart, LED_Type * const leds[]);
-
-/* Initialise PA0 (USER button on STM32F4-Discovery) as EXTI0 rising-edge interrupt. */
-void Button_Init(void);
 
 #endif // BUTTON_LED_H

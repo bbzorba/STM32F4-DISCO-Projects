@@ -6,47 +6,81 @@ static void delay(volatile uint32_t count) {
 }
 
 /* -----------------------------------------------------------------------
- * Button_LED_constructor
- *   Delegates GPIO/vtable setup to LED_constructor from the LED_Blink
- *   library, then initialises the USER button (PA0) on the first call.
+ * Button_constructor
+ *   Populates Button_TypeDef from the supplied parameters, configures the
+ *   GPIO pin, then calls Button_Init to wire up the EXTI interrupt.
+ *   Works for any port (A-I) and any pin (0-15).
  * ----------------------------------------------------------------------- */
-void Button_LED_constructor(LED_Type* const led, LEDColor_Type _color, LEDState_Type _state) {
-    LED_constructor(led, _color, _state);
+void Button_constructor(Button_TypeDef *button,
+                        GPIO_ManualTypeDef *port, uint32_t pin_mask,
+                        uint32_t mode, uint32_t pull, uint32_t speed,
+                        uint8_t nvic_priority) {
+    /* Derive EXTI line (0-15) from the single-bit pin mask. */
+    uint8_t line = 0;
+    uint32_t tmp = pin_mask;
+    while ((tmp >>= 1)) line++;
 
-    static uint8_t button_initialized = 0;
-    if (!button_initialized) {
-        Button_Init();
-        button_initialized = 1;
-    }
+    /* Derive port code (A=0, B=1, C=2, D=3…) from the port base address. */
+    uint8_t port_code = (uint8_t)(((uint32_t)port - GPIOA_BASE) / 0x400U);
+
+    /* Populate the embedded init struct and point gpio.init at it. */
+    button->gpio_init.Pin   = pin_mask;
+    button->gpio_init.Mode  = mode;
+    button->gpio_init.Pull  = pull;
+    button->gpio_init.Speed = speed;
+    button->gpio.regs       = port;
+    button->gpio.init       = &button->gpio_init;
+
+    button->exti_line     = line;
+    button->port_code     = port_code;
+    button->nvic_priority = nvic_priority;
+
+    /* Configure the GPIO pin via the shared GPIO driver. */
+    GPIO_constructor(&button->gpio, port, &button->gpio_init);
+
+    /* Configure EXTI and NVIC. */
+    Button_Init(button);
 }
 
 /* -----------------------------------------------------------------------
  * Button_Init
- *   Configures PA0 (USER button on STM32F4-Discovery) as a digital input
- *   with internal pull-down and routes it to EXTI line 0 (rising edge).
- *   EXTI0_IRQn is enabled in NVIC at priority 1 (below USART priority 0).
+ *   Generic EXTI setup: works for any line (0-15) on any GPIO port.
+ *   All required information is read from the Button_TypeDef fields
+ *   set by Button_constructor, so nothing is hardcoded here.
  * ----------------------------------------------------------------------- */
-void Button_Init(void) {
-    /* 1. Enable GPIOA clock and set PA0 as input with pull-down. */
-    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
-    GPIO_A->MODER &= ~(3U << (0 * 2));   /* input mode (00) */
-    GPIO_A->PUPDR &= ~(3U << (0 * 2));
-    GPIO_A->PUPDR |=  (2U << (0 * 2));   /* pull-down */
+void Button_Init(Button_TypeDef *button) {
+    /* 1. Enable the GPIO port clock. */
+    __RCC_GPIO_CLK_ENABLE(&button->gpio);
 
-    /* 2. Enable SYSCFG clock and route PA to EXTI0
-     *    EXTICR[0] bits [3:0] = 0b0000 selects Port A for EXTI0. */
+    /* 2. Enable SYSCFG clock (needed to write EXTICR). */
     RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
-    SYSCFG->EXTICR[0] &= ~(0x000FU);     /* clear EXTI0 source bits */
-                                          /* 0000 = PA already the default */
 
-    /* 3. Configure EXTI line 0: unmask, rising edge. */
-    EXTI->IMR  |=  (1U << 0);   /* unmask line 0 */
-    EXTI->RTSR |=  (1U << 0);   /* rising-edge trigger */
-    EXTI->FTSR &= ~(1U << 0);   /* disable falling-edge */
+    /* 3. Route the chosen GPIO port to this EXTI line via SYSCFG EXTICR.
+     *    EXTICR[line/4] holds 4 lines × 4 bits each.                    */
+    uint8_t line  = button->exti_line;
+    uint8_t shift = (uint8_t)((line % 4U) * 4U);
+    SYSCFG->EXTICR[line / 4U] &= ~(0xFU << shift);
+    SYSCFG->EXTICR[line / 4U] |=  ((uint32_t)button->port_code << shift);
 
-    /* 4. Enable EXTI0 in NVIC at priority 1. */
-    NVIC_SetPriority(EXTI0_IRQn, 1);
-    NVIC_EnableIRQ(EXTI0_IRQn);
+    /* 4. Unmask the line and select rising-edge trigger. */
+    EXTI->IMR  |=  (1U << line);
+    EXTI->RTSR |=  (1U << line);
+    EXTI->FTSR &= ~(1U << line);
+
+    /* 5. Enable the correct NVIC IRQ.
+     *    STM32F4 groups: lines 0-4 have dedicated IRQs;
+     *    5-9 share EXTI9_5_IRQn; 10-15 share EXTI15_10_IRQn.           */
+    IRQn_Type irqn;
+    if      (line == 0) irqn = EXTI0_IRQn;
+    else if (line == 1) irqn = EXTI1_IRQn;
+    else if (line == 2) irqn = EXTI2_IRQn;
+    else if (line == 3) irqn = EXTI3_IRQn;
+    else if (line == 4) irqn = EXTI4_IRQn;
+    else if (line <= 9) irqn = EXTI9_5_IRQn;
+    else                irqn = EXTI15_10_IRQn;
+
+    NVIC_SetPriority(irqn, button->nvic_priority);
+    NVIC_EnableIRQ(irqn);
 }
 
 /* -----------------------------------------------------------------------
