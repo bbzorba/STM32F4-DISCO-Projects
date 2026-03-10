@@ -22,10 +22,12 @@
 #PROJECT_DIR = Projects/HC06_Servo_Controller
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer
-PROJECT_DIR = Projects/Button_LED_Blink_mutex
+#PROJECT_DIR = Projects/Button_LED_Blink_mutex
+PROJECT_DIR = Projects/Button_LED_Blink_semaphore
 
 #TBD
 #PROJECT_DIR = Projects/Button_LED_Blink_mutex_cpp
+#PROJECT_DIR = Projects/Button_LED_Blink_semaphore_cpp
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
@@ -372,6 +374,15 @@ SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(SPI_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/GPIO/inc -IDrivers/SPI/inc -IDrivers/UART/inc
+endif
+
+# Project-specific wiring for Button_LED_Blink_semaphore: same deps as mutex variant
+ifeq ($(PROJECT_DIR),Projects/Button_LED_Blink_semaphore)
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(SPI_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(LED_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/SPI/inc -IDrivers/UART/inc -IProjects/LED_Blink/inc
 endif
 
 # Project-specific wiring for Button_LED_Blink_mutex: needs LED_Blink, GPIO, SPI & UART drivers
