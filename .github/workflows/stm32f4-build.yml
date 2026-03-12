@@ -9,9 +9,8 @@ on:
 env:
   PROJECT_DIR: Projects/Button_LED_Blink_semaphore
   FLASH_TOOL: cubeprog
-  # 1. ADD THE FULL PATH TO YOUR PROGRAMMER HERE
-  # Note: Check your PC to ensure this path is correct!
-  CUBE_PROG_PATH: "C:/Program Files/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/STM32_Programmer_CLI.exe"
+  # 1. Use BACKSLASHES for the Windows path to the .exe
+  CUBE_PROG_PATH: "C:\\Program Files\\STMicroelectronics\\STM32Cube\\STM32CubeProgrammer\\bin\\STM32_Programmer_CLI.exe"
   SERIAL_PORT: COM3
   BAUD_RATE: 115200
 
@@ -38,6 +37,9 @@ jobs:
     runs-on: [self-hosted, windows]
     needs: build
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
@@ -45,8 +47,9 @@ jobs:
           path: ${{ env.PROJECT_DIR }}
 
       - name: Flash to Hardware
-        # 2. Pass the absolute path to the Makefile
-        run: make flash PROJECT_DIR=${{ env.PROJECT_DIR }} FLASH_TOOL=${{ env.FLASH_TOOL }} CUBE_PROG="${{ env.CUBE_PROG_PATH }}"
+        # 2. Use double quotes around variables to handle paths with spaces
+        run: |
+          make flash PROJECT_DIR="${{ env.PROJECT_DIR }}" FLASH_TOOL=${{ env.FLASH_TOOL }} CUBE_PROG="${{ env.CUBE_PROG_PATH }}"
         shell: cmd
 
   verify:
