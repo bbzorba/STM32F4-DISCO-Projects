@@ -8,9 +8,7 @@ on:
 
 env:
   PROJECT_DIR: Projects/Button_LED_Blink_semaphore
-  FLASH_TOOL: cubeprog
-  # 1. Use BACKSLASHES for the Windows path to the .exe
-  CUBE_PROG_PATH: "C:\\Program Files\\STMicroelectronics\\STM32Cube\\STM32CubeProgrammer\\bin\\STM32_Programmer_CLI.exe"
+  FLASH_TOOL: openocd
   SERIAL_PORT: COM3
   BAUD_RATE: 115200
 
@@ -47,9 +45,8 @@ jobs:
           path: ${{ env.PROJECT_DIR }}
 
       - name: Flash to Hardware
-        # 2. Use double quotes around variables to handle paths with spaces
         run: |
-          make flash PROJECT_DIR="${{ env.PROJECT_DIR }}" FLASH_TOOL=${{ env.FLASH_TOOL }} CUBE_PROG="${{ env.CUBE_PROG_PATH }}"
+          make flash PROJECT_DIR="${{ env.PROJECT_DIR }}" FLASH_TOOL=${{ env.FLASH_TOOL }}
         shell: cmd
 
   verify:
