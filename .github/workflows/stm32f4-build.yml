@@ -7,12 +7,12 @@ on:
     branches: [ main ]
 
 env:
-  # This matches the PROJECT_DIR in your Makefile
   PROJECT_DIR: Projects/Button_LED_Blink_semaphore
-  # Specify which tool to use (matches your Makefile logic)
-  FLASH_TOOL: cubeprog 
-  # Set your COM Port for verification (Virtual COM port of the ST-Link)
-  SERIAL_PORT: COM3 
+  FLASH_TOOL: cubeprog
+  # 1. ADD THE FULL PATH TO YOUR PROGRAMMER HERE
+  # Note: Check your PC to ensure this path is correct!
+  CUBE_PROG_PATH: "C:/Program Files/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/STM32_Programmer_CLI.exe"
+  SERIAL_PORT: COM3
   BAUD_RATE: 115200
 
 jobs:
@@ -45,8 +45,8 @@ jobs:
           path: ${{ env.PROJECT_DIR }}
 
       - name: Flash to Hardware
-        # Calling your Makefile's flash target
-        run: make flash PROJECT_DIR=${{ env.PROJECT_DIR }} FLASH_TOOL=${{ env.FLASH_TOOL }}
+        # 2. Pass the absolute path to the Makefile
+        run: make flash PROJECT_DIR=${{ env.PROJECT_DIR }} FLASH_TOOL=${{ env.FLASH_TOOL }} CUBE_PROG="${{ env.CUBE_PROG_PATH }}"
         shell: cmd
 
   verify:
