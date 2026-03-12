@@ -3,3 +3,6 @@ others/
 VCP/
 nul
 .vscode/
+actions-runner/
+.gitattributes
+.gitignore

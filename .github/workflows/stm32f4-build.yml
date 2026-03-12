@@ -1,0 +1,84 @@
+name: STM32 Build, Flash & Verify
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  # This matches the PROJECT_DIR in your Makefile
+  PROJECT_DIR: Projects/Button_LED_Blink_semaphore
+  # Specify which tool to use (matches your Makefile logic)
+  FLASH_TOOL: cubeprog 
+  # Set your COM Port for verification (Virtual COM port of the ST-Link)
+  SERIAL_PORT: COM3 
+  BAUD_RATE: 115200
+
+jobs:
+  build:
+    runs-on: [self-hosted, windows]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build with Makefile
+        run: |
+          make clean PROJECT_DIR=${{ env.PROJECT_DIR }}
+          make build PROJECT_DIR=${{ env.PROJECT_DIR }}
+        shell: cmd
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: stm32_bin
+          path: ${{ env.PROJECT_DIR }}/main.bin
+
+  flash:
+    runs-on: [self-hosted, windows]
+    needs: build
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: stm32_bin
+          path: ${{ env.PROJECT_DIR }}
+
+      - name: Flash to Hardware
+        # Calling your Makefile's flash target
+        run: make flash PROJECT_DIR=${{ env.PROJECT_DIR }} FLASH_TOOL=${{ env.FLASH_TOOL }}
+        shell: cmd
+
+  verify:
+    runs-on: [self-hosted, windows]
+    needs: flash
+    steps:
+      - name: Verify UART Output
+        # This script mimics your ESP32 monitor verification
+        run: |
+          echo "Starting UART Verification on ${{ env.SERIAL_PORT }}..."
+          $port = New-Object System.IO.Ports.SerialPort ${{ env.SERIAL_PORT }}, ${{ env.BAUD_RATE }}, None, 8, one
+          $port.Open()
+          $startTime = Get-Date
+          $output = ""
+          
+          # Listen for 10 seconds
+          while ((Get-Date) -lt $startTime.AddSeconds(10)) {
+              if ($port.BytesToRead -gt 0) {
+                  $output += $port.ReadExisting()
+              }
+              Start-Sleep -Milliseconds 100
+          }
+          $port.Close()
+          
+          echo "Received Output:"
+          echo $output
+          
+          # Validation Logic: Check if the output contains a specific keyword (e.g., "Semaphore" or "Initialized")
+          if ($output -match "Semaphore") {
+              echo "Verification Passed!"
+          } else {
+              echo "Verification Failed: Expected keyword not found in UART logs."
+              exit 1
+          }
+        shell: powershell
