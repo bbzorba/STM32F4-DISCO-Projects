@@ -22,12 +22,12 @@
 #PROJECT_DIR = Projects/HC06_Servo_Controller
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer
-#PROJECT_DIR = Projects/Button_LED_Blink_mutex
+PROJECT_DIR = Projects/Button_LED_Blink_mutex
 #PROJECT_DIR = Projects/Button_LED_Blink_semaphore
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
 
 #TBD
-PROJECT_DIR = Projects/Button_LED_Blink_mutex_cpp
+#PROJECT_DIR = Projects/Button_LED_Blink_mutex_cpp
 #PROJECT_DIR = Projects/Button_LED_Blink_semaphore_cpp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
