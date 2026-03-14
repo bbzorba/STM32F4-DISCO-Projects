@@ -23,12 +23,12 @@
 #PROJECT_DIR = Projects/HC06_Servo_Controller_cpp
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer
 #PROJECT_DIR = Projects/Button_LED_Blink_mutex
-PROJECT_DIR = Projects/Button_LED_Blink_semaphore
+#PROJECT_DIR = Projects/Button_LED_Blink_semaphore
+#PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
 
 #TBD
-#PROJECT_DIR = Projects/Button_LED_Blink_mutex_cpp
+PROJECT_DIR = Projects/Button_LED_Blink_mutex_cpp
 #PROJECT_DIR = Projects/Button_LED_Blink_semaphore_cpp
-#PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
 #PROJECT_DIR = Projects/TSL2591_Light
@@ -44,7 +44,7 @@ FLASH_ADDR=0x08000000
 FLASH_TOOL?=openocd  # options: cubeprog | openocd | stlink
 # Sanitize FLASH_TOOL in case of stray spaces from environment or edits
 _FLASH_TOOL:=$(strip $(FLASH_TOOL))
-CUBE_PROG?=STM32_Programmer_CLI
+CUBE_PROG?=C:/Program Files/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/STM32_Programmer_CLI.exe
 OPENOCD?=openocd
 STFLASH?=st-flash
 OPENOCD_SCRIPTS?=
@@ -271,6 +271,11 @@ clean:
 	-$(RM) $(TARGET).hex 2>nul || exit 0
 	-$(RM) $(TARGET).bin 2>nul || exit 0
 	-$(RM) $(TARGET).map 2>nul || exit 0
+
+# Print any Makefile variable, e.g. make print-PROJECT_DIR
+.PHONY: print-%
+print-%:
+	@echo $($*)
 
 # Default goal: show help when running plain `make`
 .DEFAULT_GOAL := help

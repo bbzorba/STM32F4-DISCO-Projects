@@ -7,22 +7,32 @@ on:
     branches: [ main ]
 
 env:
-  PROJECT_DIR: Projects/Button_LED_Blink_semaphore
   FLASH_TOOL: openocd
-  SERIAL_PORT: COM6
+  SERIAL_PORT: COM4
   BAUD_RATE: 115200
 
 jobs:
   build:
     runs-on: [self-hosted, windows]
+    outputs:
+      project_dir: ${{ steps.get-project.outputs.project_dir }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Read PROJECT_DIR from Makefile
+        id: get-project
+        run: |
+          for /f "tokens=*" %%a in ('make -s print-PROJECT_DIR') do (
+            echo PROJECT_DIR=%%a>> %GITHUB_ENV%
+            echo project_dir=%%a>> %GITHUB_OUTPUT%
+          )
+        shell: cmd
+
       - name: Build with Makefile
         run: |
-          make clean PROJECT_DIR=${{ env.PROJECT_DIR }}
-          make build PROJECT_DIR=${{ env.PROJECT_DIR }}
+          make clean
+          make build
         shell: cmd
 
       - name: Upload Artifacts
@@ -34,6 +44,8 @@ jobs:
   flash:
     runs-on: [self-hosted, windows]
     needs: build
+    env:
+      PROJECT_DIR: ${{ needs.build.outputs.project_dir }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -46,7 +58,7 @@ jobs:
 
       - name: Flash to Hardware
         run: |
-          make flash PROJECT_DIR="${{ env.PROJECT_DIR }}" FLASH_TOOL=${{ env.FLASH_TOOL }}
+          make flash FLASH_TOOL=${{ env.FLASH_TOOL }}
         shell: cmd
 
   verify:

@@ -288,7 +288,7 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
  .isr_vector    0x08000000       0x40 Projects/LIS302DL_Accelerometer_cpp/src/startup.o
                 0x08000000                vector_table
 
-.text           0x08000040     0x19b4
+.text           0x08000040     0x19c4
  *(.text*)
  .text._ZN4GPIO13GPIO_WritePinEt13GPIO_PinState
                 0x08000040        0xc Drivers/GPIO_cpp/src/gpio.o
@@ -333,142 +333,143 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
                 0x08000b94       0x34 Drivers/UART_cpp/src/uart.o
                 0x08000b94                USART::USART_WriteString(char const*)
  .text._Z17LIS_SPI_Pins_Initv
-                0x08000bc8       0x28 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
+                0x08000bc8       0x2c Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
                 0x08000bc8                LIS_SPI_Pins_Init()
  .text._Z15LIS_CS_Pin_Initv
-                0x08000bf0       0x34 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
-                0x08000bf0                LIS_CS_Pin_Init()
+                0x08000bf4       0x34 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
+                0x08000bf4                LIS_CS_Pin_Init()
  .text._Z9LEDS_Initv
-                0x08000c24       0x2c Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
-                0x08000c24                LEDS_Init()
+                0x08000c28       0x2c Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
+                0x08000c28                LEDS_Init()
  .text._ZN8LIS302DL5WriteEhh
-                0x08000c50       0x58 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
-                0x08000c50                LIS302DL::Write(unsigned char, unsigned char)
+                0x08000c54       0x58 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
+                0x08000c54                LIS302DL::Write(unsigned char, unsigned char)
  .text._ZN8LIS302DL4InitEv
-                0x08000ca8       0x38 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
-                0x08000ca8                LIS302DL::Init()
+                0x08000cac       0x38 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
+                0x08000cac                LIS302DL::Init()
  .text._ZN8LIS302DL4ReadEi
-                0x08000ce0       0x64 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
-                0x08000ce0                LIS302DL::Read(int)
+                0x08000ce4       0x64 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
+                0x08000ce4                LIS302DL::Read(int)
  .text._ZN8LIS302DL12ModeFallbackEh
-                0x08000d44       0x74 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
-                0x08000d44                LIS302DL::ModeFallback(unsigned char)
+                0x08000d48       0x74 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
+                0x08000d48                LIS302DL::ModeFallback(unsigned char)
  .text._Z13TIM4_ms_Delayt
-                0x08000db8       0x30 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
-                0x08000db8                TIM4_ms_Delay(unsigned short)
+                0x08000dbc       0x30 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
+                0x08000dbc                TIM4_ms_Delay(unsigned short)
  .text.startup.main
-                0x08000de8      0x164 Projects/LIS302DL_Accelerometer_cpp/src/main.o
-                0x08000de8                main
+                0x08000dec      0x164 Projects/LIS302DL_Accelerometer_cpp/src/main.o
+                0x08000dec                main
  .text.Default_Handler
-                0x08000f4c        0x4 Projects/LIS302DL_Accelerometer_cpp/src/startup.o
-                0x08000f4c                Default_Handler
+                0x08000f50        0x4 Projects/LIS302DL_Accelerometer_cpp/src/startup.o
+                0x08000f50                Default_Handler
  .text.Reset_Handler
-                0x08000f50       0x34 Projects/LIS302DL_Accelerometer_cpp/src/startup.o
-                0x08000f50                Reset_Handler
- .text          0x08000f84       0x58 Projects/LIS302DL_Accelerometer_cpp/src/stubs.o
-                0x08000f84                _write
-                0x08000f88                _read
-                0x08000f8c                _close
-                0x08000f94                _fstat
-                0x08000fa0                _isatty
-                0x08000fa4                _lseek
-                0x08000fa8                _exit
-                0x08000fac                _kill
-                0x08000fbc                _getpid
-                0x08000fc0                _sbrk
+                0x08000f54       0x34 Projects/LIS302DL_Accelerometer_cpp/src/startup.o
+                0x08000f54                Reset_Handler
+ .text          0x08000f88       0x58 Projects/LIS302DL_Accelerometer_cpp/src/stubs.o
+                0x08000f88                _write
+                0x08000f8c                _read
+                0x08000f90                _close
+                0x08000f98                _fstat
+                0x08000fa4                _isatty
+                0x08000fa8                _lseek
+                0x08000fac                _exit
+                0x08000fb0                _kill
+                0x08000fc0                _getpid
+                0x08000fc4                _sbrk
  .text.snprintf
-                0x08000fdc       0x68 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
-                0x08000fdc                sniprintf
-                0x08000fdc                snprintf
- .text._free_r  0x08001044       0x94 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o)
-                0x08001044                _free_r
+                0x08000fe0       0x68 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
+                0x08000fe0                sniprintf
+                0x08000fe0                snprintf
+ .text._free_r  0x08001048       0x94 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o)
+                0x08001048                _free_r
  .text.sbrk_aligned
-                0x080010d8       0x40 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
+                0x080010dc       0x40 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
  .text._malloc_r
-                0x08001118       0xe8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
-                0x08001118                _malloc_r
+                0x0800111c       0xe8 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
+                0x0800111c                _malloc_r
  .text.__ssputs_r
-                0x08001200       0xb6 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
-                0x08001200                __ssputs_r
- *fill*         0x080012b6        0x2 
+                0x08001204       0xb6 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
+                0x08001204                __ssputs_r
+ *fill*         0x080012ba        0x2 
  .text._svfprintf_r
-                0x080012b8      0x200 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
-                0x080012b8                _svfiprintf_r
-                0x080012b8                _svfprintf_r
+                0x080012bc      0x200 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
+                0x080012bc                _svfiprintf_r
+                0x080012bc                _svfprintf_r
  .text._printf_common
-                0x080014b8       0xda c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
-                0x080014b8                _printf_common
- *fill*         0x08001592        0x2 
+                0x080014bc       0xda c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x080014bc                _printf_common
+ *fill*         0x08001596        0x2 
  .text._printf_i
-                0x08001594      0x24c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
-                0x08001594                _printf_i
- .text._sbrk_r  0x080017e0       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-sbrkr.o)
-                0x080017e0                _sbrk_r
- .text          0x08001800       0xa0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memchr.o)
-                0x08001800                memchr
- .text.memcpy   0x080018a0       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
-                0x080018a0                memcpy
- .text.memmove  0x080018bc       0x34 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memmove.o)
-                0x080018bc                memmove
+                0x08001598      0x24c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x08001598                _printf_i
+ .text._sbrk_r  0x080017e4       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-sbrkr.o)
+                0x080017e4                _sbrk_r
+ *fill*         0x08001804        0xc 
+ .text          0x08001810       0xa0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memchr.o)
+                0x08001810                memchr
+ .text.memcpy   0x080018b0       0x1c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+                0x080018b0                memcpy
+ .text.memmove  0x080018cc       0x34 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memmove.o)
+                0x080018cc                memmove
  .text.__malloc_lock
-                0x080018f0        0xc c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
-                0x080018f0                __malloc_lock
+                0x08001900        0xc c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
+                0x08001900                __malloc_lock
  .text.__malloc_unlock
-                0x080018fc        0xc c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
-                0x080018fc                __malloc_unlock
+                0x0800190c        0xc c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
+                0x0800190c                __malloc_unlock
  .text._realloc_r
-                0x08001908       0x5e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-reallocr.o)
-                0x08001908                _realloc_r
+                0x08001918       0x5e c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-reallocr.o)
+                0x08001918                _realloc_r
  .text.__retarget_lock_acquire_recursive
-                0x08001966        0x2 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
-                0x08001966                __retarget_lock_acquire_recursive
+                0x08001976        0x2 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
+                0x08001976                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x08001968        0x2 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
-                0x08001968                __retarget_lock_release_recursive
+                0x08001978        0x2 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
+                0x08001978                __retarget_lock_release_recursive
  .text._malloc_usable_size_r
-                0x0800196a       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-msizer.o)
-                0x0800196a                _malloc_usable_size_r
+                0x0800197a       0x10 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-msizer.o)
+                0x0800197a                _malloc_usable_size_r
  *(.rodata*)
- *fill*         0x0800197a        0x2 
+ *fill*         0x0800198a        0x2 
  .rodata.main.str1.4
-                0x0800197c       0x3d Projects/LIS302DL_Accelerometer_cpp/src/main.o
+                0x0800198c       0x3d Projects/LIS302DL_Accelerometer_cpp/src/main.o
  .rodata._svfprintf_r.str1.1
-                0x080019b9       0x11 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
+                0x080019c9       0x11 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x080019ca       0x22 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
+                0x080019da       0x22 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
  *(.glue_7)
- .glue_7        0x080019ec        0x0 linker stubs
+ .glue_7        0x080019fc        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x080019ec        0x0 linker stubs
+ .glue_7t       0x080019fc        0x0 linker stubs
  *(.init)
- .init          0x080019ec        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x080019ec                _init
+ .init          0x080019fc        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x080019fc                _init
  *(.fini)
- .fini          0x080019f0        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
-                0x080019f0                _fini
+ .fini          0x08001a00        0x4 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m/nofp/crti.o
+                0x08001a00                _fini
 
-.vfp11_veneer   0x080019f4        0x0
- .vfp11_veneer  0x080019f4        0x0 linker stubs
+.vfp11_veneer   0x08001a04        0x0
+ .vfp11_veneer  0x08001a04        0x0 linker stubs
 
-.v4_bx          0x080019f4        0x0
- .v4_bx         0x080019f4        0x0 linker stubs
+.v4_bx          0x08001a04        0x0
+ .v4_bx         0x08001a04        0x0 linker stubs
 
-.iplt           0x080019f4        0x0
- .iplt          0x080019f4        0x0 Drivers/GPIO_cpp/src/gpio.o
+.iplt           0x08001a04        0x0
+ .iplt          0x08001a04        0x0 Drivers/GPIO_cpp/src/gpio.o
 
-.rel.dyn        0x080019f4        0x0
- .rel.iplt      0x080019f4        0x0 Drivers/GPIO_cpp/src/gpio.o
+.rel.dyn        0x08001a04        0x0
+ .rel.iplt      0x08001a04        0x0 Drivers/GPIO_cpp/src/gpio.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM.exidx      0x080019f4        0x0
-                0x080019f4                __exidx_start = .
+.ARM.exidx      0x08001a04        0x0
+                0x08001a04                __exidx_start = .
  *(.ARM.exidx*)
-                0x080019f4                __exidx_end = .
-                0x080019f4                __etext = .
+                0x08001a04                __exidx_end = .
+                0x08001a04                __etext = .
 
-.data           0x20000000       0x64 load address 0x080019f4
+.data           0x20000000       0x64 load address 0x08001a04
                 0x20000000                __data_start__ = .
  *(.data*)
  .data._impure_ptr
@@ -478,10 +479,10 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
                 0x20000004       0x60 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-impure.o)
                 0x20000064                __data_end__ = .
 
-.igot.plt       0x20000064        0x0 load address 0x08001a58
+.igot.plt       0x20000064        0x0 load address 0x08001a68
  .igot.plt      0x20000064        0x0 Drivers/GPIO_cpp/src/gpio.o
 
-.bss            0x20000064       0x55 load address 0x08001a58
+.bss            0x20000064       0x55 load address 0x08001a68
                 0x20000064                __bss_start__ = .
  *(.bss*)
  .bss._ZL11s_leds_init
@@ -515,7 +516,7 @@ LOAD c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc
                 0x200000b9                end = .
                 0x200000b9                __end__ = .
 
-.stack          0x200000b9      0x407 load address 0x08001aad
+.stack          0x200000b9      0x407 load address 0x08001abd
                 0x200000c0                . = ALIGN (0x8)
  *fill*         0x200000b9        0x7 
                 0x200000c0                _stack = .
@@ -633,29 +634,29 @@ LOAD linker stubs
  .debug_ranges  0x00000300       0x58 Projects/LIS302DL_Accelerometer_cpp/src/main.o
  .debug_ranges  0x00000358       0x18 Projects/LIS302DL_Accelerometer_cpp/src/startup.o
 
-.debug_line     0x00000000     0x233f
+.debug_line     0x00000000     0x234f
  .debug_line    0x00000000      0x449 Drivers/GPIO_cpp/src/gpio.o
  .debug_line    0x00000449      0x7b2 Drivers/SPI_cpp/src/spi.o
  .debug_line    0x00000bfb      0x94a Drivers/UART_cpp/src/uart.o
- .debug_line    0x00001545      0x540 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
- .debug_line    0x00001a85      0x43a Projects/LIS302DL_Accelerometer_cpp/src/main.o
- .debug_line    0x00001ebf      0x1e7 Projects/LIS302DL_Accelerometer_cpp/src/startup.o
- .debug_line    0x000020a6      0x299 Projects/LIS302DL_Accelerometer_cpp/src/stubs.o
+ .debug_line    0x00001545      0x550 Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
+ .debug_line    0x00001a95      0x43a Projects/LIS302DL_Accelerometer_cpp/src/main.o
+ .debug_line    0x00001ecf      0x1e7 Projects/LIS302DL_Accelerometer_cpp/src/startup.o
+ .debug_line    0x000020b6      0x299 Projects/LIS302DL_Accelerometer_cpp/src/stubs.o
 
-.debug_str      0x00000000     0x11da
+.debug_str      0x00000000     0x120a
  .debug_str     0x00000000      0x4d7 Drivers/GPIO_cpp/src/gpio.o
                                 0x5a4 (size before relaxing)
  .debug_str     0x000004d7      0x522 Drivers/SPI_cpp/src/spi.o
                                 0xb07 (size before relaxing)
  .debug_str     0x000009f9      0x298 Drivers/UART_cpp/src/uart.o
                                 0x4a6 (size before relaxing)
- .debug_str     0x00000c91      0x1bf Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
-                                0xac3 (size before relaxing)
- .debug_str     0x00000e50       0x92 Projects/LIS302DL_Accelerometer_cpp/src/main.o
+ .debug_str     0x00000c91      0x1ef Projects/LIS302DL_Accelerometer_cpp/src/lis302dl.o
+                                0xac9 (size before relaxing)
+ .debug_str     0x00000e80       0x92 Projects/LIS302DL_Accelerometer_cpp/src/main.o
                                 0xcec (size before relaxing)
- .debug_str     0x00000ee2       0xf8 Projects/LIS302DL_Accelerometer_cpp/src/startup.o
+ .debug_str     0x00000f12       0xf8 Projects/LIS302DL_Accelerometer_cpp/src/startup.o
                                 0x2ef (size before relaxing)
- .debug_str     0x00000fda      0x200 Projects/LIS302DL_Accelerometer_cpp/src/stubs.o
+ .debug_str     0x0000100a      0x200 Projects/LIS302DL_Accelerometer_cpp/src/stubs.o
                                 0x2f3 (size before relaxing)
 
 .debug_frame    0x00000000      0x8b0
