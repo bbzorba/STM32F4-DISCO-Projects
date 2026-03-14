@@ -65,6 +65,7 @@ CXXFLAGS=$(CFLAGS) -fno-exceptions -fno-rtti -fno-use-cxa-atexit
 # Serial monitor settings (Windows PowerShell)
 PORT ?=
 BAUD ?= 115200
+MONITOR_SECONDS ?=
 LDFLAGS=-T$(PROJECT_DIR)/linker.ld --specs=nano.specs --specs=nosys.specs -Wl,--gc-sections
 
 # Optional external driver selection -------------------------------------------------
@@ -244,7 +245,7 @@ flash_openocd: build
 .PHONY: monitor
 monitor:
 ifeq ($(OS),Windows_NT)
-	- powershell -NoProfile -ExecutionPolicy Bypass -File "tools/monitor.ps1" $(if $(PORT),-ComPort $(PORT),) -Baud $(BAUD)
+	powershell -NoProfile -ExecutionPolicy Bypass -File "tools/monitor.ps1" $(if $(PORT),-ComPort $(PORT),) -Baud $(BAUD) $(if $(MONITOR_SECONDS),-DurationSec $(MONITOR_SECONDS),)
 else
 	@echo "This monitor target is Windows-specific (PowerShell)."
 endif
@@ -290,6 +291,8 @@ help:
 	@echo "  flash_stlink      Flash with st-flash"
 	@echo "  flash_cubeprog    Flash with STM32_Programmer_CLI"
 	@echo "  monitor           Open serial monitor (Windows PowerShell)"
+	@echo "                    Auto-detects USB-serial bridge when PORT is empty"
+	@echo "                    Use MONITOR_SECONDS=N for timed CI verification"
 	@echo "  com-list          List serial ports (Windows PowerShell)"
 	@echo "  clean             Remove build artifacts"
 	@echo "  run               Alias for build"

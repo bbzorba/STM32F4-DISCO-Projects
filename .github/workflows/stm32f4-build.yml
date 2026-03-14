@@ -8,7 +8,6 @@ on:
 
 env:
   FLASH_TOOL: openocd
-  SERIAL_PORT: COM5
   BAUD_RATE: 115200
 
 jobs:
@@ -65,32 +64,10 @@ jobs:
     runs-on: [self-hosted, windows]
     needs: flash
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Verify UART Output
-        # This script mimics your ESP32 monitor verification
         run: |
-          echo "Starting UART Verification on ${{ env.SERIAL_PORT }}..."
-          $port = New-Object System.IO.Ports.SerialPort ${{ env.SERIAL_PORT }}, ${{ env.BAUD_RATE }}, None, 8, one
-          $port.Open()
-          $startTime = Get-Date
-          $output = ""
-          
-          # Listen for 10 seconds
-          while ((Get-Date) -lt $startTime.AddSeconds(10)) {
-              if ($port.BytesToRead -gt 0) {
-                  $output += $port.ReadExisting()
-              }
-              Start-Sleep -Milliseconds 100
-          }
-          $port.Close()
-          
-          echo "Received Output:"
-          echo $output
-          
-          # Pass if any output was received
-          if ($output.Length -gt 0) {
-              echo "Verification Passed! Received $($output.Length) characters."
-          } else {
-              echo "Verification Failed: No output received from UART."
-              exit 1
-          }
-        shell: powershell
+          make monitor BAUD=${{ env.BAUD_RATE }} MONITOR_SECONDS=10
+        shell: cmd
