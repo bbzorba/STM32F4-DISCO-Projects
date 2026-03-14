@@ -8,7 +8,7 @@ on:
 
 env:
   FLASH_TOOL: openocd
-  SERIAL_PORT: COM4
+  SERIAL_PORT: COM5
   BAUD_RATE: 115200
 
 jobs:
