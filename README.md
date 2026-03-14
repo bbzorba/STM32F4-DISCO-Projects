@@ -1,4 +1,4 @@
-# STM32F407G-DISC1 Bare-Metal Blink Project (VS Code)
+# STM32F407G-DISC1 Bare-Metal Projects (VS Code)
 
 This project provides a minimal bare-metal template for the STM32F407G-DISC1 (STM32F4-DISCO) board, using arm-none-eabi-gcc, OpenOCD, and VS Code with Cortex-Debug. It is designed for register-level development (no HAL, no CubeMX) and supports reliable build, flash, and debug workflows.
 
