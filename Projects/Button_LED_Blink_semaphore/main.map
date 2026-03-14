@@ -153,6 +153,12 @@ Discarded input sections
  .text          0x00000000        0x0 Projects/Button_LED_Blink_semaphore/src/semaphore.o
  .data          0x00000000        0x0 Projects/Button_LED_Blink_semaphore/src/semaphore.o
  .bss           0x00000000        0x0 Projects/Button_LED_Blink_semaphore/src/semaphore.o
+ .text.led_lock_try_acquire
+                0x00000000       0x1c Projects/Button_LED_Blink_semaphore/src/semaphore.o
+ .text.led_lock_acquire
+                0x00000000       0x1c Projects/Button_LED_Blink_semaphore/src/semaphore.o
+ .text.led_lock_release
+                0x00000000       0x10 Projects/Button_LED_Blink_semaphore/src/semaphore.o
  .text          0x00000000        0x0 Projects/Button_LED_Blink_semaphore/src/startup.o
  .data          0x00000000        0x0 Projects/Button_LED_Blink_semaphore/src/startup.o
  .bss           0x00000000        0x0 Projects/Button_LED_Blink_semaphore/src/startup.o
@@ -691,34 +697,34 @@ LOAD linker stubs
  .comment       0x00000049       0x4a Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
  .comment       0x00000049       0x4a Projects/LED_Blink/src/led.o
 
-.debug_info     0x00000000     0x3f1b
+.debug_info     0x00000000     0x3fb3
  .debug_info    0x00000000      0x6b9 Drivers/GPIO/src/gpio.o
  .debug_info    0x000006b9     0x11d2 Drivers/UART/src/uart.o
  .debug_info    0x0000188b     0x11ec Projects/Button_LED_Blink_semaphore/src/button_led.o
  .debug_info    0x00002a77      0x6d2 Projects/Button_LED_Blink_semaphore/src/main.o
- .debug_info    0x00003149      0x281 Projects/Button_LED_Blink_semaphore/src/semaphore.o
- .debug_info    0x000033ca      0x196 Projects/Button_LED_Blink_semaphore/src/startup.o
- .debug_info    0x00003560       0x7e Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
- .debug_info    0x000035de      0x93d Projects/LED_Blink/src/led.o
+ .debug_info    0x00003149      0x319 Projects/Button_LED_Blink_semaphore/src/semaphore.o
+ .debug_info    0x00003462      0x196 Projects/Button_LED_Blink_semaphore/src/startup.o
+ .debug_info    0x000035f8       0x7e Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
+ .debug_info    0x00003676      0x93d Projects/LED_Blink/src/led.o
 
-.debug_abbrev   0x00000000     0x1018
+.debug_abbrev   0x00000000     0x1077
  .debug_abbrev  0x00000000      0x18e Drivers/GPIO/src/gpio.o
  .debug_abbrev  0x0000018e      0x3fc Drivers/UART/src/uart.o
  .debug_abbrev  0x0000058a      0x383 Projects/Button_LED_Blink_semaphore/src/button_led.o
  .debug_abbrev  0x0000090d      0x18c Projects/Button_LED_Blink_semaphore/src/main.o
- .debug_abbrev  0x00000a99      0x148 Projects/Button_LED_Blink_semaphore/src/semaphore.o
- .debug_abbrev  0x00000be1      0x115 Projects/Button_LED_Blink_semaphore/src/startup.o
- .debug_abbrev  0x00000cf6       0x44 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
- .debug_abbrev  0x00000d3a      0x2de Projects/LED_Blink/src/led.o
+ .debug_abbrev  0x00000a99      0x1a7 Projects/Button_LED_Blink_semaphore/src/semaphore.o
+ .debug_abbrev  0x00000c40      0x115 Projects/Button_LED_Blink_semaphore/src/startup.o
+ .debug_abbrev  0x00000d55       0x44 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
+ .debug_abbrev  0x00000d99      0x2de Projects/LED_Blink/src/led.o
 
-.debug_loc      0x00000000     0x16f0
+.debug_loc      0x00000000     0x170e
  .debug_loc     0x00000000      0x361 Drivers/GPIO/src/gpio.o
  .debug_loc     0x00000361      0x9cb Drivers/UART/src/uart.o
  .debug_loc     0x00000d2c      0x640 Projects/Button_LED_Blink_semaphore/src/button_led.o
- .debug_loc     0x0000136c       0x48 Projects/Button_LED_Blink_semaphore/src/semaphore.o
- .debug_loc     0x000013b4      0x33c Projects/LED_Blink/src/led.o
+ .debug_loc     0x0000136c       0x66 Projects/Button_LED_Blink_semaphore/src/semaphore.o
+ .debug_loc     0x000013d2      0x33c Projects/LED_Blink/src/led.o
 
-.debug_aranges  0x00000000      0x258
+.debug_aranges  0x00000000      0x260
  .debug_aranges
                 0x00000000       0x68 Drivers/GPIO/src/gpio.o
  .debug_aranges
@@ -728,35 +734,35 @@ LOAD linker stubs
  .debug_aranges
                 0x00000160       0x20 Projects/Button_LED_Blink_semaphore/src/main.o
  .debug_aranges
-                0x00000180       0x40 Projects/Button_LED_Blink_semaphore/src/semaphore.o
+                0x00000180       0x48 Projects/Button_LED_Blink_semaphore/src/semaphore.o
  .debug_aranges
-                0x000001c0       0x28 Projects/Button_LED_Blink_semaphore/src/startup.o
+                0x000001c8       0x28 Projects/Button_LED_Blink_semaphore/src/startup.o
  .debug_aranges
-                0x000001e8       0x20 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
+                0x000001f0       0x20 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
  .debug_aranges
-                0x00000208       0x50 Projects/LED_Blink/src/led.o
+                0x00000210       0x50 Projects/LED_Blink/src/led.o
 
-.debug_ranges   0x00000000      0x480
+.debug_ranges   0x00000000      0x4b8
  .debug_ranges  0x00000000       0x58 Drivers/GPIO/src/gpio.o
  .debug_ranges  0x00000058      0x278 Drivers/UART/src/uart.o
  .debug_ranges  0x000002d0       0xa8 Projects/Button_LED_Blink_semaphore/src/button_led.o
  .debug_ranges  0x00000378       0x10 Projects/Button_LED_Blink_semaphore/src/main.o
- .debug_ranges  0x00000388       0x60 Projects/Button_LED_Blink_semaphore/src/semaphore.o
- .debug_ranges  0x000003e8       0x18 Projects/Button_LED_Blink_semaphore/src/startup.o
- .debug_ranges  0x00000400       0x10 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
- .debug_ranges  0x00000410       0x70 Projects/LED_Blink/src/led.o
+ .debug_ranges  0x00000388       0x98 Projects/Button_LED_Blink_semaphore/src/semaphore.o
+ .debug_ranges  0x00000420       0x18 Projects/Button_LED_Blink_semaphore/src/startup.o
+ .debug_ranges  0x00000438       0x10 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
+ .debug_ranges  0x00000448       0x70 Projects/LED_Blink/src/led.o
 
-.debug_line     0x00000000     0x2b98
+.debug_line     0x00000000     0x2c16
  .debug_line    0x00000000      0x4b6 Drivers/GPIO/src/gpio.o
  .debug_line    0x000004b6     0x1236 Drivers/UART/src/uart.o
  .debug_line    0x000016ec      0x6ad Projects/Button_LED_Blink_semaphore/src/button_led.o
  .debug_line    0x00001d99      0x248 Projects/Button_LED_Blink_semaphore/src/main.o
- .debug_line    0x00001fe1      0x387 Projects/Button_LED_Blink_semaphore/src/semaphore.o
- .debug_line    0x00002368      0x1f1 Projects/Button_LED_Blink_semaphore/src/startup.o
- .debug_line    0x00002559       0x69 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
- .debug_line    0x000025c2      0x5d6 Projects/LED_Blink/src/led.o
+ .debug_line    0x00001fe1      0x405 Projects/Button_LED_Blink_semaphore/src/semaphore.o
+ .debug_line    0x000023e6      0x1f1 Projects/Button_LED_Blink_semaphore/src/startup.o
+ .debug_line    0x000025d7       0x69 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
+ .debug_line    0x00002640      0x5d6 Projects/LED_Blink/src/led.o
 
-.debug_str      0x00000000      0xcfb
+.debug_str      0x00000000      0xd62
  .debug_str     0x00000000      0x3af Drivers/GPIO/src/gpio.o
                                 0x411 (size before relaxing)
  .debug_str     0x000003af      0x449 Drivers/UART/src/uart.o
@@ -765,36 +771,36 @@ LOAD linker stubs
                                 0x81b (size before relaxing)
  .debug_str     0x00000a71       0x76 Projects/Button_LED_Blink_semaphore/src/main.o
                                 0x42a (size before relaxing)
- .debug_str     0x00000ae7       0x66 Projects/Button_LED_Blink_semaphore/src/semaphore.o
-                                0x215 (size before relaxing)
- .debug_str     0x00000b4d       0xc4 Projects/Button_LED_Blink_semaphore/src/startup.o
+ .debug_str     0x00000ae7       0xcd Projects/Button_LED_Blink_semaphore/src/semaphore.o
+                                0x252 (size before relaxing)
+ .debug_str     0x00000bb4       0xc4 Projects/Button_LED_Blink_semaphore/src/startup.o
                                 0x21f (size before relaxing)
- .debug_str     0x00000c11       0x37 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
+ .debug_str     0x00000c78       0x37 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
                                 0x176 (size before relaxing)
- .debug_str     0x00000c48       0xb3 Projects/LED_Blink/src/led.o
+ .debug_str     0x00000caf       0xb3 Projects/LED_Blink/src/led.o
                                 0x4bf (size before relaxing)
 
-.debug_frame    0x00000000      0x95c
+.debug_frame    0x00000000      0x98c
  .debug_frame   0x00000000       0xc8 Drivers/GPIO/src/gpio.o
  .debug_frame   0x000000c8      0x1ac Drivers/UART/src/uart.o
  .debug_frame   0x00000274       0xfc Projects/Button_LED_Blink_semaphore/src/button_led.o
  .debug_frame   0x00000370       0x28 Projects/Button_LED_Blink_semaphore/src/main.o
- .debug_frame   0x00000398       0x60 Projects/Button_LED_Blink_semaphore/src/semaphore.o
- .debug_frame   0x000003f8       0x38 Projects/Button_LED_Blink_semaphore/src/startup.o
- .debug_frame   0x00000430       0x20 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
- .debug_frame   0x00000450       0xc8 Projects/LED_Blink/src/led.o
- .debug_frame   0x00000518       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
- .debug_frame   0x00000540       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
- .debug_frame   0x00000560       0x7c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
- .debug_frame   0x000005dc       0x90 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
- .debug_frame   0x0000066c       0x60 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
- .debug_frame   0x000006cc       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memmove.o)
- .debug_frame   0x000006f4       0x38 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x0000072c       0x4c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x00000778       0x3c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-reallocr.o)
- .debug_frame   0x000007b4       0x2c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x000007e0       0x30 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
- .debug_frame   0x00000810       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-msizer.o)
- .debug_frame   0x00000830       0x5c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-reent.o)
- .debug_frame   0x0000088c       0xb0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
- .debug_frame   0x0000093c       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(sbrk.o)
+ .debug_frame   0x00000398       0x90 Projects/Button_LED_Blink_semaphore/src/semaphore.o
+ .debug_frame   0x00000428       0x38 Projects/Button_LED_Blink_semaphore/src/startup.o
+ .debug_frame   0x00000460       0x20 Projects/Button_LED_Blink_semaphore/src/system_stm32f4xx.o
+ .debug_frame   0x00000480       0xc8 Projects/LED_Blink/src/led.o
+ .debug_frame   0x00000548       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x00000570       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memset.o)
+ .debug_frame   0x00000590       0x7c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-snprintf.o)
+ .debug_frame   0x0000060c       0x90 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-svfprintf.o)
+ .debug_frame   0x0000069c       0x60 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-vfprintf_i.o)
+ .debug_frame   0x000006fc       0x28 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-memmove.o)
+ .debug_frame   0x00000724       0x38 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x0000075c       0x4c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x000007a8       0x3c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-reallocr.o)
+ .debug_frame   0x000007e4       0x2c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x00000810       0x30 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-mlock.o)
+ .debug_frame   0x00000840       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-nano-msizer.o)
+ .debug_frame   0x00000860       0x5c c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-reent.o)
+ .debug_frame   0x000008bc       0xb0 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libg_nano.a(lib_a-lock.o)
+ .debug_frame   0x0000096c       0x20 c:/program files (x86)/gnu arm embedded toolchain/10 2021.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m/nofp\libnosys.a(sbrk.o)

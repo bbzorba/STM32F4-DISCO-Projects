@@ -8,8 +8,8 @@
 
 /* All base types (LED_Type, LEDColor_Type, LEDState_Type, pin macros, etc.)
  * come from the LED_Blink library header -- no redefinitions needed here.  */
-#include "../../Projects/LED_Blink_cpp/inc/led.h"
-#include "../inc/mutex.h"
+#include "../../LED_Blink_cpp/inc/led.h"
+#include "../inc/semaphore.h"
 #include <stdio.h>
 
 /* -----------------------------------------------------------------------
@@ -69,7 +69,6 @@ public:
 #ifndef __NVIC_PRIO_BITS
 #define __NVIC_PRIO_BITS  4
 #endif
-
 typedef enum {
     NonMaskableInt_IRQn   = -14,
     MemoryManagement_IRQn = -12,
