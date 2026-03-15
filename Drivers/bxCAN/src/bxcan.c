@@ -11,6 +11,8 @@
 #include "../inc/bxcan.h"
 #include "../../../Projects/LED_Blink/inc/led.h"
 
+#define NO_OF_CONT_TX_RX_TEST 50
+
 // Static pointers used by IRQ handlers so the ISR can find the handle
 static CAN_HandleType *s_can1_handle = NULL;
 static CAN_HandleType *s_can2_handle = NULL;
@@ -132,6 +134,10 @@ void CAN_Init(CAN_HandleType *handle)
         GPIO_D->MODER  |=  (MODER_PIN0_SET  | MODER_PIN1_SET);   // AF mode (0b10)
         GPIO_D->AFR[0] &= ~(AFRL_PIN0_MASK  | AFRL_PIN1_MASK);
         GPIO_D->AFR[0] |=  (AFRL_PIN0_SET_AF9 | AFRL_PIN1_SET_AF9);
+        // Pull-up on RX pin so floating line reads as recessive (high).
+        // Without this, leaving init mode hangs waiting for 11 recessive bits.
+        GPIO_D->PUPDR  &= ~PUPDR_PIN0_MASK;
+        GPIO_D->PUPDR  |=  (GPIO_PULLUP << 0);   // PD0 pull-up
     }
     else if (handle->regs == CAN_2) {
         // CAN2 requires CAN1 clock to access shared filter registers
@@ -143,15 +149,17 @@ void CAN_Init(CAN_HandleType *handle)
         GPIO_B->MODER  |=  (MODER_PIN5_SET  | MODER_PIN6_SET);   // AF mode (0b10)
         GPIO_B->AFR[0] &= ~(AFRL_PIN5_MASK  | AFRL_PIN6_MASK);
         GPIO_B->AFR[0] |=  (AFRL_PIN5_SET_AF9 | AFRL_PIN6_SET_AF9);
+        // Pull-up on RX pin so floating line reads as recessive (high)
+        GPIO_B->PUPDR  &= ~PUPDR_PIN5_MASK;
+        GPIO_B->PUPDR  |=  (GPIO_PULLUP << 10);  // PB5 pull-up
     }
 
-    /* 2. Exit sleep mode */
-    handle->regs->MCR &= ~CAN_MCR_SLEEP;
-    while (handle->regs->MSR & CAN_MSR_SLAK) { /* wait for SLAK to clear */ }
-
-    /* 3. Request initialisation mode */
+    /* 2. Request initialisation mode (overrides sleep — no bus sync needed) */
     handle->regs->MCR |= CAN_MCR_INRQ;
     while (!(handle->regs->MSR & CAN_MSR_INAK)) { /* wait for INAK to set */ }
+
+    /* 3. Now safe to clear SLEEP (we're in init mode, no bus sync required) */
+    handle->regs->MCR &= ~CAN_MCR_SLEEP;
 
     /* 4. Configure bit timing (BTR can only be written in init mode) */
     uint32_t btr = CAN_ComputeBTR(handle->baudRate);
@@ -481,7 +489,7 @@ int CAN_LoopbackTest(CAN_HandleType *handle, USART_HandleType *uart)
     USART_WriteString(uart, "\nPhase 3: Loopback x30 (green LED toggles)\n");
 
     uint8_t counter = 0;
-    for (uint8_t i = 0; i < 30; i++) {
+    for (uint8_t i = 0; i < NO_OF_CONT_TX_RX_TEST; i++) {
         tx_msg.StdId   = 0x100;
         tx_msg.DLC     = 1;
         tx_msg.Data[0] = counter++;
@@ -502,7 +510,7 @@ int CAN_LoopbackTest(CAN_HandleType *handle, USART_HandleType *uart)
         delay(1000000);
     }
 
-    USART_WriteString(uart, "Phase 3 complete (30/30)\n");
+    USART_WriteString(uart, "Phase 3 completed cont. test \n");
     LED_setState(&led_green, LED_OFF);
     return pass;
 }
@@ -617,10 +625,10 @@ int CAN_TransceiverTest(CAN_HandleType *handle, USART_HandleType *uart)
     USART_WriteString(uart, "========================================\n");
 
     /* ---- Phase 4: Continuous TX+RX (30 rounds) ---- */
-    USART_WriteString(uart, "\nPhase 4: TX+RX x30 (green LED toggles)\n");
+    USART_WriteString(uart, "\nPhase 4: TX+RX cont. test (green LED toggles)\n");
 
     uint8_t counter = 0;
-    for (uint8_t i = 0; i < 30; i++) {
+    for (uint8_t i = 0; i < NO_OF_CONT_TX_RX_TEST; i++) {
         tx_msg.StdId   = 0x100;
         tx_msg.DLC     = 1;
         tx_msg.Data[0] = counter++;
@@ -636,7 +644,7 @@ int CAN_TransceiverTest(CAN_HandleType *handle, USART_HandleType *uart)
         delay(1000000);
     }
 
-    USART_WriteString(uart, "Phase 4 complete (30/30)\n");
+    USART_WriteString(uart, "Phase 4 cont. test complete\n");
     LED_setState(&led_green, LED_OFF);
     return pass;
 }
