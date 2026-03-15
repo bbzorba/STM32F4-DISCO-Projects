@@ -21,11 +21,11 @@ int main(void)
     /* Run built-in loopback self-test (polling + interrupt, LED + UART feedback) */
     CAN_LoopbackTest(&can, &usart);
 
-    /* Uncomment below when a CAN transceiver is connected:
+    /* Run transceiver test in normal mode (requires external CAN bus and another node) */
     CAN_HandleType can_normal;
     CAN_constructor(&can_normal, CAN_1, CAN_500KBPS, CAN_MODE_NORMAL);
     CAN_TransceiverTest(&can_normal, &usart);
-    */
+    
 
     while (1) {}
 }

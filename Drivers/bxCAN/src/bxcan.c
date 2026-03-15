@@ -11,7 +11,7 @@
 #include "../inc/bxcan.h"
 #include "../../../Projects/LED_Blink/inc/led.h"
 
-#define NO_OF_CONT_TX_RX_TEST 50
+#define NO_OF_CONT_TX_RX_TEST 500
 
 // Static pointers used by IRQ handlers so the ISR can find the handle
 static CAN_HandleType *s_can1_handle = NULL;
@@ -485,11 +485,11 @@ int CAN_LoopbackTest(CAN_HandleType *handle, USART_HandleType *uart)
         USART_WriteString(uart, " LOOPBACK TEST: FAILED\n");
     USART_WriteString(uart, "========================================\n");
 
-    /* ---- Phase 3: Continuous loopback (30 rounds) ---- */
-    USART_WriteString(uart, "\nPhase 3: Loopback x30 (green LED toggles)\n");
+    /* ---- Phase 3: Continuous loopback (infinite, blue button exits) ---- */
+    USART_WriteString(uart, "\nPhase 3: Continuous loopback (press blue button to exit)\n");
 
     uint8_t counter = 0;
-    for (uint8_t i = 0; i < NO_OF_CONT_TX_RX_TEST; i++) {
+    for (;;) {
         tx_msg.StdId   = 0x100;
         tx_msg.DLC     = 1;
         tx_msg.Data[0] = counter++;
@@ -508,6 +508,7 @@ int CAN_LoopbackTest(CAN_HandleType *handle, USART_HandleType *uart)
             pass = -1;
         }
         delay(1000000);
+        if (GPIO_A->IDR & (1U << 0)) break;  // Blue user button → exit to transceiver test
     }
 
     USART_WriteString(uart, "Phase 3 completed cont. test \n");
