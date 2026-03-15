@@ -26,9 +26,11 @@
 #PROJECT_DIR = Projects/Button_LED_Blink_semaphore
 #PROJECT_DIR = Projects/LIS302DL_Accelerometer_cpp
 #PROJECT_DIR = Projects/Button_LED_Blink_mutex_cpp
-PROJECT_DIR = Projects/Button_LED_Blink_semaphore_cpp
+#PROJECT_DIR = Projects/Button_LED_Blink_semaphore_cpp
+PROJECT_DIR = Drivers/bxCAN
 
 #TBD
+#PROJECT_DIR = Drivers/bxCAN_cpp
 #PROJECT_DIR = Projects/BME68x_Env_Sensor
 #PROJECT_DIR = Projects/MLX90614_Temp
 #PROJECT_DIR = Projects/TSL2591_Light
@@ -374,6 +376,14 @@ CLEAR_UNUSED :=
 SRC_C += $(filter-out $(SRC_C),$(I2C_SRC_C))
 SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
 CFLAGS += -IDrivers/I2C/inc -IDrivers/UART/inc
+endif
+
+# Project-specific wiring for bxCAN: needs GPIO, UART & LED_Blink drivers
+ifeq ($(PROJECT_DIR),Drivers/bxCAN)
+SRC_C += $(filter-out $(SRC_C),$(GPIO_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(UART_SRC_C))
+SRC_C += $(filter-out $(SRC_C),$(LED_SRC_C))
+CFLAGS += -IDrivers/GPIO/inc -IDrivers/UART/inc -IProjects/LED_Blink/inc
 endif
 
 # Project-specific wiring for LIS302DL_Accelerometer: needs GPIO, SPI & UART drivers
