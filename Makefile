@@ -1,4 +1,4 @@
-# Minimal Makefile for STM32F4 Discovery (STM32F407VG)
+# Makefile for STM32F4 Discovery (STM32F407VG)
 
 #DONE
 #PROJECT_DIR = Drivers/UART
