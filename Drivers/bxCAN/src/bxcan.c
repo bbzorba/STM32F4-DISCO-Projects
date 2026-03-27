@@ -485,11 +485,12 @@ int CAN_LoopbackTest(CAN_HandleType *handle, USART_HandleType *uart)
         USART_WriteString(uart, " LOOPBACK TEST: FAILED\n");
     USART_WriteString(uart, "========================================\n");
 
-    /* ---- Phase 3: Continuous loopback (infinite, blue button exits) ---- */
-    USART_WriteString(uart, "\nPhase 3: Continuous loopback (press blue button to exit)\n");
+    /* ---- Phase 3: Run a finite number of loopback iterations ---- */
+    USART_WriteString(uart, "\nPhase 3: Loopback run 50 iterations (press blue button to exit early)\n");
 
     uint8_t counter = 0;
-    for (;;) {
+    const uint8_t LOOPBACK_ITERATIONS = 50;
+    for (uint8_t i = 0; i < LOOPBACK_ITERATIONS; i++) {
         tx_msg.StdId   = 0x100;
         tx_msg.DLC     = 1;
         tx_msg.Data[0] = counter++;
@@ -498,7 +499,7 @@ int CAN_LoopbackTest(CAN_HandleType *handle, USART_HandleType *uart)
             while (CAN_Receive(handle, &rx_msg) != 0) { /* spin */ }
 
             snprintf(buf, sizeof(buf), "  Loop #%u: TX=0x%02X RX=0x%02X %s\n",
-                     (unsigned)(counter - 1), tx_msg.Data[0], rx_msg.Data[0],
+                     (unsigned)(i + 1), tx_msg.Data[0], rx_msg.Data[0],
                      (tx_msg.Data[0] == rx_msg.Data[0]) ? "OK" : "MISMATCH");
             USART_WriteString(uart, buf);
 
@@ -508,7 +509,7 @@ int CAN_LoopbackTest(CAN_HandleType *handle, USART_HandleType *uart)
             pass = -1;
         }
         delay(1000000);
-        if (GPIO_A->IDR & (1U << 0)) break;  // Blue user button → exit to transceiver test
+        if (GPIO_A->IDR & (1U << 0)) break;  // Blue user button → exit early
     }
 
     USART_WriteString(uart, "Phase 3 completed cont. test \n");
