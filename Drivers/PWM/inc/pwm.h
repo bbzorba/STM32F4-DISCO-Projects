@@ -4,7 +4,7 @@
 #include "stdint.h"
 
 #include "../../GPIO/inc/gpio.h"
-#include "../../Drivers/UART/inc/uart.h"
+#include "../../../Drivers/UART/inc/uart.h"
 #include <stdint.h>
 
 #define __IO volatile
